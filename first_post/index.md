@@ -4,11 +4,11 @@
 ## 下载Hugo
 ### 使用 brew 来安装hugo  
 `brew install hugo`
-![](/Users/swaggerwei/mysite/static/pic1.png)
+![](/images_hugo/pic1.png)
 
 ### 新建一个hugo 项目  
 `hugo new site mysite`  
-![](/Users/swaggerwei/mysite/static/pic2.png)
+![](/images_hugo/pic2.png)
 
 ### hugo 项目文件结构介绍  
 * `content` 博客内容  
@@ -23,7 +23,7 @@
 ### 主题的配置
 * 进入下载主题的说明文档 [https://hugoloveit.com/zh-cn/theme-documentation-basics/](https://hugoloveit.com/zh-cn/theme-documentation-basics/)
 * 复制基本配置，并覆盖项目根目录的config.toml 文件
-![](/Users/swaggerwei/mysite/static/pic3.png)
+![](/images_hugo/pic3.png)
 
 ### 创建第一篇博客
 * `hugo new posts/first_post.md`
