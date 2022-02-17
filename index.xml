@@ -3,9 +3,44 @@
         <title>Swagger Wei</title>
         <link>https://swaggerwei.github.io/</link>
         <description>这是我的全新 Hugo 网站</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Thu, 17 Feb 2022 14:51:56 &#43;0800</lastBuildDate>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Thu, 17 Feb 2022 15:17:58 &#43;0800</lastBuildDate>
             <atom:link href="https://swaggerwei.github.io/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>6-URDF</title>
+    <link>https://swaggerwei.github.io/ros_learning6/</link>
+    <pubDate>Thu, 17 Feb 2022 15:17:58 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://swaggerwei.github.io/ros_learning6/</guid>
+    <description><![CDATA[基本概念 urdf 文件， 定义机器人的结构 用于机器人的仿真、 可视化、 tf ROS 的中包含一个urdf包，用来解析urdf文件 描述机器人零部件和零部件之间的关系]]></description>
+</item><item>
+    <title>5-tf in python </title>
+    <link>https://swaggerwei.github.io/ros_learning5/</link>
+    <pubDate>Thu, 17 Feb 2022 15:15:37 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://swaggerwei.github.io/ros_learning5/</guid>
+    <description><![CDATA[tf in python 的相关数据类型 tuple list numpy array 四种方式通用 EG： 四元数、矩阵、欧拉角之间的转换 tf.TransformListener 类 构造函数为无参数 tips：查看相对的tf，方法中注意时间要填]]></description>
+</item><item>
+    <title>4-tf介绍</title>
+    <link>https://swaggerwei.github.io/ros_learning4/</link>
+    <pubDate>Thu, 17 Feb 2022 15:13:32 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://swaggerwei.github.io/ros_learning4/</guid>
+    <description><![CDATA[TransFrom 坐标变换（位置+姿态） 坐标系数据的维护工具 抓取场景下的坐标转换 涉及的坐标系：基坐标系、摄像头坐标系、机械臂末端坐标系 物体坐标相对于摄像头坐]]></description>
+</item><item>
+    <title>3-roscpp介绍</title>
+    <link>https://swaggerwei.github.io/ros_learning3/</link>
+    <pubDate>Thu, 17 Feb 2022 15:10:43 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://swaggerwei.github.io/ros_learning3/</guid>
+    <description><![CDATA[Client Library 提供ROS编程的库 例如建立node，发布消息，调用服务 提供了如下几种client library ：roscpp、rospy、roslisp rospy的]]></description>
+</item><item>
+    <title>2-ROS常用工具</title>
+    <link>https://swaggerwei.github.io/ros_learning2/</link>
+    <pubDate>Thu, 17 Feb 2022 15:01:49 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://swaggerwei.github.io/ros_learning2/</guid>
+    <description><![CDATA[ROS常用工具 仿真：Gazebo 调试、可视化：Rviz、rqt 命令行工具：rostopic、roslaunch、rosbag 专用工具：Mov]]></description>
+</item><item>
     <title>1-ROS通信方式</title>
     <link>https://swaggerwei.github.io/ros_learning1/</link>
     <pubDate>Thu, 17 Feb 2022 14:51:56 &#43;0800</pubDate>

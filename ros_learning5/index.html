@@ -5,32 +5,32 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="robots" content="noodp" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
-        <title>1-ROS通信方式 - Swagger Wei</title><meta name="Description" content="这是我的全新 Hugo 网站"><meta property="og:title" content="1-ROS通信方式" />
-<meta property="og:description" content="通信方式 topic service parameter server actionlib topic 通信方式 异步通信方式 Node间通过publish-subscribe的方式进行通信 topic 发布节点只管发布， 接收节点只管接收 特" />
+        <title>5-tf in python  - Swagger Wei</title><meta name="Description" content="这是我的全新 Hugo 网站"><meta property="og:title" content="5-tf in python " />
+<meta property="og:description" content="tf in python 的相关数据类型 tuple list numpy array 四种方式通用 EG： 四元数、矩阵、欧拉角之间的转换 tf.TransformListener 类 构造函数为无参数 tips：查看相对的tf，方法中注意时间要填" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://swaggerwei.github.io/ros_learning1/" /><meta property="og:image" content="https://swaggerwei.github.io/logo.png"/><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2022-02-17T14:51:56+08:00" />
-<meta property="article:modified_time" content="2022-02-17T14:51:56+08:00" />
+<meta property="og:url" content="https://swaggerwei.github.io/ros_learning5/" /><meta property="og:image" content="https://swaggerwei.github.io/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-02-17T15:15:37+08:00" />
+<meta property="article:modified_time" content="2022-02-17T15:15:37+08:00" />
 
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://swaggerwei.github.io/logo.png"/>
 
-<meta name="twitter:title" content="1-ROS通信方式"/>
-<meta name="twitter:description" content="通信方式 topic service parameter server actionlib topic 通信方式 异步通信方式 Node间通过publish-subscribe的方式进行通信 topic 发布节点只管发布， 接收节点只管接收 特"/>
+<meta name="twitter:title" content="5-tf in python "/>
+<meta name="twitter:description" content="tf in python 的相关数据类型 tuple list numpy array 四种方式通用 EG： 四元数、矩阵、欧拉角之间的转换 tf.TransformListener 类 构造函数为无参数 tips：查看相对的tf，方法中注意时间要填"/>
 <meta name="application-name" content="LoveIt">
 <meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://swaggerwei.github.io/ros_learning1/" /><link rel="prev" href="https://swaggerwei.github.io/first_post/" /><link rel="next" href="https://swaggerwei.github.io/ros_learning2/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://swaggerwei.github.io/ros_learning5/" /><link rel="prev" href="https://swaggerwei.github.io/ros_learning4/" /><link rel="next" href="https://swaggerwei.github.io/ros_learning6/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
     {
         "@context": "http://schema.org",
         "@type": "BlogPosting",
-        "headline": "1-ROS通信方式",
+        "headline": "5-tf in python ",
         "inLanguage": "zh-CN",
         "mainEntityOfPage": {
             "@type": "WebPage",
-            "@id": "https:\/\/swaggerwei.github.io\/ros_learning1\/"
-        },"genre": "posts","wordcount":  241 ,
-        "url": "https:\/\/swaggerwei.github.io\/ros_learning1\/","datePublished": "2022-02-17T14:51:56+08:00","dateModified": "2022-02-17T14:51:56+08:00","publisher": {
+            "@id": "https:\/\/swaggerwei.github.io\/ros_learning5\/"
+        },"genre": "posts","wordcount":  222 ,
+        "url": "https:\/\/swaggerwei.github.io\/ros_learning5\/","datePublished": "2022-02-17T15:15:37+08:00","dateModified": "2022-02-17T15:15:37+08:00","publisher": {
             "@type": "Organization",
             "name": ""},"author": {
                 "@type": "Person",
@@ -104,9 +104,9 @@
                 <div class="container"><div class="toc" id="toc-auto">
             <h2 class="toc-title">目录</h2>
             <div class="toc-content" id="toc-content-auto"></div>
-        </div><article class="page single"><h1 class="single-title animated flipInX">1-ROS通信方式</h1><div class="post-meta">
+        </div><article class="page single"><h1 class="single-title animated flipInX">5-tf in python </h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>Swagger Wei</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-02-17">2022-02-17</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 241 字&nbsp;
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-02-17">2022-02-17</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 222 字&nbsp;
                 <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 1 分钟&nbsp;</div>
         </div><div class="details toc" id="toc-static"  kept="true">
                 <div class="details-summary toc-title">
@@ -115,117 +115,100 @@
                 </div>
                 <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
   <ul>
-    <li><a href="#通信方式">通信方式</a></li>
-    <li><a href="#topic-通信方式">topic 通信方式</a></li>
-    <li><a href="#message">Message</a></li>
-    <li><a href="#topic-相关命令">topic 相关命令</a></li>
+    <li><a href="#tf-in-python-的相关数据类型">tf in python 的相关数据类型</a></li>
+    <li><a href="#四元数矩阵欧拉角之间的转换">四元数、矩阵、欧拉角之间的转换</a></li>
+    <li><a href="#tftransformlistener-类">tf.TransformListener 类</a></li>
+    <li><a href="#tftransformbroadcaster-类">tf.transformBroadcaster 类</a></li>
+    <li><a href="#tf相关指令">tf相关指令</a></li>
   </ul>
 </nav></div>
-            </div><div class="content" id="content"><h2 id="通信方式">通信方式</h2>
+            </div><div class="content" id="content"><h2 id="tf-in-python-的相关数据类型">tf in python 的相关数据类型</h2>
 <ul>
-<li>topic</li>
-<li>service</li>
-<li>parameter server</li>
-<li>actionlib</li>
-</ul>
-<h2 id="topic-通信方式">topic 通信方式</h2>
-<p><em>异步通信方式</em></p>
-<ul>
-<li>Node间通过publish-subscribe的方式进行通信
+<li>tuple list numpy array 四种方式通用</li>
+<li>EG：
 <img
         class="lazyload"
         src="/svg/loading.min.svg"
-        data-src="/images_ros/pic1.png"
-        data-srcset="/images_ros/pic1.png, /images_ros/pic1.png 1.5x, /images_ros/pic1.png 2x"
+        data-src="/images_ros/pic11.png"
+        data-srcset="/images_ros/pic11.png, /images_ros/pic11.png 1.5x, /images_ros/pic11.png 2x"
         data-sizes="auto"
-        alt="/images_ros/pic1.png"
+        alt="/images_ros/pic11.png"
         title="avatar" /></li>
-<li>topic 发布节点只管发布， 接收节点只管接收</li>
 </ul>
-<p><em>特点</em></p>
+<h2 id="四元数矩阵欧拉角之间的转换">四元数、矩阵、欧拉角之间的转换</h2>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images_ros/pic12.png"
+        data-srcset="/images_ros/pic12.png, /images_ros/pic12.png 1.5x, /images_ros/pic12.png 2x"
+        data-sizes="auto"
+        alt="/images_ros/pic12.png"
+        title="avatar" /></p>
+<h2 id="tftransformlistener-类">tf.TransformListener 类</h2>
 <ul>
-<li>异步通信方式</li>
-<li>对于同一个topic可以有多个发送者（例如tf，和rosout），也可以有多个接收者</li>
-</ul>
-<h2 id="message">Message</h2>
-<ul>
-<li>topic 内容的数据类型&mdash;》类</li>
-<li>定义在.msg文件当中</li>
-</ul>
-<p>包括的类型
+<li>构造函数为无参数<br>
 <img
         class="lazyload"
         src="/svg/loading.min.svg"
-        data-src="/images_ros/pic2.png"
-        data-srcset="/images_ros/pic2.png, /images_ros/pic2.png 1.5x, /images_ros/pic2.png 2x"
+        data-src="/images_ros/pic13.png"
+        data-srcset="/images_ros/pic13.png, /images_ros/pic13.png 1.5x, /images_ros/pic13.png 2x"
         data-sizes="auto"
-        alt="/images_ros/pic2.png"
-        title="avatar" /></p>
-<h2 id="topic-相关命令">topic 相关命令</h2>
+        alt="/images_ros/pic13.png"
+        title="avatar" /><br>
+<em>tips：查看相对的tf，方法中注意时间要填写为time(0), 不能使用time(now)获取当前时间，因为获取当前的tf消息是空的，需要等待一下才有消息</em>
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images_ros/pic14.png"
+        data-srcset="/images_ros/pic14.png, /images_ros/pic14.png 1.5x, /images_ros/pic14.png 2x"
+        data-sizes="auto"
+        alt="/images_ros/pic14.png"
+        title="avatar" /></li>
+</ul>
+<h2 id="tftransformbroadcaster-类">tf.transformBroadcaster 类</h2>
 <ul>
-<li>列出所有的topic</li>
+<li>构造函数为无参数
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images_ros/pic15.png"
+        data-srcset="/images_ros/pic15.png, /images_ros/pic15.png 1.5x, /images_ros/pic15.png 2x"
+        data-sizes="auto"
+        alt="/images_ros/pic15.png"
+        title="avatar" /></li>
+</ul>
+<h2 id="tf相关指令">tf相关指令</h2>
+<ul>
+<li>根据当前的tf tree 绘制一个PDF图: 接收/tf 消息五秒，然后生成一个树图</li>
 </ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">rostopic list
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">rosrun tf view_frames
 </code></pre></td></tr></table>
 </div>
 </div><ul>
-<li>显示某个topic的属性信息</li>
+<li>查看当前的tf tree： 动态显示</li>
 </ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">rostopic info /topic_name
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">rosrun rqt_tf_tree rqt_tf_tree
 </code></pre></td></tr></table>
 </div>
 </div><ul>
-<li>topic内容</li>
+<li>查看两个frame 之间的变化关系</li>
 </ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">rostopic <span class="nb">echo</span> /topic_name
-</code></pre></td></tr></table>
-</div>
-</div><ul>
-<li>向某个topic发布内容</li>
-</ul>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">rostopic pub /topic_name ...
-</code></pre></td></tr></table>
-</div>
-</div><ul>
-<li>列出所有msg</li>
-</ul>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">rosmsg list
-</code></pre></td></tr></table>
-</div>
-</div><ul>
-<li>显示某个msg 的内容</li>
-</ul>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">rosmsg show /msg_name
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">rosrun tf tf_echo <span class="o">[</span>reference_frame<span class="o">]</span> <span class="o">[</span>target_frame<span class="o">]</span>
 </code></pre></td></tr></table>
 </div>
 </div></div><div class="post-footer" id="post-footer">
@@ -238,10 +221,10 @@
         </div>
         <div class="post-info-line">
             <div class="post-info-md"><span>
-                            <a class="link-to-markdown" href="/ros_learning1/index.md" target="_blank">阅读原始文档</a>
+                            <a class="link-to-markdown" href="/ros_learning5/index.md" target="_blank">阅读原始文档</a>
                         </span></div>
             <div class="post-info-share">
-                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://swaggerwei.github.io/ros_learning1/" data-title="1-ROS通信方式" data-via="xxxx"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://swaggerwei.github.io/ros_learning1/"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 WhatsApp" data-sharer="whatsapp" data-url="https://swaggerwei.github.io/ros_learning1/" data-title="1-ROS通信方式" data-web><i class="fab fa-whatsapp fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://swaggerwei.github.io/ros_learning1/" data-title="1-ROS通信方式"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://swaggerwei.github.io/ros_learning1/" data-title="1-ROS通信方式"><i class="fab fa-weibo fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Myspace" data-sharer="myspace" data-url="https://swaggerwei.github.io/ros_learning1/" data-title="1-ROS通信方式" data-description=""><i data-svg-src="/lib/simple-icons/icons/myspace.min.svg"></i></a><a href="javascript:void(0);" title="分享到 Blogger" data-sharer="blogger" data-url="https://swaggerwei.github.io/ros_learning1/" data-title="1-ROS通信方式" data-description=""><i class="fab fa-blogger fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Evernote" data-sharer="evernote" data-url="https://swaggerwei.github.io/ros_learning1/" data-title="1-ROS通信方式"><i class="fab fa-evernote fa-fw"></i></a></span>
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://swaggerwei.github.io/ros_learning5/" data-title="5-tf in python " data-via="xxxx"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://swaggerwei.github.io/ros_learning5/"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 WhatsApp" data-sharer="whatsapp" data-url="https://swaggerwei.github.io/ros_learning5/" data-title="5-tf in python " data-web><i class="fab fa-whatsapp fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://swaggerwei.github.io/ros_learning5/" data-title="5-tf in python "><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://swaggerwei.github.io/ros_learning5/" data-title="5-tf in python "><i class="fab fa-weibo fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Myspace" data-sharer="myspace" data-url="https://swaggerwei.github.io/ros_learning5/" data-title="5-tf in python " data-description=""><i data-svg-src="/lib/simple-icons/icons/myspace.min.svg"></i></a><a href="javascript:void(0);" title="分享到 Blogger" data-sharer="blogger" data-url="https://swaggerwei.github.io/ros_learning5/" data-title="5-tf in python " data-description=""><i class="fab fa-blogger fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Evernote" data-sharer="evernote" data-url="https://swaggerwei.github.io/ros_learning5/" data-title="5-tf in python "><i class="fab fa-evernote fa-fw"></i></a></span>
             </div>
         </div>
     </div>
@@ -253,8 +236,8 @@
         </section>
     </div>
 
-    <div class="post-nav"><a href="/first_post/" class="prev" rel="prev" title="Hugo 使用教程"><i class="fas fa-angle-left fa-fw"></i>Hugo 使用教程</a>
-            <a href="/ros_learning2/" class="next" rel="next" title="2-ROS常用工具">2-ROS常用工具<i class="fas fa-angle-right fa-fw"></i></a></div>
+    <div class="post-nav"><a href="/ros_learning4/" class="prev" rel="prev" title="4-tf介绍"><i class="fas fa-angle-left fa-fw"></i>4-tf介绍</a>
+            <a href="/ros_learning6/" class="next" rel="next" title="6-URDF">6-URDF<i class="fas fa-angle-right fa-fw"></i></a></div>
 </div>
 <div id="comments"></div></article></div>
             </main><footer class="footer">

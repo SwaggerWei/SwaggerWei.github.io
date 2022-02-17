@@ -5,32 +5,32 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="robots" content="noodp" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
-        <title>1-ROS通信方式 - Swagger Wei</title><meta name="Description" content="这是我的全新 Hugo 网站"><meta property="og:title" content="1-ROS通信方式" />
-<meta property="og:description" content="通信方式 topic service parameter server actionlib topic 通信方式 异步通信方式 Node间通过publish-subscribe的方式进行通信 topic 发布节点只管发布， 接收节点只管接收 特" />
+        <title>6-URDF - Swagger Wei</title><meta name="Description" content="这是我的全新 Hugo 网站"><meta property="og:title" content="6-URDF" />
+<meta property="og:description" content="基本概念 urdf 文件， 定义机器人的结构 用于机器人的仿真、 可视化、 tf ROS 的中包含一个urdf包，用来解析urdf文件 描述机器人零部件和零部件之间的关系" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://swaggerwei.github.io/ros_learning1/" /><meta property="og:image" content="https://swaggerwei.github.io/logo.png"/><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2022-02-17T14:51:56+08:00" />
-<meta property="article:modified_time" content="2022-02-17T14:51:56+08:00" />
+<meta property="og:url" content="https://swaggerwei.github.io/ros_learning6/" /><meta property="og:image" content="https://swaggerwei.github.io/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-02-17T15:17:58+08:00" />
+<meta property="article:modified_time" content="2022-02-17T15:17:58+08:00" />
 
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://swaggerwei.github.io/logo.png"/>
 
-<meta name="twitter:title" content="1-ROS通信方式"/>
-<meta name="twitter:description" content="通信方式 topic service parameter server actionlib topic 通信方式 异步通信方式 Node间通过publish-subscribe的方式进行通信 topic 发布节点只管发布， 接收节点只管接收 特"/>
+<meta name="twitter:title" content="6-URDF"/>
+<meta name="twitter:description" content="基本概念 urdf 文件， 定义机器人的结构 用于机器人的仿真、 可视化、 tf ROS 的中包含一个urdf包，用来解析urdf文件 描述机器人零部件和零部件之间的关系"/>
 <meta name="application-name" content="LoveIt">
 <meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://swaggerwei.github.io/ros_learning1/" /><link rel="prev" href="https://swaggerwei.github.io/first_post/" /><link rel="next" href="https://swaggerwei.github.io/ros_learning2/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://swaggerwei.github.io/ros_learning6/" /><link rel="prev" href="https://swaggerwei.github.io/ros_learning5/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
     {
         "@context": "http://schema.org",
         "@type": "BlogPosting",
-        "headline": "1-ROS通信方式",
+        "headline": "6-URDF",
         "inLanguage": "zh-CN",
         "mainEntityOfPage": {
             "@type": "WebPage",
-            "@id": "https:\/\/swaggerwei.github.io\/ros_learning1\/"
-        },"genre": "posts","wordcount":  241 ,
-        "url": "https:\/\/swaggerwei.github.io\/ros_learning1\/","datePublished": "2022-02-17T14:51:56+08:00","dateModified": "2022-02-17T14:51:56+08:00","publisher": {
+            "@id": "https:\/\/swaggerwei.github.io\/ros_learning6\/"
+        },"genre": "posts","wordcount":  140 ,
+        "url": "https:\/\/swaggerwei.github.io\/ros_learning6\/","datePublished": "2022-02-17T15:17:58+08:00","dateModified": "2022-02-17T15:17:58+08:00","publisher": {
             "@type": "Organization",
             "name": ""},"author": {
                 "@type": "Person",
@@ -104,9 +104,9 @@
                 <div class="container"><div class="toc" id="toc-auto">
             <h2 class="toc-title">目录</h2>
             <div class="toc-content" id="toc-content-auto"></div>
-        </div><article class="page single"><h1 class="single-title animated flipInX">1-ROS通信方式</h1><div class="post-meta">
+        </div><article class="page single"><h1 class="single-title animated flipInX">6-URDF</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>Swagger Wei</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-02-17">2022-02-17</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 241 字&nbsp;
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-02-17">2022-02-17</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 140 字&nbsp;
                 <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 1 分钟&nbsp;</div>
         </div><div class="details toc" id="toc-static"  kept="true">
                 <div class="details-summary toc-title">
@@ -115,120 +115,41 @@
                 </div>
                 <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
   <ul>
-    <li><a href="#通信方式">通信方式</a></li>
-    <li><a href="#topic-通信方式">topic 通信方式</a></li>
-    <li><a href="#message">Message</a></li>
-    <li><a href="#topic-相关命令">topic 相关命令</a></li>
+    <li><a href="#基本概念">基本概念</a></li>
+    <li><a href="#描述机器人零部件和零部件之间的关系">描述机器人零部件和零部件之间的关系</a></li>
+    <li><a href="#urdf-文件的具体撰写">urdf 文件的具体撰写</a></li>
   </ul>
 </nav></div>
-            </div><div class="content" id="content"><h2 id="通信方式">通信方式</h2>
+            </div><div class="content" id="content"><h2 id="基本概念">基本概念</h2>
 <ul>
-<li>topic</li>
-<li>service</li>
-<li>parameter server</li>
-<li>actionlib</li>
+<li>urdf 文件， 定义机器人的结构</li>
+<li>用于机器人的仿真、 可视化、 tf</li>
+<li>ROS 的中包含一个urdf包，用来解析urdf文件</li>
 </ul>
-<h2 id="topic-通信方式">topic 通信方式</h2>
-<p><em>异步通信方式</em></p>
+<h2 id="描述机器人零部件和零部件之间的关系">描述机器人零部件和零部件之间的关系</h2>
 <ul>
-<li>Node间通过publish-subscribe的方式进行通信
+<li>link  每个零部件都有自己的link（xyz三个轴）</li>
+<li>joint  描述两个零部件连接的关节</li>
+<li>urdf文件中定义两个link 之间必有一个joint
 <img
         class="lazyload"
         src="/svg/loading.min.svg"
-        data-src="/images_ros/pic1.png"
-        data-srcset="/images_ros/pic1.png, /images_ros/pic1.png 1.5x, /images_ros/pic1.png 2x"
+        data-src="/images_ros/pic16.png"
+        data-srcset="/images_ros/pic16.png, /images_ros/pic16.png 1.5x, /images_ros/pic16.png 2x"
         data-sizes="auto"
-        alt="/images_ros/pic1.png"
+        alt="/images_ros/pic16.png"
         title="avatar" /></li>
-<li>topic 发布节点只管发布， 接收节点只管接收</li>
 </ul>
-<p><em>特点</em></p>
-<ul>
-<li>异步通信方式</li>
-<li>对于同一个topic可以有多个发送者（例如tf，和rosout），也可以有多个接收者</li>
-</ul>
-<h2 id="message">Message</h2>
-<ul>
-<li>topic 内容的数据类型&mdash;》类</li>
-<li>定义在.msg文件当中</li>
-</ul>
-<p>包括的类型
-<img
+<h2 id="urdf-文件的具体撰写">urdf 文件的具体撰写</h2>
+<p><img
         class="lazyload"
         src="/svg/loading.min.svg"
-        data-src="/images_ros/pic2.png"
-        data-srcset="/images_ros/pic2.png, /images_ros/pic2.png 1.5x, /images_ros/pic2.png 2x"
+        data-src="/images_ros/pic17.png"
+        data-srcset="/images_ros/pic17.png, /images_ros/pic17.png 1.5x, /images_ros/pic17.png 2x"
         data-sizes="auto"
-        alt="/images_ros/pic2.png"
+        alt="/images_ros/pic17.png"
         title="avatar" /></p>
-<h2 id="topic-相关命令">topic 相关命令</h2>
-<ul>
-<li>列出所有的topic</li>
-</ul>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">rostopic list
-</code></pre></td></tr></table>
-</div>
-</div><ul>
-<li>显示某个topic的属性信息</li>
-</ul>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">rostopic info /topic_name
-</code></pre></td></tr></table>
-</div>
-</div><ul>
-<li>topic内容</li>
-</ul>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">rostopic <span class="nb">echo</span> /topic_name
-</code></pre></td></tr></table>
-</div>
-</div><ul>
-<li>向某个topic发布内容</li>
-</ul>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">rostopic pub /topic_name ...
-</code></pre></td></tr></table>
-</div>
-</div><ul>
-<li>列出所有msg</li>
-</ul>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">rosmsg list
-</code></pre></td></tr></table>
-</div>
-</div><ul>
-<li>显示某个msg 的内容</li>
-</ul>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">rosmsg show /msg_name
-</code></pre></td></tr></table>
-</div>
-</div></div><div class="post-footer" id="post-footer">
+</div><div class="post-footer" id="post-footer">
     <div class="post-info">
         <div class="post-info-line">
             <div class="post-info-mod">
@@ -238,10 +159,10 @@
         </div>
         <div class="post-info-line">
             <div class="post-info-md"><span>
-                            <a class="link-to-markdown" href="/ros_learning1/index.md" target="_blank">阅读原始文档</a>
+                            <a class="link-to-markdown" href="/ros_learning6/index.md" target="_blank">阅读原始文档</a>
                         </span></div>
             <div class="post-info-share">
-                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://swaggerwei.github.io/ros_learning1/" data-title="1-ROS通信方式" data-via="xxxx"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://swaggerwei.github.io/ros_learning1/"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 WhatsApp" data-sharer="whatsapp" data-url="https://swaggerwei.github.io/ros_learning1/" data-title="1-ROS通信方式" data-web><i class="fab fa-whatsapp fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://swaggerwei.github.io/ros_learning1/" data-title="1-ROS通信方式"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://swaggerwei.github.io/ros_learning1/" data-title="1-ROS通信方式"><i class="fab fa-weibo fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Myspace" data-sharer="myspace" data-url="https://swaggerwei.github.io/ros_learning1/" data-title="1-ROS通信方式" data-description=""><i data-svg-src="/lib/simple-icons/icons/myspace.min.svg"></i></a><a href="javascript:void(0);" title="分享到 Blogger" data-sharer="blogger" data-url="https://swaggerwei.github.io/ros_learning1/" data-title="1-ROS通信方式" data-description=""><i class="fab fa-blogger fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Evernote" data-sharer="evernote" data-url="https://swaggerwei.github.io/ros_learning1/" data-title="1-ROS通信方式"><i class="fab fa-evernote fa-fw"></i></a></span>
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://swaggerwei.github.io/ros_learning6/" data-title="6-URDF" data-via="xxxx"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://swaggerwei.github.io/ros_learning6/"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 WhatsApp" data-sharer="whatsapp" data-url="https://swaggerwei.github.io/ros_learning6/" data-title="6-URDF" data-web><i class="fab fa-whatsapp fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://swaggerwei.github.io/ros_learning6/" data-title="6-URDF"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://swaggerwei.github.io/ros_learning6/" data-title="6-URDF"><i class="fab fa-weibo fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Myspace" data-sharer="myspace" data-url="https://swaggerwei.github.io/ros_learning6/" data-title="6-URDF" data-description=""><i data-svg-src="/lib/simple-icons/icons/myspace.min.svg"></i></a><a href="javascript:void(0);" title="分享到 Blogger" data-sharer="blogger" data-url="https://swaggerwei.github.io/ros_learning6/" data-title="6-URDF" data-description=""><i class="fab fa-blogger fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Evernote" data-sharer="evernote" data-url="https://swaggerwei.github.io/ros_learning6/" data-title="6-URDF"><i class="fab fa-evernote fa-fw"></i></a></span>
             </div>
         </div>
     </div>
@@ -253,8 +174,7 @@
         </section>
     </div>
 
-    <div class="post-nav"><a href="/first_post/" class="prev" rel="prev" title="Hugo 使用教程"><i class="fas fa-angle-left fa-fw"></i>Hugo 使用教程</a>
-            <a href="/ros_learning2/" class="next" rel="next" title="2-ROS常用工具">2-ROS常用工具<i class="fas fa-angle-right fa-fw"></i></a></div>
+    <div class="post-nav"><a href="/ros_learning5/" class="prev" rel="prev" title="5-tf in python "><i class="fas fa-angle-left fa-fw"></i>5-tf in python </a></div>
 </div>
 <div id="comments"></div></article></div>
             </main><footer class="footer">
