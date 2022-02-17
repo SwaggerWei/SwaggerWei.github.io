@@ -29,5 +29,39 @@
 * `hugo new posts/first_post.md`
 
 ### 在本地启动网站
-* `hugo serve --buildDrafts`
+* `hugo serve --buildDrafts`  
+_这里是 --buildDrafts 指文档的草稿属性为真，就需要此参数，或者直接将对应markdown文件中的draft属性设置为false_
+
+### 网站高阶参数配置
+* 复制   
+[https://hugoloveit.com/zh-cn/theme-documentation-basics/#site-configuration](https://hugoloveit.com/zh-cn/theme-documentation-basics/#site-configuration)  
+中的config.toml 文件补充到本地的对应文件当中去，注意有几个参数是重复的，
+![](/images_hugo/pic4.png)
+
+  
+## 部署到github.io 服务器
+
+### github仓库新建
+* 新建一个项目，名字为： `github账号名.github.io`
+
+### 本地对接远程服务器地址
+* hugo --theme=LoveIt --baseUrl="https://swaggerwei.github.io/" -D  
+可以发现本地生成了一个public文件夹  
+![](/images_hugo/pic5.png)
+* 命令 
+```shell
+cd public
+git init
+git add .
+git remote add origin git@github.com:SwaggerWei/SwaggerWei.github.io.git 
+git push -u origin master 
+```
+tips: init 和 remote add 操作后续更改博客不需要
+
+### 网页进入个人主页
+* [swaggerwei.github.io]()  
+_tips：一般过五分钟才行_    
+![](/images_hugo/pic6.png)
+
+
 
