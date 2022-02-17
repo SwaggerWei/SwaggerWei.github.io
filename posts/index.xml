@@ -3,7 +3,14 @@
         <title>所有文章 - Swagger Wei</title>
         <link>https://swaggerwei.github.io/posts/</link>
         <description>所有文章 | Swagger Wei</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Wed, 16 Feb 2022 15:41:41 &#43;0800</lastBuildDate><atom:link href="https://swaggerwei.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Thu, 17 Feb 2022 14:51:56 &#43;0800</lastBuildDate><atom:link href="https://swaggerwei.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+    <title>1-ROS通信方式</title>
+    <link>https://swaggerwei.github.io/ros_learning1/</link>
+    <pubDate>Thu, 17 Feb 2022 14:51:56 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://swaggerwei.github.io/ros_learning1/</guid>
+    <description><![CDATA[通信方式 topic service parameter server actionlib topic 通信方式 异步通信方式 Node间通过publish-subscribe的方式进行通信 topic 发布节点只管发布， 接收节点只管接收 特]]></description>
+</item><item>
     <title>Hugo 使用教程</title>
     <link>https://swaggerwei.github.io/first_post/</link>
     <pubDate>Wed, 16 Feb 2022 15:41:41 &#43;0800</pubDate>
