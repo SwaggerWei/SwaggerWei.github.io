@@ -1,8 +1,8 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
-        <title>ROS - 标签 - Swagger Wei</title>
+        <title>ROS - 标签 - Boyan Wei</title>
         <link>https://swaggerwei.github.io/tags/ros/</link>
-        <description>ROS - 标签 - Swagger Wei</description>
+        <description>ROS - 标签 - Boyan Wei</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Sat, 20 Nov 2021 21:02:11 &#43;0800</lastBuildDate><atom:link href="https://swaggerwei.github.io/tags/ros/" rel="self" type="application/rss+xml" /><item>
     <title>Aruco配合realsense 使用</title>
     <link>https://swaggerwei.github.io/aruco_learning/</link>

@@ -1,8 +1,8 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
-        <title>ROS 学习 - 分类 - Swagger Wei</title>
+        <title>ROS 学习 - 分类 - Boyan Wei</title>
         <link>https://swaggerwei.github.io/categories/ros-%E5%AD%A6%E4%B9%A0/</link>
-        <description>ROS 学习 - 分类 - Swagger Wei</description>
+        <description>ROS 学习 - 分类 - Boyan Wei</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Sat, 20 Nov 2021 21:02:11 &#43;0800</lastBuildDate><atom:link href="https://swaggerwei.github.io/categories/ros-%E5%AD%A6%E4%B9%A0/" rel="self" type="application/rss+xml" /><item>
     <title>Aruco配合realsense 使用</title>
     <link>https://swaggerwei.github.io/aruco_learning/</link>
