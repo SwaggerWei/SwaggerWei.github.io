@@ -2,14 +2,18 @@
     xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
     xmlns:xhtml="http://www.w3.org/1999/xhtml"
     ><url>
-            <loc>https://swaggerwei.github.io/ros_learning6/</loc><lastmod>2022-02-17T15:17:58&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
-            <loc>https://swaggerwei.github.io/posts/</loc><lastmod>2022-02-17T15:17:58&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
-            <loc>https://swaggerwei.github.io/</loc><lastmod>2022-02-17T15:17:58&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
-            <loc>https://swaggerwei.github.io/ros_learning5/</loc><lastmod>2022-02-17T15:15:37&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
-            <loc>https://swaggerwei.github.io/ros_learning4/</loc><lastmod>2022-02-17T15:13:32&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
-            <loc>https://swaggerwei.github.io/ros_learning3/</loc><lastmod>2022-02-17T15:10:43&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
-            <loc>https://swaggerwei.github.io/ros_learning2/</loc><lastmod>2022-02-17T15:01:49&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
-            <loc>https://swaggerwei.github.io/ros_learning1/</loc><lastmod>2022-02-17T14:51:56&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>https://swaggerwei.github.io/categories/</loc><lastmod>2022-02-16T15:41:41&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>https://swaggerwei.github.io/tags/hugo/</loc><lastmod>2022-02-16T15:41:41&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
             <loc>https://swaggerwei.github.io/first_post/</loc><lastmod>2022-02-16T15:41:41&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
-            <loc>https://swaggerwei.github.io/categories/</loc><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
-            <loc>https://swaggerwei.github.io/tags/</loc><changefreq>weekly</changefreq><priority>0.5</priority></url></urlset>
+            <loc>https://swaggerwei.github.io/posts/</loc><lastmod>2022-02-16T15:41:41&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>https://swaggerwei.github.io/</loc><lastmod>2022-02-16T15:41:41&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>https://swaggerwei.github.io/tags/</loc><lastmod>2022-02-16T15:41:41&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>https://swaggerwei.github.io/categories/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/</loc><lastmod>2022-02-16T15:41:41&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>https://swaggerwei.github.io/ros_learning6/</loc><lastmod>2021-11-01T15:17:58&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>https://swaggerwei.github.io/tags/ros/</loc><lastmod>2021-11-01T15:17:58&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>https://swaggerwei.github.io/categories/ros-%E5%AD%A6%E4%B9%A0/</loc><lastmod>2021-11-01T15:17:58&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>https://swaggerwei.github.io/ros_learning5/</loc><lastmod>2021-11-01T15:15:37&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>https://swaggerwei.github.io/ros_learning4/</loc><lastmod>2021-11-01T15:13:32&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>https://swaggerwei.github.io/ros_learning3/</loc><lastmod>2021-11-01T15:10:43&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>https://swaggerwei.github.io/ros_learning2/</loc><lastmod>2021-10-28T15:01:49&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>https://swaggerwei.github.io/ros_learning1/</loc><lastmod>2021-10-28T14:51:56&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url></urlset>
