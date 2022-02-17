@@ -11,6 +11,13 @@
     <guid>https://swaggerwei.github.io/first_post/</guid>
     <description><![CDATA[下载Hugo 使用 brew 来安装hugo brew install hugo 新建一个hugo 项目 hugo new site mysite hugo 项目文件结构介绍 content 博客内容 static 图片 theme 主题 主题的配置 主题下载 进入gohugo]]></description>
 </item><item>
+    <title>Aruco配合realsense 使用</title>
+    <link>https://swaggerwei.github.io/aruco_learning/</link>
+    <pubDate>Sat, 20 Nov 2021 21:02:11 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://swaggerwei.github.io/aruco_learning/</guid>
+    <description><![CDATA[使用github安装 网址：http://www.uco.es/investiga/grupos/ava/node/26 git clone到本地之后]]></description>
+</item><item>
     <title>6-URDF</title>
     <link>https://swaggerwei.github.io/ros_learning6/</link>
     <pubDate>Mon, 01 Nov 2021 15:17:58 &#43;0800</pubDate>

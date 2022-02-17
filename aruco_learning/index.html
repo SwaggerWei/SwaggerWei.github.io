@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>Aruco配合realsense 使用 - Swagger Wei</title><meta name="Description" content="这是我的全新 Hugo 网站"><meta property="og:title" content="Aruco配合realsense 使用" />
+<meta property="og:description" content="使用github安装 网址：http://www.uco.es/investiga/grupos/ava/node/26 git clone到本地之后" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://swaggerwei.github.io/aruco_learning/" /><meta property="og:image" content="https://swaggerwei.github.io/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-11-20T21:02:11+08:00" />
+<meta property="article:modified_time" content="2021-11-20T21:02:11+08:00" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://swaggerwei.github.io/logo.png"/>
+
+<meta name="twitter:title" content="Aruco配合realsense 使用"/>
+<meta name="twitter:description" content="使用github安装 网址：http://www.uco.es/investiga/grupos/ava/node/26 git clone到本地之后"/>
+<meta name="application-name" content="LoveIt">
+<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://swaggerwei.github.io/aruco_learning/" /><link rel="prev" href="https://swaggerwei.github.io/ros_learning6/" /><link rel="next" href="https://swaggerwei.github.io/first_post/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Aruco配合realsense 使用",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/swaggerwei.github.io\/aruco_learning\/"
+        },"genre": "posts","keywords": "ROS","wordcount":  439 ,
+        "url": "https:\/\/swaggerwei.github.io\/aruco_learning\/","datePublished": "2021-11-20T21:02:11+08:00","dateModified": "2021-11-20T21:02:11+08:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "Swagger Wei"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Swagger Wei"></a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Swagger Wei"></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">Aruco配合realsense 使用</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>Swagger Wei</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/ros-%E5%AD%A6%E4%B9%A0/"><i class="far fa-folder fa-fw"></i>ROS 学习</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-11-20">2021-11-20</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 439 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 1 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="true">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#使用github安装">使用github安装</a></li>
+    <li><a href="#使用apt安装">使用apt安装</a></li>
+    <li><a href="#测试使用">测试使用</a></li>
+    <li><a href="#网址生成二维码及其相关信息">网址生成二维码，及其相关信息</a></li>
+    <li><a href="#修改launch文件夹中的singlelaunch文件">修改launch文件夹中的single.launch文件</a></li>
+    <li><a href="#开始测试">开始测试</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h2 id="使用github安装">使用github安装</h2>
+<ul>
+<li>网址：<a href="https://blog.csdn.net/qq_34935373/article/details/105098244" target="_blank" rel="noopener noreffer">http://www.uco.es/investiga/grupos/ava/node/26</a></li>
+<li>git clone到本地之后，catkin make即可开始使用</li>
+</ul>
+<h2 id="使用apt安装">使用apt安装</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">sudo apt-get install ros-kinetic-aruco-ros
+sudo apt-get install ros-kinetic-aruco-msgs
+sudo apt-get install ros-kinetic-aruco-detect
+sudo apt-get install ros-kinetic-aruco
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="测试使用">测试使用</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">roslaunch aruco_ros single.launch
+</code></pre></td></tr></table>
+</div>
+</div><p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://img-blog.csdnimg.cn/88eba0a511a84000b1e458e9aca123c7.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAU3R1X2FydA==,size_20,color_FFFFFF,t_70,g_se,x_16#pic_center"
+        data-srcset="https://img-blog.csdnimg.cn/88eba0a511a84000b1e458e9aca123c7.png?x-oss-process=image/watermark%2ctype_ZHJvaWRzYW5zZmFsbGJhY2s%2cshadow_50%2ctext_Q1NETiBAU3R1X2FydA==%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16#pic_center, https://img-blog.csdnimg.cn/88eba0a511a84000b1e458e9aca123c7.png?x-oss-process=image/watermark%2ctype_ZHJvaWRzYW5zZmFsbGJhY2s%2cshadow_50%2ctext_Q1NETiBAU3R1X2FydA==%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16#pic_center 1.5x, https://img-blog.csdnimg.cn/88eba0a511a84000b1e458e9aca123c7.png?x-oss-process=image/watermark%2ctype_ZHJvaWRzYW5zZmFsbGJhY2s%2cshadow_50%2ctext_Q1NETiBAU3R1X2FydA==%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16#pic_center 2x"
+        data-sizes="auto"
+        alt="https://img-blog.csdnimg.cn/88eba0a511a84000b1e458e9aca123c7.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAU3R1X2FydA==,size_20,color_FFFFFF,t_70,g_se,x_16#pic_center"
+        title="在这里插入图片描述" /></p>
+<p>如果没有报错，说明成功</p>
+<h2 id="网址生成二维码及其相关信息">网址生成二维码，及其相关信息</h2>
+<p><a href="http://chev.me/arucogen/" target="_blank" rel="noopener noreffer">http://chev.me/arucogen/</a>
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://img-blog.csdnimg.cn/dc91858c732f420997f507207f3ed4af.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAU3R1X2FydA==,size_20,color_FFFFFF,t_70,g_se,x_16#pic_center"
+        data-srcset="https://img-blog.csdnimg.cn/dc91858c732f420997f507207f3ed4af.png?x-oss-process=image/watermark%2ctype_ZHJvaWRzYW5zZmFsbGJhY2s%2cshadow_50%2ctext_Q1NETiBAU3R1X2FydA==%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16#pic_center, https://img-blog.csdnimg.cn/dc91858c732f420997f507207f3ed4af.png?x-oss-process=image/watermark%2ctype_ZHJvaWRzYW5zZmFsbGJhY2s%2cshadow_50%2ctext_Q1NETiBAU3R1X2FydA==%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16#pic_center 1.5x, https://img-blog.csdnimg.cn/dc91858c732f420997f507207f3ed4af.png?x-oss-process=image/watermark%2ctype_ZHJvaWRzYW5zZmFsbGJhY2s%2cshadow_50%2ctext_Q1NETiBAU3R1X2FydA==%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16#pic_center 2x"
+        data-sizes="auto"
+        alt="https://img-blog.csdnimg.cn/dc91858c732f420997f507207f3ed4af.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAU3R1X2FydA==,size_20,color_FFFFFF,t_70,g_se,x_16#pic_center"
+        title="在这里插入图片描述" /></p>
+<ul>
+<li>图片的风格类型</li>
+<li>marker ID  &mdash;&ndash;582</li>
+<li>尺寸大小（注意这里的单位为mm）&mdash;-34mm</li>
+</ul>
+<h2 id="修改launch文件夹中的singlelaunch文件">修改launch文件夹中的single.launch文件</h2>
+<ul>
+<li>更改camera_info为realsense发布的相机内参话题</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">&lt;remap <span class="nv">from</span><span class="o">=</span><span class="s2">&#34;/camera_info&#34;</span> <span class="nv">to</span><span class="o">=</span><span class="s2">&#34;/camera/color/camera_info&#34;</span> /&gt;
+</code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>更改image</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">&lt;remap <span class="nv">from</span><span class="o">=</span><span class="s2">&#34;/image&#34;</span> <span class="nv">to</span><span class="o">=</span><span class="s2">&#34;/camera/color/image_raw&#34;</span> /&gt;
+</code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>更改camera_frame</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">&lt;param <span class="nv">name</span><span class="o">=</span><span class="s2">&#34;camera_frame&#34;</span>       <span class="nv">value</span><span class="o">=</span><span class="s2">&#34;/camera_link&#34;</span>/&gt;
+</code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>更改Marker ID; marker size</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">&lt;arg <span class="nv">name</span><span class="o">=</span><span class="s2">&#34;markerId&#34;</span>        <span class="nv">default</span><span class="o">=</span><span class="s2">&#34;582&#34;</span>/&gt;
+&lt;arg <span class="nv">name</span><span class="o">=</span><span class="s2">&#34;markerSize&#34;</span>      <span class="nv">default</span><span class="o">=</span><span class="s2">&#34;0.034&#34;</span>/&gt;    &lt;!-- in m --&gt;
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="开始测试">开始测试</h2>
+<ul>
+<li>启动realsense节点</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">roslaunch realsense2_camera rs_camera.launch
+</code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>启动single.launch 文件</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">roslaunch aruco_ros single.launch
+</code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>使用image_view观察识别效果</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">rosrun image_view image_view image:<span class="o">=</span>/aruco_single/result
+</code></pre></td></tr></table>
+</div>
+</div><p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://img-blog.csdnimg.cn/68ec901a24e14ff18f98f8054d7c258e.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAU3R1X2FydA==,size_14,color_FFFFFF,t_70,g_se,x_16#pic_center"
+        data-srcset="https://img-blog.csdnimg.cn/68ec901a24e14ff18f98f8054d7c258e.png?x-oss-process=image/watermark%2ctype_ZHJvaWRzYW5zZmFsbGJhY2s%2cshadow_50%2ctext_Q1NETiBAU3R1X2FydA==%2csize_14%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16#pic_center, https://img-blog.csdnimg.cn/68ec901a24e14ff18f98f8054d7c258e.png?x-oss-process=image/watermark%2ctype_ZHJvaWRzYW5zZmFsbGJhY2s%2cshadow_50%2ctext_Q1NETiBAU3R1X2FydA==%2csize_14%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16#pic_center 1.5x, https://img-blog.csdnimg.cn/68ec901a24e14ff18f98f8054d7c258e.png?x-oss-process=image/watermark%2ctype_ZHJvaWRzYW5zZmFsbGJhY2s%2cshadow_50%2ctext_Q1NETiBAU3R1X2FydA==%2csize_14%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16#pic_center 2x"
+        data-sizes="auto"
+        alt="https://img-blog.csdnimg.cn/68ec901a24e14ff18f98f8054d7c258e.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAU3R1X2FydA==,size_14,color_FFFFFF,t_70,g_se,x_16#pic_center"
+        title="在这里插入图片描述" /></p>
+<ul>
+<li>查看位姿</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">rostopic <span class="nb">echo</span> /aruco_single/pose
+</code></pre></td></tr></table>
+</div>
+</div><p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://img-blog.csdnimg.cn/c88192a6cabb4c74b9ebe53ff709531e.png#pic_center"
+        data-srcset="https://img-blog.csdnimg.cn/c88192a6cabb4c74b9ebe53ff709531e.png#pic_center, https://img-blog.csdnimg.cn/c88192a6cabb4c74b9ebe53ff709531e.png#pic_center 1.5x, https://img-blog.csdnimg.cn/c88192a6cabb4c74b9ebe53ff709531e.png#pic_center 2x"
+        data-sizes="auto"
+        alt="https://img-blog.csdnimg.cn/c88192a6cabb4c74b9ebe53ff709531e.png#pic_center"
+        title="在这里插入图片描述" /></p>
+<p>参考：<a href="https://blog.csdn.net/qq_34935373/article/details/105098244" target="_blank" rel="noopener noreffer">https://blog.csdn.net/qq_34935373/article/details/105098244</a></p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2021-11-20</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/aruco_learning/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://swaggerwei.github.io/aruco_learning/" data-title="Aruco配合realsense 使用" data-via="xxxx" data-hashtags="ROS"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://swaggerwei.github.io/aruco_learning/" data-hashtag="ROS"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 WhatsApp" data-sharer="whatsapp" data-url="https://swaggerwei.github.io/aruco_learning/" data-title="Aruco配合realsense 使用" data-web><i class="fab fa-whatsapp fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://swaggerwei.github.io/aruco_learning/" data-title="Aruco配合realsense 使用"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://swaggerwei.github.io/aruco_learning/" data-title="Aruco配合realsense 使用"><i class="fab fa-weibo fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Myspace" data-sharer="myspace" data-url="https://swaggerwei.github.io/aruco_learning/" data-title="Aruco配合realsense 使用" data-description=""><i data-svg-src="/lib/simple-icons/icons/myspace.min.svg"></i></a><a href="javascript:void(0);" title="分享到 Blogger" data-sharer="blogger" data-url="https://swaggerwei.github.io/aruco_learning/" data-title="Aruco配合realsense 使用" data-description=""><i class="fab fa-blogger fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Evernote" data-sharer="evernote" data-url="https://swaggerwei.github.io/aruco_learning/" data-title="Aruco配合realsense 使用"><i class="fab fa-evernote fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/ros/">ROS</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/ros_learning6/" class="prev" rel="prev" title="6-URDF"><i class="fas fa-angle-left fa-fw"></i>6-URDF</a>
+            <a href="/first_post/" class="next" rel="next" title="Hugo 使用教程">Hugo 使用教程<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+<div id="comments"></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.90.1">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2019 - 2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">Swagger Wei</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript" src="/lib/cookieconsent/cookieconsent.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{},"cookieconsent":{"content":{"dismiss":"同意","link":"了解更多","message":"本网站使用 Cookies 来改善您的浏览体验."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>
