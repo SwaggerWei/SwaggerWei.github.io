@@ -1,0 +1,14 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>抓取 - 标签 - Boyan Wei</title>
+        <link>https://swaggerwei.github.io/tags/%E6%8A%93%E5%8F%96/</link>
+        <description>抓取 - 标签 - Boyan Wei</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Sat, 20 Nov 2021 21:02:11 &#43;0800</lastBuildDate><atom:link href="https://swaggerwei.github.io/tags/%E6%8A%93%E5%8F%96/" rel="self" type="application/rss+xml" /><item>
+    <title>Aruco配合realsense 使用</title>
+    <link>https://swaggerwei.github.io/aruco_learning/</link>
+    <pubDate>Sat, 20 Nov 2021 21:02:11 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://swaggerwei.github.io/aruco_learning/</guid>
+    <description><![CDATA[使用github安装 网址：http://www.uco.es/investiga/grupos/ava/node/26 git clone到本地之后]]></description>
+</item></channel>
+</rss>

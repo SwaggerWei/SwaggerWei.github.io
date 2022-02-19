@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>git 代码管理工具1 - Boyan Wei</title><meta name="Description" content="这是我的全新 Hugo 网站"><meta property="og:title" content="git 代码管理工具1" />
+<meta property="og:description" content="应用场景 团队协作开发， 避免频繁来回拷贝代码 git 工作流程 克隆 Git 资源作为工作目录 在本地的工作副本上做修改操作 如果别人更改了资源可以更新资源 检查修改" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://swaggerwei.github.io/git_learning/" /><meta property="og:image" content="https://swaggerwei.github.io/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-01-17T19:22:26+08:00" />
+<meta property="article:modified_time" content="2022-01-17T19:22:26+08:00" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://swaggerwei.github.io/logo.png"/>
+
+<meta name="twitter:title" content="git 代码管理工具1"/>
+<meta name="twitter:description" content="应用场景 团队协作开发， 避免频繁来回拷贝代码 git 工作流程 克隆 Git 资源作为工作目录 在本地的工作副本上做修改操作 如果别人更改了资源可以更新资源 检查修改"/>
+<meta name="application-name" content="LoveIt">
+<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://swaggerwei.github.io/git_learning/" /><link rel="prev" href="https://swaggerwei.github.io/aruco_learning/" /><link rel="next" href="https://swaggerwei.github.io/git_learning2/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "git 代码管理工具1",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/swaggerwei.github.io\/git_learning\/"
+        },"genre": "posts","keywords": "git, github, gitee","wordcount":  631 ,
+        "url": "https:\/\/swaggerwei.github.io\/git_learning\/","datePublished": "2022-01-17T19:22:26+08:00","dateModified": "2022-01-17T19:22:26+08:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "Boyan Wei"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Boyan Wei"></a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Boyan Wei"></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">git 代码管理工具1</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>Boyan Wei</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/"><i class="far fa-folder fa-fw"></i>开发工具</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-01-17">2022-01-17</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 631 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 2 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="true">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#应用场景">应用场景</a></li>
+    <li><a href="#git-工作流程">git 工作流程</a></li>
+    <li><a href="#工作区和暂存区和版本库">工作区和、暂存区和版本库</a></li>
+    <li><a href="#基本操作命令">基本操作命令</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h2 id="应用场景">应用场景</h2>
+<ul>
+<li>团队协作开发， 避免频繁来回拷贝代码</li>
+</ul>
+<h2 id="git-工作流程">git 工作流程</h2>
+<ul>
+<li>克隆 Git 资源作为工作目录</li>
+<li>在本地的工作副本上做修改操作</li>
+<li>如果别人更改了资源可以更新资源</li>
+<li>检查修改之后就可以向资源库推送更新</li>
+<li>如果发现有错误则可以撤销推送，修改错误，然后重新推送<br>
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://img-blog.csdnimg.cn/e8878680beb5409ca4882b253e8f841f.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAU3R1X2FydA==,size_19,color_FFFFFF,t_70,g_se,x_16#pic_center"
+        data-srcset="https://img-blog.csdnimg.cn/e8878680beb5409ca4882b253e8f841f.png?x-oss-process=image/watermark%2ctype_d3F5LXplbmhlaQ%2cshadow_50%2ctext_Q1NETiBAU3R1X2FydA==%2csize_19%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16#pic_center, https://img-blog.csdnimg.cn/e8878680beb5409ca4882b253e8f841f.png?x-oss-process=image/watermark%2ctype_d3F5LXplbmhlaQ%2cshadow_50%2ctext_Q1NETiBAU3R1X2FydA==%2csize_19%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16#pic_center 1.5x, https://img-blog.csdnimg.cn/e8878680beb5409ca4882b253e8f841f.png?x-oss-process=image/watermark%2ctype_d3F5LXplbmhlaQ%2cshadow_50%2ctext_Q1NETiBAU3R1X2FydA==%2csize_19%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16#pic_center 2x"
+        data-sizes="auto"
+        alt="https://img-blog.csdnimg.cn/e8878680beb5409ca4882b253e8f841f.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAU3R1X2FydA==,size_19,color_FFFFFF,t_70,g_se,x_16#pic_center"
+        title="在这里插入图片描述" /></li>
+</ul>
+<h2 id="工作区和暂存区和版本库">工作区和、暂存区和版本库</h2>
+<ul>
+<li>
+<p>工作区，就是本地电脑上可以看到的文件(按下<code>Command+Shift+. </code>可以显示隐藏文件、文件夹，再按一次，恢复隐藏；) <br>
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://img-blog.csdnimg.cn/3825b1e9d28e43bda476f7faf8a1d563.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAU3R1X2FydA==,size_20,color_FFFFFF,t_70,g_se,x_16#pic_center"
+        data-srcset="https://img-blog.csdnimg.cn/3825b1e9d28e43bda476f7faf8a1d563.png?x-oss-process=image/watermark%2ctype_d3F5LXplbmhlaQ%2cshadow_50%2ctext_Q1NETiBAU3R1X2FydA==%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16#pic_center, https://img-blog.csdnimg.cn/3825b1e9d28e43bda476f7faf8a1d563.png?x-oss-process=image/watermark%2ctype_d3F5LXplbmhlaQ%2cshadow_50%2ctext_Q1NETiBAU3R1X2FydA==%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16#pic_center 1.5x, https://img-blog.csdnimg.cn/3825b1e9d28e43bda476f7faf8a1d563.png?x-oss-process=image/watermark%2ctype_d3F5LXplbmhlaQ%2cshadow_50%2ctext_Q1NETiBAU3R1X2FydA==%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16#pic_center 2x"
+        data-sizes="auto"
+        alt="https://img-blog.csdnimg.cn/3825b1e9d28e43bda476f7faf8a1d563.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAU3R1X2FydA==,size_20,color_FFFFFF,t_70,g_se,x_16#pic_center"
+        title="在这里插入图片描述" /></p>
+</li>
+<li>
+<p>暂存区，英文stage或者index，一般存放在 .git 目录下的 index 文件（.git/index）中，所以我们把暂存区有时也叫作索引（index）</p>
+</li>
+<li>
+<p>版本库：工作区有一个隐藏目录 .git，这个不算工作区，而是 Git 的版本库。 <br>
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://img-blog.csdnimg.cn/39a18d8868ed4144b9c67d3f6de65d2c.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAU3R1X2FydA==,size_20,color_FFFFFF,t_70,g_se,x_16#pic_center"
+        data-srcset="https://img-blog.csdnimg.cn/39a18d8868ed4144b9c67d3f6de65d2c.png?x-oss-process=image/watermark%2ctype_d3F5LXplbmhlaQ%2cshadow_50%2ctext_Q1NETiBAU3R1X2FydA==%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16#pic_center, https://img-blog.csdnimg.cn/39a18d8868ed4144b9c67d3f6de65d2c.png?x-oss-process=image/watermark%2ctype_d3F5LXplbmhlaQ%2cshadow_50%2ctext_Q1NETiBAU3R1X2FydA==%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16#pic_center 1.5x, https://img-blog.csdnimg.cn/39a18d8868ed4144b9c67d3f6de65d2c.png?x-oss-process=image/watermark%2ctype_d3F5LXplbmhlaQ%2cshadow_50%2ctext_Q1NETiBAU3R1X2FydA==%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16#pic_center 2x"
+        data-sizes="auto"
+        alt="https://img-blog.csdnimg.cn/39a18d8868ed4144b9c67d3f6de65d2c.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAU3R1X2FydA==,size_20,color_FFFFFF,t_70,g_se,x_16#pic_center"
+        title="在这里插入图片描述" /></p>
+</li>
+</ul>
+<h2 id="基本操作命令">基本操作命令</h2>
+<ul>
+<li>当前基本状态 <code>git status</code><br>
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://img-blog.csdnimg.cn/c490d29a40c249e1b21ab8a84c645097.png#pic_center"
+        data-srcset="https://img-blog.csdnimg.cn/c490d29a40c249e1b21ab8a84c645097.png#pic_center, https://img-blog.csdnimg.cn/c490d29a40c249e1b21ab8a84c645097.png#pic_center 1.5x, https://img-blog.csdnimg.cn/c490d29a40c249e1b21ab8a84c645097.png#pic_center 2x"
+        data-sizes="auto"
+        alt="https://img-blog.csdnimg.cn/c490d29a40c249e1b21ab8a84c645097.png#pic_center"
+        title="在这里插入图片描述" /></li>
+</ul>
+<p>显示当前的最新的branch； 显示没有被commit的 文件（发现.DS_Store和first文件没有被commit）</p>
+<ul>
+<li>添加到暂存区 <code>git add 文件名</code><br>
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://img-blog.csdnimg.cn/d1a34ea498394f55a0b77f5764258810.png#pic_center"
+        data-srcset="https://img-blog.csdnimg.cn/d1a34ea498394f55a0b77f5764258810.png#pic_center, https://img-blog.csdnimg.cn/d1a34ea498394f55a0b77f5764258810.png#pic_center 1.5x, https://img-blog.csdnimg.cn/d1a34ea498394f55a0b77f5764258810.png#pic_center 2x"
+        data-sizes="auto"
+        alt="https://img-blog.csdnimg.cn/d1a34ea498394f55a0b77f5764258810.png#pic_center"
+        title="在这里插入图片描述" /></li>
+</ul>
+<p><code>.</code>为所有文件，再次运行<code>git status</code>，发现所有的文件都已经被添加</p>
+<ul>
+<li>
+<p>添加到版本库 <code>git commit -m &quot;版本提交的附带信息&quot;</code><br>
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://img-blog.csdnimg.cn/7783983bd0194511a389f7d55fe35ba6.png#pic_center"
+        data-srcset="https://img-blog.csdnimg.cn/7783983bd0194511a389f7d55fe35ba6.png#pic_center, https://img-blog.csdnimg.cn/7783983bd0194511a389f7d55fe35ba6.png#pic_center 1.5x, https://img-blog.csdnimg.cn/7783983bd0194511a389f7d55fe35ba6.png#pic_center 2x"
+        data-sizes="auto"
+        alt="https://img-blog.csdnimg.cn/7783983bd0194511a389f7d55fe35ba6.png#pic_center"
+        title="在这里插入图片描述" /></p>
+</li>
+<li>
+<p>查看当前的提交和回滚情况 <code>git log</code><br>
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://img-blog.csdnimg.cn/28e0b214f3a54130bfd2b25daac9c4e0.png#pic_center"
+        data-srcset="https://img-blog.csdnimg.cn/28e0b214f3a54130bfd2b25daac9c4e0.png#pic_center, https://img-blog.csdnimg.cn/28e0b214f3a54130bfd2b25daac9c4e0.png#pic_center 1.5x, https://img-blog.csdnimg.cn/28e0b214f3a54130bfd2b25daac9c4e0.png#pic_center 2x"
+        data-sizes="auto"
+        alt="https://img-blog.csdnimg.cn/28e0b214f3a54130bfd2b25daac9c4e0.png#pic_center"
+        title="在这里插入图片描述" /><br>
+注：为倒叙排序， Initial commit 为默认初始化github 官网创建得到</p>
+</li>
+<li>
+<p>回滚最新的一次commit <code>git reset commit后跟的ID</code></p>
+</li>
+<li>
+<p>回滚之前发现有一个message 为 second commit 的 commit<br>
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://img-blog.csdnimg.cn/9811bdf1f2484e74b7fcde3db21470c1.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAU3R1X2FydA==,size_19,color_FFFFFF,t_70,g_se,x_16#pic_center"
+        data-srcset="https://img-blog.csdnimg.cn/9811bdf1f2484e74b7fcde3db21470c1.png?x-oss-process=image/watermark%2ctype_d3F5LXplbmhlaQ%2cshadow_50%2ctext_Q1NETiBAU3R1X2FydA==%2csize_19%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16#pic_center, https://img-blog.csdnimg.cn/9811bdf1f2484e74b7fcde3db21470c1.png?x-oss-process=image/watermark%2ctype_d3F5LXplbmhlaQ%2cshadow_50%2ctext_Q1NETiBAU3R1X2FydA==%2csize_19%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16#pic_center 1.5x, https://img-blog.csdnimg.cn/9811bdf1f2484e74b7fcde3db21470c1.png?x-oss-process=image/watermark%2ctype_d3F5LXplbmhlaQ%2cshadow_50%2ctext_Q1NETiBAU3R1X2FydA==%2csize_19%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16#pic_center 2x"
+        data-sizes="auto"
+        alt="https://img-blog.csdnimg.cn/9811bdf1f2484e74b7fcde3db21470c1.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAU3R1X2FydA==,size_19,color_FFFFFF,t_70,g_se,x_16#pic_center"
+        title="在这里插入图片描述" /></p>
+</li>
+<li>
+<p>回滚的ID 填入倒数第二个ID， 说明回滚到倒数第二新的状态<br>
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://img-blog.csdnimg.cn/fe3c534bffc34375b92361c97fd35691.png#pic_center"
+        data-srcset="https://img-blog.csdnimg.cn/fe3c534bffc34375b92361c97fd35691.png#pic_center, https://img-blog.csdnimg.cn/fe3c534bffc34375b92361c97fd35691.png#pic_center 1.5x, https://img-blog.csdnimg.cn/fe3c534bffc34375b92361c97fd35691.png#pic_center 2x"
+        data-sizes="auto"
+        alt="https://img-blog.csdnimg.cn/fe3c534bffc34375b92361c97fd35691.png#pic_center"
+        title="在这里插入图片描述" /></p>
+</li>
+<li>
+<p>设置邮箱号 <code>git config --global user.email 785403310@qq.com</code></p>
+</li>
+<li>
+<p>设置名字 <code>git config --global user.name swagger </code></p>
+</li>
+<li>
+<p>然后发现log 信息中的commit 信息变成了自己<br>
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://img-blog.csdnimg.cn/6599f94ac84a4fd0a1957dc520abde5f.png#pic_center"
+        data-srcset="https://img-blog.csdnimg.cn/6599f94ac84a4fd0a1957dc520abde5f.png#pic_center, https://img-blog.csdnimg.cn/6599f94ac84a4fd0a1957dc520abde5f.png#pic_center 1.5x, https://img-blog.csdnimg.cn/6599f94ac84a4fd0a1957dc520abde5f.png#pic_center 2x"
+        data-sizes="auto"
+        alt="https://img-blog.csdnimg.cn/6599f94ac84a4fd0a1957dc520abde5f.png#pic_center"
+        title="在这里插入图片描述" /></p>
+</li>
+<li>
+<p>推送到github服务器 <code>git push</code><br>
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://img-blog.csdnimg.cn/a58b4a1272fb4bf0ad98a0994614367c.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAU3R1X2FydA==,size_20,color_FFFFFF,t_70,g_se,x_16#pic_center"
+        data-srcset="https://img-blog.csdnimg.cn/a58b4a1272fb4bf0ad98a0994614367c.png?x-oss-process=image/watermark%2ctype_d3F5LXplbmhlaQ%2cshadow_50%2ctext_Q1NETiBAU3R1X2FydA==%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16#pic_center, https://img-blog.csdnimg.cn/a58b4a1272fb4bf0ad98a0994614367c.png?x-oss-process=image/watermark%2ctype_d3F5LXplbmhlaQ%2cshadow_50%2ctext_Q1NETiBAU3R1X2FydA==%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16#pic_center 1.5x, https://img-blog.csdnimg.cn/a58b4a1272fb4bf0ad98a0994614367c.png?x-oss-process=image/watermark%2ctype_d3F5LXplbmhlaQ%2cshadow_50%2ctext_Q1NETiBAU3R1X2FydA==%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16#pic_center 2x"
+        data-sizes="auto"
+        alt="https://img-blog.csdnimg.cn/a58b4a1272fb4bf0ad98a0994614367c.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAU3R1X2FydA==,size_20,color_FFFFFF,t_70,g_se,x_16#pic_center"
+        title="在这里插入图片描述" /><br>
+推送之后发现本地创建的文件已经同步到了gitee上</p>
+</li>
+</ul>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2022-01-17</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/git_learning/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://swaggerwei.github.io/git_learning/" data-title="git 代码管理工具1" data-via="xxxx" data-hashtags="git,github,gitee"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://swaggerwei.github.io/git_learning/" data-hashtag="git"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 WhatsApp" data-sharer="whatsapp" data-url="https://swaggerwei.github.io/git_learning/" data-title="git 代码管理工具1" data-web><i class="fab fa-whatsapp fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://swaggerwei.github.io/git_learning/" data-title="git 代码管理工具1"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://swaggerwei.github.io/git_learning/" data-title="git 代码管理工具1"><i class="fab fa-weibo fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Myspace" data-sharer="myspace" data-url="https://swaggerwei.github.io/git_learning/" data-title="git 代码管理工具1" data-description=""><i data-svg-src="/lib/simple-icons/icons/myspace.min.svg"></i></a><a href="javascript:void(0);" title="分享到 Blogger" data-sharer="blogger" data-url="https://swaggerwei.github.io/git_learning/" data-title="git 代码管理工具1" data-description=""><i class="fab fa-blogger fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Evernote" data-sharer="evernote" data-url="https://swaggerwei.github.io/git_learning/" data-title="git 代码管理工具1"><i class="fab fa-evernote fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/git/">git</a>,&nbsp;<a href="/tags/github/">github</a>,&nbsp;<a href="/tags/gitee/">gitee</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/aruco_learning/" class="prev" rel="prev" title="Aruco配合realsense 使用"><i class="fas fa-angle-left fa-fw"></i>Aruco配合realsense 使用</a>
+            <a href="/git_learning2/" class="next" rel="next" title="git 代码管理工具2">git 代码管理工具2<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+<div id="comments"></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.90.1">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2019 - 2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">Boyan Wei</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript" src="/lib/cookieconsent/cookieconsent.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{},"cookieconsent":{"content":{"dismiss":"同意","link":"了解更多","message":"本网站使用 Cookies 来改善您的浏览体验."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

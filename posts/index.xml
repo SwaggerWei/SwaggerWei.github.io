@@ -11,6 +11,27 @@
     <guid>https://swaggerwei.github.io/first_post/</guid>
     <description><![CDATA[下载Hugo 使用 brew 来安装hugo brew install hugo 新建一个hugo 项目 hugo new site mysite hugo 项目文件结构介绍 content 博客内容 static 图片 theme 主题 主题的配置 主题下载 进入gohugo]]></description>
 </item><item>
+    <title>git 代码管理工具3</title>
+    <link>https://swaggerwei.github.io/git_learning3/</link>
+    <pubDate>Sun, 30 Jan 2022 19:37:01 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://swaggerwei.github.io/git_learning3/</guid>
+    <description><![CDATA[团队协作分支开发模式 一个好的 github 项目一般都有多个分支：master，dev，release分支 新建分支 branch git branch branch1 切换到目标分支 git checkout branch1 在本地的br]]></description>
+</item><item>
+    <title>git 代码管理工具2</title>
+    <link>https://swaggerwei.github.io/git_learning2/</link>
+    <pubDate>Thu, 27 Jan 2022 19:30:48 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://swaggerwei.github.io/git_learning2/</guid>
+    <description><![CDATA[如何解决冲突 模拟两个人同时修改一个文件并提交到远端 克隆到两个文件夹 me 和 other git clone git@gitee.com:swagger_wei/test_gitee_git.git me git clone git@gitee.com:swagger_wei/test_gitee_git.git other other 对first.txt 内容作出修改 推送到远端 此时另一]]></description>
+</item><item>
+    <title>git 代码管理工具1</title>
+    <link>https://swaggerwei.github.io/git_learning/</link>
+    <pubDate>Mon, 17 Jan 2022 19:22:26 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://swaggerwei.github.io/git_learning/</guid>
+    <description><![CDATA[应用场景 团队协作开发， 避免频繁来回拷贝代码 git 工作流程 克隆 Git 资源作为工作目录 在本地的工作副本上做修改操作 如果别人更改了资源可以更新资源 检查修改]]></description>
+</item><item>
     <title>Aruco配合realsense 使用</title>
     <link>https://swaggerwei.github.io/aruco_learning/</link>
     <pubDate>Sat, 20 Nov 2021 21:02:11 &#43;0800</pubDate>
@@ -52,12 +73,5 @@
     <author>作者</author>
     <guid>https://swaggerwei.github.io/ros_learning2/</guid>
     <description><![CDATA[ROS常用工具 仿真：Gazebo 调试、可视化：Rviz、rqt 命令行工具：rostopic、roslaunch、rosbag 专用工具：Mov]]></description>
-</item><item>
-    <title>1-ROS通信方式</title>
-    <link>https://swaggerwei.github.io/ros_learning1/</link>
-    <pubDate>Thu, 28 Oct 2021 14:51:56 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>https://swaggerwei.github.io/ros_learning1/</guid>
-    <description><![CDATA[通信方式 topic service parameter server actionlib topic 通信方式 异步通信方式 Node间通过publish-subscribe的方式进行通信 topic 发布节点只管发布， 接收节点只管接收 特]]></description>
 </item></channel>
 </rss>
