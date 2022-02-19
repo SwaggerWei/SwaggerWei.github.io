@@ -1,0 +1,14 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>m1 mac - 标签 - Boyan Wei</title>
+        <link>https://swaggerwei.github.io/tags/m1-mac/</link>
+        <description>m1 mac - 标签 - Boyan Wei</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Sat, 25 Sep 2021 19:53:40 &#43;0800</lastBuildDate><atom:link href="https://swaggerwei.github.io/tags/m1-mac/" rel="self" type="application/rss+xml" /><item>
+    <title>1-yoloV5 本地训练 - m1 Mac Air（仅仅是为了调通代码）</title>
+    <link>https://swaggerwei.github.io/yolov5_macair/</link>
+    <pubDate>Sat, 25 Sep 2021 19:53:40 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://swaggerwei.github.io/yolov5_macair/</guid>
+    <description><![CDATA[pycharm 文件目录展开折叠管理 打开已打开文件的目录 展开所有目录 折叠所有目录 number of workers 设置 此项为dataloader的载入数据的线程数量 初始运行的时候最好]]></description>
+</item></channel>
+</rss>

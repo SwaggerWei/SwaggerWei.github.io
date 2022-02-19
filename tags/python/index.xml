@@ -1,0 +1,28 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>python - 标签 - Boyan Wei</title>
+        <link>https://swaggerwei.github.io/tags/python/</link>
+        <description>python - 标签 - Boyan Wei</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Sun, 10 Oct 2021 20:13:16 &#43;0800</lastBuildDate><atom:link href="https://swaggerwei.github.io/tags/python/" rel="self" type="application/rss+xml" /><item>
+    <title>3-如何制作和训练自己的数据集（YoloV5）</title>
+    <link>https://swaggerwei.github.io/yolov5_owndatasettrain/</link>
+    <pubDate>Sun, 10 Oct 2021 20:13:16 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://swaggerwei.github.io/yolov5_owndatasettrain/</guid>
+    <description><![CDATA[标注方法 自己获取的数据集，人工进行标注（全人工） 自己获取的数据集，首先使用训练好的网络标注一遍，然后手动进行微调（半人工） 仿真数据集（GAN]]></description>
+</item><item>
+    <title>2-YoloV5 train.py 如何使用</title>
+    <link>https://swaggerwei.github.io/yolov5_train/</link>
+    <pubDate>Sat, 02 Oct 2021 20:06:37 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://swaggerwei.github.io/yolov5_train/</guid>
+    <description><![CDATA[parser 参数详解 --weights 初始化模型： 有yolov5m，yolov5s，yolov5x，yolov5l，如果为设置为空就是没有任何与训练模型 --config 训练配置文件]]></description>
+</item><item>
+    <title>1-yoloV5 本地训练 - m1 Mac Air（仅仅是为了调通代码）</title>
+    <link>https://swaggerwei.github.io/yolov5_macair/</link>
+    <pubDate>Sat, 25 Sep 2021 19:53:40 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://swaggerwei.github.io/yolov5_macair/</guid>
+    <description><![CDATA[pycharm 文件目录展开折叠管理 打开已打开文件的目录 展开所有目录 折叠所有目录 number of workers 设置 此项为dataloader的载入数据的线程数量 初始运行的时候最好]]></description>
+</item></channel>
+</rss>

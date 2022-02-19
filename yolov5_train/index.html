@@ -5,32 +5,32 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="robots" content="noodp" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
-        <title>1-ROS通信方式 - Boyan Wei</title><meta name="Description" content="这是我的全新 Hugo 网站"><meta property="og:title" content="1-ROS通信方式" />
-<meta property="og:description" content="通信方式 topic service parameter server actionlib topic 通信方式 异步通信方式 Node间通过publish-subscribe的方式进行通信 topic 发布节点只管发布， 接收节点只管接收 特" />
+        <title>2-YoloV5 train.py 如何使用 - Boyan Wei</title><meta name="Description" content="这是我的全新 Hugo 网站"><meta property="og:title" content="2-YoloV5 train.py 如何使用" />
+<meta property="og:description" content="parser 参数详解 --weights 初始化模型： 有yolov5m，yolov5s，yolov5x，yolov5l，如果为设置为空就是没有任何与训练模型 --config 训练配置文件" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://swaggerwei.github.io/ros_learning1/" /><meta property="og:image" content="https://swaggerwei.github.io/logo.png"/><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2021-10-28T14:51:56+08:00" />
-<meta property="article:modified_time" content="2021-10-28T14:51:56+08:00" />
+<meta property="og:url" content="https://swaggerwei.github.io/yolov5_train/" /><meta property="og:image" content="https://swaggerwei.github.io/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-10-02T20:06:37+08:00" />
+<meta property="article:modified_time" content="2021-10-02T20:06:37+08:00" />
 
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://swaggerwei.github.io/logo.png"/>
 
-<meta name="twitter:title" content="1-ROS通信方式"/>
-<meta name="twitter:description" content="通信方式 topic service parameter server actionlib topic 通信方式 异步通信方式 Node间通过publish-subscribe的方式进行通信 topic 发布节点只管发布， 接收节点只管接收 特"/>
+<meta name="twitter:title" content="2-YoloV5 train.py 如何使用"/>
+<meta name="twitter:description" content="parser 参数详解 --weights 初始化模型： 有yolov5m，yolov5s，yolov5x，yolov5l，如果为设置为空就是没有任何与训练模型 --config 训练配置文件"/>
 <meta name="application-name" content="LoveIt">
 <meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://swaggerwei.github.io/ros_learning1/" /><link rel="prev" href="https://swaggerwei.github.io/yolov5_owndatasettrain/" /><link rel="next" href="https://swaggerwei.github.io/ros_learning2/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://swaggerwei.github.io/yolov5_train/" /><link rel="prev" href="https://swaggerwei.github.io/yolov5_macair/" /><link rel="next" href="https://swaggerwei.github.io/yolov5_owndatasettrain/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
     {
         "@context": "http://schema.org",
         "@type": "BlogPosting",
-        "headline": "1-ROS通信方式",
+        "headline": "2-YoloV5 train.py 如何使用",
         "inLanguage": "zh-CN",
         "mainEntityOfPage": {
             "@type": "WebPage",
-            "@id": "https:\/\/swaggerwei.github.io\/ros_learning1\/"
-        },"genre": "posts","keywords": "ROS","wordcount":  241 ,
-        "url": "https:\/\/swaggerwei.github.io\/ros_learning1\/","datePublished": "2021-10-28T14:51:56+08:00","dateModified": "2021-10-28T14:51:56+08:00","publisher": {
+            "@id": "https:\/\/swaggerwei.github.io\/yolov5_train\/"
+        },"genre": "posts","keywords": "yoloV5, python, pytorch","wordcount":  640 ,
+        "url": "https:\/\/swaggerwei.github.io\/yolov5_train\/","datePublished": "2021-10-02T20:06:37+08:00","dateModified": "2021-10-02T20:06:37+08:00","publisher": {
             "@type": "Organization",
             "name": ""},"author": {
                 "@type": "Person",
@@ -104,10 +104,10 @@
                 <div class="container"><div class="toc" id="toc-auto">
             <h2 class="toc-title">目录</h2>
             <div class="toc-content" id="toc-content-auto"></div>
-        </div><article class="page single"><h1 class="single-title animated flipInX">1-ROS通信方式</h1><div class="post-meta">
-            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>Boyan Wei</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/ros-%E5%AD%A6%E4%B9%A0/"><i class="far fa-folder fa-fw"></i>ROS 学习</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-10-28">2021-10-28</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 241 字&nbsp;
-                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 1 分钟&nbsp;</div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">2-YoloV5 train.py 如何使用</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>Boyan Wei</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/yolov5/"><i class="far fa-folder fa-fw"></i>yoloV5</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-10-02">2021-10-02</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 640 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 2 分钟&nbsp;</div>
         </div><div class="details toc" id="toc-static"  kept="true">
                 <div class="details-summary toc-title">
                     <span>目录</span>
@@ -115,146 +115,78 @@
                 </div>
                 <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
   <ul>
-    <li><a href="#通信方式">通信方式</a></li>
-    <li><a href="#topic-通信方式">topic 通信方式</a></li>
-    <li><a href="#message">Message</a></li>
-    <li><a href="#topic-相关命令">topic 相关命令</a></li>
+    <li><a href="#parser-参数详解">parser 参数详解</a></li>
   </ul>
 </nav></div>
-            </div><div class="content" id="content"><h2 id="通信方式">通信方式</h2>
+            </div><div class="content" id="content"><h2 id="parser-参数详解">parser 参数详解</h2>
 <ul>
-<li>topic</li>
-<li>service</li>
-<li>parameter server</li>
-<li>actionlib</li>
-</ul>
-<h2 id="topic-通信方式">topic 通信方式</h2>
-<p><em>异步通信方式</em></p>
-<ul>
-<li>Node间通过publish-subscribe的方式进行通信
+<li><code>--weights</code> 初始化模型： 有yolov5m，yolov5s，yolov5x，yolov5l，如果为设置为空就是没有任何与训练模型</li>
+<li><code>--config</code> 训练配置文件：.yaml 文件，与预训练模型相对应。</li>
+<li><code>--data</code> 所使用的数据集的配置文件：.yaml 文件，训练自己的数据集是也需要编辑相应的yaml文件</li>
+<li><code>--hyp</code> 超参数配置文件： 学习率等</li>
+<li><code>--epoch</code> 训练轮数</li>
+<li><code>--batch-size</code> batchsize 大小</li>
+<li><code>--img-size</code> 图片大小</li>
+<li><code>--rect</code> padding之后会有灰色区域的冗余信息，此参数设置为真，可以去除冗余信息</li>
+<li><code>--resume</code> 从之前训练的节点开始训练（已经训练的网络在<code>runs/train/exp</code>文件夹下的pt文件）<br>
 <img
         class="lazyload"
         src="/svg/loading.min.svg"
-        data-src="/images_ros/pic1.png"
-        data-srcset="/images_ros/pic1.png, /images_ros/pic1.png 1.5x, /images_ros/pic1.png 2x"
+        data-src="https://img-blog.csdnimg.cn/dcee9c3cc42d4c37a161bea23a30660c.png#pic_center"
+        data-srcset="https://img-blog.csdnimg.cn/dcee9c3cc42d4c37a161bea23a30660c.png#pic_center, https://img-blog.csdnimg.cn/dcee9c3cc42d4c37a161bea23a30660c.png#pic_center 1.5x, https://img-blog.csdnimg.cn/dcee9c3cc42d4c37a161bea23a30660c.png#pic_center 2x"
         data-sizes="auto"
-        alt="/images_ros/pic1.png"
-        title="avatar" /></li>
-<li>topic 发布节点只管发布， 接收节点只管接收</li>
+        alt="https://img-blog.csdnimg.cn/dcee9c3cc42d4c37a161bea23a30660c.png#pic_center"
+        title="在这里插入图片描述" /><br>
+发现从此pt权重文件开始继续训练</li>
+<li><code>--nosave</code> 是否只保留最后一个epoch的权重文件</li>
+<li><code>--notest</code> 是否只测试最后一个epoch</li>
+<li><code>--noautoanchor</code>  （目标检测算法中是否使用锚点、锚框）关闭autoanchor</li>
+<li><code>--evolve</code> 进化超参数（寻找最优参数的一种方式）</li>
+<li><code>--bucket</code> 没有必要</li>
+<li><code>--cache-images</code> 缓存图片以备更快的训练</li>
+<li><code>--image-weights</code> 上一轮中训练情况不好的图片，在下一轮中加一些相关的权重</li>
+<li><code>--device</code> 训练设备选择 选择cpu或者gpu</li>
+<li><code>--multi-scale</code> 对图片的尺寸进行变化</li>
+<li><code>--single-cls</code> 训练的数据集是但类别还是多类别</li>
+<li><code>--adam</code> 优化方法使用adam 优化法</li>
+<li><code>--sync-bn</code> DDP参数</li>
+<li><code>--local_rank</code> DDP参数</li>
+<li><code>--workers</code> 最好设置成0，不然很容易出错</li>
+<li><code>--poject</code> 项目存储位置</li>
+<li><code>--entity</code>  W&amp;B 训练可视化的库是否启用</li>
+<li><code>--name</code>  训练结果保存名字</li>
+<li><code>--quad</code> 开启之后在尺寸大于640的图像上识别效果更好，但是有可能会使在640尺寸的图片上效果更差</li>
+<li><code>--Linear-lr</code> 学习速率的变化，如果开启就使用线性的方式进行变化，不开启就使用余弦退火的方式变化</li>
+<li><code>--label-smoothing</code>  防止在分了算法中出现过拟合的情况发生</li>
+<li><code>--save_log</code>  每隔多少个epoch，在tensorboard 中打一个标签</li>
 </ul>
-<p><em>特点</em></p>
-<ul>
-<li>异步通信方式</li>
-<li>对于同一个topic可以有多个发送者（例如tf，和rosout），也可以有多个接收者</li>
-</ul>
-<h2 id="message">Message</h2>
-<ul>
-<li>topic 内容的数据类型&mdash;》类</li>
-<li>定义在.msg文件当中</li>
-</ul>
-<p>包括的类型
-<img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="/images_ros/pic2.png"
-        data-srcset="/images_ros/pic2.png, /images_ros/pic2.png 1.5x, /images_ros/pic2.png 2x"
-        data-sizes="auto"
-        alt="/images_ros/pic2.png"
-        title="avatar" /></p>
-<h2 id="topic-相关命令">topic 相关命令</h2>
-<ul>
-<li>列出所有的topic</li>
-</ul>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">rostopic list
-</code></pre></td></tr></table>
-</div>
-</div><ul>
-<li>显示某个topic的属性信息</li>
-</ul>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">rostopic info /topic_name
-</code></pre></td></tr></table>
-</div>
-</div><ul>
-<li>topic内容</li>
-</ul>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">rostopic <span class="nb">echo</span> /topic_name
-</code></pre></td></tr></table>
-</div>
-</div><ul>
-<li>向某个topic发布内容</li>
-</ul>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">rostopic pub /topic_name ...
-</code></pre></td></tr></table>
-</div>
-</div><ul>
-<li>列出所有msg</li>
-</ul>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">rosmsg list
-</code></pre></td></tr></table>
-</div>
-</div><ul>
-<li>显示某个msg 的内容</li>
-</ul>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">rosmsg show /msg_name
-</code></pre></td></tr></table>
-</div>
-</div></div><div class="post-footer" id="post-footer">
+</div><div class="post-footer" id="post-footer">
     <div class="post-info">
         <div class="post-info-line">
             <div class="post-info-mod">
-                <span>更新于 2021-10-28</span>
+                <span>更新于 2021-10-02</span>
             </div>
             <div class="post-info-license"></div>
         </div>
         <div class="post-info-line">
             <div class="post-info-md"><span>
-                            <a class="link-to-markdown" href="/ros_learning1/index.md" target="_blank">阅读原始文档</a>
+                            <a class="link-to-markdown" href="/yolov5_train/index.md" target="_blank">阅读原始文档</a>
                         </span></div>
             <div class="post-info-share">
-                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://swaggerwei.github.io/ros_learning1/" data-title="1-ROS通信方式" data-via="xxxx" data-hashtags="ROS"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://swaggerwei.github.io/ros_learning1/" data-hashtag="ROS"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 WhatsApp" data-sharer="whatsapp" data-url="https://swaggerwei.github.io/ros_learning1/" data-title="1-ROS通信方式" data-web><i class="fab fa-whatsapp fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://swaggerwei.github.io/ros_learning1/" data-title="1-ROS通信方式"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://swaggerwei.github.io/ros_learning1/" data-title="1-ROS通信方式"><i class="fab fa-weibo fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Myspace" data-sharer="myspace" data-url="https://swaggerwei.github.io/ros_learning1/" data-title="1-ROS通信方式" data-description=""><i data-svg-src="/lib/simple-icons/icons/myspace.min.svg"></i></a><a href="javascript:void(0);" title="分享到 Blogger" data-sharer="blogger" data-url="https://swaggerwei.github.io/ros_learning1/" data-title="1-ROS通信方式" data-description=""><i class="fab fa-blogger fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Evernote" data-sharer="evernote" data-url="https://swaggerwei.github.io/ros_learning1/" data-title="1-ROS通信方式"><i class="fab fa-evernote fa-fw"></i></a></span>
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://swaggerwei.github.io/yolov5_train/" data-title="2-YoloV5 train.py 如何使用" data-via="xxxx" data-hashtags="yoloV5,python,pytorch"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://swaggerwei.github.io/yolov5_train/" data-hashtag="yoloV5"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 WhatsApp" data-sharer="whatsapp" data-url="https://swaggerwei.github.io/yolov5_train/" data-title="2-YoloV5 train.py 如何使用" data-web><i class="fab fa-whatsapp fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://swaggerwei.github.io/yolov5_train/" data-title="2-YoloV5 train.py 如何使用"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://swaggerwei.github.io/yolov5_train/" data-title="2-YoloV5 train.py 如何使用"><i class="fab fa-weibo fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Myspace" data-sharer="myspace" data-url="https://swaggerwei.github.io/yolov5_train/" data-title="2-YoloV5 train.py 如何使用" data-description=""><i data-svg-src="/lib/simple-icons/icons/myspace.min.svg"></i></a><a href="javascript:void(0);" title="分享到 Blogger" data-sharer="blogger" data-url="https://swaggerwei.github.io/yolov5_train/" data-title="2-YoloV5 train.py 如何使用" data-description=""><i class="fab fa-blogger fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Evernote" data-sharer="evernote" data-url="https://swaggerwei.github.io/yolov5_train/" data-title="2-YoloV5 train.py 如何使用"><i class="fab fa-evernote fa-fw"></i></a></span>
             </div>
         </div>
     </div>
 
     <div class="post-info-more">
-        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/ros/">ROS</a></section>
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/yolov5/">yoloV5</a>,&nbsp;<a href="/tags/python/">python</a>,&nbsp;<a href="/tags/pytorch/">pytorch</a></section>
         <section>
             <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
         </section>
     </div>
 
-    <div class="post-nav"><a href="/yolov5_owndatasettrain/" class="prev" rel="prev" title="3-如何制作和训练自己的数据集（YoloV5）"><i class="fas fa-angle-left fa-fw"></i>3-如何制作和训练自己的数据集（YoloV5）</a>
-            <a href="/ros_learning2/" class="next" rel="next" title="2-ROS常用工具">2-ROS常用工具<i class="fas fa-angle-right fa-fw"></i></a></div>
+    <div class="post-nav"><a href="/yolov5_macair/" class="prev" rel="prev" title="1-yoloV5 本地训练 - m1 Mac Air（仅仅是为了调通代码）"><i class="fas fa-angle-left fa-fw"></i>1-yoloV5 本地训练 - m1 Mac Air（仅仅是为了调通代码）</a>
+            <a href="/yolov5_owndatasettrain/" class="next" rel="next" title="3-如何制作和训练自己的数据集（YoloV5）">3-如何制作和训练自己的数据集（YoloV5）<i class="fas fa-angle-right fa-fw"></i></a></div>
 </div>
 <div id="comments"></div></article></div>
             </main><footer class="footer">

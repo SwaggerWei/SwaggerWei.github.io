@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>1-yoloV5 本地训练 - m1 Mac Air（仅仅是为了调通代码） - Boyan Wei</title><meta name="Description" content="这是我的全新 Hugo 网站"><meta property="og:title" content="1-yoloV5 本地训练 - m1 Mac Air（仅仅是为了调通代码）" />
+<meta property="og:description" content="pycharm 文件目录展开折叠管理 打开已打开文件的目录 展开所有目录 折叠所有目录 number of workers 设置 此项为dataloader的载入数据的线程数量 初始运行的时候最好" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://swaggerwei.github.io/yolov5_macair/" /><meta property="og:image" content="https://swaggerwei.github.io/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-09-25T19:53:40+08:00" />
+<meta property="article:modified_time" content="2021-09-25T19:53:40+08:00" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://swaggerwei.github.io/logo.png"/>
+
+<meta name="twitter:title" content="1-yoloV5 本地训练 - m1 Mac Air（仅仅是为了调通代码）"/>
+<meta name="twitter:description" content="pycharm 文件目录展开折叠管理 打开已打开文件的目录 展开所有目录 折叠所有目录 number of workers 设置 此项为dataloader的载入数据的线程数量 初始运行的时候最好"/>
+<meta name="application-name" content="LoveIt">
+<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://swaggerwei.github.io/yolov5_macair/" /><link rel="next" href="https://swaggerwei.github.io/yolov5_train/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "1-yoloV5 本地训练 - m1 Mac Air（仅仅是为了调通代码）",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/swaggerwei.github.io\/yolov5_macair\/"
+        },"genre": "posts","keywords": "m1 mac, yoloV5, python, pytorch","wordcount":  219 ,
+        "url": "https:\/\/swaggerwei.github.io\/yolov5_macair\/","datePublished": "2021-09-25T19:53:40+08:00","dateModified": "2021-09-25T19:53:40+08:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "Boyan Wei"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Boyan Wei"></a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Boyan Wei"></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">1-yoloV5 本地训练 - m1 Mac Air（仅仅是为了调通代码）</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>Boyan Wei</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/yolov5/"><i class="far fa-folder fa-fw"></i>yoloV5</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-09-25">2021-09-25</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 219 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 1 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="true">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#pycharm-文件目录展开折叠管理">pycharm 文件目录展开折叠管理</a></li>
+    <li><a href="#number-of-workers-设置">number of workers 设置</a></li>
+    <li><a href="#导入nnpack-错误m1-mac-硬件不支持">导入nnpack 错误，m1 Mac 硬件不支持</a></li>
+    <li><a href="#缺失coco-数据集错误">缺失coco 数据集错误</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h2 id="pycharm-文件目录展开折叠管理">pycharm 文件目录展开折叠管理</h2>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://img-blog.csdnimg.cn/ca680f32a3bb4578be6699efeef44aa8.png#pic_center"
+        data-srcset="https://img-blog.csdnimg.cn/ca680f32a3bb4578be6699efeef44aa8.png#pic_center, https://img-blog.csdnimg.cn/ca680f32a3bb4578be6699efeef44aa8.png#pic_center 1.5x, https://img-blog.csdnimg.cn/ca680f32a3bb4578be6699efeef44aa8.png#pic_center 2x"
+        data-sizes="auto"
+        alt="https://img-blog.csdnimg.cn/ca680f32a3bb4578be6699efeef44aa8.png#pic_center"
+        title="在这里插入图片描述" /></p>
+<ul>
+<li>打开已打开文件的目录</li>
+<li>展开所有目录</li>
+<li>折叠所有目录</li>
+</ul>
+<h2 id="number-of-workers-设置">number of workers 设置</h2>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://img-blog.csdnimg.cn/7a019e3405a745f68b0884ccfa380f5a.png#pic_center"
+        data-srcset="https://img-blog.csdnimg.cn/7a019e3405a745f68b0884ccfa380f5a.png#pic_center, https://img-blog.csdnimg.cn/7a019e3405a745f68b0884ccfa380f5a.png#pic_center 1.5x, https://img-blog.csdnimg.cn/7a019e3405a745f68b0884ccfa380f5a.png#pic_center 2x"
+        data-sizes="auto"
+        alt="https://img-blog.csdnimg.cn/7a019e3405a745f68b0884ccfa380f5a.png#pic_center"
+        title="在这里插入图片描述" /></p>
+<ul>
+<li><strong>此项为dataloader的载入数据的线程数量</strong></li>
+<li>初始运行的时候最好设置成0，由于不同机器的性能不同，数目大了很容易出问题</li>
+</ul>
+<h2 id="导入nnpack-错误m1-mac-硬件不支持">导入nnpack 错误，m1 Mac 硬件不支持</h2>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://img-blog.csdnimg.cn/8472eb000e6e4ebfac2b8f9cb0c5c3c4.png#pic_center"
+        data-srcset="https://img-blog.csdnimg.cn/8472eb000e6e4ebfac2b8f9cb0c5c3c4.png#pic_center, https://img-blog.csdnimg.cn/8472eb000e6e4ebfac2b8f9cb0c5c3c4.png#pic_center 1.5x, https://img-blog.csdnimg.cn/8472eb000e6e4ebfac2b8f9cb0c5c3c4.png#pic_center 2x"
+        data-sizes="auto"
+        alt="https://img-blog.csdnimg.cn/8472eb000e6e4ebfac2b8f9cb0c5c3c4.png#pic_center"
+        title="在这里插入图片描述" /></p>
+<ul>
+<li>在运行detect.py文件时同样报错，应该没有影响</li>
+</ul>
+<h2 id="缺失coco-数据集错误">缺失coco 数据集错误</h2>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://img-blog.csdnimg.cn/451f6d352d43408a83bf56ffafe6013c.png#pic_center"
+        data-srcset="https://img-blog.csdnimg.cn/451f6d352d43408a83bf56ffafe6013c.png#pic_center, https://img-blog.csdnimg.cn/451f6d352d43408a83bf56ffafe6013c.png#pic_center 1.5x, https://img-blog.csdnimg.cn/451f6d352d43408a83bf56ffafe6013c.png#pic_center 2x"
+        data-sizes="auto"
+        alt="https://img-blog.csdnimg.cn/451f6d352d43408a83bf56ffafe6013c.png#pic_center"
+        title="在这里插入图片描述" /></p>
+<ul>
+<li>
+<p>本地缺失coco128数据集 但是联网之后无法在该网址下载coco128 所有复制链接手动下载</p>
+</li>
+<li>
+<p>最后复制到指定文件夹 完成后问题解决 开始训练
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://img-blog.csdnimg.cn/0906296b18a7423396ee2d2d0116f01f.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAU3R1X2FydA==,size_20,color_FFFFFF,t_70,g_se,x_16#pic_center"
+        data-srcset="https://img-blog.csdnimg.cn/0906296b18a7423396ee2d2d0116f01f.png?x-oss-process=image/watermark%2ctype_ZHJvaWRzYW5zZmFsbGJhY2s%2cshadow_50%2ctext_Q1NETiBAU3R1X2FydA==%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16#pic_center, https://img-blog.csdnimg.cn/0906296b18a7423396ee2d2d0116f01f.png?x-oss-process=image/watermark%2ctype_ZHJvaWRzYW5zZmFsbGJhY2s%2cshadow_50%2ctext_Q1NETiBAU3R1X2FydA==%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16#pic_center 1.5x, https://img-blog.csdnimg.cn/0906296b18a7423396ee2d2d0116f01f.png?x-oss-process=image/watermark%2ctype_ZHJvaWRzYW5zZmFsbGJhY2s%2cshadow_50%2ctext_Q1NETiBAU3R1X2FydA==%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16#pic_center 2x"
+        data-sizes="auto"
+        alt="https://img-blog.csdnimg.cn/0906296b18a7423396ee2d2d0116f01f.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAU3R1X2FydA==,size_20,color_FFFFFF,t_70,g_se,x_16#pic_center"
+        title="在这里插入图片描述" /></p>
+</li>
+</ul>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2021-09-25</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/yolov5_macair/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://swaggerwei.github.io/yolov5_macair/" data-title="1-yoloV5 本地训练 - m1 Mac Air（仅仅是为了调通代码）" data-via="xxxx" data-hashtags="m1 mac,yoloV5,python,pytorch"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://swaggerwei.github.io/yolov5_macair/" data-hashtag="m1 mac"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 WhatsApp" data-sharer="whatsapp" data-url="https://swaggerwei.github.io/yolov5_macair/" data-title="1-yoloV5 本地训练 - m1 Mac Air（仅仅是为了调通代码）" data-web><i class="fab fa-whatsapp fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://swaggerwei.github.io/yolov5_macair/" data-title="1-yoloV5 本地训练 - m1 Mac Air（仅仅是为了调通代码）"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://swaggerwei.github.io/yolov5_macair/" data-title="1-yoloV5 本地训练 - m1 Mac Air（仅仅是为了调通代码）"><i class="fab fa-weibo fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Myspace" data-sharer="myspace" data-url="https://swaggerwei.github.io/yolov5_macair/" data-title="1-yoloV5 本地训练 - m1 Mac Air（仅仅是为了调通代码）" data-description=""><i data-svg-src="/lib/simple-icons/icons/myspace.min.svg"></i></a><a href="javascript:void(0);" title="分享到 Blogger" data-sharer="blogger" data-url="https://swaggerwei.github.io/yolov5_macair/" data-title="1-yoloV5 本地训练 - m1 Mac Air（仅仅是为了调通代码）" data-description=""><i class="fab fa-blogger fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Evernote" data-sharer="evernote" data-url="https://swaggerwei.github.io/yolov5_macair/" data-title="1-yoloV5 本地训练 - m1 Mac Air（仅仅是为了调通代码）"><i class="fab fa-evernote fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/m1-mac/">m1 mac</a>,&nbsp;<a href="/tags/yolov5/">yoloV5</a>,&nbsp;<a href="/tags/python/">python</a>,&nbsp;<a href="/tags/pytorch/">pytorch</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav">
+            <a href="/yolov5_train/" class="next" rel="next" title="2-YoloV5 train.py 如何使用">2-YoloV5 train.py 如何使用<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+<div id="comments"></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.90.1">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2019 - 2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">Boyan Wei</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript" src="/lib/cookieconsent/cookieconsent.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{},"cookieconsent":{"content":{"dismiss":"同意","link":"了解更多","message":"本网站使用 Cookies 来改善您的浏览体验."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>
