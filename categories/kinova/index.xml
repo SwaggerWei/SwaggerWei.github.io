@@ -1,0 +1,35 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>kinova - 分类 - Boyan Wei</title>
+        <link>https://swaggerwei.github.io/categories/kinova/</link>
+        <description>kinova - 分类 - Boyan Wei</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Thu, 14 Oct 2021 21:29:39 &#43;0800</lastBuildDate><atom:link href="https://swaggerwei.github.io/categories/kinova/" rel="self" type="application/rss+xml" /><item>
+    <title>4-Kinova_ros 配置文档</title>
+    <link>https://swaggerwei.github.io/kinova_ros/</link>
+    <pubDate>Thu, 14 Oct 2021 21:29:39 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://swaggerwei.github.io/kinova_ros/</guid>
+    <description><![CDATA[我的环境 ubuntu 16.04 64bits ROS Kinetic Kinova SDK 下载 进入kinova官网 kinovarobotics.com 找到右上角resource， 根据自己kinova机械臂的名称找到对应的资源库，我的是Gen2]]></description>
+</item><item>
+    <title>3-kinova jaco2 7dof 机械臂基础控制</title>
+    <link>https://swaggerwei.github.io/kinova_jaco2_7dof/</link>
+    <pubDate>Thu, 14 Oct 2021 21:26:51 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://swaggerwei.github.io/kinova_jaco2_7dof/</guid>
+    <description><![CDATA[机器人唤醒 TIPS： 注意ROS节点和Development Center不能一起打开 source 1 source devel/setup.bash bringup机械臂 1 roslaunch kinova_bringup kinova_robot.launch kinova_robotType:=j2n7s300 cartesian 控制模式 重新起一个]]></description>
+</item><item>
+    <title>2-kinova-gen2 使用学习</title>
+    <link>https://swaggerwei.github.io/kinova_gen2learning2/</link>
+    <pubDate>Tue, 28 Sep 2021 21:23:24 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://swaggerwei.github.io/kinova_gen2learning2/</guid>
+    <description><![CDATA[安全使用 不要进行剪裁操作，尖锐物体可能会上伤到手臂 关闭的时候会泄力，注意提前用手拖着 关节移动的时候不要限位 部件 手臂主体部件 背面接口部件 USB]]></description>
+</item><item>
+    <title>1-Kinova MOVO 手动启动操作</title>
+    <link>https://swaggerwei.github.io/kinova_launch1/</link>
+    <pubDate>Tue, 14 Sep 2021 21:15:20 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://swaggerwei.github.io/kinova_launch1/</guid>
+    <description><![CDATA[注：此方法适用于系统不能通过自检，并自动启动的情况 手动启动bash 1 roslaunch movo_bringup movo_system.launch 运行tractor_node脚本，解决MOVO底盘问题 1 ./tractor_node 直连MO]]></description>
+</item></channel>
+</rss>

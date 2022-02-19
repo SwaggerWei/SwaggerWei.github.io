@@ -5,32 +5,32 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="robots" content="noodp" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
-        <title>1-ROS通信方式 - Boyan Wei</title><meta name="Description" content="这是我的全新 Hugo 网站"><meta property="og:title" content="1-ROS通信方式" />
-<meta property="og:description" content="通信方式 topic service parameter server actionlib topic 通信方式 异步通信方式 Node间通过publish-subscribe的方式进行通信 topic 发布节点只管发布， 接收节点只管接收 特" />
+        <title>3-kinova jaco2 7dof 机械臂基础控制 - Boyan Wei</title><meta name="Description" content="这是我的全新 Hugo 网站"><meta property="og:title" content="3-kinova jaco2 7dof 机械臂基础控制" />
+<meta property="og:description" content="机器人唤醒 TIPS： 注意ROS节点和Development Center不能一起打开 source 1 source devel/setup.bash bringup机械臂 1 roslaunch kinova_bringup kinova_robot.launch kinova_robotType:=j2n7s300 cartesian 控制模式 重新起一个" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://swaggerwei.github.io/ros_learning1/" /><meta property="og:image" content="https://swaggerwei.github.io/logo.png"/><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2021-10-28T14:51:56+08:00" />
-<meta property="article:modified_time" content="2021-10-28T14:51:56+08:00" />
+<meta property="og:url" content="https://swaggerwei.github.io/kinova_jaco2_7dof/" /><meta property="og:image" content="https://swaggerwei.github.io/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-10-14T21:26:51+08:00" />
+<meta property="article:modified_time" content="2021-10-14T21:26:51+08:00" />
 
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://swaggerwei.github.io/logo.png"/>
 
-<meta name="twitter:title" content="1-ROS通信方式"/>
-<meta name="twitter:description" content="通信方式 topic service parameter server actionlib topic 通信方式 异步通信方式 Node间通过publish-subscribe的方式进行通信 topic 发布节点只管发布， 接收节点只管接收 特"/>
+<meta name="twitter:title" content="3-kinova jaco2 7dof 机械臂基础控制"/>
+<meta name="twitter:description" content="机器人唤醒 TIPS： 注意ROS节点和Development Center不能一起打开 source 1 source devel/setup.bash bringup机械臂 1 roslaunch kinova_bringup kinova_robot.launch kinova_robotType:=j2n7s300 cartesian 控制模式 重新起一个"/>
 <meta name="application-name" content="LoveIt">
 <meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://swaggerwei.github.io/ros_learning1/" /><link rel="prev" href="https://swaggerwei.github.io/kinova_ros/" /><link rel="next" href="https://swaggerwei.github.io/ros_learning2/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://swaggerwei.github.io/kinova_jaco2_7dof/" /><link rel="prev" href="https://swaggerwei.github.io/yolov5_owndatasettrain/" /><link rel="next" href="https://swaggerwei.github.io/kinova_ros/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
     {
         "@context": "http://schema.org",
         "@type": "BlogPosting",
-        "headline": "1-ROS通信方式",
+        "headline": "3-kinova jaco2 7dof 机械臂基础控制",
         "inLanguage": "zh-CN",
         "mainEntityOfPage": {
             "@type": "WebPage",
-            "@id": "https:\/\/swaggerwei.github.io\/ros_learning1\/"
-        },"genre": "posts","keywords": "ROS","wordcount":  241 ,
-        "url": "https:\/\/swaggerwei.github.io\/ros_learning1\/","datePublished": "2021-10-28T14:51:56+08:00","dateModified": "2021-10-28T14:51:56+08:00","publisher": {
+            "@id": "https:\/\/swaggerwei.github.io\/kinova_jaco2_7dof\/"
+        },"genre": "posts","keywords": "ROS, kinova","wordcount":  356 ,
+        "url": "https:\/\/swaggerwei.github.io\/kinova_jaco2_7dof\/","datePublished": "2021-10-14T21:26:51+08:00","dateModified": "2021-10-14T21:26:51+08:00","publisher": {
             "@type": "Organization",
             "name": ""},"author": {
                 "@type": "Person",
@@ -104,9 +104,9 @@
                 <div class="container"><div class="toc" id="toc-auto">
             <h2 class="toc-title">目录</h2>
             <div class="toc-content" id="toc-content-auto"></div>
-        </div><article class="page single"><h1 class="single-title animated flipInX">1-ROS通信方式</h1><div class="post-meta">
-            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>Boyan Wei</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/ros-%E5%AD%A6%E4%B9%A0/"><i class="far fa-folder fa-fw"></i>ROS 学习</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-10-28">2021-10-28</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 241 字&nbsp;
+        </div><article class="page single"><h1 class="single-title animated flipInX">3-kinova jaco2 7dof 机械臂基础控制</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>Boyan Wei</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/kinova/"><i class="far fa-folder fa-fw"></i>kinova</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-10-14">2021-10-14</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 356 字&nbsp;
                 <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 1 分钟&nbsp;</div>
         </div><div class="details toc" id="toc-static"  kept="true">
                 <div class="details-summary toc-title">
@@ -115,146 +115,135 @@
                 </div>
                 <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
   <ul>
-    <li><a href="#通信方式">通信方式</a></li>
-    <li><a href="#topic-通信方式">topic 通信方式</a></li>
-    <li><a href="#message">Message</a></li>
-    <li><a href="#topic-相关命令">topic 相关命令</a></li>
+    <li><a href="#机器人唤醒">机器人唤醒</a></li>
+    <li><a href="#cartesian-控制模式">cartesian 控制模式</a></li>
+    <li><a href="#手指控制">手指控制</a></li>
   </ul>
 </nav></div>
-            </div><div class="content" id="content"><h2 id="通信方式">通信方式</h2>
+            </div><div class="content" id="content"><h2 id="机器人唤醒">机器人唤醒</h2>
+<p><em>TIPS： 注意ROS节点和Development Center不能一起打开</em></p>
 <ul>
-<li>topic</li>
-<li>service</li>
-<li>parameter server</li>
-<li>actionlib</li>
-</ul>
-<h2 id="topic-通信方式">topic 通信方式</h2>
-<p><em>异步通信方式</em></p>
-<ul>
-<li>Node间通过publish-subscribe的方式进行通信
-<img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="/images_ros/pic1.png"
-        data-srcset="/images_ros/pic1.png, /images_ros/pic1.png 1.5x, /images_ros/pic1.png 2x"
-        data-sizes="auto"
-        alt="/images_ros/pic1.png"
-        title="avatar" /></li>
-<li>topic 发布节点只管发布， 接收节点只管接收</li>
-</ul>
-<p><em>特点</em></p>
-<ul>
-<li>异步通信方式</li>
-<li>对于同一个topic可以有多个发送者（例如tf，和rosout），也可以有多个接收者</li>
-</ul>
-<h2 id="message">Message</h2>
-<ul>
-<li>topic 内容的数据类型&mdash;》类</li>
-<li>定义在.msg文件当中</li>
-</ul>
-<p>包括的类型
-<img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="/images_ros/pic2.png"
-        data-srcset="/images_ros/pic2.png, /images_ros/pic2.png 1.5x, /images_ros/pic2.png 2x"
-        data-sizes="auto"
-        alt="/images_ros/pic2.png"
-        title="avatar" /></p>
-<h2 id="topic-相关命令">topic 相关命令</h2>
-<ul>
-<li>列出所有的topic</li>
+<li>source</li>
 </ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">rostopic list
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="nb">source</span> devel/setup.bash
 </code></pre></td></tr></table>
 </div>
 </div><ul>
-<li>显示某个topic的属性信息</li>
+<li>bringup机械臂</li>
 </ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">rostopic info /topic_name
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">roslaunch kinova_bringup kinova_robot.launch kinova_robotType:<span class="o">=</span>j2n7s300
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="cartesian-控制模式">cartesian 控制模式</h2>
+<ul>
+<li>重新起一个终端</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="nb">cd</span> ~/catkin_ws
+<span class="nb">source</span> devel/setup.bash
 </code></pre></td></tr></table>
 </div>
 </div><ul>
-<li>topic内容</li>
+<li>运行pose_action_client.py 文件<br>
+<strong>tips： pose参数解释，机器人方向看手</strong></li>
+</ul>
+<p><em>a.非相对（指定6D位置）移动， 不带-r参数</em></p>
+<ul>
+<li>（小）左（大）右</li>
+<li>（小）高（大）低</li>
+<li>（大）前（小）后</li>
 </ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">rostopic <span class="nb">echo</span> /topic_name
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">rosrun kinova_demo pose_action_client.py -v j2n7s300 mdeg -- -0.193846275806 -0.265829235315 0.505497992039 94.2 -43.2 -167.1
+rosrun kinova_demo pose_action_client.py -v j2n7s300 mdeg -- -0.193846275806 -0.265829235315 0.705497992039 94.2 -43.2 -167.1
+rosrun kinova_demo pose_action_client.py -v j2n7s300 mdeg -- -0.193846275806 -0.465829235315 0.505497992039 94.2 -43.2 -167.1
+rosrun kinova_demo pose_action_client.py -v j2n7s300 mdeg -- -0.393846275806 -0.265829235315 0.505497992039 94.2 -43.2 -167.1
+rosrun kinova_demo pose_action_client.py -v j2n7s300 mdeg -- -0.193846275806 -0.265829235315 0.705497992039 94.2 -43.2 -167.1
 </code></pre></td></tr></table>
 </div>
-</div><ul>
-<li>向某个topic发布内容</li>
-</ul>
+</div><p><em>b.相对（在当前6D位置基础上）移动，带-r参数</em></p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">rostopic pub /topic_name ...
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">rosrun kinova_demo pose_action_client.py -v -r j2n7s300 mdeg -- 0.01 <span class="m">0</span> <span class="m">0</span> <span class="m">0</span> <span class="m">10</span> <span class="m">10</span>
 </code></pre></td></tr></table>
 </div>
-</div><ul>
-<li>列出所有msg</li>
+</div><h2 id="手指控制">手指控制</h2>
+<ul>
+<li>参数
+robotType： j2n7s300<br>
+手指移动模式： percent<br>
+手指打开程度： 100 100 100（完全闭合） ； 0 0 0（完全打开）</li>
 </ul>
+<p><em>控制命令</em></p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">rosmsg list
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">rosrun kinova_demo fingers_action_client.py j2n7s300 percent -- <span class="m">100</span> <span class="m">100</span> <span class="m">100</span>
 </code></pre></td></tr></table>
 </div>
-</div><ul>
-<li>显示某个msg 的内容</li>
-</ul>
-<div class="highlight"><div class="chroma">
+</div><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">rosmsg show /msg_name
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">rosrun kinova_demo fingers_action_client.py j2n7s300 percent -- <span class="m">0</span> <span class="m">0</span> <span class="m">0</span>
 </code></pre></td></tr></table>
 </div>
 </div></div><div class="post-footer" id="post-footer">
     <div class="post-info">
         <div class="post-info-line">
             <div class="post-info-mod">
-                <span>更新于 2021-10-28</span>
+                <span>更新于 2021-10-14</span>
             </div>
             <div class="post-info-license"></div>
         </div>
         <div class="post-info-line">
             <div class="post-info-md"><span>
-                            <a class="link-to-markdown" href="/ros_learning1/index.md" target="_blank">阅读原始文档</a>
+                            <a class="link-to-markdown" href="/kinova_jaco2_7dof/index.md" target="_blank">阅读原始文档</a>
                         </span></div>
             <div class="post-info-share">
-                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://swaggerwei.github.io/ros_learning1/" data-title="1-ROS通信方式" data-via="xxxx" data-hashtags="ROS"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://swaggerwei.github.io/ros_learning1/" data-hashtag="ROS"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 WhatsApp" data-sharer="whatsapp" data-url="https://swaggerwei.github.io/ros_learning1/" data-title="1-ROS通信方式" data-web><i class="fab fa-whatsapp fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://swaggerwei.github.io/ros_learning1/" data-title="1-ROS通信方式"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://swaggerwei.github.io/ros_learning1/" data-title="1-ROS通信方式"><i class="fab fa-weibo fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Myspace" data-sharer="myspace" data-url="https://swaggerwei.github.io/ros_learning1/" data-title="1-ROS通信方式" data-description=""><i data-svg-src="/lib/simple-icons/icons/myspace.min.svg"></i></a><a href="javascript:void(0);" title="分享到 Blogger" data-sharer="blogger" data-url="https://swaggerwei.github.io/ros_learning1/" data-title="1-ROS通信方式" data-description=""><i class="fab fa-blogger fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Evernote" data-sharer="evernote" data-url="https://swaggerwei.github.io/ros_learning1/" data-title="1-ROS通信方式"><i class="fab fa-evernote fa-fw"></i></a></span>
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://swaggerwei.github.io/kinova_jaco2_7dof/" data-title="3-kinova jaco2 7dof 机械臂基础控制" data-via="xxxx" data-hashtags="ROS,kinova"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://swaggerwei.github.io/kinova_jaco2_7dof/" data-hashtag="ROS"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 WhatsApp" data-sharer="whatsapp" data-url="https://swaggerwei.github.io/kinova_jaco2_7dof/" data-title="3-kinova jaco2 7dof 机械臂基础控制" data-web><i class="fab fa-whatsapp fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://swaggerwei.github.io/kinova_jaco2_7dof/" data-title="3-kinova jaco2 7dof 机械臂基础控制"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://swaggerwei.github.io/kinova_jaco2_7dof/" data-title="3-kinova jaco2 7dof 机械臂基础控制"><i class="fab fa-weibo fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Myspace" data-sharer="myspace" data-url="https://swaggerwei.github.io/kinova_jaco2_7dof/" data-title="3-kinova jaco2 7dof 机械臂基础控制" data-description=""><i data-svg-src="/lib/simple-icons/icons/myspace.min.svg"></i></a><a href="javascript:void(0);" title="分享到 Blogger" data-sharer="blogger" data-url="https://swaggerwei.github.io/kinova_jaco2_7dof/" data-title="3-kinova jaco2 7dof 机械臂基础控制" data-description=""><i class="fab fa-blogger fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Evernote" data-sharer="evernote" data-url="https://swaggerwei.github.io/kinova_jaco2_7dof/" data-title="3-kinova jaco2 7dof 机械臂基础控制"><i class="fab fa-evernote fa-fw"></i></a></span>
             </div>
         </div>
     </div>
 
     <div class="post-info-more">
-        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/ros/">ROS</a></section>
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/ros/">ROS</a>,&nbsp;<a href="/tags/kinova/">kinova</a></section>
         <section>
             <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
         </section>
     </div>
 
-    <div class="post-nav"><a href="/kinova_ros/" class="prev" rel="prev" title="4-Kinova_ros 配置文档"><i class="fas fa-angle-left fa-fw"></i>4-Kinova_ros 配置文档</a>
-            <a href="/ros_learning2/" class="next" rel="next" title="2-ROS常用工具">2-ROS常用工具<i class="fas fa-angle-right fa-fw"></i></a></div>
+    <div class="post-nav"><a href="/yolov5_owndatasettrain/" class="prev" rel="prev" title="3-如何制作和训练自己的数据集（YoloV5）"><i class="fas fa-angle-left fa-fw"></i>3-如何制作和训练自己的数据集（YoloV5）</a>
+            <a href="/kinova_ros/" class="next" rel="next" title="4-Kinova_ros 配置文档">4-Kinova_ros 配置文档<i class="fas fa-angle-right fa-fw"></i></a></div>
 </div>
 <div id="comments"></div></article></div>
             </main><footer class="footer">
