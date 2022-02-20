@@ -1,0 +1,21 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>Latex - 标签 - Boyan Wei</title>
+        <link>https://swaggerwei.github.io/tags/latex/</link>
+        <description>Latex - 标签 - Boyan Wei</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Wed, 08 Sep 2021 10:47:57 &#43;0800</lastBuildDate><atom:link href="https://swaggerwei.github.io/tags/latex/" rel="self" type="application/rss+xml" /><item>
+    <title>Latex 语法学习笔记2</title>
+    <link>https://swaggerwei.github.io/latex_learning2/</link>
+    <pubDate>Wed, 08 Sep 2021 10:47:57 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://swaggerwei.github.io/latex_learning2/</guid>
+    <description><![CDATA[算法加入 在tex 文件开头引用以下包： algorithm、algorithmics、algpseudocode、amsmath 1 2 3 4 \usepackage{algorithm} \usepackage{algorithmicx} \usepackage{algpseudocode} \usepackage{amsmath}]]></description>
+</item><item>
+    <title>Latex 语法学习笔记1</title>
+    <link>https://swaggerwei.github.io/latex_learning1/</link>
+    <pubDate>Wed, 08 Sep 2021 10:43:53 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://swaggerwei.github.io/latex_learning1/</guid>
+    <description><![CDATA[overleaf 使用 overleaf 左下角为文章结构 方便快速定位到tex代码文件的位置 图片的插入与引用 插入 1 2 3 4 5 6 7 \begin{figure}[t] \centering \includegraphics[scale=0.25]{intro.png} \caption{描述} \label{pic-label} \vspace{-0.4cm} \end{figure} \centering 放置位置剧]]></description>
+</item></channel>
+</rss>
