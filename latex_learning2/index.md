@@ -10,7 +10,7 @@
 \usepackage{algpseudocode}
 \usepackage{amsmath}
 ```
-
+f
 * 如果算法中包含输入输出模块，还应加入如下代码：  
 ```buildoutcfg
 \renewcommand{\algorithmicrequire}{\textbf{Input:}}  % Use Input in the format of Algorithm

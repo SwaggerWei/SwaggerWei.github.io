@@ -1,0 +1,14 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>pointNetGPD - 分类 - Boyan Wei</title>
+        <link>https://swaggerwei.github.io/categories/pointnetgpd/</link>
+        <description>pointNetGPD - 分类 - Boyan Wei</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Thu, 18 Nov 2021 11:25:23 &#43;0800</lastBuildDate><atom:link href="https://swaggerwei.github.io/categories/pointnetgpd/" rel="self" type="application/rss+xml" /><item>
+    <title>1-PointNetGPD论文阅读</title>
+    <link>https://swaggerwei.github.io/pointnetgpd_reading/</link>
+    <pubDate>Thu, 18 Nov 2021 11:25:23 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://swaggerwei.github.io/pointnetgpd_reading/</guid>
+    <description><![CDATA[资源相关 项目地址 源码地址 论文地址 输入输出 input： 点云数据 output： 抓取位姿（6D）(parallel-jaw)方式 contribution 网络轻量化 预测夹]]></description>
+</item></channel>
+</rss>

@@ -41,6 +41,13 @@
     <guid>https://swaggerwei.github.io/aruco_learning/</guid>
     <description><![CDATA[使用github安装 网址：http://www.uco.es/investiga/grupos/ava/node/26 git clone到本地之后]]></description>
 </item><item>
+    <title>1-PointNetGPD论文阅读</title>
+    <link>https://swaggerwei.github.io/pointnetgpd_reading/</link>
+    <pubDate>Thu, 18 Nov 2021 11:25:23 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://swaggerwei.github.io/pointnetgpd_reading/</guid>
+    <description><![CDATA[资源相关 项目地址 源码地址 论文地址 输入输出 input： 点云数据 output： 抓取位姿（6D）(parallel-jaw)方式 contribution 网络轻量化 预测夹]]></description>
+</item><item>
     <title>6-URDF</title>
     <link>https://swaggerwei.github.io/ros_learning6/</link>
     <pubDate>Mon, 01 Nov 2021 15:17:58 &#43;0800</pubDate>
@@ -68,12 +75,5 @@
     <author>作者</author>
     <guid>https://swaggerwei.github.io/ros_learning3/</guid>
     <description><![CDATA[Client Library 提供ROS编程的库 例如建立node，发布消息，调用服务 提供了如下几种client library ：roscpp、rospy、roslisp rospy的]]></description>
-</item><item>
-    <title>2-ROS常用工具</title>
-    <link>https://swaggerwei.github.io/ros_learning2/</link>
-    <pubDate>Thu, 28 Oct 2021 15:01:49 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>https://swaggerwei.github.io/ros_learning2/</guid>
-    <description><![CDATA[ROS常用工具 仿真：Gazebo 调试、可视化：Rviz、rqt 命令行工具：rostopic、roslaunch、rosbag 专用工具：Mov]]></description>
 </item></channel>
 </rss>
