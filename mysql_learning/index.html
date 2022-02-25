@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>Mysql学习1-基础命令行操作 - Boyan Wei</title><meta name="Description" content="这是我的全新 Hugo 网站"><meta property="og:title" content="Mysql学习1-基础命令行操作" />
+<meta property="og:description" content="基础结构 用户连接 connection 数据库 database 表格 table 视图 view 等等 连接数据库 navicat 双击数据库，创建连接 命令行连接 1 mysql -uroot -pWby785403310 修改密码 1 updatemysql.usersetauthentication_string=password(&#39;123456&#39;)whereuser=&#39;root&#39;andHost=&#39;localhost&#39;; 刷新权限 1 flushprivileges; 常用基础命令 查看所有数据" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://swaggerwei.github.io/mysql_learning/" /><meta property="og:image" content="https://swaggerwei.github.io/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-02-22T21:24:13+08:00" />
+<meta property="article:modified_time" content="2022-02-22T21:24:13+08:00" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://swaggerwei.github.io/logo.png"/>
+
+<meta name="twitter:title" content="Mysql学习1-基础命令行操作"/>
+<meta name="twitter:description" content="基础结构 用户连接 connection 数据库 database 表格 table 视图 view 等等 连接数据库 navicat 双击数据库，创建连接 命令行连接 1 mysql -uroot -pWby785403310 修改密码 1 updatemysql.usersetauthentication_string=password(&#39;123456&#39;)whereuser=&#39;root&#39;andHost=&#39;localhost&#39;; 刷新权限 1 flushprivileges; 常用基础命令 查看所有数据"/>
+<meta name="application-name" content="LoveIt">
+<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://swaggerwei.github.io/mysql_learning/" /><link rel="prev" href="https://swaggerwei.github.io/first_post/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Mysql学习1-基础命令行操作",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/swaggerwei.github.io\/mysql_learning\/"
+        },"genre": "posts","keywords": "SQL, mysql, navicat","wordcount":  556 ,
+        "url": "https:\/\/swaggerwei.github.io\/mysql_learning\/","datePublished": "2022-02-22T21:24:13+08:00","dateModified": "2022-02-22T21:24:13+08:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "Boyan Wei"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Boyan Wei"></a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Boyan Wei"></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">Mysql学习1-基础命令行操作</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>Boyan Wei</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/"><i class="far fa-folder fa-fw"></i>开发工具</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-02-22">2022-02-22</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 556 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 2 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="true">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#基础结构">基础结构</a></li>
+    <li><a href="#连接数据库">连接数据库</a></li>
+    <li><a href="#常用基础命令">常用基础命令</a></li>
+    <li><a href="#mysql-语言种类-crud-增删改查">mysql 语言种类 CRUD 增删改查</a></li>
+    <li><a href="#操作数据库">操作数据库</a>
+      <ul>
+        <li><a href="#操作数据库-了解">操作数据库 （了解）</a></li>
+        <li><a href="#数据库的数据列类型">数据库的数据（列）类型</a>
+          <ul>
+            <li><a href="#1-数值">1 数值</a></li>
+            <li><a href="#2-字符串">2 字符串</a></li>
+            <li><a href="#3-时间日期">3 时间日期</a></li>
+            <li><a href="#4-null">4 null</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h2 id="基础结构">基础结构</h2>
+<ul>
+<li>用户连接 connection</li>
+<li>数据库 database</li>
+<li>表格 table 视图 view 等等<br>
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images_sql/pic2.png"
+        data-srcset="/images_sql/pic2.png, /images_sql/pic2.png 1.5x, /images_sql/pic2.png 2x"
+        data-sizes="auto"
+        alt="/images_sql/pic2.png"
+        title="/images_sql/pic2.png" /></li>
+</ul>
+<h2 id="连接数据库">连接数据库</h2>
+<ul>
+<li>navicat 双击数据库，创建连接</li>
+<li>命令行连接</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">mysql -uroot -pWby785403310 
+</code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>修改密码</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="k">update</span><span class="w"> </span><span class="n">mysql</span><span class="p">.</span><span class="k">user</span><span class="w"> </span><span class="k">set</span><span class="w"> </span><span class="n">authentication_string</span><span class="o">=</span><span class="n">password</span><span class="p">(</span><span class="s1">&#39;123456&#39;</span><span class="p">)</span><span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="k">user</span><span class="o">=</span><span class="s1">&#39;root&#39;</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="k">Host</span><span class="o">=</span><span class="s1">&#39;localhost&#39;</span><span class="p">;</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>刷新权限</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="n">flush</span><span class="w"> </span><span class="k">privileges</span><span class="p">;</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><h2 id="常用基础命令">常用基础命令</h2>
+<ul>
+<li>查看所有数据库</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="k">show</span><span class="w"> </span><span class="n">databases</span><span class="p">;</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images_sql/pic1.png"
+        data-srcset="/images_sql/pic1.png, /images_sql/pic1.png 1.5x, /images_sql/pic1.png 2x"
+        data-sizes="auto"
+        alt="/images_sql/pic1.png"
+        title="/images_sql/pic1.png" /></p>
+<ul>
+<li>使用数据库 use + database名称</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="n">use</span><span class="w"> </span><span class="n">mysql</span><span class="p">;</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>查看所有table</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="k">show</span><span class="w"> </span><span class="n">tables</span><span class="p">;</span><span class="w"> 
+</span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>查看指定表结构</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="k">describe</span><span class="w"> </span><span class="k">user</span><span class="p">;</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>创建一个数据库</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="k">create</span><span class="w"> </span><span class="k">database</span><span class="w"> </span><span class="n">westos</span><span class="p">;</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>退出连接和注视</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="n">exit</span><span class="p">;</span><span class="w"> </span><span class="c1">--退出连接
+</span><span class="c1">--单行注释
+</span><span class="c1"></span><span class="cm">/*
+</span><span class="cm">sql 多行注释
+</span><span class="cm">*/</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><h2 id="mysql-语言种类-crud-增删改查">mysql 语言种类 CRUD 增删改查</h2>
+<ul>
+<li>DDL database define language</li>
+<li>DML database manipulate language</li>
+<li>DQL database query language</li>
+<li>DCL database control language</li>
+</ul>
+<p>CV 程序员
+API 程序员
+CRUD 程序员（业务）</p>
+<h2 id="操作数据库">操作数据库</h2>
+<ul>
+<li>操作数据库&gt;操作数据库中的表&gt;操作数据库中的表数据</li>
+<li><em>关键字不区分大小写</em></li>
+</ul>
+<h3 id="操作数据库-了解">操作数据库 （了解）</h3>
+<ul>
+<li>创建数据库 <code>CREATE DATABASE IF NOT EXISTS westos;</code></li>
+<li>删除数据库 <code>DROP DATABASE IF EXISTS hello;</code></li>
+<li>使用数据库 <code>use `school` </code> (如果表明和字段名是一个保留字，应该加上反引号)</li>
+<li>查看数据库 <code>show databases</code></li>
+</ul>
+<h3 id="数据库的数据列类型">数据库的数据（列）类型</h3>
+<h4 id="1-数值">1 数值</h4>
+<ul>
+<li>tinyint 十分小的数据  1个字节</li>
+<li>smallint 较小的数据   2个字节</li>
+<li>mediumint 中等大小   3个字节</li>
+<li><strong>int      标准的整数 4个字节</strong></li>
+<li>bigint   较大的数据   8个字节</li>
+<li>float    单精度      4个字节</li>
+<li><strong>double   双精度    8个字节（精度问题）</strong></li>
+<li>decimal  字符串形式的浮点数（金融计算，一般是decimal）</li>
+</ul>
+<h4 id="2-字符串">2 字符串</h4>
+<ul>
+<li>char     字符固定大小  0～255</li>
+<li><strong>varchar  可变字符串    0～65535</strong>  常用变量</li>
+<li>tinytext 微型文本     2^8-1</li>
+<li><strong>text     文本类型     一般用于大型文章</strong></li>
+</ul>
+<h4 id="3-时间日期">3 时间日期</h4>
+<ul>
+<li>date  YYYY-MM-DD    日期格式</li>
+<li>time   HH：mm：ss    时间格式</li>
+<li><strong>datetime  YYYY-MM-DD HH：mm：ss  最常用的时间格式</strong></li>
+<li><strong>timestamp  时间戳 1970.1.1 到现在的毫秒数</strong></li>
+<li>year 年份表示</li>
+</ul>
+<h4 id="4-null">4 null</h4>
+<ul>
+<li>没有值，未知</li>
+<li>不要使用null进行运算</li>
+</ul>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2022-02-22</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/mysql_learning/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://swaggerwei.github.io/mysql_learning/" data-title="Mysql学习1-基础命令行操作" data-via="xxxx" data-hashtags="SQL,mysql,navicat"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://swaggerwei.github.io/mysql_learning/" data-hashtag="SQL"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 WhatsApp" data-sharer="whatsapp" data-url="https://swaggerwei.github.io/mysql_learning/" data-title="Mysql学习1-基础命令行操作" data-web><i class="fab fa-whatsapp fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://swaggerwei.github.io/mysql_learning/" data-title="Mysql学习1-基础命令行操作"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://swaggerwei.github.io/mysql_learning/" data-title="Mysql学习1-基础命令行操作"><i class="fab fa-weibo fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Myspace" data-sharer="myspace" data-url="https://swaggerwei.github.io/mysql_learning/" data-title="Mysql学习1-基础命令行操作" data-description=""><i data-svg-src="/lib/simple-icons/icons/myspace.min.svg"></i></a><a href="javascript:void(0);" title="分享到 Blogger" data-sharer="blogger" data-url="https://swaggerwei.github.io/mysql_learning/" data-title="Mysql学习1-基础命令行操作" data-description=""><i class="fab fa-blogger fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Evernote" data-sharer="evernote" data-url="https://swaggerwei.github.io/mysql_learning/" data-title="Mysql学习1-基础命令行操作"><i class="fab fa-evernote fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/sql/">SQL</a>,&nbsp;<a href="/tags/mysql/">mysql</a>,&nbsp;<a href="/tags/navicat/">navicat</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/first_post/" class="prev" rel="prev" title="Hugo 使用教程"><i class="fas fa-angle-left fa-fw"></i>Hugo 使用教程</a></div>
+</div>
+<div id="comments"></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.90.1">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2019 - 2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">Boyan Wei</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript" src="/lib/cookieconsent/cookieconsent.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{},"cookieconsent":{"content":{"dismiss":"同意","link":"了解更多","message":"本网站使用 Cookies 来改善您的浏览体验."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>
