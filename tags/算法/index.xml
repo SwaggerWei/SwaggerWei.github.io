@@ -3,13 +3,69 @@
         <title>算法 - 标签 - Boyan Wei</title>
         <link>https://swaggerwei.github.io/tags/%E7%AE%97%E6%B3%95/</link>
         <description>算法 - 标签 - Boyan Wei</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Fri, 17 Sep 2021 16:59:17 &#43;0800</lastBuildDate><atom:link href="https://swaggerwei.github.io/tags/%E7%AE%97%E6%B3%95/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Wed, 24 Nov 2021 16:59:17 &#43;0800</lastBuildDate><atom:link href="https://swaggerwei.github.io/tags/%E7%AE%97%E6%B3%95/" rel="self" type="application/rss+xml" /><item>
+    <title>刷题学习9-java 图 知识点graph</title>
+    <link>https://swaggerwei.github.io/lc_learning9/</link>
+    <pubDate>Wed, 24 Nov 2021 16:59:17 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://swaggerwei.github.io/lc_learning9/</guid>
+    <description><![CDATA[树 和 图 辨析 树的父节点和子节点之间是一条路单向可达 图的的节点之间存在多条路可达 基本概念 顶点 边 邻居节点：只有一条边连接的顶点 度（degree）：]]></description>
+</item><item>
+    <title>刷题学习8-java 堆 知识点Heap</title>
+    <link>https://swaggerwei.github.io/lc_learning8/</link>
+    <pubDate>Mon, 18 Oct 2021 16:59:17 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://swaggerwei.github.io/lc_learning8/</guid>
+    <description><![CDATA[基本定义 堆就是一种二叉树结构&mdash;完全二叉树 完全二叉树： 1 每个父节点，最多只有两个孩子 2 从上到下，从左到右依次填满 堆需要满足的条件：]]></description>
+</item><item>
+    <title>刷题学习7-java 树知识点Tree</title>
+    <link>https://swaggerwei.github.io/lc_learning7/</link>
+    <pubDate>Sat, 16 Oct 2021 16:59:17 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://swaggerwei.github.io/lc_learning7/</guid>
+    <description><![CDATA[树的基本概念 描述的是节点之间的父子关系 tips： 成环的结构不可能成为树， 因为无法确定父子关系 重要的名词 节点 根节点（开始的节点，没有父节点，具]]></description>
+</item><item>
+    <title>刷题学习6-java集合Set学习</title>
+    <link>https://swaggerwei.github.io/lc_learning6/</link>
+    <pubDate>Wed, 13 Oct 2021 16:59:17 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://swaggerwei.github.io/lc_learning6/</guid>
+    <description><![CDATA[特点 无序 不重复 注重自己独一无二的特性 主要作用 检查某一个元素是否存在 有无重复元素 Set的种类 HashSet 主要使用 LinkListSet TreeSet 讲一个元素加入到HashSet过程原]]></description>
+</item><item>
+    <title>刷题学习5-java 哈希表学习-散列表</title>
+    <link>https://swaggerwei.github.io/lc_learning5/</link>
+    <pubDate>Fri, 08 Oct 2021 16:59:17 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://swaggerwei.github.io/lc_learning5/</guid>
+    <description><![CDATA[基础定义 键值对：key：value 例如学号姓名： 1：张三 2：李四 3：王五 查找元素的方式不需要从头遍历到尾，直接通过键（key）来进行查找，时]]></description>
+</item><item>
+    <title>刷题学习4-java 零碎基础知识</title>
+    <link>https://swaggerwei.github.io/lc_learning4/</link>
+    <pubDate>Thu, 23 Sep 2021 16:59:17 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://swaggerwei.github.io/lc_learning4/</guid>
+    <description><![CDATA[问号 ？冒号 ：条件语句 1 2 int i = 0; int x = i&gt;1 ? 0:1; 问号冒号将其分为代码分为三个部分A、B、C A？B：C 如果A为真则执行B，如果为假则执行C 字符串c]]></description>
+</item><item>
+    <title>刷题学习3-java 栈学习</title>
+    <link>https://swaggerwei.github.io/lc_learning3/</link>
+    <pubDate>Mon, 20 Sep 2021 16:59:17 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://swaggerwei.github.io/lc_learning3/</guid>
+    <description><![CDATA[特点 先进后出，与队列这种数据结构相反，队列是先进先出。 实用例子： 浏览器后退功能 操作的时间复杂度 访问栈顶元素 O(1) 搜索 O(N) 插入 O(1) 入栈 删除 O(1) 出栈 Jav]]></description>
+</item><item>
     <title>刷题学习2-java 队列学习</title>
     <link>https://swaggerwei.github.io/lc_learning2/</link>
     <pubDate>Fri, 17 Sep 2021 16:59:17 &#43;0800</pubDate>
     <author>作者</author>
     <guid>https://swaggerwei.github.io/lc_learning2/</guid>
     <description><![CDATA[队列的基本特征 先进先出 单端队列&ndash;只有一个口可以进，一个口可以出 双端队列&ndash;两个口都可以进， 两个口都可以出 队列数据结构的]]></description>
+</item><item>
+    <title>刷题学习1.5-java 链表 知识点ListNode</title>
+    <link>https://swaggerwei.github.io/lc_learninglistnode/</link>
+    <pubDate>Thu, 16 Sep 2021 16:59:17 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://swaggerwei.github.io/lc_learninglistnode/</guid>
+    <description><![CDATA[链表与数组的区别 数组的存放为连续的内存空间， 链表不需要，任意碎片式的内存空间都可以形成链表。 链表的分类 双端链表：既有next指向下一个数据也]]></description>
 </item><item>
     <title>刷题学习1-时间和空间复杂度</title>
     <link>https://swaggerwei.github.io/lc_learning/</link>
