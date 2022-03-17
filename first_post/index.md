@@ -45,7 +45,7 @@ _这里是 --buildDrafts 指文档的草稿属性为真，就需要此参数，�
 * 新建一个项目，名字为： `github账号名.github.io`
 
 ### 本地对接远程服务器地址
-* hugo --theme=LoveIt --baseUrl="https://swaggerwei.github.io/" -D  
+* 命令：`hugo --theme=LoveIt --baseUrl="https://swaggerwei.github.io/" -D ` 
 可以发现本地生成了一个public文件夹  
 ![](/images_hugo/pic5.png)
 * 命令 
