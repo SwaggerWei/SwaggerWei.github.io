@@ -3,9 +3,16 @@
         <title>Boyan Wei</title>
         <link>https://swaggerwei.github.io/</link>
         <description>这是我的全新 Hugo 网站</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Tue, 22 Feb 2022 21:24:13 &#43;0800</lastBuildDate>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Sat, 19 Mar 2022 22:58:09 &#43;0800</lastBuildDate>
             <atom:link href="https://swaggerwei.github.io/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>Category_level_1_CPPF</title>
+    <link>https://swaggerwei.github.io/category_level_1_cppf/</link>
+    <pubDate>Sat, 19 Mar 2022 22:58:09 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://swaggerwei.github.io/category_level_1_cppf/</guid>
+    <description><![CDATA[背景 真实数据集上训练出来的模型往往难以推广到没有遇到过的场景 实例级别的9D姿态预测在测试时需要对没有见过的物体也有效，因为实例级别预测是没有]]></description>
+</item><item>
     <title>Mysql学习1-基础命令行操作</title>
     <link>https://swaggerwei.github.io/mysql_learning/</link>
     <pubDate>Tue, 22 Feb 2022 21:24:13 &#43;0800</pubDate>
@@ -68,12 +75,5 @@
     <author>作者</author>
     <guid>https://swaggerwei.github.io/java_learning4/</guid>
     <description><![CDATA[4 异常 异常机制是指当程序出现错误后，程序如何处理。具体来说，异常机制提供了程序退出的安全通道。当出现错误后，程序执行的流程发生改变，程序的控]]></description>
-</item><item>
-    <title>Java 学习3-容器</title>
-    <link>https://swaggerwei.github.io/java_learning3/</link>
-    <pubDate>Thu, 06 Jan 2022 16:59:17 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>https://swaggerwei.github.io/java_learning3/</guid>
-    <description><![CDATA[3 容器 数据容器主要分为了两类：Collection 和 Map Collection: 存放独立元素的序列 Map：存放key-value型的元素对 3.1 Collection 存放独立元素的序列 Li]]></description>
 </item></channel>
 </rss>
