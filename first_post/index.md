@@ -45,7 +45,10 @@ _这里是 --buildDrafts 指文档的草稿属性为真，就需要此参数，�
 * 新建一个项目，名字为： `github账号名.github.io`
 
 ### 本地对接远程服务器地址
-* 命令：`hugo --theme=LoveIt --baseUrl="https://swaggerwei.github.io/" -D ` 
+* 命令
+```shell
+hugo --theme=LoveIt --baseUrl="https://swaggerwei.github.io/" -D
+```
 可以发现本地生成了一个public文件夹  
 ![](/images_hugo/pic5.png)
 * 命令 
@@ -53,10 +56,11 @@ _这里是 --buildDrafts 指文档的草稿属性为真，就需要此参数，�
 cd public
 git init
 git add .
+git commit -m "first commit"
 git remote add origin git@github.com:SwaggerWei/SwaggerWei.github.io.git 
 git push -u origin master 
 ```
-tips: init 和 remote add 操作后续更改博客不需要
+_tips: init 和 remote add 操作后续更改博客不需要，只有第一次建仓库的时候需要_
 
 ### 网页进入个人主页
 * [swaggerwei.github.io]()  
