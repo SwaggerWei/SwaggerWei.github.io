@@ -20,7 +20,7 @@
 * ？ - 表示不确定的 java 类型
 
 ### 5.3 类型通配符
-* 类型通配符一般是使用 ? 代替具体的类型参数。例如 List<?> 在逻辑上是 List<String>,List<Integer> 等所有 List<具体类型实参> 的父类
+* 类型通配符一般是使用 '< >' 代替具体的类型参数。例如 List<Integer> 在逻辑上是 List<String>,List<Integer> 等所有 List<具体类型实参> 的父类
 
 ### 5.4 实例1 --- 泛型方法
 ```java

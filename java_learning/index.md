@@ -1,8 +1,6 @@
 # Java 学习1-快速实现自定义字符链表
 
 
-
-
 ## class 文件结构
 * ListNode.java 链表节点类  
 * linkListString.java 链表类  

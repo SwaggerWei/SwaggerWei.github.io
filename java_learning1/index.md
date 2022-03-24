@@ -6,10 +6,8 @@
 
 ## 跨平台运行原理
 * java 语言要想在不同的平台运行， 只需要该平台上有翻译java语言的虚拟机即可  
-* 称为 JVM （Java Virtual Machine）
+* 称为 JVM （Java Virtual Machine）  
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/9e76cd9dd5ec4f20b6c6cf48ead2a60b.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAU3R1X2FydA==,size_20,color_FFFFFF,t_70,g_se,x_16#pic_center)
-
-
 
 ## JRE 和 JDK
 ### JRE（Java Runtime Environment）
