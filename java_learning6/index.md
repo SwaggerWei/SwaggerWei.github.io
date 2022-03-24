@@ -7,10 +7,10 @@
 ### 6.1 创建一个对象的过程
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/7365942536844f148d7a5b1768fe877e.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAU3R1X2FydA==,size_20,color_FFFFFF,t_70,g_se,x_16#pic_center)
 
-* new来实例一个对象时jvm会在家在对应的class文件
+* new来实例一个对象时jvm会在加载对应的class文件
 * jvm在本地磁盘中查找class文件
 * 将class文件读入到内存当中，以便使用
-* 一个class 文件只占用个同一个空间，对此用一个class在new，不会重复在内存空间中初始化
+* 一个class 文件只占用个同一个空间，对此用一个class再new，不会重复在内存空间中初始化
 
 ### 6.2 获取类的字节码
 ```java

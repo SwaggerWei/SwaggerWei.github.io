@@ -60,7 +60,7 @@
     <pubDate>Thu, 06 Jan 2022 20:59:17 &#43;0800</pubDate>
     <author>作者</author>
     <guid>https://swaggerwei.github.io/java_learning6/</guid>
-    <description><![CDATA[6 反射 反向获取class中各种对象的信息、例如成员变量、方法、构造方法、包等等信息 6.1 创建一个对象的过程 new来实例一个对象时jvm会在家在对]]></description>
+    <description><![CDATA[6 反射 反向获取class中各种对象的信息、例如成员变量、方法、构造方法、包等等信息 6.1 创建一个对象的过程 new来实例一个对象时jvm会在加载对]]></description>
 </item><item>
     <title>Java 学习5-泛型</title>
     <link>https://swaggerwei.github.io/java_learning5/</link>
