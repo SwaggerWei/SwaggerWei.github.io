@@ -1,8 +1,8 @@
 # Mysql学习1-基础命令行操作
 
 ## 基础结构
-* 用户连接 connection 
-* 数据库 database
+* 用户连接 connection--mysql 
+* 数据库 database--information_schema  
 * 表格 table 视图 view 等等  
 ![](/images_sql/pic2.png)
 

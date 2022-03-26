@@ -16,7 +16,7 @@
     <pubDate>Tue, 22 Feb 2022 21:24:13 &#43;0800</pubDate>
     <author>作者</author>
     <guid>https://swaggerwei.github.io/mysql_learning/</guid>
-    <description><![CDATA[基础结构 用户连接 connection 数据库 database 表格 table 视图 view 等等 连接数据库 navicat 双击数据库，创建连接 命令行连接 1 mysql -uroot -pWby785403310 修改密码 1 updatemysql.usersetauthentication_string=password(&#39;123456&#39;)whereuser=&#39;root&#39;andHost=&#39;localhost&#39;; 刷新权限 1 flushprivileges; 常用基础命令 查看所有数据]]></description>
+    <description><![CDATA[基础结构 用户连接 connection&ndash;mysql 数据库 database&ndash;information_schema 表格 table 视图 view 等等 连接数据库 navicat 双击数据库，创建连接 命令行连接 1 mysql -uroot -pWby785403310 修改密码 1 updatemysql.usersetauthentication_string=password(&#39;123456&#39;)whereuser=&#39;root&#39;andHost=&#39;localhost&#39;; 刷新权限 1 flushprivileges; 常用基础命令 查看所有数据]]></description>
 </item><item>
     <title>Hugo 使用教程</title>
     <link>https://swaggerwei.github.io/first_post/</link>
