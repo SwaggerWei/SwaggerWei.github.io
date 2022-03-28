@@ -7,7 +7,6 @@
 * test_ll_string.java 测试文件  
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/e8ca83c6cc4f4868b94249a5684aba38.png#pic_center)
 
-
 ## ListNode.java 
 * val 存放字符串  
 * next 指向下一个节点  
