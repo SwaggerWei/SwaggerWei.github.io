@@ -3,9 +3,16 @@
         <title>Boyan Wei</title>
         <link>https://swaggerwei.github.io/</link>
         <description>这是我的全新 Hugo 网站</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Tue, 29 Mar 2022 15:19:29 &#43;0800</lastBuildDate>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Tue, 29 Mar 2022 22:35:54 &#43;0800</lastBuildDate>
             <atom:link href="https://swaggerwei.github.io/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>6DPose 论文总结</title>
+    <link>https://swaggerwei.github.io/6dpose_survey/</link>
+    <pubDate>Tue, 29 Mar 2022 22:35:54 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://swaggerwei.github.io/6dpose_survey/</guid>
+    <description><![CDATA[关注的问题 对遮挡物体的鲁棒性 如何处理对称物体的ambiguous rotation问题 对称物体的ambiguous rotation问题 分类 使用]]></description>
+</item><item>
     <title>JVM 学习2-类加载机制</title>
     <link>https://swaggerwei.github.io/jvm_learning2/</link>
     <pubDate>Tue, 29 Mar 2022 15:19:29 &#43;0800</pubDate>
@@ -68,12 +75,5 @@
     <author>作者</author>
     <guid>https://swaggerwei.github.io/java_learning6/</guid>
     <description><![CDATA[6 反射 反向获取class中各种对象的信息、例如成员变量、方法、构造方法、包等等信息 6.1 创建一个对象的过程 new来实例一个对象时jvm会在加载对]]></description>
-</item><item>
-    <title>Java 学习5-泛型</title>
-    <link>https://swaggerwei.github.io/java_learning5/</link>
-    <pubDate>Thu, 06 Jan 2022 19:59:17 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>https://swaggerwei.github.io/java_learning5/</guid>
-    <description><![CDATA[5 泛型 泛型的本质是参数化类型，也就是说所操作的数据类型被指定为一个参数 5.1 泛型方法 在调用时可以接收不同类型的参数 每一个类型参数声明部分包含一个]]></description>
 </item></channel>
 </rss>

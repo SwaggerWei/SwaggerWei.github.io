@@ -3,7 +3,14 @@
         <title>6D Pose - 标签 - Boyan Wei</title>
         <link>https://swaggerwei.github.io/tags/6d-pose/</link>
         <description>6D Pose - 标签 - Boyan Wei</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Sat, 19 Mar 2022 22:58:09 &#43;0800</lastBuildDate><atom:link href="https://swaggerwei.github.io/tags/6d-pose/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Tue, 29 Mar 2022 22:35:54 &#43;0800</lastBuildDate><atom:link href="https://swaggerwei.github.io/tags/6d-pose/" rel="self" type="application/rss+xml" /><item>
+    <title>6DPose 论文总结</title>
+    <link>https://swaggerwei.github.io/6dpose_survey/</link>
+    <pubDate>Tue, 29 Mar 2022 22:35:54 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://swaggerwei.github.io/6dpose_survey/</guid>
+    <description><![CDATA[关注的问题 对遮挡物体的鲁棒性 如何处理对称物体的ambiguous rotation问题 对称物体的ambiguous rotation问题 分类 使用]]></description>
+</item><item>
     <title>CPPF</title>
     <link>https://swaggerwei.github.io/category_level_1_cppf/</link>
     <pubDate>Sat, 19 Mar 2022 22:58:09 &#43;0800</pubDate>
