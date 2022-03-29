@@ -3,7 +3,14 @@
         <title>算法 - 标签 - Boyan Wei</title>
         <link>https://swaggerwei.github.io/tags/%E7%AE%97%E6%B3%95/</link>
         <description>算法 - 标签 - Boyan Wei</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Fri, 07 Jan 2022 20:59:17 &#43;0800</lastBuildDate><atom:link href="https://swaggerwei.github.io/tags/%E7%AE%97%E6%B3%95/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Tue, 29 Mar 2022 15:19:29 &#43;0800</lastBuildDate><atom:link href="https://swaggerwei.github.io/tags/%E7%AE%97%E6%B3%95/" rel="self" type="application/rss+xml" /><item>
+    <title>JVM 学习2-类加载机制</title>
+    <link>https://swaggerwei.github.io/jvm_learning2/</link>
+    <pubDate>Tue, 29 Mar 2022 15:19:29 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://swaggerwei.github.io/jvm_learning2/</guid>
+    <description><![CDATA[JVM常见的问题 基本都是理论知识 谈谈你对JVM的理解 JAVA8 虚拟机和之前的区别 什么是OOM 什么是栈溢出StackOverFlowError，怎么分]]></description>
+</item><item>
     <title>JVM 学习1-类加载机制</title>
     <link>https://swaggerwei.github.io/jvm_learning1/</link>
     <pubDate>Fri, 07 Jan 2022 20:59:17 &#43;0800</pubDate>
@@ -66,12 +73,5 @@
     <author>作者</author>
     <guid>https://swaggerwei.github.io/lc_learning7/</guid>
     <description><![CDATA[树的基本概念 描述的是节点之间的父子关系 tips： 成环的结构不可能成为树， 因为无法确定父子关系 重要的名词 节点 根节点（开始的节点，没有父节点，具]]></description>
-</item><item>
-    <title>刷题学习6-java集合Set学习</title>
-    <link>https://swaggerwei.github.io/lc_learning6/</link>
-    <pubDate>Wed, 13 Oct 2021 16:59:17 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>https://swaggerwei.github.io/lc_learning6/</guid>
-    <description><![CDATA[特点 无序 不重复 注重自己独一无二的特性 主要作用 检查某一个元素是否存在 有无重复元素 Set的种类 HashSet 主要使用 LinkListSet TreeSet 将一个元素加入到HashSet过程原]]></description>
 </item></channel>
 </rss>
