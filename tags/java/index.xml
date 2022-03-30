@@ -3,7 +3,14 @@
         <title>Java - 标签 - Boyan Wei</title>
         <link>https://swaggerwei.github.io/tags/java/</link>
         <description>Java - 标签 - Boyan Wei</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Wed, 30 Mar 2022 16:26:26 &#43;0800</lastBuildDate><atom:link href="https://swaggerwei.github.io/tags/java/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Wed, 30 Mar 2022 22:55:14 &#43;0800</lastBuildDate><atom:link href="https://swaggerwei.github.io/tags/java/" rel="self" type="application/rss+xml" /><item>
+    <title>JVM 学习4</title>
+    <link>https://swaggerwei.github.io/jvm_learning4/</link>
+    <pubDate>Wed, 30 Mar 2022 22:55:14 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://swaggerwei.github.io/jvm_learning4/</guid>
+    <description><![CDATA[栈基本概念 一种先进后出的数据结构与队列相对 栈内存，主管程序的运行 生命周期与线程同步，线程结束，栈内存也就释放了 对于栈内存来说，不存在垃圾回收]]></description>
+</item><item>
     <title>JVM 学习3</title>
     <link>https://swaggerwei.github.io/jvm_learning3/</link>
     <pubDate>Wed, 30 Mar 2022 16:26:26 &#43;0800</pubDate>
@@ -66,12 +73,5 @@
     <author>作者</author>
     <guid>https://swaggerwei.github.io/java_learning/</guid>
     <description><![CDATA[class 文件结构 ListNode.java 链表节点类 linkListString.java 链表类 test_ll_string.java 测试文件 ListNode.java val 存放字符串 next 指向下一个节点 构造函数 1 2 3 4 5 6 7 8 9 10 package linkList_string; public class ListNode { char val; ListNode next; public ListNode(char val) { this.val = val; } } linkListString.java 链]]></description>
-</item><item>
-    <title>Java 学习-前期准备</title>
-    <link>https://swaggerwei.github.io/java_learning1/</link>
-    <pubDate>Sun, 19 Sep 2021 16:59:17 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>https://swaggerwei.github.io/java_learning1/</guid>
-    <description><![CDATA[平台区分 这里指不同的操作系统：macos windows linux 跨平台运行原理 java 语言要想在不同的平台运行， 只需要该平台上有翻译java语言的虚拟机即可 称为 JVM （J]]></description>
 </item></channel>
 </rss>
