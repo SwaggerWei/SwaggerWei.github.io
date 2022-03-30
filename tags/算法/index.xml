@@ -3,7 +3,14 @@
         <title>算法 - 标签 - Boyan Wei</title>
         <link>https://swaggerwei.github.io/tags/%E7%AE%97%E6%B3%95/</link>
         <description>算法 - 标签 - Boyan Wei</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Tue, 29 Mar 2022 15:19:29 &#43;0800</lastBuildDate><atom:link href="https://swaggerwei.github.io/tags/%E7%AE%97%E6%B3%95/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Wed, 30 Mar 2022 16:26:26 &#43;0800</lastBuildDate><atom:link href="https://swaggerwei.github.io/tags/%E7%AE%97%E6%B3%95/" rel="self" type="application/rss+xml" /><item>
+    <title>JVM 学习3</title>
+    <link>https://swaggerwei.github.io/jvm_learning3/</link>
+    <pubDate>Wed, 30 Mar 2022 16:26:26 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://swaggerwei.github.io/jvm_learning3/</guid>
+    <description><![CDATA[沙箱安全机制 限制程序运行的环境，将java代码限定在JVM特定的运行范围内 当前最新的安全机制实现，则引入了域(Domain) 的概念。虚拟机会]]></description>
+</item><item>
     <title>JVM 学习2</title>
     <link>https://swaggerwei.github.io/jvm_learning2/</link>
     <pubDate>Tue, 29 Mar 2022 15:19:29 &#43;0800</pubDate>
@@ -66,12 +73,5 @@
     <author>作者</author>
     <guid>https://swaggerwei.github.io/lc_learning8/</guid>
     <description><![CDATA[基本定义 堆就是一种二叉树结构&mdash;完全二叉树 完全二叉树： 1 每个父节点，最多只有两个孩子 2 从上到下，从左到右依次填满 堆需要满足的条件：]]></description>
-</item><item>
-    <title>刷题学习7-java 树知识点Tree</title>
-    <link>https://swaggerwei.github.io/lc_learning7/</link>
-    <pubDate>Sat, 16 Oct 2021 16:59:17 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>https://swaggerwei.github.io/lc_learning7/</guid>
-    <description><![CDATA[树的基本概念 描述的是节点之间的父子关系 tips： 成环的结构不可能成为树， 因为无法确定父子关系 重要的名词 节点 根节点（开始的节点，没有父节点，具]]></description>
 </item></channel>
 </rss>

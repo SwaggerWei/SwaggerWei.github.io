@@ -3,7 +3,14 @@
         <title>JVM学习 - 分类 - Boyan Wei</title>
         <link>https://swaggerwei.github.io/categories/jvm%E5%AD%A6%E4%B9%A0/</link>
         <description>JVM学习 - 分类 - Boyan Wei</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Tue, 29 Mar 2022 15:19:29 &#43;0800</lastBuildDate><atom:link href="https://swaggerwei.github.io/categories/jvm%E5%AD%A6%E4%B9%A0/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Wed, 30 Mar 2022 16:26:26 &#43;0800</lastBuildDate><atom:link href="https://swaggerwei.github.io/categories/jvm%E5%AD%A6%E4%B9%A0/" rel="self" type="application/rss+xml" /><item>
+    <title>JVM 学习3</title>
+    <link>https://swaggerwei.github.io/jvm_learning3/</link>
+    <pubDate>Wed, 30 Mar 2022 16:26:26 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://swaggerwei.github.io/jvm_learning3/</guid>
+    <description><![CDATA[沙箱安全机制 限制程序运行的环境，将java代码限定在JVM特定的运行范围内 当前最新的安全机制实现，则引入了域(Domain) 的概念。虚拟机会]]></description>
+</item><item>
     <title>JVM 学习2</title>
     <link>https://swaggerwei.github.io/jvm_learning2/</link>
     <pubDate>Tue, 29 Mar 2022 15:19:29 &#43;0800</pubDate>
