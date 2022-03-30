@@ -11,7 +11,7 @@
     <guid>https://swaggerwei.github.io/6dpose_survey/</guid>
     <description><![CDATA[robot grasping 基础 主要分为三个关键任务，Object Localization，Object Pose Estimation，Grasp Estimation Object Localizatio]]></description>
 </item><item>
-    <title>JVM 学习2-类加载机制</title>
+    <title>JVM 学习2</title>
     <link>https://swaggerwei.github.io/jvm_learning2/</link>
     <pubDate>Tue, 29 Mar 2022 15:19:29 &#43;0800</pubDate>
     <author>作者</author>
@@ -60,7 +60,7 @@
     <guid>https://swaggerwei.github.io/git_learning/</guid>
     <description><![CDATA[应用场景 团队协作开发， 避免频繁来回拷贝代码 git 工作流程 克隆 Git 资源作为工作目录 在本地的工作副本上做修改操作 如果别人更改了资源可以更新资源 检查修改]]></description>
 </item><item>
-    <title>JVM 学习1-类加载机制</title>
+    <title>JVM 学习1</title>
     <link>https://swaggerwei.github.io/jvm_learning1/</link>
     <pubDate>Fri, 07 Jan 2022 20:59:17 &#43;0800</pubDate>
     <author>作者</author>
