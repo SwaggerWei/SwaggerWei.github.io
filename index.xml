@@ -11,7 +11,7 @@
     <pubDate>Tue, 29 Mar 2022 22:35:54 &#43;0800</pubDate>
     <author>作者</author>
     <guid>https://swaggerwei.github.io/6dpose_survey/</guid>
-    <description><![CDATA[关注的问题 对遮挡物体的鲁棒性 如何处理对称物体的ambiguous rotation问题 对称物体的ambiguous rotation问题 分类 使用]]></description>
+    <description><![CDATA[robot grasping 基础 主要分为三个关键任务，Object Localization，Object Pose Estimation，Grasp Estimation Object Localizatio]]></description>
 </item><item>
     <title>JVM 学习2-类加载机制</title>
     <link>https://swaggerwei.github.io/jvm_learning2/</link>
