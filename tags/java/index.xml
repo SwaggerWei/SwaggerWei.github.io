@@ -3,7 +3,14 @@
         <title>Java - 标签 - Boyan Wei</title>
         <link>https://swaggerwei.github.io/tags/java/</link>
         <description>Java - 标签 - Boyan Wei</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Wed, 30 Mar 2022 22:55:14 &#43;0800</lastBuildDate><atom:link href="https://swaggerwei.github.io/tags/java/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Sat, 02 Apr 2022 16:03:23 &#43;0800</lastBuildDate><atom:link href="https://swaggerwei.github.io/tags/java/" rel="self" type="application/rss+xml" /><item>
+    <title>JVM 学习5</title>
+    <link>https://swaggerwei.github.io/jvm_learning5/</link>
+    <pubDate>Sat, 02 Apr 2022 16:03:23 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://swaggerwei.github.io/jvm_learning5/</guid>
+    <description><![CDATA[三种JVM Hotspot：Sun公司，用户数多 BEA JROckit：Oracle 设个财务前段办公、军事指挥与控制和电信网络的需要 j9vm JIT编译器：]]></description>
+</item><item>
     <title>JVM 学习4</title>
     <link>https://swaggerwei.github.io/jvm_learning4/</link>
     <pubDate>Wed, 30 Mar 2022 22:55:14 &#43;0800</pubDate>
@@ -66,12 +73,5 @@
     <author>作者</author>
     <guid>https://swaggerwei.github.io/java_learning2/</guid>
     <description><![CDATA[1 继承（关键字extends） 父类中私有成员可以被继承，只是外界无法访问 父类中公共属性、方法可以被子类继承 支持单继承，多重继承（单链式继承）]]></description>
-</item><item>
-    <title>Java 学习1-快速实现自定义字符链表</title>
-    <link>https://swaggerwei.github.io/java_learning/</link>
-    <pubDate>Mon, 20 Sep 2021 16:59:17 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>https://swaggerwei.github.io/java_learning/</guid>
-    <description><![CDATA[class 文件结构 ListNode.java 链表节点类 linkListString.java 链表类 test_ll_string.java 测试文件 ListNode.java val 存放字符串 next 指向下一个节点 构造函数 1 2 3 4 5 6 7 8 9 10 package linkList_string; public class ListNode { char val; ListNode next; public ListNode(char val) { this.val = val; } } linkListString.java 链]]></description>
 </item></channel>
 </rss>

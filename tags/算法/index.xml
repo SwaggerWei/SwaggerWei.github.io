@@ -3,7 +3,14 @@
         <title>算法 - 标签 - Boyan Wei</title>
         <link>https://swaggerwei.github.io/tags/%E7%AE%97%E6%B3%95/</link>
         <description>算法 - 标签 - Boyan Wei</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Wed, 30 Mar 2022 22:55:14 &#43;0800</lastBuildDate><atom:link href="https://swaggerwei.github.io/tags/%E7%AE%97%E6%B3%95/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Sat, 02 Apr 2022 16:03:23 &#43;0800</lastBuildDate><atom:link href="https://swaggerwei.github.io/tags/%E7%AE%97%E6%B3%95/" rel="self" type="application/rss+xml" /><item>
+    <title>JVM 学习5</title>
+    <link>https://swaggerwei.github.io/jvm_learning5/</link>
+    <pubDate>Sat, 02 Apr 2022 16:03:23 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://swaggerwei.github.io/jvm_learning5/</guid>
+    <description><![CDATA[三种JVM Hotspot：Sun公司，用户数多 BEA JROckit：Oracle 设个财务前段办公、军事指挥与控制和电信网络的需要 j9vm JIT编译器：]]></description>
+</item><item>
     <title>JVM 学习4</title>
     <link>https://swaggerwei.github.io/jvm_learning4/</link>
     <pubDate>Wed, 30 Mar 2022 22:55:14 &#43;0800</pubDate>
@@ -66,12 +73,5 @@
     <author>作者</author>
     <guid>https://swaggerwei.github.io/java_learning2/</guid>
     <description><![CDATA[1 继承（关键字extends） 父类中私有成员可以被继承，只是外界无法访问 父类中公共属性、方法可以被子类继承 支持单继承，多重继承（单链式继承）]]></description>
-</item><item>
-    <title>刷题学习9-java 图 知识点graph</title>
-    <link>https://swaggerwei.github.io/lc_learning9/</link>
-    <pubDate>Wed, 24 Nov 2021 16:59:17 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>https://swaggerwei.github.io/lc_learning9/</guid>
-    <description><![CDATA[树 和 图 辨析 树的父节点和子节点之间是一条路单向可达 图的的节点之间存在多条路可达 基本概念 顶点 边 邻居节点：只有一条边连接的顶点 度（degree）：]]></description>
 </item></channel>
 </rss>
