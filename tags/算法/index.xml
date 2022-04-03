@@ -3,7 +3,14 @@
         <title>算法 - 标签 - Boyan Wei</title>
         <link>https://swaggerwei.github.io/tags/%E7%AE%97%E6%B3%95/</link>
         <description>算法 - 标签 - Boyan Wei</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Sat, 02 Apr 2022 16:03:23 &#43;0800</lastBuildDate><atom:link href="https://swaggerwei.github.io/tags/%E7%AE%97%E6%B3%95/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Sun, 03 Apr 2022 11:28:01 &#43;0800</lastBuildDate><atom:link href="https://swaggerwei.github.io/tags/%E7%AE%97%E6%B3%95/" rel="self" type="application/rss+xml" /><item>
+    <title>JVM 学习6</title>
+    <link>https://swaggerwei.github.io/jvm_learning6/</link>
+    <pubDate>Sun, 03 Apr 2022 11:28:01 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://swaggerwei.github.io/jvm_learning6/</guid>
+    <description><![CDATA[遇到OOM错误的处理方式 尝试扩大对内存空间大小 能够看到代码第几行出错：内存快照工具（MAT， Jprofiler） MAT(eclipse)/J]]></description>
+</item><item>
     <title>JVM 学习5</title>
     <link>https://swaggerwei.github.io/jvm_learning5/</link>
     <pubDate>Sat, 02 Apr 2022 16:03:23 &#43;0800</pubDate>
@@ -66,12 +73,5 @@
     <author>作者</author>
     <guid>https://swaggerwei.github.io/java_learning3/</guid>
     <description><![CDATA[3 容器 数据容器主要分为了两类：Collection 和 Map Collection: 存放独立元素的序列 Map：存放key-value型的元素对 3.1 Collection 存放独立元素的序列 Li]]></description>
-</item><item>
-    <title>Java 学习2-继承和接口</title>
-    <link>https://swaggerwei.github.io/java_learning2/</link>
-    <pubDate>Wed, 05 Jan 2022 16:59:17 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>https://swaggerwei.github.io/java_learning2/</guid>
-    <description><![CDATA[1 继承（关键字extends） 父类中私有成员可以被继承，只是外界无法访问 父类中公共属性、方法可以被子类继承 支持单继承，多重继承（单链式继承）]]></description>
 </item></channel>
 </rss>

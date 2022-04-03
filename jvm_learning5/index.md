@@ -77,10 +77,7 @@ public class HeapTestDemo {
 ### 调整堆内存大小
 ![](/image_JVM/pic15.png)
 ![](/image_JVM/pic16.png)
-* 其中`-Xms`为最大内存大小，调整为1024mb
-* 其中`-Xmx`为初始化内存大小，调整为1024mb
+* 其中`-Xmx`为最大内存大小，调整为1024mb
+* 其中`-Xms`为初始化内存大小，调整为1024mb
 * `-XX:PrintGCDetails`为打印具体的内存信息
 
-### 遇到OOM错误的处理方式
-* 尝试扩大对内存空间大小
-* 分析内存，看哪里出了问题（idea 专业工具）
