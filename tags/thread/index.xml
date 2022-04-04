@@ -1,0 +1,14 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>Thread - 标签 - Boyan Wei</title>
+        <link>https://swaggerwei.github.io/tags/thread/</link>
+        <description>Thread - 标签 - Boyan Wei</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Mon, 04 Apr 2022 10:30:44 &#43;0800</lastBuildDate><atom:link href="https://swaggerwei.github.io/tags/thread/" rel="self" type="application/rss+xml" /><item>
+    <title>Java多线程学习1</title>
+    <link>https://swaggerwei.github.io/java_threads_learning1/</link>
+    <pubDate>Mon, 04 Apr 2022 10:30:44 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://swaggerwei.github.io/java_threads_learning1/</guid>
+    <description><![CDATA[Java 多线程基础知识 程序project：指令和数据的有序集合，静态概念 进程Process：程序的运行过程，是系统资源分配的单位，动态概念 线程Th]]></description>
+</item></channel>
+</rss>
