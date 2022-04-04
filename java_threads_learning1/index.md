@@ -174,8 +174,6 @@ public class TestThread4 implements Runnable{
 ![](/image_Thread/pic2.png)
 * 发现多个线程对同一个资源进行操作的时候，会出现并发问题，线程不安全，数据紊乱
 
-
-
 ## 龟兔赛跑案例
 ```java
 package MultiThread_learning;
@@ -231,3 +229,14 @@ public class Race implements Runnable{
 }
 
 ```
+
+## 实现Callable接口
+* 实现Callable接口需要返回值的类型
+* 重写call方法，需要抛出异常
+* 创建目标对象
+* 创建执行服务
+* 提交执行
+* 获取结果
+* 关闭服务
+
+### 具体实现
