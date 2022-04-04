@@ -16,6 +16,7 @@
 * Thread class：继承Thread类，重写其中的run方法
 * Runnable接口：实现Runnable接口
 * Callable接口：实现Callable接口
+* 推荐使用Runnable接口，避免单继承的局限性，还可以多个对象被一个线程使用，节省资源
 ### Thread创建多线程
 ```java
 package MultiThread_learning;
@@ -47,7 +48,7 @@ public class TestThread1 extends Thread{
 * 如果在创建线程对象后调用start，则为多线程模式
 * 如果在创建线程对象后调用run，则为单线程模式
 * 线程不一定立即执行，CPU安排调度，所以每一次多线程运行的结果都可能不一样
-### 实例-下载图片
+#### 实例-下载图片
 ```java
 package MultiThread_learning;
 
@@ -105,6 +106,128 @@ class WebDownloader{
 * 多线程下载一张图片，观察执行的先后顺序是否为单线程的顺序执行
 ![](/image_Thread/pic1.png)
 * 可以观察到，执行顺序和单线程顺序执行不一致，实际为多线程同时执行
+### 实现Runnable接口
+```java
+package MultiThread_learning;
+
+import javax.crypto.spec.PSource;
+
+public class TestThread3 implements Runnable{
+    @Override
+    public void run() {
+        for (int i = 0; i < 20; i++) {
+            System.out.println("我在看代码--"+i);
+        }
+    }
+
+    public static void main(String[] args) {
+        // 创建runnable接口的实现类对象
+        TestThread3 testThread3 = new TestThread3();
+        // 创建线程对象，通过线程对象来开启线程，代理
+        Thread thread =  new Thread(testThread3);
+        thread.start();
+
+        for (int i = 0; i < 20; i++) {
+            System.out.println("我在学习多线程--"+i);
+        }
+    }
+}
+
+```
+* 定义MyRunnable类实现Runnable接口
+* 实现run()方法，编写线程执行体
+* 创建线程对象，调用start()方法启动线程
+
+## 并发问题--同一个对象被多个线程使用
+```Java
+package MultiThread_learning;
+
+public class TestThread4 implements Runnable{
+    private int ticketNums = 10;
+
+    @Override
+    public void run() {
+        while (true){
+            if(ticketNums <=0){
+                break;
+            }
+            // 模拟延时
+            try {
+                Thread.sleep(200);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            // 买票
+            System.out.println(Thread.currentThread().getName() + "拿到了第" + ticketNums-- + "票");
+        }
+    }
+
+    public static void main(String[] args) {
+        TestThread4 testThread4 = new TestThread4();
+
+        new Thread(testThread4, "小明").start();
+        new Thread(testThread4, "老师").start();
+        new Thread(testThread4, "黄牛党").start();
+    }
+}
+``` 
+![](/image_Thread/pic2.png)
+* 发现多个线程对同一个资源进行操作的时候，会出现并发问题，线程不安全，数据紊乱
 
 
 
+## 龟兔赛跑案例
+```java
+package MultiThread_learning;
+
+// 模拟归途赛跑
+public class Race implements Runnable{
+    private static String winner;
+
+    @Override
+    public void run() {
+        for (int i = 0; i <= 100; i++) {
+
+            // 模拟兔子休息, 10次休息1毫秒
+            if (Thread.currentThread().getName().equals("兔子") && i%10 == 0){
+                try {
+                    Thread.sleep(1);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+            // 判断比赛是否结束
+            boolean flag = gameOver(i);
+            // 如果比赛结束，停止程序
+            if(flag){
+                break;
+            }
+            System.out.println(Thread.currentThread().getName() + "-->跑了" + i + "步");
+        }
+    }
+
+    private boolean gameOver(int steps){
+    // 判断是否有胜利者
+
+        if (winner != null){
+            // 已经存在胜利者了
+            return true;
+        }else{
+            if (steps >= 100){
+                winner = Thread.currentThread().getName();
+                System.out.println("winner is " + winner);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static void main(String[] args) {
+        Race race = new Race();
+
+        new Thread(race, "兔子").start();
+        new Thread(race, "乌龟").start();
+    }
+}
+
+```
