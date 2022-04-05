@@ -29,7 +29,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/swaggerwei.github.io\/java_threads_learning1\/"
-        },"genre": "posts","keywords": "Java, Thread, 多线程","wordcount":  2148 ,
+        },"genre": "posts","keywords": "Java, Thread, 多线程","wordcount":  2499 ,
         "url": "https:\/\/swaggerwei.github.io\/java_threads_learning1\/","datePublished": "2022-04-04T10:30:44+08:00","dateModified": "2022-04-04T10:30:44+08:00","publisher": {
             "@type": "Organization",
             "name": ""},"author": {
@@ -106,7 +106,7 @@
             <div class="toc-content always-active" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animated flipInX">Java多线程学习1</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>Boyan Wei</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/java%E5%A4%9A%E7%BA%BF%E7%A8%8B%E5%AD%A6%E4%B9%A0/"><i class="far fa-folder fa-fw"></i>Java多线程学习</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-04-04">2022-04-04</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 2148 字&nbsp;
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-04-04">2022-04-04</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 2499 字&nbsp;
                 <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 5 分钟&nbsp;</div>
         </div><div class="details toc" id="toc-static"  kept="">
                 <div class="details-summary toc-title">
@@ -131,6 +131,7 @@
     <li><a href="#实现callable接口">实现Callable接口</a>
       <ul>
         <li><a href="#具体实现">具体实现</a></li>
+        <li><a href="#callable特性">Callable特性</a></li>
       </ul>
     </li>
   </ul>
@@ -598,6 +599,131 @@
 <li>关闭服务</li>
 </ul>
 <h3 id="具体实现">具体实现</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">MultiThread_learning</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">java.util.concurrent.*</span><span class="o">;</span>
+
+<span class="c1">// 多线程的方式三， 实现callable接口
+</span><span class="c1"></span><span class="kd">public</span> <span class="kd">class</span> <span class="nc">TestCallable</span> <span class="kd">implements</span> <span class="n">Callable</span><span class="o">&lt;</span><span class="n">Boolean</span><span class="o">&gt;</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="n">String</span> <span class="n">url</span><span class="o">;</span>
+    <span class="kd">public</span> <span class="n">String</span> <span class="n">name</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="nf">TestCallable</span><span class="o">(</span><span class="n">String</span> <span class="n">url</span><span class="o">,</span> <span class="n">String</span> <span class="n">name</span><span class="o">){</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">url</span> <span class="o">=</span> <span class="n">url</span><span class="o">;</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">name</span> <span class="o">=</span> <span class="n">name</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="n">Boolean</span> <span class="nf">call</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+        <span class="n">WebDownloader</span> <span class="n">webDownloader</span> <span class="o">=</span> <span class="k">new</span> <span class="n">WebDownloader</span><span class="o">();</span>
+        <span class="n">webDownloader</span><span class="o">.</span><span class="na">downloader</span><span class="o">(</span><span class="n">url</span><span class="o">,</span> <span class="n">name</span><span class="o">);</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;下载了文件名为：&#34;</span><span class="o">+</span><span class="n">name</span><span class="o">);</span>
+
+        <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">ExecutionException</span><span class="o">,</span> <span class="n">InterruptedException</span> <span class="o">{</span>
+        <span class="n">TestCallable</span> <span class="n">testCallable1</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TestCallable</span><span class="o">(</span><span class="s">&#34;https://img-blog.csdnimg.cn/88eba0a511a84000b1e458e9aca123c7.png&#34;</span><span class="o">,</span> <span class="s">&#34;1.png&#34;</span><span class="o">);</span>
+        <span class="n">TestCallable</span> <span class="n">testCallable2</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TestCallable</span><span class="o">(</span><span class="s">&#34;https://img-blog.csdnimg.cn/88eba0a511a84000b1e458e9aca123c7.png&#34;</span><span class="o">,</span> <span class="s">&#34;2.png&#34;</span><span class="o">);</span>
+        <span class="n">TestCallable</span> <span class="n">testCallable3</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TestCallable</span><span class="o">(</span><span class="s">&#34;https://img-blog.csdnimg.cn/88eba0a511a84000b1e458e9aca123c7.png&#34;</span><span class="o">,</span> <span class="s">&#34;3.png&#34;</span><span class="o">);</span>
+
+        <span class="c1">// 创建执行服务, 生成一个线程池
+</span><span class="c1"></span>        <span class="n">ExecutorService</span> <span class="n">ser</span> <span class="o">=</span> <span class="n">Executors</span><span class="o">.</span><span class="na">newFixedThreadPool</span><span class="o">(</span><span class="n">3</span><span class="o">);</span>
+
+        <span class="c1">// 提交执行
+</span><span class="c1"></span>        <span class="n">Future</span><span class="o">&lt;</span><span class="n">Boolean</span><span class="o">&gt;</span> <span class="n">r1</span> <span class="o">=</span> <span class="n">ser</span><span class="o">.</span><span class="na">submit</span><span class="o">(</span><span class="n">testCallable1</span><span class="o">);</span>
+        <span class="n">Future</span><span class="o">&lt;</span><span class="n">Boolean</span><span class="o">&gt;</span> <span class="n">r2</span> <span class="o">=</span> <span class="n">ser</span><span class="o">.</span><span class="na">submit</span><span class="o">(</span><span class="n">testCallable2</span><span class="o">);</span>
+        <span class="n">Future</span><span class="o">&lt;</span><span class="n">Boolean</span><span class="o">&gt;</span> <span class="n">r3</span> <span class="o">=</span> <span class="n">ser</span><span class="o">.</span><span class="na">submit</span><span class="o">(</span><span class="n">testCallable3</span><span class="o">);</span>
+
+        <span class="c1">// 获取结果
+</span><span class="c1"></span>        <span class="kt">boolean</span> <span class="n">rs1</span> <span class="o">=</span> <span class="n">r1</span><span class="o">.</span><span class="na">get</span><span class="o">();</span>
+        <span class="kt">boolean</span> <span class="n">rs2</span> <span class="o">=</span> <span class="n">r2</span><span class="o">.</span><span class="na">get</span><span class="o">();</span>
+        <span class="kt">boolean</span> <span class="n">rs3</span> <span class="o">=</span> <span class="n">r3</span><span class="o">.</span><span class="na">get</span><span class="o">();</span>
+
+        <span class="c1">// 关闭服务
+</span><span class="c1"></span>        <span class="n">ser</span><span class="o">.</span><span class="na">shutdown</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="c1">// 下载器
+</span><span class="c1"></span><span class="kd">class</span> <span class="nc">WebDownloader</span><span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">downloader</span><span class="o">(</span><span class="n">String</span> <span class="n">url</span><span class="o">,</span> <span class="n">String</span> <span class="n">name</span><span class="o">){</span>
+        <span class="k">try</span><span class="o">{</span>
+            <span class="n">FileUtils</span><span class="o">.</span><span class="na">copyURLToFile</span><span class="o">(</span><span class="k">new</span> <span class="n">URL</span><span class="o">(</span><span class="n">url</span><span class="o">),</span> <span class="k">new</span> <span class="n">File</span><span class="o">(</span><span class="n">name</span><span class="o">));</span>
+        <span class="o">}</span><span class="k">catch</span><span class="o">(</span><span class="n">IOException</span> <span class="n">e</span><span class="o">){</span>
+            <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;IO异常，downloader出现问题&#34;</span><span class="o">);</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="callable特性">Callable特性</h3>
+<ul>
+<li>可以定义返回值</li>
+<li>可以跑出异常</li>
+</ul>
 </div><div class="post-footer" id="post-footer">
     <div class="post-info">
         <div class="post-info-line">

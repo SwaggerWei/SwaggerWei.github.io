@@ -240,3 +240,65 @@ public class Race implements Runnable{
 * 关闭服务
 
 ### 具体实现
+```java
+package MultiThread_learning;
+
+import java.util.concurrent.*;
+
+// 多线程的方式三， 实现callable接口
+public class TestCallable implements Callable<Boolean> {
+    public String url;
+    public String name;
+
+    public TestCallable(String url, String name){
+        this.url = url;
+        this.name = name;
+    }
+
+    @Override
+    public Boolean call() throws Exception {
+        WebDownloader webDownloader = new WebDownloader();
+        webDownloader.downloader(url, name);
+        System.out.println("下载了文件名为："+name);
+
+        return true;
+    }
+
+    public static void main(String[] args) throws ExecutionException, InterruptedException {
+        TestCallable testCallable1 = new TestCallable("https://img-blog.csdnimg.cn/88eba0a511a84000b1e458e9aca123c7.png", "1.png");
+        TestCallable testCallable2 = new TestCallable("https://img-blog.csdnimg.cn/88eba0a511a84000b1e458e9aca123c7.png", "2.png");
+        TestCallable testCallable3 = new TestCallable("https://img-blog.csdnimg.cn/88eba0a511a84000b1e458e9aca123c7.png", "3.png");
+
+        // 创建执行服务, 生成一个线程池
+        ExecutorService ser = Executors.newFixedThreadPool(3);
+
+        // 提交执行
+        Future<Boolean> r1 = ser.submit(testCallable1);
+        Future<Boolean> r2 = ser.submit(testCallable2);
+        Future<Boolean> r3 = ser.submit(testCallable3);
+
+        // 获取结果
+        boolean rs1 = r1.get();
+        boolean rs2 = r2.get();
+        boolean rs3 = r3.get();
+
+        // 关闭服务
+        ser.shutdown();
+    }
+}
+
+// 下载器
+class WebDownloader{
+    public void downloader(String url, String name){
+        try{
+            FileUtils.copyURLToFile(new URL(url), new File(name));
+        }catch(IOException e){
+            e.printStackTrace();
+            System.out.println("IO异常，downloader出现问题");
+        }
+    }
+}
+```
+### Callable特性
+* 可以定义返回值
+* 可以跑出异常
