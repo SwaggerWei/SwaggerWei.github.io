@@ -3,7 +3,14 @@
         <title>Java多线程学习 - 分类 - Boyan Wei</title>
         <link>https://swaggerwei.github.io/categories/java%E5%A4%9A%E7%BA%BF%E7%A8%8B%E5%AD%A6%E4%B9%A0/</link>
         <description>Java多线程学习 - 分类 - Boyan Wei</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Mon, 04 Apr 2022 10:30:44 &#43;0800</lastBuildDate><atom:link href="https://swaggerwei.github.io/categories/java%E5%A4%9A%E7%BA%BF%E7%A8%8B%E5%AD%A6%E4%B9%A0/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Tue, 05 Apr 2022 09:46:19 &#43;0800</lastBuildDate><atom:link href="https://swaggerwei.github.io/categories/java%E5%A4%9A%E7%BA%BF%E7%A8%8B%E5%AD%A6%E4%B9%A0/" rel="self" type="application/rss+xml" /><item>
+    <title>Java多线程学习2</title>
+    <link>https://swaggerwei.github.io/java_threads_learning2/</link>
+    <pubDate>Tue, 05 Apr 2022 09:46:19 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://swaggerwei.github.io/java_threads_learning2/</guid>
+    <description><![CDATA[静态代理模式 真实对象和代理对象都要实现同一个接口 代理对象要代理真实角色 优点，代理对象无法做很多真实对象无法做的事，真实对象可以专注于自己的事]]></description>
+</item><item>
     <title>Java多线程学习1</title>
     <link>https://swaggerwei.github.io/java_threads_learning1/</link>
     <pubDate>Mon, 04 Apr 2022 10:30:44 &#43;0800</pubDate>

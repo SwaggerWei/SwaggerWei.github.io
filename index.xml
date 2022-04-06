@@ -3,9 +3,16 @@
         <title>Boyan Wei</title>
         <link>https://swaggerwei.github.io/</link>
         <description>这是我的全新 Hugo 网站</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Mon, 04 Apr 2022 10:30:44 &#43;0800</lastBuildDate>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Tue, 05 Apr 2022 09:46:19 &#43;0800</lastBuildDate>
             <atom:link href="https://swaggerwei.github.io/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>Java多线程学习2</title>
+    <link>https://swaggerwei.github.io/java_threads_learning2/</link>
+    <pubDate>Tue, 05 Apr 2022 09:46:19 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://swaggerwei.github.io/java_threads_learning2/</guid>
+    <description><![CDATA[静态代理模式 真实对象和代理对象都要实现同一个接口 代理对象要代理真实角色 优点，代理对象无法做很多真实对象无法做的事，真实对象可以专注于自己的事]]></description>
+</item><item>
     <title>Java多线程学习1</title>
     <link>https://swaggerwei.github.io/java_threads_learning1/</link>
     <pubDate>Mon, 04 Apr 2022 10:30:44 &#43;0800</pubDate>
@@ -68,12 +75,5 @@
     <author>作者</author>
     <guid>https://swaggerwei.github.io/mysql_learning/</guid>
     <description><![CDATA[基础结构 用户连接 connection&ndash;mysql 数据库 database&ndash;information_schema 表格 table 视图 view 等等 连接数据库 navicat 双击数据库，创建连接 命令行连接 1 mysql -uroot -pWby785403310 修改密码 1 updatemysql.usersetauthentication_string=password(&#39;123456&#39;)whereuser=&#39;root&#39;andHost=&#39;localhost&#39;; 刷新权限 1 flushprivileges; 常用基础命令 查看所有数据]]></description>
-</item><item>
-    <title>Hugo 使用教程</title>
-    <link>https://swaggerwei.github.io/hugo_learning/</link>
-    <pubDate>Wed, 16 Feb 2022 15:41:41 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>https://swaggerwei.github.io/hugo_learning/</guid>
-    <description><![CDATA[下载Hugo 使用 brew 来安装hugo brew install hugo 新建一个hugo 项目 hugo new site mysite hugo 项目文件结构介绍 content 博客内容 static 图片 theme 主题 主题的配置 主题下载 进入gohugo]]></description>
 </item></channel>
 </rss>

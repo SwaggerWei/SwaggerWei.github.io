@@ -15,11 +15,41 @@
 
 ## 数据集
 * NOCS REAL275 
-* SUN RGB-D
+* SUN RGB-D 
 
 ## 实验
 * NOCS REAL275 对比实验
 * NOCS REAL275 仅提供bounding box 进行9D预测实验
 * SUN RGB-D 更加复杂的真实环境实验
+
+## pipeline
+![](/image_CPPF/pic14.png)
+* 其中u，v确定中心点
+* a，B确定rotation
+* 伽马确定scale
+* 训练的输入为仿真数据集模型
+
+## voting-based
+### voting for center
+![](/image_CPPF/pic9.png)
+* 通过一组点对p1、p2确定一组U，V向量
+* 计算出center
+* 多组candidates 进行投票
+![](/image_CPPF/pic10.png)
+
+### voting for orientation
+![](/image_CPPF/pic11.png)
+* 浅色部分为candidate orientation votes部分
+* 可以看到中间浅色部分同时被两组点对投票
+* 
+#### 消除ambiguity of orientation for symmetric object
+* 对如下两者的交叉熵进行二分类
+![](/image_CPPF/pic12.png)
+* 如果CrossEntropy(ˆσ , σˆ)比 CrossEntropy(−σˆ , σˆ)，更小，就保留e1，反之，则保留-e1
+
+### voting for scales
+![](/image_CPPF/pic13.png)
+* 开始时为采样点的平均值
+* 之后进过vating，找到最终的scale
 
 

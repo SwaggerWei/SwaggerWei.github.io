@@ -29,7 +29,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/swaggerwei.github.io\/category_level_1_cppf\/"
-        },"genre": "posts","keywords": "6D Pose, Category level, 9D Pose","wordcount":  310 ,
+        },"genre": "posts","keywords": "6D Pose, Category level, 9D Pose","wordcount":  559 ,
         "url": "https:\/\/swaggerwei.github.io\/category_level_1_cppf\/","datePublished": "2022-03-19T22:58:09+08:00","dateModified": "2022-03-19T22:58:09+08:00","publisher": {
             "@type": "Organization",
             "name": ""},"author": {
@@ -106,8 +106,8 @@
             <div class="toc-content always-active" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animated flipInX">CPPF</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>Boyan Wei</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/6d-pose/"><i class="far fa-folder fa-fw"></i>6D pose</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-03-19">2022-03-19</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 310 字&nbsp;
-                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 1 分钟&nbsp;</div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-03-19">2022-03-19</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 559 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 2 分钟&nbsp;</div>
         </div><div class="details toc" id="toc-static"  kept="">
                 <div class="details-summary toc-title">
                     <span>目录</span>
@@ -119,6 +119,14 @@
     <li><a href="#贡献点">贡献点</a></li>
     <li><a href="#数据集">数据集</a></li>
     <li><a href="#实验">实验</a></li>
+    <li><a href="#pipeline">pipeline</a></li>
+    <li><a href="#voting-based">voting-based</a>
+      <ul>
+        <li><a href="#voting-for-center">voting for center</a></li>
+        <li><a href="#voting-for-orientation">voting for orientation</a></li>
+        <li><a href="#voting-for-scales">voting for scales</a></li>
+      </ul>
+    </li>
   </ul>
 </nav></div>
             </div><div class="content" id="content"><h2 id="背景">背景</h2>
@@ -145,6 +153,81 @@
 <li>NOCS REAL275 对比实验</li>
 <li>NOCS REAL275 仅提供bounding box 进行9D预测实验</li>
 <li>SUN RGB-D 更加复杂的真实环境实验</li>
+</ul>
+<h2 id="pipeline">pipeline</h2>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/image_CPPF/pic14.png"
+        data-srcset="/image_CPPF/pic14.png, /image_CPPF/pic14.png 1.5x, /image_CPPF/pic14.png 2x"
+        data-sizes="auto"
+        alt="/image_CPPF/pic14.png"
+        title="/image_CPPF/pic14.png" /></p>
+<ul>
+<li>其中u，v确定中心点</li>
+<li>a，B确定rotation</li>
+<li>伽马确定scale</li>
+<li>训练的输入为仿真数据集模型</li>
+</ul>
+<h2 id="voting-based">voting-based</h2>
+<h3 id="voting-for-center">voting for center</h3>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/image_CPPF/pic9.png"
+        data-srcset="/image_CPPF/pic9.png, /image_CPPF/pic9.png 1.5x, /image_CPPF/pic9.png 2x"
+        data-sizes="auto"
+        alt="/image_CPPF/pic9.png"
+        title="/image_CPPF/pic9.png" /></p>
+<ul>
+<li>通过一组点对p1、p2确定一组U，V向量</li>
+<li>计算出center</li>
+<li>多组candidates 进行投票
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/image_CPPF/pic10.png"
+        data-srcset="/image_CPPF/pic10.png, /image_CPPF/pic10.png 1.5x, /image_CPPF/pic10.png 2x"
+        data-sizes="auto"
+        alt="/image_CPPF/pic10.png"
+        title="/image_CPPF/pic10.png" /></li>
+</ul>
+<h3 id="voting-for-orientation">voting for orientation</h3>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/image_CPPF/pic11.png"
+        data-srcset="/image_CPPF/pic11.png, /image_CPPF/pic11.png 1.5x, /image_CPPF/pic11.png 2x"
+        data-sizes="auto"
+        alt="/image_CPPF/pic11.png"
+        title="/image_CPPF/pic11.png" /></p>
+<ul>
+<li>浅色部分为candidate orientation votes部分</li>
+<li>可以看到中间浅色部分同时被两组点对投票</li>
+<li></li>
+<li>对如下两者的交叉熵进行二分类
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/image_CPPF/pic12.png"
+        data-srcset="/image_CPPF/pic12.png, /image_CPPF/pic12.png 1.5x, /image_CPPF/pic12.png 2x"
+        data-sizes="auto"
+        alt="/image_CPPF/pic12.png"
+        title="/image_CPPF/pic12.png" /></li>
+<li>如果CrossEntropy(ˆσ , σˆ)比 CrossEntropy(−σˆ , σˆ)，更小，就保留e1，反之，则保留-e1</li>
+</ul>
+<h3 id="voting-for-scales">voting for scales</h3>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/image_CPPF/pic13.png"
+        data-srcset="/image_CPPF/pic13.png, /image_CPPF/pic13.png 1.5x, /image_CPPF/pic13.png 2x"
+        data-sizes="auto"
+        alt="/image_CPPF/pic13.png"
+        title="/image_CPPF/pic13.png" /></p>
+<ul>
+<li>开始时为采样点的平均值</li>
+<li>之后进过vating，找到最终的scale</li>
 </ul>
 </div><div class="post-footer" id="post-footer">
     <div class="post-info">
