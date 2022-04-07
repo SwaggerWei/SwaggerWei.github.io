@@ -350,7 +350,6 @@ public class TestSleep3 {
 ```
 ![](/image_Thread/pic7.png)
 
-
 ## 线程礼让
 * 让当前只在执行的线程礼让，但不阻塞
 * 让线程从运行状态转为就绪状态

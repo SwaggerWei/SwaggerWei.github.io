@@ -3,7 +3,14 @@
         <title>所有文章 - Boyan Wei</title>
         <link>https://swaggerwei.github.io/posts/</link>
         <description>所有文章 | Boyan Wei</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Tue, 05 Apr 2022 09:46:19 &#43;0800</lastBuildDate><atom:link href="https://swaggerwei.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Wed, 06 Apr 2022 15:02:21 &#43;0800</lastBuildDate><atom:link href="https://swaggerwei.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+    <title>Java多线程学习3</title>
+    <link>https://swaggerwei.github.io/java_threads_learning3/</link>
+    <pubDate>Wed, 06 Apr 2022 15:02:21 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://swaggerwei.github.io/java_threads_learning3/</guid>
+    <description><![CDATA[线程强制执行 Join合并线程，此线程执行完成后再执行其他线程，其他线程阻塞 可以想像成插队 线程中尽量少使用次方法，会让其他线程陷入阻塞 具体实现]]></description>
+</item><item>
     <title>Java多线程学习2</title>
     <link>https://swaggerwei.github.io/java_threads_learning2/</link>
     <pubDate>Tue, 05 Apr 2022 09:46:19 &#43;0800</pubDate>
@@ -66,12 +73,5 @@
     <author>作者</author>
     <guid>https://swaggerwei.github.io/category_level_1_cppf/</guid>
     <description><![CDATA[背景 真实数据集上训练出来的模型往往难以推广到没有遇到过的场景 实例级别的9D姿态预测在测试时需要对没有见过的物体也有效，因为实例级别预测是没有]]></description>
-</item><item>
-    <title>Mysql学习1-基础命令行操作</title>
-    <link>https://swaggerwei.github.io/mysql_learning/</link>
-    <pubDate>Tue, 22 Feb 2022 21:24:13 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>https://swaggerwei.github.io/mysql_learning/</guid>
-    <description><![CDATA[基础结构 用户连接 connection&ndash;mysql 数据库 database&ndash;information_schema 表格 table 视图 view 等等 连接数据库 navicat 双击数据库，创建连接 命令行连接 1 mysql -uroot -pWby785403310 修改密码 1 updatemysql.usersetauthentication_string=password(&#39;123456&#39;)whereuser=&#39;root&#39;andHost=&#39;localhost&#39;; 刷新权限 1 flushprivileges; 常用基础命令 查看所有数据]]></description>
 </item></channel>
 </rss>
