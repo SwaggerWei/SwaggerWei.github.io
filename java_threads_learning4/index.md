@@ -342,3 +342,383 @@ class MakeUp extends Thread{
 ## Lock（锁）
 * 显式定义同步锁
 * JUC包下的内容 java.util.concurrent.locks
+* Lock对象开始访问共享资源之前应先活着Lock对象
+* ReentrantLock类实现了Lock，他拥有和synchronized相同的并发性和内存语义
+* 在实现线程安全控制中，比较常用的是ReentrantLock，可以显式地加锁和释放锁
+* 如果有异常，需要将解锁放入到finally之中
+
+### lock和synchronized 的区别
+* lock 是显示锁（手动开启和关闭）；synchronized是隐式锁，出了作用域自动关闭
+* Lock 只能锁代码块，synchronized既可以锁方法，也可以锁代码块
+* 使用Lock，JVM将花费较少的时间来调度线程，性能更好，并且扩展性更好
+* 优先使用顺序：Lock > 同步代码块（已经进入了方法体，非配了相应资源）> 同步方法（在方法体之外）
+
+### 具体实现
+```Java
+package MultiThread_learning.SeniorMethod;
+
+import java.util.concurrent.locks.ReentrantLock;
+
+// 测试Lock锁
+public class TestLock {
+
+    public static void main(String[] args) {
+        TestLock2 testLock2 = new TestLock2();
+
+        new Thread(testLock2).start();
+        new Thread(testLock2).start();
+        new Thread(testLock2).start();
+
+    }
+}
+
+class TestLock2 implements Runnable{
+
+    int ticketNums = 10;
+
+    // 定义Lock锁
+    private final ReentrantLock lock = new ReentrantLock();
+
+    @Override
+    public void run() {
+        while (true){
+            try {
+                // 加锁
+                lock.lock();
+
+                if(ticketNums > 0){
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+
+                    System.out.println(ticketNums--);
+                }else {
+                    break;
+                }
+            }finally {
+                // 解锁
+                // 如果有异常，需要将解锁放入到finally之中
+                lock.unlock();
+            }
+        }
+    }
+}
+```
+
+## 线程通信
+
+### 生产者消费者问题
+![](/image_Thread/pic16.png)
+* 仓库只能存放一件产品，生产者将生产出来的产品放入仓库，消费者将仓库中的产品取走消费
+* 对于生产者，如果仓库中没有产品，则生产者将产品放入仓库，如果仓库中已经有产品，生产者停止生产，直到产品被消费者取走为止
+* 对于消费者，仓库中如果放有产品，消费者可以将产品取走，否则停止消费并等待，直到仓库中有产品为止
+* 生产者消费者问题之中synchronized是不够的，只能加锁，但是无法实现通信
+
+### Java 线程通信问题的方法
+![](/image_Thread/pic17.png)
+* 注意：局势Object类的方法，都只能在同步方法和同步代码块中使用，否则会抛出IllegalMonitorStateException异常
+
+## 通信解决方式1-管程法
+![](/image_Thread/pic18.png)
+* 设置一个缓冲区
+
+### 具体实现
+```Java
+package MultiThread_learning.SeniorMethod;
+
+/**
+ * @author swaggerwei
+ * @version 1.0
+ * @since 1.8
+ */
+
+// 测试：生产者消费者问题  利用缓冲区（管程法）
+public class TestPandC {
+    public static void main(String[] args) {
+        SynContainer container = new SynContainer();
+
+        new Producer(container).start();
+        new Consumer(container).start();
+    }
+}
+
+// 生产者
+class Producer extends Thread{
+    SynContainer container;
+
+    public Producer(SynContainer container){
+        this.container = container;
+    }
+
+    @Override
+    public void run() {
+        super.run();
+
+        for (int i = 0; i < 100; i++) {
+            try {
+                container.push(new Chicken(i));
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            System.out.println("生产了" + i + "只鸡");
+        }
+    }
+}
+
+// 消费者
+class Consumer extends Thread{
+    SynContainer container;
+
+    public Consumer(SynContainer container){
+        this.container = container;
+    }
+
+
+
+    @Override
+    public void run() {
+        super.run();
+        for (int i = 0; i < 100; i++) {
+            try {
+                System.out.println("消费了" + container.pop().id + "只鸡");
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+}
+
+// 产品
+class Chicken{
+    int id;// 产品编号
+
+    public Chicken(int id) {
+        this.id = id;
+    }
+}
+
+// 缓冲区
+class SynContainer{
+
+    // 容器大小
+    Chicken[] chickens = new Chicken[10];
+    // 容器计数器
+    int count = 0;
+
+
+    // 生产者上货
+    public synchronized void push(Chicken chicken) throws InterruptedException {
+        // 如果容器满了，就要等待消费者消费
+        if(count == chickens.length){
+            // 通知消费者消费，生产等待
+            this.wait();
+        }
+
+        // 如果没有满，就要上货
+        chickens[count] = chicken;
+        count++;
+
+        // 可以通知消费这消费了
+        this.notifyAll();
+
+    }
+
+    // 消费者消费产品
+    public synchronized Chicken pop() throws InterruptedException {
+        // 判断是否可以消费
+        if(count == 0){
+            this.wait();
+            // 等待生产者生产，消费者等待
+        }
+
+        // 如果可以消费
+        count--;
+        Chicken chicken = chickens[count];
+
+        // 通知生产者开始上货
+        this.notifyAll();
+        return chicken;
+
+    }
+}
+```
+
+## 通信解决方式2-信号灯法
+* 设置一个标志位
+
+### 具体实现
+
+```Java
+package MultiThread_learning.SeniorMethod;
+
+/**
+ * @author swaggerwei
+ * @since 1.8
+ */
+
+// 生产者消费者问题
+// 信号灯法解决
+
+public class TestPandC2 {
+    public static void main(String[] args) {
+        TV tv = new TV();
+        new Player(tv).start();
+        new Audience(tv).start();
+    }
+}
+
+// 生产者---演员
+class Player extends Thread{
+    TV tv;
+    public Player(TV tv){
+        this.tv = tv;
+    }
+
+    @Override
+    public void run() {
+        for (int i = 0; i < 20; i++) {
+            if (i%2 == 0){
+                try {
+                    this.tv.play("甄嬛传");
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }else {
+                try {
+                    this.tv.play("天下足球");
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+}
+
+// 消费者---观众
+class Audience extends Thread{
+    TV tv;
+    public Audience(TV tv){
+        this.tv = tv;
+    }
+
+    @Override
+    public void run() {
+        for (int i = 0; i < 20; i++) {
+            try {
+                tv.watch();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+}
+
+// 产品---节目
+class TV{
+    // 演员表演，观众等待
+    // 观众观看，演员等待
+    String voice;//表演节目
+    boolean flag = true;
+
+    // 表演
+    public synchronized void play(String voice) throws InterruptedException {
+        if (!flag){
+            this.wait();
+        }
+
+        System.out.println("演员表演了节目：" + voice);
+
+        // 通知观众观看
+        this.voice = voice;
+        this.notifyAll();
+        this.flag = !this.flag;
+    }
+
+    // 观看
+    public synchronized void watch() throws InterruptedException {
+        if(flag){
+            this.wait();
+        }
+
+        System.out.println("观众观看了" + voice);
+        // 通知演员表演
+        notifyAll();
+        this.flag = !this.flag;
+    }
+}
+ 
+```
+
+## 线程池
+* 经常创建和销毁线程非常浪费资源，对性能影响很大
+* 提前创建好多个线程池，使用时直接获取，使用完放回池中
+* 优点：提高了相应速度
+* 优点：降低了资源消耗，重复利用线程池中线程，不需要重复创建
+* 便于线程管理：corePoolSize核心池大小, maximumPoolSize最大线程数，keepAliveTime线程没有任务时最多保持多长时间后终止
+
+### 具体使用
+* JDK5 开始提供线程池相关的API：ExecutorService 和 Executors
+* ExecutorService为真正的线程池接口，常见的子类ThreadPoolExecutor
+* Executors为工具类，线程池的工厂类，用于创建并返回不同类型的线程池
+
+### 具体实现
+```Java
+package MultiThread_learning.SeniorMethod;
+
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ForkJoinPool;
+
+/**
+ * @author swaggerwei
+ * @since 1.8
+ * @version 1.0
+ */
+// 测试线程池
+public class TestPool {
+    public static void main(String[] args) {
+        // 1 创建线程池, 参数为线程池的大小（线程的数目）
+        ExecutorService service = Executors.newFixedThreadPool(10);
+
+        service.execute(new MyThread());
+        service.execute(new MyThread());
+        service.execute(new MyThread());
+        service.execute(new MyThread());
+
+        // 关闭链接
+        service.shutdown();
+
+    }
+}
+
+class MyThread implements Runnable{
+    @Override
+    public void run() {
+        System.out.println(Thread.currentThread().getName());
+    }
+}
+```
+
+![](/image_Thread/pic19.png)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
