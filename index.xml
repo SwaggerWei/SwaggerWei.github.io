@@ -3,9 +3,16 @@
         <title>Boyan Wei</title>
         <link>https://swaggerwei.github.io/</link>
         <description>这是我的全新 Hugo 网站</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Sat, 09 Apr 2022 13:28:17 &#43;0800</lastBuildDate>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Sun, 01 May 2022 22:49:57 &#43;0800</lastBuildDate>
             <atom:link href="https://swaggerwei.github.io/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>6DPose—Object Localization总结</title>
+    <link>https://swaggerwei.github.io/6dpose_survey_2_object_localization/</link>
+    <pubDate>Sun, 01 May 2022 22:49:57 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://swaggerwei.github.io/6dpose_survey_2_object_localization/</guid>
+    <description><![CDATA[Object Localization的三种分类 object localization without classification：输出物体的区域 object detection：输出物体在图像中所处的bound]]></description>
+</item><item>
     <title>Java网络变成学习1</title>
     <link>https://swaggerwei.github.io/java_net1/</link>
     <pubDate>Sat, 09 Apr 2022 13:28:17 &#43;0800</pubDate>
@@ -68,12 +75,5 @@
     <author>作者</author>
     <guid>https://swaggerwei.github.io/jvm_learning3/</guid>
     <description><![CDATA[沙箱安全机制 限制程序运行的环境，将java代码限定在JVM特定的运行范围内 当前最新的安全机制实现，则引入了域(Domain) 的概念。虚拟机会]]></description>
-</item><item>
-    <title>6DPose 论文总结</title>
-    <link>https://swaggerwei.github.io/6dpose_survey/</link>
-    <pubDate>Tue, 29 Mar 2022 22:35:54 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>https://swaggerwei.github.io/6dpose_survey/</guid>
-    <description><![CDATA[robot grasping 基础 主要分为三个关键任务，Object Localization，Object Pose Estimation，Grasp Estimation Object Localizatio]]></description>
 </item></channel>
 </rss>

@@ -3,7 +3,14 @@
         <title>6D Pose - 标签 - Boyan Wei</title>
         <link>https://swaggerwei.github.io/tags/6d-pose/</link>
         <description>6D Pose - 标签 - Boyan Wei</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Tue, 29 Mar 2022 22:35:54 &#43;0800</lastBuildDate><atom:link href="https://swaggerwei.github.io/tags/6d-pose/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Sun, 01 May 2022 22:49:57 &#43;0800</lastBuildDate><atom:link href="https://swaggerwei.github.io/tags/6d-pose/" rel="self" type="application/rss+xml" /><item>
+    <title>6DPose—Object Localization总结</title>
+    <link>https://swaggerwei.github.io/6dpose_survey_2_object_localization/</link>
+    <pubDate>Sun, 01 May 2022 22:49:57 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://swaggerwei.github.io/6dpose_survey_2_object_localization/</guid>
+    <description><![CDATA[Object Localization的三种分类 object localization without classification：输出物体的区域 object detection：输出物体在图像中所处的bound]]></description>
+</item><item>
     <title>6DPose 论文总结</title>
     <link>https://swaggerwei.github.io/6dpose_survey/</link>
     <pubDate>Tue, 29 Mar 2022 22:35:54 &#43;0800</pubDate>
