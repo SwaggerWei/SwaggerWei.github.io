@@ -3,7 +3,14 @@
         <title>所有文章 - Boyan Wei</title>
         <link>https://swaggerwei.github.io/posts/</link>
         <description>所有文章 | Boyan Wei</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Wed, 11 May 2022 17:28:22 &#43;0800</lastBuildDate><atom:link href="https://swaggerwei.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Wed, 11 May 2022 18:22:36 &#43;0800</lastBuildDate><atom:link href="https://swaggerwei.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+    <title>pytorch学习2</title>
+    <link>https://swaggerwei.github.io/pytorch_learning2/</link>
+    <pubDate>Wed, 11 May 2022 18:22:36 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://swaggerwei.github.io/pytorch_learning2/</guid>
+    <description><![CDATA[Loss损失函数与反向传播 loss 损失函数 描述输出与真实值之间的差距 为更新输出提供一定的证据 L1Loss 衡量Groud Truth 和 output 之间的平均绝对误差 MAE（Mea]]></description>
+</item><item>
     <title>pytorch学习1</title>
     <link>https://swaggerwei.github.io/pytorch_learning/</link>
     <pubDate>Wed, 11 May 2022 17:28:22 &#43;0800</pubDate>
@@ -66,12 +73,5 @@
     <author>作者</author>
     <guid>https://swaggerwei.github.io/jvm_learning5/</guid>
     <description><![CDATA[三种JVM Hotspot：Sun公司，用户数多 BEA JROckit：Oracle 设个财务前段办公、军事指挥与控制和电信网络的需要 j9vm JIT编译器：]]></description>
-</item><item>
-    <title>JVM 学习4</title>
-    <link>https://swaggerwei.github.io/jvm_learning4/</link>
-    <pubDate>Wed, 30 Mar 2022 22:55:14 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>https://swaggerwei.github.io/jvm_learning4/</guid>
-    <description><![CDATA[栈基本概念 一种先进后出的数据结构与队列相对 栈内存，主管程序的运行 生命周期与线程同步，线程结束，栈内存也就释放了 对于栈内存来说，不存在垃圾回收]]></description>
 </item></channel>
 </rss>
