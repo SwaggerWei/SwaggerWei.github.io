@@ -29,7 +29,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/swaggerwei.github.io\/pytorch_learning\/"
-        },"genre": "posts","keywords": "Pytorch, 深度学习","wordcount":  909 ,
+        },"genre": "posts","keywords": "Pytorch, 深度学习","wordcount":  2393 ,
         "url": "https:\/\/swaggerwei.github.io\/pytorch_learning\/","datePublished": "2022-05-11T17:28:22+08:00","dateModified": "2022-05-11T17:28:22+08:00","publisher": {
             "@type": "Organization",
             "name": ""},"author": {
@@ -106,8 +106,8 @@
             <div class="toc-content always-active" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animated flipInX">pytorch学习1</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>Boyan Wei</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/pytorch/"><i class="far fa-folder fa-fw"></i>pytorch</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-05-11">2022-05-11</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 909 字&nbsp;
-                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 2 分钟&nbsp;</div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-05-11">2022-05-11</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 2393 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 5 分钟&nbsp;</div>
         </div><div class="details toc" id="toc-static"  kept="">
                 <div class="details-summary toc-title">
                     <span>目录</span>
@@ -122,6 +122,23 @@
         <li><a href="#定义自己的网络结构">定义自己的网络结构</a></li>
         <li><a href="#后续操作">后续操作</a></li>
         <li><a href="#测试源码">测试源码</a></li>
+      </ul>
+    </li>
+    <li><a href="#最大池化层使用">最大池化层使用</a>
+      <ul>
+        <li><a href="#最大池化-取窗口中的最大值">最大池化-取窗口中的最大值</a></li>
+        <li><a href="#参数使用">参数使用</a></li>
+        <li><a href="#源码测试">源码测试</a></li>
+      </ul>
+    </li>
+    <li><a href="#非线性激活">非线性激活</a></li>
+    <li><a href="#线性层和及其他层">线性层和及其他层</a></li>
+    <li><a href="#sequential和网络搭建实战">sequential和网络搭建实战</a>
+      <ul>
+        <li><a href="#不使用sequential">不使用sequential</a></li>
+        <li><a href="#使用sequential">使用sequential</a></li>
+        <li><a href="#测试网络是否正确小技巧">测试网络是否正确小技巧</a></li>
+        <li><a href="#源码测试-1">源码测试</a></li>
       </ul>
     </li>
   </ul>
@@ -346,6 +363,355 @@
     <span class="n">writer</span><span class="o">.</span><span class="n">add_images</span><span class="p">(</span><span class="s2">&#34;output&#34;</span><span class="p">,</span> <span class="n">img_tensor</span><span class="o">=</span><span class="n">output</span><span class="p">,</span> <span class="n">global_step</span><span class="o">=</span><span class="n">step</span><span class="p">)</span>
     <span class="n">step</span> <span class="o">=</span> <span class="n">step</span> <span class="o">+</span> <span class="mi">1</span>
 
+<span class="n">writer</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="最大池化层使用">最大池化层使用</h2>
+<h3 id="最大池化-取窗口中的最大值">最大池化-取窗口中的最大值</h3>
+<ul>
+<li>MaxPool2d   &mdash; 最大池化 （下采样）</li>
+<li>MaxUnPool2d &mdash; 最大池化 （上采样）</li>
+</ul>
+<h3 id="参数使用">参数使用</h3>
+<ul>
+<li>kernel_size：核  窗口大小 the size of the window to take a max over</li>
+<li>stride：步长 the stride of the window. Default value is kernel_size</li>
+<li>padding：边缘补零 implicit zero padding to be added on both sides</li>
+<li>dilation：核的数字之间是否紧密相连 a parameter that controls the stride of elements in the window</li>
+<li>ceil_mode：是使用ceil还是floor 模式进行计算 （ceil-》不足填充整个窗口丢弃）</li>
+</ul>
+<h3 id="源码测试">源码测试</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="c1"># 最大池化层的使用</span>
+<span class="c1">#     非线性激活的使用</span>
+<span class="c1">#     sigmoid 层</span>
+<span class="c1">#     relu 层</span>
+
+<span class="kn">import</span> <span class="nn">torch</span>
+<span class="kn">import</span> <span class="nn">torchvision</span>
+<span class="kn">from</span> <span class="nn">torch.utils.data</span> <span class="kn">import</span> <span class="n">DataLoader</span>
+<span class="kn">from</span> <span class="nn">torch</span> <span class="kn">import</span> <span class="n">nn</span>
+<span class="kn">from</span> <span class="nn">torch.nn</span> <span class="kn">import</span> <span class="n">Conv2d</span>
+<span class="kn">from</span> <span class="nn">torch.nn</span> <span class="kn">import</span> <span class="n">MaxPool2d</span>
+<span class="kn">from</span> <span class="nn">torch.nn</span> <span class="kn">import</span> <span class="n">ReLU</span>
+<span class="kn">from</span> <span class="nn">torch.nn</span> <span class="kn">import</span> <span class="n">Sigmoid</span>
+
+<span class="kn">from</span> <span class="nn">torch.utils.tensorboard</span> <span class="kn">import</span> <span class="n">SummaryWriter</span>
+
+<span class="c1"># 准备数据集</span>
+<span class="c1"># 代码在src中， 把数据集下载到 &#34;../data&#34;， 也就是退到上一层目录， 新建一个目data</span>
+<span class="n">dataset</span> <span class="o">=</span> <span class="n">torchvision</span><span class="o">.</span><span class="n">datasets</span><span class="o">.</span><span class="n">CIFAR10</span><span class="p">(</span><span class="s2">&#34;../data&#34;</span><span class="p">,</span> <span class="n">train</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">transform</span><span class="o">=</span><span class="n">torchvision</span><span class="o">.</span><span class="n">transforms</span><span class="o">.</span><span class="n">ToTensor</span><span class="p">(),</span>
+                                       <span class="n">download</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="c1"># 将数据转换为tensor数据类型 一个batch为64</span>
+<span class="n">dataloader</span> <span class="o">=</span> <span class="n">DataLoader</span><span class="p">(</span><span class="n">dataset</span><span class="o">=</span><span class="n">dataset</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">64</span><span class="p">)</span>
+
+
+<span class="c1"># 定义自己的网络结构， 输入通道为3， 输出通道为6（意味着有两个卷积核）， 卷积核的大小为3， 步长为1， 不增加padding</span>
+<span class="k">class</span> <span class="nc">SwaggerMaxPool</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">SwaggerMaxPool</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">conv1</span> <span class="o">=</span> <span class="n">Conv2d</span><span class="p">(</span><span class="n">in_channels</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">out_channels</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">stride</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">maxpool1</span> <span class="o">=</span> <span class="n">MaxPool2d</span><span class="p">(</span><span class="n">kernel_size</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">stride</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">relu1</span> <span class="o">=</span> <span class="n">ReLU</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sigmoid1</span> <span class="o">=</span> <span class="n">Sigmoid</span><span class="p">()</span>
+
+    <span class="c1"># 前向传播， 输入为x， 输出为y</span>
+    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="c1"># y = self.conv1(x)</span>
+        <span class="c1"># y = self.maxpool1</span>
+        <span class="c1"># y = self.relu1(x)</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sigmoid1</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">y</span>
+
+
+<span class="n">swagger</span> <span class="o">=</span> <span class="n">SwaggerMaxPool</span><span class="p">()</span>
+
+<span class="n">writer</span> <span class="o">=</span> <span class="n">SummaryWriter</span><span class="p">(</span><span class="s2">&#34;../logs&#34;</span><span class="p">)</span>
+
+<span class="n">step</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="k">for</span> <span class="n">data</span> <span class="ow">in</span> <span class="n">dataloader</span><span class="p">:</span>
+    <span class="n">imgs</span><span class="p">,</span> <span class="n">targets</span> <span class="o">=</span> <span class="n">data</span>
+    <span class="n">output</span> <span class="o">=</span> <span class="n">swagger</span><span class="p">(</span><span class="n">imgs</span><span class="p">)</span>
+    <span class="c1"># 原图写入到tensorboard当中</span>
+    <span class="n">writer</span><span class="o">.</span><span class="n">add_images</span><span class="p">(</span><span class="s2">&#34;input&#34;</span><span class="p">,</span> <span class="n">img_tensor</span><span class="o">=</span><span class="n">imgs</span><span class="p">,</span> <span class="n">global_step</span><span class="o">=</span><span class="n">step</span><span class="p">)</span>
+
+    <span class="n">writer</span><span class="o">.</span><span class="n">add_images</span><span class="p">(</span><span class="s2">&#34;output&#34;</span><span class="p">,</span> <span class="n">img_tensor</span><span class="o">=</span><span class="n">output</span><span class="p">,</span> <span class="n">global_step</span><span class="o">=</span><span class="n">step</span><span class="p">)</span>
+    <span class="n">step</span> <span class="o">=</span> <span class="n">step</span> <span class="o">+</span> <span class="mi">1</span>
+
+<span class="n">writer</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="非线性激活">非线性激活</h2>
+<ul>
+<li>nn.ReLU 对非0数字进行截断，其中的参数inplace， 如果为TRUE，则对input 进行原地替换操作，默认为False，不进行原地操作。</li>
+<li>nn.Sigmoid</li>
+<li>使得模型能够使用各种非线性结构的特征，增强模型的泛化能力</li>
+</ul>
+<h2 id="线性层和及其他层">线性层和及其他层</h2>
+<ul>
+<li>Normalization Layers：标准化层：映射到指定的区间，可以增加训练的速度</li>
+<li>Recurrent Layers：文字识别网络结构</li>
+<li>Transformer Layers：特定的网络结构（paper： attention is all you need）</li>
+<li>Dropout Layers：满足服从B-p分布的特性将输入中的数据随机置零&mdash;-&gt;防止过拟合（Efficient Object Localization Using Convolutional networks）</li>
+<li>Sparse Layers：自然语言处理（NLP）网络</li>
+<li>Distance Functions：计算距离的函数</li>
+<li>Loss Function：计算loss</li>
+<li>Linear Layers：线性层，全连接层 fully connected layers</li>
+</ul>
+<h2 id="sequential和网络搭建实战">sequential和网络搭建实战</h2>
+<h3 id="不使用sequential">不使用sequential</h3>
+<ul>
+<li>init 当中定义网络结构</li>
+<li>forward当中按照顺序调用各层网络</li>
+</ul>
+<h3 id="使用sequential">使用sequential</h3>
+<ul>
+<li>init 使用sequential定义model 在model中按照顺序添加网络结构</li>
+<li>forward 中直接调用model</li>
+</ul>
+<h3 id="测试网络是否正确小技巧">测试网络是否正确小技巧</h3>
+<ul>
+<li>torch.ones / torch.zeros 生成input</li>
+<li>输入到网络当中看是否出错</li>
+</ul>
+<h3 id="源码测试-1">源码测试</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span><span class="lnt">69
+</span><span class="lnt">70
+</span><span class="lnt">71
+</span><span class="lnt">72
+</span><span class="lnt">73
+</span><span class="lnt">74
+</span><span class="lnt">75
+</span><span class="lnt">76
+</span><span class="lnt">77
+</span><span class="lnt">78
+</span><span class="lnt">79
+</span><span class="lnt">80
+</span><span class="lnt">81
+</span><span class="lnt">82
+</span><span class="lnt">83
+</span><span class="lnt">84
+</span><span class="lnt">85
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">torch</span>
+<span class="kn">import</span> <span class="nn">torchvision</span>
+<span class="kn">from</span> <span class="nn">torch.nn</span> <span class="kn">import</span> <span class="n">Flatten</span>
+<span class="kn">from</span> <span class="nn">torch.utils.data</span> <span class="kn">import</span> <span class="n">DataLoader</span>
+<span class="kn">from</span> <span class="nn">torch</span> <span class="kn">import</span> <span class="n">nn</span>
+<span class="kn">from</span> <span class="nn">torch.nn</span> <span class="kn">import</span> <span class="n">Conv2d</span>
+<span class="kn">from</span> <span class="nn">torch.nn</span> <span class="kn">import</span> <span class="n">MaxPool2d</span>
+<span class="kn">from</span> <span class="nn">torch.nn</span> <span class="kn">import</span> <span class="n">ReLU</span>
+<span class="kn">from</span> <span class="nn">torch.nn</span> <span class="kn">import</span> <span class="n">Sigmoid</span>
+<span class="kn">from</span> <span class="nn">torch.nn</span> <span class="kn">import</span> <span class="n">Linear</span>
+<span class="kn">from</span> <span class="nn">torch.nn</span> <span class="kn">import</span> <span class="n">Sequential</span>
+<span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">OrderedDict</span>
+
+<span class="kn">from</span> <span class="nn">torch.utils.tensorboard</span> <span class="kn">import</span> <span class="n">SummaryWriter</span>
+
+<span class="c1"># 准备数据集</span>
+<span class="c1"># 代码在src中， 把数据集下载到 &#34;../data&#34;， 也就是退到上一层目录， 新建一个目data</span>
+<span class="n">dataset</span> <span class="o">=</span> <span class="n">torchvision</span><span class="o">.</span><span class="n">datasets</span><span class="o">.</span><span class="n">CIFAR10</span><span class="p">(</span><span class="s2">&#34;../data&#34;</span><span class="p">,</span> <span class="n">train</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">transform</span><span class="o">=</span><span class="n">torchvision</span><span class="o">.</span><span class="n">transforms</span><span class="o">.</span><span class="n">ToTensor</span><span class="p">(),</span>
+                                       <span class="n">download</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="c1"># 将数据转换为tensor数据类型 一个batch为64</span>
+<span class="n">dataloader</span> <span class="o">=</span> <span class="n">DataLoader</span><span class="p">(</span><span class="n">dataset</span><span class="o">=</span><span class="n">dataset</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">64</span><span class="p">)</span>
+
+
+<span class="k">class</span> <span class="nc">SwaggerCifar</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">SwaggerCifar</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="c1"># self.conv1 = Conv2d(in_channels=3, out_channels=32, kernel_size=5,</span>
+        <span class="c1">#                     stride=1, padding=2)</span>
+        <span class="c1"># self.maxpool1 = MaxPool2d(kernel_size=2)</span>
+        <span class="c1"># self.conv2 = Conv2d(in_channels=32, out_channels=32, kernel_size=5,</span>
+        <span class="c1">#                     stride=1, padding=2)</span>
+        <span class="c1"># self.maxpool2 = MaxPool2d(kernel_size=2)</span>
+        <span class="c1"># self.conv3 = Conv2d(in_channels=32, out_channels=64, kernel_size=5,</span>
+        <span class="c1">#                     stride=1, padding=2)</span>
+        <span class="c1"># self.maxpool3 = MaxPool2d(kernel_size=2)</span>
+        <span class="c1"># self.flatten = Flatten()</span>
+        <span class="c1"># self.linear1 = Linear(in_features=1024, out_features=64)</span>
+        <span class="c1"># self.linear2 = Linear(in_features=64, out_features=10)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">model1</span> <span class="o">=</span> <span class="n">Sequential</span><span class="p">(</span>
+            <span class="n">Conv2d</span><span class="p">(</span><span class="n">in_channels</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">out_channels</span><span class="o">=</span><span class="mi">32</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
+                   <span class="n">stride</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mi">2</span><span class="p">),</span>
+            <span class="n">MaxPool2d</span><span class="p">(</span><span class="n">kernel_size</span><span class="o">=</span><span class="mi">2</span><span class="p">),</span>
+            <span class="n">Conv2d</span><span class="p">(</span><span class="n">in_channels</span><span class="o">=</span><span class="mi">32</span><span class="p">,</span> <span class="n">out_channels</span><span class="o">=</span><span class="mi">32</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
+                   <span class="n">stride</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mi">2</span><span class="p">),</span>
+            <span class="n">MaxPool2d</span><span class="p">(</span><span class="n">kernel_size</span><span class="o">=</span><span class="mi">2</span><span class="p">),</span>
+            <span class="n">Conv2d</span><span class="p">(</span><span class="n">in_channels</span><span class="o">=</span><span class="mi">32</span><span class="p">,</span> <span class="n">out_channels</span><span class="o">=</span><span class="mi">64</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
+                   <span class="n">stride</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mi">2</span><span class="p">),</span>
+            <span class="n">MaxPool2d</span><span class="p">(</span><span class="n">kernel_size</span><span class="o">=</span><span class="mi">2</span><span class="p">),</span>
+            <span class="n">Flatten</span><span class="p">(),</span>
+            <span class="n">Linear</span><span class="p">(</span><span class="n">in_features</span><span class="o">=</span><span class="mi">1024</span><span class="p">,</span> <span class="n">out_features</span><span class="o">=</span><span class="mi">64</span><span class="p">),</span>
+            <span class="n">Linear</span><span class="p">(</span><span class="n">in_features</span><span class="o">=</span><span class="mi">64</span><span class="p">,</span> <span class="n">out_features</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+        <span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="c1"># x = self.conv1(x)</span>
+        <span class="c1"># x = self.maxpool1(x)</span>
+        <span class="c1"># x = self.conv2(x)</span>
+        <span class="c1"># x = self.maxpool2(x)</span>
+        <span class="c1"># x = self.conv3(x)</span>
+        <span class="c1"># x = self.maxpool3(x)</span>
+        <span class="c1"># x = self.flatten(x)</span>
+        <span class="c1"># x = self.linear1(x)</span>
+        <span class="c1"># x = self.linear2(x)</span>
+
+        <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">model1</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">x</span>
+
+
+<span class="n">swagger</span> <span class="o">=</span> <span class="n">SwaggerCifar</span><span class="p">()</span>
+
+<span class="c1"># 使用torch的数字生成器简单检验网络的输入输出是否正确</span>
+<span class="nb">input</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="mi">64</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">32</span><span class="p">,</span> <span class="mi">32</span><span class="p">)</span>
+<span class="n">output</span> <span class="o">=</span> <span class="n">swagger</span><span class="p">(</span><span class="nb">input</span><span class="p">)</span>
+<span class="c1"># print(output[0])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">output</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">swagger</span><span class="p">)</span>
+
+<span class="c1"># tensorboard 网络结构的可视化</span>
+<span class="n">writer</span> <span class="o">=</span> <span class="n">SummaryWriter</span><span class="p">(</span><span class="s2">&#34;../logs&#34;</span><span class="p">)</span>
+<span class="n">writer</span><span class="o">.</span><span class="n">add_graph</span><span class="p">(</span><span class="n">swagger</span><span class="p">,</span> <span class="nb">input</span><span class="p">)</span>
 <span class="n">writer</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
 
 </code></pre></td></tr></table>
