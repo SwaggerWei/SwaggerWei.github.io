@@ -29,7 +29,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/swaggerwei.github.io\/develop_gamesnake\/"
-        },"genre": "posts","keywords": "Java游戏, awt, swing","wordcount":  598 ,
+        },"genre": "posts","keywords": "Java游戏, awt, swing","wordcount":  3764 ,
         "url": "https:\/\/swaggerwei.github.io\/develop_gamesnake\/","datePublished": "2022-05-12T18:01:17+08:00","dateModified": "2022-05-12T18:01:17+08:00","publisher": {
             "@type": "Organization",
             "name": ""},"author": {
@@ -106,8 +106,8 @@
             <div class="toc-content always-active" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animated flipInX">贪吃蛇开发</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>Boyan Wei</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E5%B0%8F%E5%BC%80%E5%8F%91/"><i class="far fa-folder fa-fw"></i>小开发</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-05-12">2022-05-12</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 598 字&nbsp;
-                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 2 分钟&nbsp;</div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-05-12">2022-05-12</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 3764 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 8 分钟&nbsp;</div>
         </div><div class="details toc" id="toc-static"  kept="">
                 <div class="details-summary toc-title">
                     <span>目录</span>
@@ -125,6 +125,16 @@
       <ul>
         <li><a href="#步骤-1">步骤</a></li>
         <li><a href="#源码-1">源码</a></li>
+      </ul>
+    </li>
+    <li><a href="#gamepanel-类继承jpanel实现keylistener和actionlistener">GamePanel 类：继承JPanel，实现KeyListener和ActionListener</a>
+      <ul>
+        <li><a href="#构造函数">构造函数</a></li>
+        <li><a href="#初始化init">初始化init</a></li>
+        <li><a href="#绘制静态画板">绘制静态画板</a></li>
+        <li><a href="#接受键盘输入">接受键盘输入</a></li>
+        <li><a href="#actionperformed">actionPerformed</a></li>
+        <li><a href="#源码-2">源码</a></li>
       </ul>
     </li>
   </ul>
@@ -272,6 +282,968 @@
         <span class="c1">// 设置窗口的可见性，这一步应该放到最后，不然画板中的内容不能生效
 </span><span class="c1"></span>        <span class="n">jFrame</span><span class="o">.</span><span class="na">setVisible</span><span class="o">(</span><span class="kc">true</span><span class="o">);</span>
     <span class="o">}</span>
+<span class="o">}</span>
+
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="gamepanel-类继承jpanel实现keylistener和actionlistener">GamePanel 类：继承JPanel，实现KeyListener和ActionListener</h2>
+<h3 id="构造函数">构造函数</h3>
+<ul>
+<li>调用init() 完成各种初始化操作</li>
+<li>获取键盘监听事件，是的键盘聚焦到游戏上，然后添加一个键盘监听者</li>
+<li>让事件定义的Timer实例动起来start</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-Java" data-lang="Java"><span class="kd">public</span> <span class="nf">GamePanel</span><span class="o">(){</span>
+    <span class="n">init</span><span class="o">();</span>
+
+    <span class="c1">// 获取键盘的监听事件
+</span><span class="c1"></span>    <span class="k">this</span><span class="o">.</span><span class="na">setFocusable</span><span class="o">(</span><span class="kc">true</span><span class="o">);</span><span class="c1">// 键盘聚焦到游戏上
+</span><span class="c1"></span>    <span class="k">this</span><span class="o">.</span><span class="na">addKeyListener</span><span class="o">(</span><span class="k">this</span><span class="o">);</span>
+
+    <span class="c1">// 时间动起来
+</span><span class="c1"></span>    <span class="n">timer</span><span class="o">.</span><span class="na">start</span><span class="o">();</span>
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="初始化init">初始化init</h3>
+<ul>
+<li>初始化长度和蛇头蛇身坐标</li>
+<li>初始化食物坐标，注意不能和蛇重合</li>
+<li>初始化分数为0</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-Java" data-lang="Java"><span class="kd">public</span> <span class="kt">void</span> <span class="nf">init</span><span class="o">(){</span>
+    <span class="n">length</span> <span class="o">=</span> <span class="n">3</span><span class="o">;</span>
+    <span class="n">snakeX</span><span class="o">[</span><span class="n">0</span><span class="o">]</span> <span class="o">=</span> <span class="n">100</span><span class="o">;</span> <span class="n">snakeY</span><span class="o">[</span><span class="n">0</span><span class="o">]</span> <span class="o">=</span> <span class="n">100</span><span class="o">;</span> <span class="c1">// 蛇头坐标
+</span><span class="c1"></span>    <span class="n">snakeX</span><span class="o">[</span><span class="n">1</span><span class="o">]</span> <span class="o">=</span> <span class="n">75</span><span class="o">;</span> <span class="n">snakeY</span><span class="o">[</span><span class="n">1</span><span class="o">]</span> <span class="o">=</span> <span class="n">100</span><span class="o">;</span> <span class="c1">// 第一节身体坐标
+</span><span class="c1"></span>    <span class="n">snakeX</span><span class="o">[</span><span class="n">2</span><span class="o">]</span> <span class="o">=</span> <span class="n">50</span><span class="o">;</span> <span class="n">snakeY</span><span class="o">[</span><span class="n">2</span><span class="o">]</span> <span class="o">=</span> <span class="n">100</span><span class="o">;</span> <span class="c1">// 蛇头坐标
+</span><span class="c1"></span>
+    <span class="kt">boolean</span> <span class="n">isFoodCoveredByBody</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
+    <span class="k">while</span> <span class="o">(</span><span class="kc">true</span><span class="o">){</span>
+        <span class="c1">// 重新生成食物坐标
+</span><span class="c1"></span>        <span class="n">foodx</span> <span class="o">=</span> <span class="n">25</span> <span class="o">+</span> <span class="n">25</span> <span class="o">*</span> <span class="n">random</span><span class="o">.</span><span class="na">nextInt</span><span class="o">(</span><span class="n">34</span><span class="o">);</span>
+        <span class="n">foody</span> <span class="o">=</span> <span class="n">75</span> <span class="o">+</span> <span class="n">25</span> <span class="o">*</span> <span class="n">random</span><span class="o">.</span><span class="na">nextInt</span><span class="o">(</span><span class="n">24</span><span class="o">);</span>
+        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">foodx</span> <span class="o">==</span> <span class="n">snakeX</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">&amp;&amp;</span> <span class="n">foody</span> <span class="o">==</span> <span class="n">snakeY</span><span class="o">[</span><span class="n">i</span><span class="o">]){</span>
+                <span class="n">isFoodCoveredByBody</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">isFoodCoveredByBody</span>  <span class="o">==</span> <span class="kc">true</span><span class="o">){</span>
+            <span class="k">continue</span><span class="o">;</span>
+        <span class="o">}</span><span class="k">else</span> <span class="o">{</span>
+            <span class="k">break</span><span class="o">;</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+
+
+    <span class="n">score</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="绘制静态画板">绘制静态画板</h3>
+<ul>
+<li>调用父类，达到清屏效果</li>
+<li>设置背景的颜色</li>
+<li>从Data中获取header绘制头部广告栏</li>
+<li>绘制游戏区域</li>
+<li>画一条静态小蛇，注意头方向的判断，然后绘制身体</li>
+<li>画积分，设置画积分的各种参数</li>
+<li>画一个食物</li>
+<li>提示游戏开始，注意判断是否为开始状态</li>
+<li>失败提醒，注意判断是否为失败状态</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-Java" data-lang="Java"><span class="kd">protected</span> <span class="kt">void</span> <span class="nf">paintComponent</span><span class="o">(</span><span class="n">Graphics</span> <span class="n">g</span><span class="o">)</span> <span class="o">{</span>
+
+    <span class="c1">// 1 绘制静态面板
+</span><span class="c1"></span>    <span class="c1">// 调用父类，达到清屏效果
+</span><span class="c1"></span>    <span class="kd">super</span><span class="o">.</span><span class="na">paintComponent</span><span class="o">(</span><span class="n">g</span><span class="o">);</span>
+    <span class="c1">// 设置背景的颜色
+</span><span class="c1"></span>    <span class="k">this</span><span class="o">.</span><span class="na">setBackground</span><span class="o">(</span><span class="n">Color</span><span class="o">.</span><span class="na">WHITE</span><span class="o">);</span>
+    <span class="c1">// 绘制头部广告栏
+</span><span class="c1"></span>    <span class="n">Data</span><span class="o">.</span><span class="na">header</span><span class="o">.</span><span class="na">paintIcon</span><span class="o">(</span><span class="k">this</span><span class="o">,</span> <span class="n">g</span><span class="o">,</span> <span class="n">25</span><span class="o">,</span> <span class="n">11</span><span class="o">);</span>
+    <span class="c1">// 绘制游戏区域
+</span><span class="c1"></span>    <span class="n">g</span><span class="o">.</span><span class="na">fillRect</span><span class="o">(</span><span class="n">25</span><span class="o">,</span> <span class="n">75</span><span class="o">,</span> <span class="n">850</span><span class="o">,</span> <span class="n">600</span><span class="o">);</span>
+
+    <span class="c1">// 2 画一条静态的小蛇
+</span><span class="c1"></span>    <span class="c1">// 画蛇头
+</span><span class="c1"></span>    <span class="k">if</span> <span class="o">(</span><span class="n">direction</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="s">&#34;R&#34;</span><span class="o">)){</span>
+        <span class="n">Data</span><span class="o">.</span><span class="na">right</span><span class="o">.</span><span class="na">paintIcon</span><span class="o">(</span><span class="k">this</span><span class="o">,</span> <span class="n">g</span><span class="o">,</span> <span class="n">snakeX</span><span class="o">[</span><span class="n">0</span><span class="o">],</span> <span class="n">snakeY</span><span class="o">[</span><span class="n">0</span><span class="o">]);</span>
+    <span class="o">}</span><span class="k">else</span> <span class="k">if</span> <span class="o">(</span><span class="n">direction</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="s">&#34;L&#34;</span><span class="o">)){</span>
+        <span class="n">Data</span><span class="o">.</span><span class="na">left</span><span class="o">.</span><span class="na">paintIcon</span><span class="o">(</span><span class="k">this</span><span class="o">,</span> <span class="n">g</span><span class="o">,</span> <span class="n">snakeX</span><span class="o">[</span><span class="n">0</span><span class="o">],</span> <span class="n">snakeY</span><span class="o">[</span><span class="n">0</span><span class="o">]);</span>
+    <span class="o">}</span><span class="k">else</span> <span class="k">if</span> <span class="o">(</span><span class="n">direction</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="s">&#34;U&#34;</span><span class="o">)){</span>
+        <span class="n">Data</span><span class="o">.</span><span class="na">up</span><span class="o">.</span><span class="na">paintIcon</span><span class="o">(</span><span class="k">this</span><span class="o">,</span> <span class="n">g</span><span class="o">,</span> <span class="n">snakeX</span><span class="o">[</span><span class="n">0</span><span class="o">],</span> <span class="n">snakeY</span><span class="o">[</span><span class="n">0</span><span class="o">]);</span>
+    <span class="o">}</span><span class="k">else</span> <span class="k">if</span> <span class="o">(</span><span class="n">direction</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="s">&#34;D&#34;</span><span class="o">)){</span>
+        <span class="n">Data</span><span class="o">.</span><span class="na">down</span><span class="o">.</span><span class="na">paintIcon</span><span class="o">(</span><span class="k">this</span><span class="o">,</span> <span class="n">g</span><span class="o">,</span> <span class="n">snakeX</span><span class="o">[</span><span class="n">0</span><span class="o">],</span> <span class="n">snakeY</span><span class="o">[</span><span class="n">0</span><span class="o">]);</span>
+    <span class="o">}</span>
+
+    <span class="c1">// 画蛇身体
+</span><span class="c1"></span>
+    <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">1</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+        <span class="c1">// 蛇的身体长度，通过length 参数来控制
+</span><span class="c1"></span>        <span class="n">Data</span><span class="o">.</span><span class="na">body1</span><span class="o">.</span><span class="na">paintIcon</span><span class="o">(</span><span class="k">this</span><span class="o">,</span> <span class="n">g</span><span class="o">,</span> <span class="n">snakeX</span><span class="o">[</span><span class="n">i</span><span class="o">],</span> <span class="n">snakeY</span><span class="o">[</span><span class="n">i</span><span class="o">]);</span>
+    <span class="o">}</span>
+
+
+    <span class="n">String</span> <span class="n">font</span> <span class="o">=</span> <span class="s">&#34;微软雅黑&#34;</span><span class="o">;</span> <span class="c1">// 字体类型
+</span><span class="c1"></span>
+    <span class="c1">// 3 画积分
+</span><span class="c1"></span>    <span class="n">g</span><span class="o">.</span><span class="na">setColor</span><span class="o">(</span><span class="n">Color</span><span class="o">.</span><span class="na">WHITE</span><span class="o">);</span> <span class="c1">// 设置画笔的颜色
+</span><span class="c1"></span>    <span class="n">g</span><span class="o">.</span><span class="na">setFont</span><span class="o">(</span><span class="k">new</span> <span class="n">Font</span><span class="o">(</span><span class="n">font</span><span class="o">,</span> <span class="n">Font</span><span class="o">.</span><span class="na">BOLD</span><span class="o">,</span> <span class="n">18</span><span class="o">));</span>
+    <span class="n">g</span><span class="o">.</span><span class="na">drawString</span><span class="o">(</span><span class="s">&#34;长度：&#34;</span> <span class="o">+</span> <span class="n">length</span><span class="o">,</span> <span class="n">750</span><span class="o">,</span> <span class="n">30</span><span class="o">);</span>
+    <span class="n">g</span><span class="o">.</span><span class="na">drawString</span><span class="o">(</span><span class="s">&#34;分数：&#34;</span> <span class="o">+</span> <span class="n">score</span><span class="o">,</span> <span class="n">750</span><span class="o">,</span> <span class="n">50</span><span class="o">);</span>
+
+    <span class="c1">// 4 画一个食物
+</span><span class="c1"></span>    <span class="n">Data</span><span class="o">.</span><span class="na">food</span><span class="o">.</span><span class="na">paintIcon</span><span class="o">(</span><span class="k">this</span><span class="o">,</span> <span class="n">g</span><span class="o">,</span> <span class="n">foodx</span><span class="o">,</span> <span class="n">foody</span><span class="o">);</span>
+
+    <span class="c1">// 5 游戏提示，是否开始
+</span><span class="c1"></span>    <span class="k">if</span> <span class="o">(</span><span class="n">isStart</span> <span class="o">==</span> <span class="kc">false</span><span class="o">){</span>
+        <span class="c1">// 画一个文字
+</span><span class="c1"></span>        <span class="n">g</span><span class="o">.</span><span class="na">setColor</span><span class="o">(</span><span class="n">Color</span><span class="o">.</span><span class="na">WHITE</span><span class="o">);</span> <span class="c1">// 设置画笔的颜色
+</span><span class="c1"></span>        <span class="n">g</span><span class="o">.</span><span class="na">setFont</span><span class="o">(</span><span class="k">new</span> <span class="n">Font</span><span class="o">(</span><span class="n">font</span><span class="o">,</span> <span class="n">Font</span><span class="o">.</span><span class="na">BOLD</span><span class="o">,</span> <span class="n">40</span><span class="o">));</span>
+        <span class="n">g</span><span class="o">.</span><span class="na">drawString</span><span class="o">(</span><span class="s">&#34;按下空格开始游戏&#34;</span><span class="o">,</span> <span class="n">300</span><span class="o">,</span> <span class="n">300</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="c1">// 6 失败提醒
+</span><span class="c1"></span>    <span class="k">if</span> <span class="o">(</span><span class="n">isFail</span> <span class="o">==</span> <span class="kc">true</span><span class="o">){</span>
+        <span class="c1">// 画一个文字
+</span><span class="c1"></span>        <span class="n">g</span><span class="o">.</span><span class="na">setColor</span><span class="o">(</span><span class="n">Color</span><span class="o">.</span><span class="na">RED</span><span class="o">);</span> <span class="c1">// 设置画笔的颜色
+</span><span class="c1"></span>        <span class="n">g</span><span class="o">.</span><span class="na">setFont</span><span class="o">(</span><span class="k">new</span> <span class="n">Font</span><span class="o">(</span><span class="n">font</span><span class="o">,</span> <span class="n">Font</span><span class="o">.</span><span class="na">BOLD</span><span class="o">,</span> <span class="n">40</span><span class="o">));</span>
+        <span class="n">g</span><span class="o">.</span><span class="na">drawString</span><span class="o">(</span><span class="s">&#34;游戏失败，按下空格重新开始&#34;</span><span class="o">,</span> <span class="n">200</span><span class="o">,</span> <span class="n">300</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="接受键盘输入">接受键盘输入</h3>
+<ul>
+<li>空格键控制暂停和开始，注意首先判断是否为失败状态，如果为失败状态，则重新init，重制各项数据，如果没有失败则进把是否开始状态置反</li>
+<li>接受键盘输入，改变方向，注意控制相反方向不能改变</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-Java" data-lang="Java"><span class="kd">public</span> <span class="kt">void</span> <span class="nf">keyPressed</span><span class="o">(</span><span class="n">KeyEvent</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+    <span class="c1">// 键盘：按下（未释放）
+</span><span class="c1"></span>    <span class="c1">// 获取按下的键盘是哪一个键
+</span><span class="c1"></span>    <span class="kt">int</span> <span class="n">keyCode</span> <span class="o">=</span> <span class="n">e</span><span class="o">.</span><span class="na">getKeyCode</span><span class="o">();</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">keyCode</span> <span class="o">==</span> <span class="n">KeyEvent</span><span class="o">.</span><span class="na">VK_SPACE</span><span class="o">){</span> <span class="c1">// 如果按下的是空格键
+</span><span class="c1"></span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">isFail</span> <span class="o">==</span> <span class="kc">true</span><span class="o">){</span>
+            <span class="n">isFail</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
+            <span class="n">init</span><span class="o">();</span> <span class="c1">// 重新初始化游戏
+</span><span class="c1"></span>        <span class="o">}</span><span class="k">else</span> <span class="o">{</span>
+            <span class="n">isStart</span> <span class="o">=</span> <span class="o">!</span><span class="n">isStart</span><span class="o">;</span>
+        <span class="o">}</span>
+        <span class="c1">// 刷新界面
+</span><span class="c1"></span>        <span class="n">repaint</span><span class="o">();</span>
+    <span class="o">}</span>
+
+
+    <span class="c1">// 键盘控制走向
+</span><span class="c1"></span>    <span class="k">if</span> <span class="o">(</span><span class="n">keyCode</span> <span class="o">==</span> <span class="n">KeyEvent</span><span class="o">.</span><span class="na">VK_LEFT</span><span class="o">){</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">direction</span> <span class="o">!=</span> <span class="s">&#34;R&#34;</span><span class="o">){</span><span class="n">direction</span> <span class="o">=</span> <span class="s">&#34;L&#34;</span><span class="o">;}</span>
+    <span class="o">}</span><span class="k">else</span> <span class="k">if</span> <span class="o">(</span><span class="n">keyCode</span> <span class="o">==</span> <span class="n">KeyEvent</span><span class="o">.</span><span class="na">VK_RIGHT</span><span class="o">){</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">direction</span> <span class="o">!=</span> <span class="s">&#34;L&#34;</span><span class="o">){</span><span class="n">direction</span> <span class="o">=</span> <span class="s">&#34;R&#34;</span><span class="o">;}</span>
+    <span class="o">}</span><span class="k">else</span> <span class="k">if</span> <span class="o">(</span><span class="n">keyCode</span> <span class="o">==</span> <span class="n">KeyEvent</span><span class="o">.</span><span class="na">VK_UP</span><span class="o">){</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">direction</span> <span class="o">!=</span> <span class="s">&#34;D&#34;</span><span class="o">){</span><span class="n">direction</span> <span class="o">=</span> <span class="s">&#34;U&#34;</span><span class="o">;}</span>
+    <span class="o">}</span><span class="k">else</span> <span class="k">if</span> <span class="o">(</span><span class="n">keyCode</span> <span class="o">==</span> <span class="n">KeyEvent</span><span class="o">.</span><span class="na">VK_DOWN</span><span class="o">){</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">direction</span> <span class="o">!=</span> <span class="s">&#34;U&#34;</span><span class="o">){</span><span class="n">direction</span> <span class="o">=</span> <span class="s">&#34;D&#34;</span><span class="o">;}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="actionperformed">actionPerformed</h3>
+<ul>
+<li>首先身体移动，再移动头部，注意控制边界判断</li>
+<li>判断蛇头是否和食物重合，如果重合则重新生成食物，注意重新生成的食物不能和蛇重合</li>
+<li>进行失败判断，蛇头不能和蛇身重合</li>
+<li>刷新界面repaint，进入下一帧</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-Java" data-lang="Java"><span class="kd">public</span> <span class="kt">void</span> <span class="nf">actionPerformed</span><span class="o">(</span><span class="n">ActionEvent</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+    <span class="c1">// 如果游戏处于开始状态, 并且游戏没有失败
+</span><span class="c1"></span>    <span class="k">if</span> <span class="o">(</span><span class="n">isStart</span> <span class="o">&amp;&amp;</span> <span class="n">isFail</span> <span class="o">==</span> <span class="kc">false</span><span class="o">){</span>
+
+        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">length</span> <span class="o">-</span> <span class="n">1</span><span class="o">;</span> <span class="n">i</span> <span class="o">&gt;</span> <span class="n">0</span> <span class="o">;</span> <span class="n">i</span><span class="o">--)</span> <span class="o">{</span> <span class="c1">// 身体移动
+</span><span class="c1"></span>            <span class="n">snakeX</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">=</span> <span class="n">snakeX</span><span class="o">[</span><span class="n">i</span><span class="o">-</span><span class="n">1</span><span class="o">];</span>
+            <span class="n">snakeY</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">=</span> <span class="n">snakeY</span><span class="o">[</span><span class="n">i</span><span class="o">-</span><span class="n">1</span><span class="o">];</span>
+        <span class="o">}</span>
+
+        <span class="c1">// 通过控制方向让头部移动
+</span><span class="c1"></span>        <span class="k">if</span> <span class="o">(</span><span class="n">direction</span> <span class="o">==</span> <span class="s">&#34;R&#34;</span><span class="o">){</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">snakeX</span><span class="o">[</span><span class="n">0</span><span class="o">]</span> <span class="o">&gt;</span> <span class="n">825</span><span class="o">){</span><span class="n">snakeX</span><span class="o">[</span><span class="n">0</span><span class="o">]</span> <span class="o">=</span> <span class="n">0</span><span class="o">;}</span><span class="c1">// 边界判断
+</span><span class="c1"></span>            <span class="n">snakeX</span><span class="o">[</span><span class="n">0</span><span class="o">]</span> <span class="o">=</span> <span class="n">snakeX</span><span class="o">[</span><span class="n">0</span><span class="o">]</span> <span class="o">+</span> <span class="n">25</span><span class="o">;</span> <span class="c1">// 头部移动
+</span><span class="c1"></span>        <span class="o">}</span><span class="k">else</span> <span class="k">if</span> <span class="o">(</span><span class="n">direction</span> <span class="o">==</span> <span class="s">&#34;L&#34;</span><span class="o">){</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">snakeX</span><span class="o">[</span><span class="n">0</span><span class="o">]</span> <span class="o">&lt;</span> <span class="n">50</span><span class="o">){</span><span class="n">snakeX</span><span class="o">[</span><span class="n">0</span><span class="o">]</span> <span class="o">=</span> <span class="n">825</span><span class="o">;}</span><span class="c1">// 边界判断
+</span><span class="c1"></span>            <span class="n">snakeX</span><span class="o">[</span><span class="n">0</span><span class="o">]</span> <span class="o">=</span> <span class="n">snakeX</span><span class="o">[</span><span class="n">0</span><span class="o">]</span> <span class="o">-</span> <span class="n">25</span><span class="o">;</span> <span class="c1">// 头部移动
+</span><span class="c1"></span>        <span class="o">}</span><span class="k">else</span> <span class="k">if</span> <span class="o">(</span><span class="n">direction</span> <span class="o">==</span> <span class="s">&#34;U&#34;</span><span class="o">){</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">snakeY</span><span class="o">[</span><span class="n">0</span><span class="o">]</span> <span class="o">&lt;</span> <span class="n">100</span><span class="o">){</span><span class="n">snakeY</span><span class="o">[</span><span class="n">0</span><span class="o">]</span> <span class="o">=</span> <span class="n">675</span><span class="o">;}</span><span class="c1">// 边界判断
+</span><span class="c1"></span>            <span class="n">snakeY</span><span class="o">[</span><span class="n">0</span><span class="o">]</span> <span class="o">=</span> <span class="n">snakeY</span><span class="o">[</span><span class="n">0</span><span class="o">]</span> <span class="o">-</span> <span class="n">25</span><span class="o">;</span> <span class="c1">// 头部移动
+</span><span class="c1"></span>        <span class="o">}</span><span class="k">else</span> <span class="k">if</span> <span class="o">(</span><span class="n">direction</span> <span class="o">==</span> <span class="s">&#34;D&#34;</span><span class="o">){</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">snakeY</span><span class="o">[</span><span class="n">0</span><span class="o">]</span> <span class="o">&gt;</span> <span class="n">625</span><span class="o">){</span><span class="n">snakeY</span><span class="o">[</span><span class="n">0</span><span class="o">]</span> <span class="o">=</span> <span class="n">75</span><span class="o">;}</span><span class="c1">// 边界判断
+</span><span class="c1"></span>            <span class="n">snakeY</span><span class="o">[</span><span class="n">0</span><span class="o">]</span> <span class="o">=</span> <span class="n">snakeY</span><span class="o">[</span><span class="n">0</span><span class="o">]</span> <span class="o">+</span> <span class="n">25</span><span class="o">;</span> <span class="c1">// 头部移动
+</span><span class="c1"></span>        <span class="o">}</span>
+
+        <span class="c1">// 如果蛇头和食物的坐标重合，说明吃到了食物
+</span><span class="c1"></span>        <span class="k">if</span> <span class="o">(</span><span class="n">snakeX</span><span class="o">[</span><span class="n">0</span><span class="o">]</span> <span class="o">==</span> <span class="n">foodx</span> <span class="o">&amp;&amp;</span> <span class="n">snakeY</span><span class="o">[</span><span class="n">0</span><span class="o">]</span> <span class="o">==</span> <span class="n">foody</span><span class="o">){</span>
+            <span class="c1">// 蛇的长度+1
+</span><span class="c1"></span>            <span class="n">length</span> <span class="o">++;</span>
+            <span class="n">score</span> <span class="o">=</span> <span class="n">score</span><span class="o">+</span><span class="n">10</span><span class="o">;</span>
+
+            <span class="c1">// 重新生成食物
+</span><span class="c1"></span>            <span class="c1">// 如果重新生成的食物坐标和蛇身或者头部相重合，则重新生成
+</span><span class="c1"></span>            <span class="kt">boolean</span> <span class="n">isFoodCoveredByBody</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
+            <span class="k">while</span> <span class="o">(</span><span class="kc">true</span><span class="o">){</span>
+                <span class="c1">// 重新生成食物坐标
+</span><span class="c1"></span>                <span class="n">foodx</span> <span class="o">=</span> <span class="n">25</span> <span class="o">+</span> <span class="n">25</span> <span class="o">*</span> <span class="n">random</span><span class="o">.</span><span class="na">nextInt</span><span class="o">(</span><span class="n">34</span><span class="o">);</span>
+                <span class="n">foody</span> <span class="o">=</span> <span class="n">75</span> <span class="o">+</span> <span class="n">25</span> <span class="o">*</span> <span class="n">random</span><span class="o">.</span><span class="na">nextInt</span><span class="o">(</span><span class="n">24</span><span class="o">);</span>
+                <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+                    <span class="k">if</span> <span class="o">(</span><span class="n">foodx</span> <span class="o">==</span> <span class="n">snakeX</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">&amp;&amp;</span> <span class="n">foody</span> <span class="o">==</span> <span class="n">snakeY</span><span class="o">[</span><span class="n">i</span><span class="o">]){</span>
+                        <span class="n">isFoodCoveredByBody</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
+                    <span class="o">}</span>
+                <span class="o">}</span>
+                <span class="k">if</span> <span class="o">(</span><span class="n">isFoodCoveredByBody</span>  <span class="o">==</span> <span class="kc">true</span><span class="o">){</span>
+                    <span class="k">continue</span><span class="o">;</span>
+                <span class="o">}</span><span class="k">else</span> <span class="o">{</span>
+                    <span class="k">break</span><span class="o">;</span>
+                <span class="o">}</span>
+            <span class="o">}</span>
+
+
+        <span class="o">}</span>
+
+        <span class="c1">// 失败判断
+</span><span class="c1"></span>        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">1</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">snakeX</span><span class="o">[</span><span class="n">0</span><span class="o">]</span> <span class="o">==</span> <span class="n">snakeX</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">&amp;&amp;</span> <span class="n">snakeY</span><span class="o">[</span><span class="n">0</span><span class="o">]</span> <span class="o">==</span> <span class="n">snakeY</span><span class="o">[</span><span class="n">i</span><span class="o">]){</span>
+                <span class="n">isFail</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+
+
+        <span class="c1">// 刷新界面
+</span><span class="c1"></span>        <span class="k">this</span><span class="o">.</span><span class="na">repaint</span><span class="o">();</span>
+    <span class="o">}</span>
+    <span class="n">timer</span><span class="o">.</span><span class="na">start</span><span class="o">();</span><span class="c1">// 时间动起来
+</span><span class="c1"></span><span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="源码-2">源码</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">  1
+</span><span class="lnt">  2
+</span><span class="lnt">  3
+</span><span class="lnt">  4
+</span><span class="lnt">  5
+</span><span class="lnt">  6
+</span><span class="lnt">  7
+</span><span class="lnt">  8
+</span><span class="lnt">  9
+</span><span class="lnt"> 10
+</span><span class="lnt"> 11
+</span><span class="lnt"> 12
+</span><span class="lnt"> 13
+</span><span class="lnt"> 14
+</span><span class="lnt"> 15
+</span><span class="lnt"> 16
+</span><span class="lnt"> 17
+</span><span class="lnt"> 18
+</span><span class="lnt"> 19
+</span><span class="lnt"> 20
+</span><span class="lnt"> 21
+</span><span class="lnt"> 22
+</span><span class="lnt"> 23
+</span><span class="lnt"> 24
+</span><span class="lnt"> 25
+</span><span class="lnt"> 26
+</span><span class="lnt"> 27
+</span><span class="lnt"> 28
+</span><span class="lnt"> 29
+</span><span class="lnt"> 30
+</span><span class="lnt"> 31
+</span><span class="lnt"> 32
+</span><span class="lnt"> 33
+</span><span class="lnt"> 34
+</span><span class="lnt"> 35
+</span><span class="lnt"> 36
+</span><span class="lnt"> 37
+</span><span class="lnt"> 38
+</span><span class="lnt"> 39
+</span><span class="lnt"> 40
+</span><span class="lnt"> 41
+</span><span class="lnt"> 42
+</span><span class="lnt"> 43
+</span><span class="lnt"> 44
+</span><span class="lnt"> 45
+</span><span class="lnt"> 46
+</span><span class="lnt"> 47
+</span><span class="lnt"> 48
+</span><span class="lnt"> 49
+</span><span class="lnt"> 50
+</span><span class="lnt"> 51
+</span><span class="lnt"> 52
+</span><span class="lnt"> 53
+</span><span class="lnt"> 54
+</span><span class="lnt"> 55
+</span><span class="lnt"> 56
+</span><span class="lnt"> 57
+</span><span class="lnt"> 58
+</span><span class="lnt"> 59
+</span><span class="lnt"> 60
+</span><span class="lnt"> 61
+</span><span class="lnt"> 62
+</span><span class="lnt"> 63
+</span><span class="lnt"> 64
+</span><span class="lnt"> 65
+</span><span class="lnt"> 66
+</span><span class="lnt"> 67
+</span><span class="lnt"> 68
+</span><span class="lnt"> 69
+</span><span class="lnt"> 70
+</span><span class="lnt"> 71
+</span><span class="lnt"> 72
+</span><span class="lnt"> 73
+</span><span class="lnt"> 74
+</span><span class="lnt"> 75
+</span><span class="lnt"> 76
+</span><span class="lnt"> 77
+</span><span class="lnt"> 78
+</span><span class="lnt"> 79
+</span><span class="lnt"> 80
+</span><span class="lnt"> 81
+</span><span class="lnt"> 82
+</span><span class="lnt"> 83
+</span><span class="lnt"> 84
+</span><span class="lnt"> 85
+</span><span class="lnt"> 86
+</span><span class="lnt"> 87
+</span><span class="lnt"> 88
+</span><span class="lnt"> 89
+</span><span class="lnt"> 90
+</span><span class="lnt"> 91
+</span><span class="lnt"> 92
+</span><span class="lnt"> 93
+</span><span class="lnt"> 94
+</span><span class="lnt"> 95
+</span><span class="lnt"> 96
+</span><span class="lnt"> 97
+</span><span class="lnt"> 98
+</span><span class="lnt"> 99
+</span><span class="lnt">100
+</span><span class="lnt">101
+</span><span class="lnt">102
+</span><span class="lnt">103
+</span><span class="lnt">104
+</span><span class="lnt">105
+</span><span class="lnt">106
+</span><span class="lnt">107
+</span><span class="lnt">108
+</span><span class="lnt">109
+</span><span class="lnt">110
+</span><span class="lnt">111
+</span><span class="lnt">112
+</span><span class="lnt">113
+</span><span class="lnt">114
+</span><span class="lnt">115
+</span><span class="lnt">116
+</span><span class="lnt">117
+</span><span class="lnt">118
+</span><span class="lnt">119
+</span><span class="lnt">120
+</span><span class="lnt">121
+</span><span class="lnt">122
+</span><span class="lnt">123
+</span><span class="lnt">124
+</span><span class="lnt">125
+</span><span class="lnt">126
+</span><span class="lnt">127
+</span><span class="lnt">128
+</span><span class="lnt">129
+</span><span class="lnt">130
+</span><span class="lnt">131
+</span><span class="lnt">132
+</span><span class="lnt">133
+</span><span class="lnt">134
+</span><span class="lnt">135
+</span><span class="lnt">136
+</span><span class="lnt">137
+</span><span class="lnt">138
+</span><span class="lnt">139
+</span><span class="lnt">140
+</span><span class="lnt">141
+</span><span class="lnt">142
+</span><span class="lnt">143
+</span><span class="lnt">144
+</span><span class="lnt">145
+</span><span class="lnt">146
+</span><span class="lnt">147
+</span><span class="lnt">148
+</span><span class="lnt">149
+</span><span class="lnt">150
+</span><span class="lnt">151
+</span><span class="lnt">152
+</span><span class="lnt">153
+</span><span class="lnt">154
+</span><span class="lnt">155
+</span><span class="lnt">156
+</span><span class="lnt">157
+</span><span class="lnt">158
+</span><span class="lnt">159
+</span><span class="lnt">160
+</span><span class="lnt">161
+</span><span class="lnt">162
+</span><span class="lnt">163
+</span><span class="lnt">164
+</span><span class="lnt">165
+</span><span class="lnt">166
+</span><span class="lnt">167
+</span><span class="lnt">168
+</span><span class="lnt">169
+</span><span class="lnt">170
+</span><span class="lnt">171
+</span><span class="lnt">172
+</span><span class="lnt">173
+</span><span class="lnt">174
+</span><span class="lnt">175
+</span><span class="lnt">176
+</span><span class="lnt">177
+</span><span class="lnt">178
+</span><span class="lnt">179
+</span><span class="lnt">180
+</span><span class="lnt">181
+</span><span class="lnt">182
+</span><span class="lnt">183
+</span><span class="lnt">184
+</span><span class="lnt">185
+</span><span class="lnt">186
+</span><span class="lnt">187
+</span><span class="lnt">188
+</span><span class="lnt">189
+</span><span class="lnt">190
+</span><span class="lnt">191
+</span><span class="lnt">192
+</span><span class="lnt">193
+</span><span class="lnt">194
+</span><span class="lnt">195
+</span><span class="lnt">196
+</span><span class="lnt">197
+</span><span class="lnt">198
+</span><span class="lnt">199
+</span><span class="lnt">200
+</span><span class="lnt">201
+</span><span class="lnt">202
+</span><span class="lnt">203
+</span><span class="lnt">204
+</span><span class="lnt">205
+</span><span class="lnt">206
+</span><span class="lnt">207
+</span><span class="lnt">208
+</span><span class="lnt">209
+</span><span class="lnt">210
+</span><span class="lnt">211
+</span><span class="lnt">212
+</span><span class="lnt">213
+</span><span class="lnt">214
+</span><span class="lnt">215
+</span><span class="lnt">216
+</span><span class="lnt">217
+</span><span class="lnt">218
+</span><span class="lnt">219
+</span><span class="lnt">220
+</span><span class="lnt">221
+</span><span class="lnt">222
+</span><span class="lnt">223
+</span><span class="lnt">224
+</span><span class="lnt">225
+</span><span class="lnt">226
+</span><span class="lnt">227
+</span><span class="lnt">228
+</span><span class="lnt">229
+</span><span class="lnt">230
+</span><span class="lnt">231
+</span><span class="lnt">232
+</span><span class="lnt">233
+</span><span class="lnt">234
+</span><span class="lnt">235
+</span><span class="lnt">236
+</span><span class="lnt">237
+</span><span class="lnt">238
+</span><span class="lnt">239
+</span><span class="lnt">240
+</span><span class="lnt">241
+</span><span class="lnt">242
+</span><span class="lnt">243
+</span><span class="lnt">244
+</span><span class="lnt">245
+</span><span class="lnt">246
+</span><span class="lnt">247
+</span><span class="lnt">248
+</span><span class="lnt">249
+</span><span class="lnt">250
+</span><span class="lnt">251
+</span><span class="lnt">252
+</span><span class="lnt">253
+</span><span class="lnt">254
+</span><span class="lnt">255
+</span><span class="lnt">256
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-Java" data-lang="Java"><span class="kn">package</span> <span class="nn">com.swagger.snake</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">javax.swing.*</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.awt.*</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.awt.event.ActionEvent</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.awt.event.ActionListener</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.awt.event.KeyEvent</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.awt.event.KeyListener</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.Random</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">GamePanel</span> <span class="kd">extends</span> <span class="n">JPanel</span> <span class="kd">implements</span> <span class="n">KeyListener</span><span class="o">,</span> <span class="n">ActionListener</span><span class="o">{</span>
+
+    <span class="c1">// 定义一个蛇
+</span><span class="c1"></span>    <span class="kt">int</span> <span class="n">length</span><span class="o">;</span> <span class="c1">// 蛇的长度
+</span><span class="c1"></span>    <span class="kt">int</span><span class="o">[]</span> <span class="n">snakeX</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span><span class="o">[</span><span class="n">600</span><span class="o">];</span><span class="c1">// 蛇的坐标X
+</span><span class="c1"></span>    <span class="kt">int</span><span class="o">[]</span> <span class="n">snakeY</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span><span class="o">[</span><span class="n">500</span><span class="o">];</span><span class="c1">// 蛇的坐标Y
+</span><span class="c1"></span>
+    <span class="kt">boolean</span> <span class="n">isStart</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span><span class="c1">// 游戏是否开始
+</span><span class="c1"></span>    <span class="n">String</span> <span class="n">direction</span> <span class="o">=</span> <span class="s">&#34;R&#34;</span><span class="o">;</span><span class="c1">// 蛇的方向
+</span><span class="c1"></span>
+    <span class="n">Timer</span> <span class="n">timer</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Timer</span><span class="o">(</span><span class="n">100</span><span class="o">,</span> <span class="k">this</span><span class="o">);</span> <span class="c1">// 间隔100ms 触发一次
+</span><span class="c1"></span>
+    <span class="c1">// 定义一个食物
+</span><span class="c1"></span>    <span class="kt">int</span> <span class="n">foodx</span><span class="o">;</span>
+    <span class="kt">int</span> <span class="n">foody</span><span class="o">;</span>
+    <span class="n">Random</span> <span class="n">random</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Random</span><span class="o">();</span>
+
+    <span class="c1">// 判断失败
+</span><span class="c1"></span>    <span class="kt">boolean</span> <span class="n">isFail</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
+
+    <span class="c1">// 游戏积分榜
+</span><span class="c1"></span>    <span class="kt">int</span> <span class="n">score</span><span class="o">;</span>
+
+
+    <span class="c1">// 构造函数
+</span><span class="c1"></span>    <span class="kd">public</span> <span class="nf">GamePanel</span><span class="o">(){</span>
+        <span class="n">init</span><span class="o">();</span>
+
+        <span class="c1">// 获取键盘的监听事件
+</span><span class="c1"></span>        <span class="k">this</span><span class="o">.</span><span class="na">setFocusable</span><span class="o">(</span><span class="kc">true</span><span class="o">);</span><span class="c1">// 键盘聚焦到游戏上
+</span><span class="c1"></span>        <span class="k">this</span><span class="o">.</span><span class="na">addKeyListener</span><span class="o">(</span><span class="k">this</span><span class="o">);</span>
+
+        <span class="c1">// 时间动起来
+</span><span class="c1"></span>        <span class="n">timer</span><span class="o">.</span><span class="na">start</span><span class="o">();</span>
+    <span class="o">}</span>
+
+    <span class="c1">// 初始化
+</span><span class="c1"></span>    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">init</span><span class="o">(){</span>
+        <span class="n">length</span> <span class="o">=</span> <span class="n">3</span><span class="o">;</span>
+        <span class="n">snakeX</span><span class="o">[</span><span class="n">0</span><span class="o">]</span> <span class="o">=</span> <span class="n">100</span><span class="o">;</span> <span class="n">snakeY</span><span class="o">[</span><span class="n">0</span><span class="o">]</span> <span class="o">=</span> <span class="n">100</span><span class="o">;</span> <span class="c1">// 蛇头坐标
+</span><span class="c1"></span>        <span class="n">snakeX</span><span class="o">[</span><span class="n">1</span><span class="o">]</span> <span class="o">=</span> <span class="n">75</span><span class="o">;</span> <span class="n">snakeY</span><span class="o">[</span><span class="n">1</span><span class="o">]</span> <span class="o">=</span> <span class="n">100</span><span class="o">;</span> <span class="c1">// 第一节身体坐标
+</span><span class="c1"></span>        <span class="n">snakeX</span><span class="o">[</span><span class="n">2</span><span class="o">]</span> <span class="o">=</span> <span class="n">50</span><span class="o">;</span> <span class="n">snakeY</span><span class="o">[</span><span class="n">2</span><span class="o">]</span> <span class="o">=</span> <span class="n">100</span><span class="o">;</span> <span class="c1">// 蛇头坐标
+</span><span class="c1"></span>
+        <span class="kt">boolean</span> <span class="n">isFoodCoveredByBody</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
+        <span class="k">while</span> <span class="o">(</span><span class="kc">true</span><span class="o">){</span>
+            <span class="c1">// 重新生成食物坐标
+</span><span class="c1"></span>            <span class="n">foodx</span> <span class="o">=</span> <span class="n">25</span> <span class="o">+</span> <span class="n">25</span> <span class="o">*</span> <span class="n">random</span><span class="o">.</span><span class="na">nextInt</span><span class="o">(</span><span class="n">34</span><span class="o">);</span>
+            <span class="n">foody</span> <span class="o">=</span> <span class="n">75</span> <span class="o">+</span> <span class="n">25</span> <span class="o">*</span> <span class="n">random</span><span class="o">.</span><span class="na">nextInt</span><span class="o">(</span><span class="n">24</span><span class="o">);</span>
+            <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+                <span class="k">if</span> <span class="o">(</span><span class="n">foodx</span> <span class="o">==</span> <span class="n">snakeX</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">&amp;&amp;</span> <span class="n">foody</span> <span class="o">==</span> <span class="n">snakeY</span><span class="o">[</span><span class="n">i</span><span class="o">]){</span>
+                    <span class="n">isFoodCoveredByBody</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
+                <span class="o">}</span>
+            <span class="o">}</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">isFoodCoveredByBody</span>  <span class="o">==</span> <span class="kc">true</span><span class="o">){</span>
+                <span class="k">continue</span><span class="o">;</span>
+            <span class="o">}</span><span class="k">else</span> <span class="o">{</span>
+                <span class="k">break</span><span class="o">;</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+
+
+        <span class="n">score</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="c1">// 画板： 画界面、画蛇
+</span><span class="c1"></span>    <span class="c1">// Graphics：为一个画笔
+</span><span class="c1"></span>    <span class="nd">@Override</span>
+    <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">paintComponent</span><span class="o">(</span><span class="n">Graphics</span> <span class="n">g</span><span class="o">)</span> <span class="o">{</span>
+
+        <span class="c1">// 1 绘制静态面板
+</span><span class="c1"></span>        <span class="c1">// 调用父类，达到清屏效果
+</span><span class="c1"></span>        <span class="kd">super</span><span class="o">.</span><span class="na">paintComponent</span><span class="o">(</span><span class="n">g</span><span class="o">);</span>
+        <span class="c1">// 设置背景的颜色
+</span><span class="c1"></span>        <span class="k">this</span><span class="o">.</span><span class="na">setBackground</span><span class="o">(</span><span class="n">Color</span><span class="o">.</span><span class="na">WHITE</span><span class="o">);</span>
+        <span class="c1">// 绘制头部广告栏
+</span><span class="c1"></span>        <span class="n">Data</span><span class="o">.</span><span class="na">header</span><span class="o">.</span><span class="na">paintIcon</span><span class="o">(</span><span class="k">this</span><span class="o">,</span> <span class="n">g</span><span class="o">,</span> <span class="n">25</span><span class="o">,</span> <span class="n">11</span><span class="o">);</span>
+        <span class="c1">// 绘制游戏区域
+</span><span class="c1"></span>        <span class="n">g</span><span class="o">.</span><span class="na">fillRect</span><span class="o">(</span><span class="n">25</span><span class="o">,</span> <span class="n">75</span><span class="o">,</span> <span class="n">850</span><span class="o">,</span> <span class="n">600</span><span class="o">);</span>
+
+        <span class="c1">// 2 画一条静态的小蛇
+</span><span class="c1"></span>        <span class="c1">// 画蛇头
+</span><span class="c1"></span>        <span class="k">if</span> <span class="o">(</span><span class="n">direction</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="s">&#34;R&#34;</span><span class="o">)){</span>
+            <span class="n">Data</span><span class="o">.</span><span class="na">right</span><span class="o">.</span><span class="na">paintIcon</span><span class="o">(</span><span class="k">this</span><span class="o">,</span> <span class="n">g</span><span class="o">,</span> <span class="n">snakeX</span><span class="o">[</span><span class="n">0</span><span class="o">],</span> <span class="n">snakeY</span><span class="o">[</span><span class="n">0</span><span class="o">]);</span>
+        <span class="o">}</span><span class="k">else</span> <span class="k">if</span> <span class="o">(</span><span class="n">direction</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="s">&#34;L&#34;</span><span class="o">)){</span>
+            <span class="n">Data</span><span class="o">.</span><span class="na">left</span><span class="o">.</span><span class="na">paintIcon</span><span class="o">(</span><span class="k">this</span><span class="o">,</span> <span class="n">g</span><span class="o">,</span> <span class="n">snakeX</span><span class="o">[</span><span class="n">0</span><span class="o">],</span> <span class="n">snakeY</span><span class="o">[</span><span class="n">0</span><span class="o">]);</span>
+        <span class="o">}</span><span class="k">else</span> <span class="k">if</span> <span class="o">(</span><span class="n">direction</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="s">&#34;U&#34;</span><span class="o">)){</span>
+            <span class="n">Data</span><span class="o">.</span><span class="na">up</span><span class="o">.</span><span class="na">paintIcon</span><span class="o">(</span><span class="k">this</span><span class="o">,</span> <span class="n">g</span><span class="o">,</span> <span class="n">snakeX</span><span class="o">[</span><span class="n">0</span><span class="o">],</span> <span class="n">snakeY</span><span class="o">[</span><span class="n">0</span><span class="o">]);</span>
+        <span class="o">}</span><span class="k">else</span> <span class="k">if</span> <span class="o">(</span><span class="n">direction</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="s">&#34;D&#34;</span><span class="o">)){</span>
+            <span class="n">Data</span><span class="o">.</span><span class="na">down</span><span class="o">.</span><span class="na">paintIcon</span><span class="o">(</span><span class="k">this</span><span class="o">,</span> <span class="n">g</span><span class="o">,</span> <span class="n">snakeX</span><span class="o">[</span><span class="n">0</span><span class="o">],</span> <span class="n">snakeY</span><span class="o">[</span><span class="n">0</span><span class="o">]);</span>
+        <span class="o">}</span>
+
+        <span class="c1">// 画蛇身体
+</span><span class="c1"></span>
+        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">1</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+            <span class="c1">// 蛇的身体长度，通过length 参数来控制
+</span><span class="c1"></span>            <span class="n">Data</span><span class="o">.</span><span class="na">body1</span><span class="o">.</span><span class="na">paintIcon</span><span class="o">(</span><span class="k">this</span><span class="o">,</span> <span class="n">g</span><span class="o">,</span> <span class="n">snakeX</span><span class="o">[</span><span class="n">i</span><span class="o">],</span> <span class="n">snakeY</span><span class="o">[</span><span class="n">i</span><span class="o">]);</span>
+        <span class="o">}</span>
+
+
+        <span class="n">String</span> <span class="n">font</span> <span class="o">=</span> <span class="s">&#34;微软雅黑&#34;</span><span class="o">;</span> <span class="c1">// 字体类型
+</span><span class="c1"></span>
+        <span class="c1">// 3 画积分
+</span><span class="c1"></span>        <span class="n">g</span><span class="o">.</span><span class="na">setColor</span><span class="o">(</span><span class="n">Color</span><span class="o">.</span><span class="na">WHITE</span><span class="o">);</span> <span class="c1">// 设置画笔的颜色
+</span><span class="c1"></span>        <span class="n">g</span><span class="o">.</span><span class="na">setFont</span><span class="o">(</span><span class="k">new</span> <span class="n">Font</span><span class="o">(</span><span class="n">font</span><span class="o">,</span> <span class="n">Font</span><span class="o">.</span><span class="na">BOLD</span><span class="o">,</span> <span class="n">18</span><span class="o">));</span>
+        <span class="n">g</span><span class="o">.</span><span class="na">drawString</span><span class="o">(</span><span class="s">&#34;长度：&#34;</span> <span class="o">+</span> <span class="n">length</span><span class="o">,</span> <span class="n">750</span><span class="o">,</span> <span class="n">30</span><span class="o">);</span>
+        <span class="n">g</span><span class="o">.</span><span class="na">drawString</span><span class="o">(</span><span class="s">&#34;分数：&#34;</span> <span class="o">+</span> <span class="n">score</span><span class="o">,</span> <span class="n">750</span><span class="o">,</span> <span class="n">50</span><span class="o">);</span>
+
+        <span class="c1">// 4 画一个食物
+</span><span class="c1"></span>        <span class="n">Data</span><span class="o">.</span><span class="na">food</span><span class="o">.</span><span class="na">paintIcon</span><span class="o">(</span><span class="k">this</span><span class="o">,</span> <span class="n">g</span><span class="o">,</span> <span class="n">foodx</span><span class="o">,</span> <span class="n">foody</span><span class="o">);</span>
+
+        <span class="c1">// 5 游戏提示，是否开始
+</span><span class="c1"></span>        <span class="k">if</span> <span class="o">(</span><span class="n">isStart</span> <span class="o">==</span> <span class="kc">false</span><span class="o">){</span>
+            <span class="c1">// 画一个文字
+</span><span class="c1"></span>            <span class="n">g</span><span class="o">.</span><span class="na">setColor</span><span class="o">(</span><span class="n">Color</span><span class="o">.</span><span class="na">WHITE</span><span class="o">);</span> <span class="c1">// 设置画笔的颜色
+</span><span class="c1"></span>            <span class="n">g</span><span class="o">.</span><span class="na">setFont</span><span class="o">(</span><span class="k">new</span> <span class="n">Font</span><span class="o">(</span><span class="n">font</span><span class="o">,</span> <span class="n">Font</span><span class="o">.</span><span class="na">BOLD</span><span class="o">,</span> <span class="n">40</span><span class="o">));</span>
+            <span class="n">g</span><span class="o">.</span><span class="na">drawString</span><span class="o">(</span><span class="s">&#34;按下空格开始游戏&#34;</span><span class="o">,</span> <span class="n">300</span><span class="o">,</span> <span class="n">300</span><span class="o">);</span>
+        <span class="o">}</span>
+
+        <span class="c1">// 6 失败提醒
+</span><span class="c1"></span>        <span class="k">if</span> <span class="o">(</span><span class="n">isFail</span> <span class="o">==</span> <span class="kc">true</span><span class="o">){</span>
+            <span class="c1">// 画一个文字
+</span><span class="c1"></span>            <span class="n">g</span><span class="o">.</span><span class="na">setColor</span><span class="o">(</span><span class="n">Color</span><span class="o">.</span><span class="na">RED</span><span class="o">);</span> <span class="c1">// 设置画笔的颜色
+</span><span class="c1"></span>            <span class="n">g</span><span class="o">.</span><span class="na">setFont</span><span class="o">(</span><span class="k">new</span> <span class="n">Font</span><span class="o">(</span><span class="n">font</span><span class="o">,</span> <span class="n">Font</span><span class="o">.</span><span class="na">BOLD</span><span class="o">,</span> <span class="n">40</span><span class="o">));</span>
+            <span class="n">g</span><span class="o">.</span><span class="na">drawString</span><span class="o">(</span><span class="s">&#34;游戏失败，按下空格重新开始&#34;</span><span class="o">,</span> <span class="n">200</span><span class="o">,</span> <span class="n">300</span><span class="o">);</span>
+        <span class="o">}</span>
+
+
+
+
+    <span class="o">}</span>
+
+
+    <span class="c1">// 接受键盘输入
+</span><span class="c1"></span>    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">keyPressed</span><span class="o">(</span><span class="n">KeyEvent</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+        <span class="c1">// 键盘：按下（未释放）
+</span><span class="c1"></span>        <span class="c1">// 获取按下的键盘是哪一个键
+</span><span class="c1"></span>        <span class="kt">int</span> <span class="n">keyCode</span> <span class="o">=</span> <span class="n">e</span><span class="o">.</span><span class="na">getKeyCode</span><span class="o">();</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">keyCode</span> <span class="o">==</span> <span class="n">KeyEvent</span><span class="o">.</span><span class="na">VK_SPACE</span><span class="o">){</span> <span class="c1">// 如果按下的是空格键
+</span><span class="c1"></span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">isFail</span> <span class="o">==</span> <span class="kc">true</span><span class="o">){</span>
+                <span class="n">isFail</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
+                <span class="n">init</span><span class="o">();</span> <span class="c1">// 重新初始化游戏
+</span><span class="c1"></span>            <span class="o">}</span><span class="k">else</span> <span class="o">{</span>
+                <span class="n">isStart</span> <span class="o">=</span> <span class="o">!</span><span class="n">isStart</span><span class="o">;</span>
+            <span class="o">}</span>
+            <span class="c1">// 刷新界面
+</span><span class="c1"></span>            <span class="n">repaint</span><span class="o">();</span>
+        <span class="o">}</span>
+
+
+        <span class="c1">// 键盘控制走向
+</span><span class="c1"></span>        <span class="k">if</span> <span class="o">(</span><span class="n">keyCode</span> <span class="o">==</span> <span class="n">KeyEvent</span><span class="o">.</span><span class="na">VK_LEFT</span><span class="o">){</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">direction</span> <span class="o">!=</span> <span class="s">&#34;R&#34;</span><span class="o">){</span><span class="n">direction</span> <span class="o">=</span> <span class="s">&#34;L&#34;</span><span class="o">;}</span>
+        <span class="o">}</span><span class="k">else</span> <span class="k">if</span> <span class="o">(</span><span class="n">keyCode</span> <span class="o">==</span> <span class="n">KeyEvent</span><span class="o">.</span><span class="na">VK_RIGHT</span><span class="o">){</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">direction</span> <span class="o">!=</span> <span class="s">&#34;L&#34;</span><span class="o">){</span><span class="n">direction</span> <span class="o">=</span> <span class="s">&#34;R&#34;</span><span class="o">;}</span>
+        <span class="o">}</span><span class="k">else</span> <span class="k">if</span> <span class="o">(</span><span class="n">keyCode</span> <span class="o">==</span> <span class="n">KeyEvent</span><span class="o">.</span><span class="na">VK_UP</span><span class="o">){</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">direction</span> <span class="o">!=</span> <span class="s">&#34;D&#34;</span><span class="o">){</span><span class="n">direction</span> <span class="o">=</span> <span class="s">&#34;U&#34;</span><span class="o">;}</span>
+        <span class="o">}</span><span class="k">else</span> <span class="k">if</span> <span class="o">(</span><span class="n">keyCode</span> <span class="o">==</span> <span class="n">KeyEvent</span><span class="o">.</span><span class="na">VK_DOWN</span><span class="o">){</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">direction</span> <span class="o">!=</span> <span class="s">&#34;U&#34;</span><span class="o">){</span><span class="n">direction</span> <span class="o">=</span> <span class="s">&#34;D&#34;</span><span class="o">;}</span>
+        <span class="o">}</span>
+
+
+    <span class="o">}</span>
+
+    <span class="c1">// 定时器，监听时间 帧：执行定时操作
+</span><span class="c1"></span>    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">actionPerformed</span><span class="o">(</span><span class="n">ActionEvent</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+        <span class="c1">// 如果游戏处于开始状态, 并且游戏没有失败
+</span><span class="c1"></span>        <span class="k">if</span> <span class="o">(</span><span class="n">isStart</span> <span class="o">&amp;&amp;</span> <span class="n">isFail</span> <span class="o">==</span> <span class="kc">false</span><span class="o">){</span>
+
+            <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">length</span> <span class="o">-</span> <span class="n">1</span><span class="o">;</span> <span class="n">i</span> <span class="o">&gt;</span> <span class="n">0</span> <span class="o">;</span> <span class="n">i</span><span class="o">--)</span> <span class="o">{</span> <span class="c1">// 身体移动
+</span><span class="c1"></span>                <span class="n">snakeX</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">=</span> <span class="n">snakeX</span><span class="o">[</span><span class="n">i</span><span class="o">-</span><span class="n">1</span><span class="o">];</span>
+                <span class="n">snakeY</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">=</span> <span class="n">snakeY</span><span class="o">[</span><span class="n">i</span><span class="o">-</span><span class="n">1</span><span class="o">];</span>
+            <span class="o">}</span>
+
+            <span class="c1">// 通过控制方向让头部移动
+</span><span class="c1"></span>            <span class="k">if</span> <span class="o">(</span><span class="n">direction</span> <span class="o">==</span> <span class="s">&#34;R&#34;</span><span class="o">){</span>
+                <span class="k">if</span> <span class="o">(</span><span class="n">snakeX</span><span class="o">[</span><span class="n">0</span><span class="o">]</span> <span class="o">&gt;</span> <span class="n">825</span><span class="o">){</span><span class="n">snakeX</span><span class="o">[</span><span class="n">0</span><span class="o">]</span> <span class="o">=</span> <span class="n">0</span><span class="o">;}</span><span class="c1">// 边界判断
+</span><span class="c1"></span>                <span class="n">snakeX</span><span class="o">[</span><span class="n">0</span><span class="o">]</span> <span class="o">=</span> <span class="n">snakeX</span><span class="o">[</span><span class="n">0</span><span class="o">]</span> <span class="o">+</span> <span class="n">25</span><span class="o">;</span> <span class="c1">// 头部移动
+</span><span class="c1"></span>            <span class="o">}</span><span class="k">else</span> <span class="k">if</span> <span class="o">(</span><span class="n">direction</span> <span class="o">==</span> <span class="s">&#34;L&#34;</span><span class="o">){</span>
+                <span class="k">if</span> <span class="o">(</span><span class="n">snakeX</span><span class="o">[</span><span class="n">0</span><span class="o">]</span> <span class="o">&lt;</span> <span class="n">50</span><span class="o">){</span><span class="n">snakeX</span><span class="o">[</span><span class="n">0</span><span class="o">]</span> <span class="o">=</span> <span class="n">825</span><span class="o">;}</span><span class="c1">// 边界判断
+</span><span class="c1"></span>                <span class="n">snakeX</span><span class="o">[</span><span class="n">0</span><span class="o">]</span> <span class="o">=</span> <span class="n">snakeX</span><span class="o">[</span><span class="n">0</span><span class="o">]</span> <span class="o">-</span> <span class="n">25</span><span class="o">;</span> <span class="c1">// 头部移动
+</span><span class="c1"></span>            <span class="o">}</span><span class="k">else</span> <span class="k">if</span> <span class="o">(</span><span class="n">direction</span> <span class="o">==</span> <span class="s">&#34;U&#34;</span><span class="o">){</span>
+                <span class="k">if</span> <span class="o">(</span><span class="n">snakeY</span><span class="o">[</span><span class="n">0</span><span class="o">]</span> <span class="o">&lt;</span> <span class="n">100</span><span class="o">){</span><span class="n">snakeY</span><span class="o">[</span><span class="n">0</span><span class="o">]</span> <span class="o">=</span> <span class="n">675</span><span class="o">;}</span><span class="c1">// 边界判断
+</span><span class="c1"></span>                <span class="n">snakeY</span><span class="o">[</span><span class="n">0</span><span class="o">]</span> <span class="o">=</span> <span class="n">snakeY</span><span class="o">[</span><span class="n">0</span><span class="o">]</span> <span class="o">-</span> <span class="n">25</span><span class="o">;</span> <span class="c1">// 头部移动
+</span><span class="c1"></span>            <span class="o">}</span><span class="k">else</span> <span class="k">if</span> <span class="o">(</span><span class="n">direction</span> <span class="o">==</span> <span class="s">&#34;D&#34;</span><span class="o">){</span>
+                <span class="k">if</span> <span class="o">(</span><span class="n">snakeY</span><span class="o">[</span><span class="n">0</span><span class="o">]</span> <span class="o">&gt;</span> <span class="n">625</span><span class="o">){</span><span class="n">snakeY</span><span class="o">[</span><span class="n">0</span><span class="o">]</span> <span class="o">=</span> <span class="n">75</span><span class="o">;}</span><span class="c1">// 边界判断
+</span><span class="c1"></span>                <span class="n">snakeY</span><span class="o">[</span><span class="n">0</span><span class="o">]</span> <span class="o">=</span> <span class="n">snakeY</span><span class="o">[</span><span class="n">0</span><span class="o">]</span> <span class="o">+</span> <span class="n">25</span><span class="o">;</span> <span class="c1">// 头部移动
+</span><span class="c1"></span>            <span class="o">}</span>
+
+            <span class="c1">// 如果蛇头和食物的坐标重合，说明吃到了食物
+</span><span class="c1"></span>            <span class="k">if</span> <span class="o">(</span><span class="n">snakeX</span><span class="o">[</span><span class="n">0</span><span class="o">]</span> <span class="o">==</span> <span class="n">foodx</span> <span class="o">&amp;&amp;</span> <span class="n">snakeY</span><span class="o">[</span><span class="n">0</span><span class="o">]</span> <span class="o">==</span> <span class="n">foody</span><span class="o">){</span>
+                <span class="c1">// 蛇的长度+1
+</span><span class="c1"></span>                <span class="n">length</span> <span class="o">++;</span>
+                <span class="n">score</span> <span class="o">=</span> <span class="n">score</span><span class="o">+</span><span class="n">10</span><span class="o">;</span>
+
+                <span class="c1">// 重新生成食物
+</span><span class="c1"></span>                <span class="c1">// 如果重新生成的食物坐标和蛇身或者头部相重合，则重新生成
+</span><span class="c1"></span>                <span class="kt">boolean</span> <span class="n">isFoodCoveredByBody</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
+                <span class="k">while</span> <span class="o">(</span><span class="kc">true</span><span class="o">){</span>
+                    <span class="c1">// 重新生成食物坐标
+</span><span class="c1"></span>                    <span class="n">foodx</span> <span class="o">=</span> <span class="n">25</span> <span class="o">+</span> <span class="n">25</span> <span class="o">*</span> <span class="n">random</span><span class="o">.</span><span class="na">nextInt</span><span class="o">(</span><span class="n">34</span><span class="o">);</span>
+                    <span class="n">foody</span> <span class="o">=</span> <span class="n">75</span> <span class="o">+</span> <span class="n">25</span> <span class="o">*</span> <span class="n">random</span><span class="o">.</span><span class="na">nextInt</span><span class="o">(</span><span class="n">24</span><span class="o">);</span>
+                    <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+                        <span class="k">if</span> <span class="o">(</span><span class="n">foodx</span> <span class="o">==</span> <span class="n">snakeX</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">&amp;&amp;</span> <span class="n">foody</span> <span class="o">==</span> <span class="n">snakeY</span><span class="o">[</span><span class="n">i</span><span class="o">]){</span>
+                            <span class="n">isFoodCoveredByBody</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
+                        <span class="o">}</span>
+                    <span class="o">}</span>
+                    <span class="k">if</span> <span class="o">(</span><span class="n">isFoodCoveredByBody</span>  <span class="o">==</span> <span class="kc">true</span><span class="o">){</span>
+                        <span class="k">continue</span><span class="o">;</span>
+                    <span class="o">}</span><span class="k">else</span> <span class="o">{</span>
+                        <span class="k">break</span><span class="o">;</span>
+                    <span class="o">}</span>
+                <span class="o">}</span>
+
+
+            <span class="o">}</span>
+
+            <span class="c1">// 失败判断
+</span><span class="c1"></span>            <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">1</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+                <span class="k">if</span> <span class="o">(</span><span class="n">snakeX</span><span class="o">[</span><span class="n">0</span><span class="o">]</span> <span class="o">==</span> <span class="n">snakeX</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">&amp;&amp;</span> <span class="n">snakeY</span><span class="o">[</span><span class="n">0</span><span class="o">]</span> <span class="o">==</span> <span class="n">snakeY</span><span class="o">[</span><span class="n">i</span><span class="o">]){</span>
+                    <span class="n">isFail</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
+                <span class="o">}</span>
+            <span class="o">}</span>
+
+
+            <span class="c1">// 刷新界面
+</span><span class="c1"></span>            <span class="k">this</span><span class="o">.</span><span class="na">repaint</span><span class="o">();</span>
+        <span class="o">}</span>
+        <span class="n">timer</span><span class="o">.</span><span class="na">start</span><span class="o">();</span><span class="c1">// 时间动起来
+</span><span class="c1"></span>    <span class="o">}</span>
+
+
+
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">keyReleased</span><span class="o">(</span><span class="n">KeyEvent</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+        <span class="c1">// 键盘：弹起（释放某个键）
+</span><span class="c1"></span>    <span class="o">}</span>
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">keyTyped</span><span class="o">(</span><span class="n">KeyEvent</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+        <span class="c1">// 键盘： 按下+弹起 -》敲击了一下键盘
+</span><span class="c1"></span>    <span class="o">}</span>
 <span class="o">}</span>
 
 </code></pre></td></tr></table>
