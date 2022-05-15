@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>Java网络编程学习2 - Boyan Wei</title><meta name="Description" content="这是我的全新 Hugo 网站"><meta property="og:title" content="Java网络编程学习2" />
+<meta property="og:description" content="TCP 实现文件上传 客户端 创建一个Socket连接 创建一个输出流，用于发送TCP连接中的数据 创建一个文件输入流fis，用于读取文件 通过文件输入流f" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://swaggerwei.github.io/java_net2/" /><meta property="og:image" content="https://swaggerwei.github.io/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-05-13T17:24:38+08:00" />
+<meta property="article:modified_time" content="2022-05-13T17:24:38+08:00" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://swaggerwei.github.io/logo.png"/>
+
+<meta name="twitter:title" content="Java网络编程学习2"/>
+<meta name="twitter:description" content="TCP 实现文件上传 客户端 创建一个Socket连接 创建一个输出流，用于发送TCP连接中的数据 创建一个文件输入流fis，用于读取文件 通过文件输入流f"/>
+<meta name="application-name" content="LoveIt">
+<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://swaggerwei.github.io/java_net2/" /><link rel="prev" href="https://swaggerwei.github.io/develop_gamesnake/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Java网络编程学习2",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/swaggerwei.github.io\/java_net2\/"
+        },"genre": "posts","keywords": "Java, 网络编程","wordcount":  2319 ,
+        "url": "https:\/\/swaggerwei.github.io\/java_net2\/","datePublished": "2022-05-13T17:24:38+08:00","dateModified": "2022-05-13T17:24:38+08:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "Boyan Wei"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Boyan Wei"></a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Boyan Wei"></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content always-active" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">Java网络编程学习2</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>Boyan Wei</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/java%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/"><i class="far fa-folder fa-fw"></i>Java网络编程</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-05-13">2022-05-13</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 2319 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 5 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#tcp-实现文件上传">TCP 实现文件上传</a>
+      <ul>
+        <li><a href="#客户端">客户端</a></li>
+        <li><a href="#服务端">服务端</a></li>
+      </ul>
+    </li>
+    <li><a href="#tomcat">Tomcat</a>
+      <ul>
+        <li><a href="#tomcat-核心组件">Tomcat 核心组件</a></li>
+        <li><a href="#什么是servlet">什么是servlet</a></li>
+        <li><a href="#什么是jsp">什么是JSP</a></li>
+        <li><a href="#tomcat-功能组件结构">Tomcat 功能组件结构</a></li>
+        <li><a href="#container结构分析">Container结构分析</a></li>
+        <li><a href="#tomcat请求过程">Tomcat请求过程</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h2 id="tcp-实现文件上传">TCP 实现文件上传</h2>
+<h3 id="客户端">客户端</h3>
+<ul>
+<li>创建一个Socket连接</li>
+<li>创建一个输出流，用于发送TCP连接中的数据</li>
+<li>创建一个文件输入流fis，用于读取文件</li>
+<li>通过文件输入流fis，将文件写出到输出流os中</li>
+<li>通过shutdownOutput提示服务器已经传输完毕</li>
+<li>确定服务器已经接收完毕了</li>
+<li>最后关闭资源，顺序和创建顺序相反</li>
+<li>tips：注意尽量不要抛出，否则会有很多异常需要抛出，尽量用try catch来处理</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-Java" data-lang="Java"><span class="kn">package</span> <span class="nn">com.swagger.lesson02</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">java.io.*</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.net.InetAddress</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.net.Socket</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.net.UnknownHostException</span><span class="o">;</span>
+<span class="c1">// TCP上传文件 客户端发送
+</span><span class="c1"></span><span class="kd">public</span> <span class="kd">class</span> <span class="nc">TCPClientDemo02</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">IOException</span> <span class="o">{</span>
+        <span class="c1">// 尽量不要抛出，否则会有很多异常需要抛出
+</span><span class="c1"></span>
+        <span class="c1">// 1 创建一个Socket连接
+</span><span class="c1"></span>        <span class="n">Socket</span> <span class="n">socket</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Socket</span><span class="o">(</span><span class="n">InetAddress</span><span class="o">.</span><span class="na">getByName</span><span class="o">(</span><span class="s">&#34;127.0.0.1&#34;</span><span class="o">),</span> <span class="n">9000</span><span class="o">);</span>
+        <span class="c1">// 2 创建一个输出流
+</span><span class="c1"></span>        <span class="n">OutputStream</span> <span class="n">os</span> <span class="o">=</span> <span class="n">socket</span><span class="o">.</span><span class="na">getOutputStream</span><span class="o">();</span>
+        <span class="c1">// 3 读取文件
+</span><span class="c1"></span>        <span class="n">FileInputStream</span> <span class="n">fis</span> <span class="o">=</span> <span class="k">new</span> <span class="n">FileInputStream</span><span class="o">(</span><span class="k">new</span> <span class="n">File</span><span class="o">(</span><span class="s">&#34;pic.png&#34;</span><span class="o">));</span>
+        <span class="c1">// 4 写出文件 到输出流 os中去
+</span><span class="c1"></span>        <span class="kt">byte</span><span class="o">[]</span> <span class="n">buffer</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">byte</span><span class="o">[</span><span class="n">1024</span><span class="o">];</span>
+        <span class="kt">int</span> <span class="n">len</span><span class="o">;</span>
+        <span class="k">while</span> <span class="o">((</span><span class="n">len</span> <span class="o">=</span> <span class="n">fis</span><span class="o">.</span><span class="na">read</span><span class="o">(</span><span class="n">buffer</span><span class="o">))</span> <span class="o">!=</span> <span class="o">-</span><span class="n">1</span><span class="o">){</span>
+            <span class="n">os</span><span class="o">.</span><span class="na">write</span><span class="o">(</span><span class="n">buffer</span><span class="o">);</span>
+        <span class="o">}</span>
+
+        <span class="c1">// 5 通知服务器，我已经结束了
+</span><span class="c1"></span>        <span class="n">socket</span><span class="o">.</span><span class="na">shutdownOutput</span><span class="o">();</span><span class="c1">// 我已经传输完了
+</span><span class="c1"></span>
+        <span class="c1">// 6 确定服务端接收完毕了
+</span><span class="c1"></span>        <span class="n">InputStream</span> <span class="n">inputStream</span> <span class="o">=</span> <span class="n">socket</span><span class="o">.</span><span class="na">getInputStream</span><span class="o">();</span>
+        <span class="n">ByteArrayOutputStream</span> <span class="n">baos</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ByteArrayOutputStream</span><span class="o">();</span>
+        <span class="kt">byte</span><span class="o">[]</span> <span class="n">buffer2</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">byte</span><span class="o">[</span><span class="n">1024</span><span class="o">];</span>
+        <span class="kt">int</span> <span class="n">len2</span><span class="o">;</span>
+        <span class="k">while</span> <span class="o">((</span><span class="n">len2</span> <span class="o">=</span> <span class="n">inputStream</span><span class="o">.</span><span class="na">read</span><span class="o">(</span><span class="n">buffer2</span><span class="o">))</span> <span class="o">!=</span> <span class="o">-</span><span class="n">1</span><span class="o">){</span>
+            <span class="n">baos</span><span class="o">.</span><span class="na">write</span><span class="o">(</span><span class="n">buffer2</span><span class="o">);</span>
+        <span class="o">}</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">baos</span><span class="o">.</span><span class="na">toString</span><span class="o">());</span>
+
+
+        <span class="c1">// 7 关闭资源，关闭顺序和创建顺序相反
+</span><span class="c1"></span>        <span class="n">baos</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+        <span class="n">inputStream</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+        <span class="n">fis</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+        <span class="n">os</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+        <span class="n">socket</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+
+    <span class="o">}</span>
+<span class="o">}</span>
+
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="服务端">服务端</h3>
+<ul>
+<li>创建一个服务</li>
+<li>监听客户端的请求连接，阻塞式监听，会一直等待客户端的连接请求</li>
+<li>读取客户端的消息, 获取输入流</li>
+<li>读取文件，将文件进行输出</li>
+<li>通知客户端我已经接收完了</li>
+<li>关闭资源</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-Java" data-lang="Java"><span class="kn">package</span> <span class="nn">com.swagger.lesson02</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">java.io.*</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.net.ServerSocket</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.net.Socket</span><span class="o">;</span>
+
+<span class="c1">// TCP上传文件 服务端接收端
+</span><span class="c1"></span><span class="kd">public</span> <span class="kd">class</span> <span class="nc">TCPServerDemo02</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">IOException</span> <span class="o">{</span>
+        <span class="c1">// 1 创建一个服务
+</span><span class="c1"></span>        <span class="n">ServerSocket</span> <span class="n">serverSocket</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ServerSocket</span><span class="o">(</span><span class="n">9000</span><span class="o">);</span>
+        <span class="c1">// 2 监听客户端的请求连接
+</span><span class="c1"></span>        <span class="c1">// 阻塞式监听，会一直等待客户端的连接请求
+</span><span class="c1"></span>        <span class="n">Socket</span> <span class="n">socket</span> <span class="o">=</span> <span class="n">serverSocket</span><span class="o">.</span><span class="na">accept</span><span class="o">();</span>
+        <span class="c1">// 3 读取客户端的消息, 获取输入流
+</span><span class="c1"></span>        <span class="n">InputStream</span> <span class="n">is</span> <span class="o">=</span> <span class="n">socket</span><span class="o">.</span><span class="na">getInputStream</span><span class="o">();</span>
+        <span class="c1">// 4 读取文件，将文件进行输出
+</span><span class="c1"></span>        <span class="n">FileOutputStream</span> <span class="n">fileOutputStream</span> <span class="o">=</span> <span class="k">new</span> <span class="n">FileOutputStream</span><span class="o">(</span><span class="k">new</span> <span class="n">File</span><span class="o">(</span><span class="s">&#34;received.png&#34;</span><span class="o">));</span>
+        <span class="kt">byte</span><span class="o">[]</span> <span class="n">buffer</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">byte</span><span class="o">[</span><span class="n">1024</span><span class="o">];</span>
+        <span class="kt">int</span> <span class="n">len</span><span class="o">;</span>
+        <span class="k">while</span> <span class="o">((</span><span class="n">len</span> <span class="o">=</span> <span class="n">is</span><span class="o">.</span><span class="na">read</span><span class="o">(</span><span class="n">buffer</span><span class="o">))</span> <span class="o">!=</span> <span class="o">-</span><span class="n">1</span><span class="o">){</span>
+            <span class="n">fileOutputStream</span><span class="o">.</span><span class="na">write</span><span class="o">(</span><span class="n">buffer</span><span class="o">,</span> <span class="n">0</span><span class="o">,</span> <span class="n">len</span><span class="o">);</span>
+        <span class="o">}</span>
+
+        <span class="c1">// 5 通知客户端我已经接收完了
+</span><span class="c1"></span>        <span class="n">OutputStream</span> <span class="n">outputStream</span> <span class="o">=</span> <span class="n">socket</span><span class="o">.</span><span class="na">getOutputStream</span><span class="o">();</span>
+        <span class="n">outputStream</span><span class="o">.</span><span class="na">write</span><span class="o">(</span><span class="s">&#34;我接受完毕了，你可以断开了&#34;</span><span class="o">.</span><span class="na">getBytes</span><span class="o">());</span>
+
+        <span class="c1">// 6 关闭资源
+</span><span class="c1"></span>        <span class="n">fileOutputStream</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+        <span class="n">is</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+        <span class="n">socket</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+        <span class="n">serverSocket</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="tomcat">Tomcat</h2>
+<ul>
+<li>tomcat是一个免费的，开放源代码的Web应用服务器，是Apache软件基金会项目中的一个核心项目，由Apache ，Sun和一些公司以及个人共同开发而成，深受Java爱好者的喜爱，是一款比较流行的web应用服务器</li>
+<li>可以自定义服务端和客户端，就像前文的TCP实现消息传输和文件上传一样</li>
+<li>也可以使用已经写好的开源Web应用服务项目Tomcat</li>
+</ul>
+<h3 id="tomcat-核心组件">Tomcat 核心组件</h3>
+<ul>
+<li>web容器:完成web服务器的功能</li>
+<li>servlet容器:名字为catalina，用于处理Servlet代码。</li>
+<li>JSP容器:用于将JSP动态网页翻译成Servlet代码</li>
+<li>因此Tomcat<strong>是web应用服务器，也是一个Servlet/JSP容器</strong>。Tomcat作为 Servlet容器，负责处理客户请求，把请求传送给servlet，并将servlet的响应传送回给客户</li>
+</ul>
+<h3 id="什么是servlet">什么是servlet</h3>
+<p>Servlet 是 Java Servlet 的简称，可以理解为是一个<strong>服务连接器</strong>，<strong>是用Java编写的服务器端程序</strong>，具有独立于平台和协议的特性，简单的理解: <strong>servlet就是一个中间件，包含了接口和方法</strong>，将客户端和数据库连接，从而实现动态网页的创建</p>
+<h3 id="什么是jsp">什么是JSP</h3>
+<ul>
+<li>JSP 全称 Java Server Pages，是一种动态网页开发技术。它使用JSP 标签在HTML,网页中插入Java代码。标签通常以 &lt;% 开头，以 %&gt; 结束。</li>
+<li>JSP是一种Java servlet，主要用于实现Java web 应用程序的用户界面部分</li>
+<li>JSP通过网页表单获取用户输入数据、访问数据库及其他数据源，然后动态地创建网页</li>
+</ul>
+<h3 id="tomcat-功能组件结构">Tomcat 功能组件结构</h3>
+<ul>
+<li>负责接收和反馈外部请求的连接器Connector，和负责处理请求的容器Container</li>
+<li>连接器和容器相辅相成，一起构成了基本的 web服务Service。每个Tomcat服务器可以管理多个Service</li>
+<li>Conector: 负责对外接收和响应请求。它是Tomcat与外界的交通枢纽，监听端口接收外界请求，并将请求处理后传递给容器做业务处理，最后将容器处理后的结果响应给外界</li>
+<li>Container: 负责对内处理业务逻辑。其内部由 Engine、Host、Context和wrapper 四个容器组成，用于管理和调用Servlet相关逻辑</li>
+<li>Service:对外提供的web服务。主要包含Connector和 Container两个核心组件，以及其他功能组件。Tomcat可以管理多个Service，且各Service 之间相互独立</li>
+</ul>
+<h3 id="container结构分析">Container结构分析</h3>
+<p>每个Service 会包含一个Container容器。在Container内部包含了4个子容器:4个子容器的作用分别是</p>
+<ul>
+<li>Engine:引擎，用来管理多个虚拟主机，一个Service最多只能有一个Engine；</li>
+<li>Host:代表一个虚拟主机，也可以叫站点，通过配置 Host 就可以添加站点</li>
+<li>Context:代表一个 web 应用，包含多个Servlet封装器</li>
+<li>wrapper:封装器，容器的最底层。每一Wrapper封装着一个Servlet，负责对象实例的创建、执行和销毁功能</li>
+<li>Engine、Host、Context和 wrapper，这四个容器之间属于父子关系。</li>
+<li>容器由一个引擎可以管理多个虚拟主机。每个虚拟主机可以管理多个web应用。每个web应用会有多个Servlet封装器</li>
+</ul>
+<h3 id="tomcat请求过程">Tomcat请求过程</h3>
+<ul>
+<li>用户在浏览器中输入网址，请求被发送到本机端口8080，被在那里监听的 Connector获得；</li>
+<li>Connector 把该请求交给它所在的Service 的 Engine (Container）来处理，并等待Engine的回应;</li>
+<li>请求在Engine、Host、Context和Wwrapper 这四个容器之间层层调用，最后在Servlet 中执行对应的业务逻辑、数据存储等</li>
+<li>执行完之后的请求响应在Context、Host、Engine容器之间层层返回，最后返回给Connector，并通过Connector 返回给客户端</li>
+</ul>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2022-05-13</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/java_net2/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://swaggerwei.github.io/java_net2/" data-title="Java网络编程学习2" data-via="xxxx" data-hashtags="Java,网络编程"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://swaggerwei.github.io/java_net2/" data-hashtag="Java"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 WhatsApp" data-sharer="whatsapp" data-url="https://swaggerwei.github.io/java_net2/" data-title="Java网络编程学习2" data-web><i class="fab fa-whatsapp fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://swaggerwei.github.io/java_net2/" data-title="Java网络编程学习2"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://swaggerwei.github.io/java_net2/" data-title="Java网络编程学习2"><i class="fab fa-weibo fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Myspace" data-sharer="myspace" data-url="https://swaggerwei.github.io/java_net2/" data-title="Java网络编程学习2" data-description=""><i data-svg-src="/lib/simple-icons/icons/myspace.min.svg"></i></a><a href="javascript:void(0);" title="分享到 Blogger" data-sharer="blogger" data-url="https://swaggerwei.github.io/java_net2/" data-title="Java网络编程学习2" data-description=""><i class="fab fa-blogger fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Evernote" data-sharer="evernote" data-url="https://swaggerwei.github.io/java_net2/" data-title="Java网络编程学习2"><i class="fab fa-evernote fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/java/">Java</a>,&nbsp;<a href="/tags/%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/">网络编程</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/develop_gamesnake/" class="prev" rel="prev" title="贪吃蛇开发"><i class="fas fa-angle-left fa-fw"></i>贪吃蛇开发</a></div>
+</div>
+<div id="comments"></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.90.1">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2019 - 2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">Boyan Wei</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/lightgallery/lightgallery.min.css"><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lightgallery.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-thumbnail.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-zoom.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript" src="/lib/cookieconsent/cookieconsent.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{},"cookieconsent":{"content":{"dismiss":"同意","link":"了解更多","message":"本网站使用 Cookies 来改善您的浏览体验."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"lightGallery":{"actualSize":false,"exThumbImage":"data-thumbnail","hideBarsDelay":2000,"selector":".lightgallery","speed":400,"thumbContHeight":80,"thumbWidth":80,"thumbnail":true},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>
