@@ -108,12 +108,6 @@ public class TCPServerDemo02 {
 
 ```
 
-
-
-
-
-
-
 ## Tomcat
 * tomcat是一个免费的，开放源代码的Web应用服务器，是Apache软件基金会项目中的一个核心项目，由Apache ，Sun和一些公司以及个人共同开发而成，深受Java爱好者的喜爱，是一款比较流行的web应用服务器
 * 可以自定义服务端和客户端，就像前文的TCP实现消息传输和文件上传一样
@@ -154,6 +148,173 @@ Servlet 是 Java Servlet 的简称，可以理解为是一个**服务连接器**
 * Connector 把该请求交给它所在的Service 的 Engine (Container）来处理，并等待Engine的回应;
 * 请求在Engine、Host、Context和Wwrapper 这四个容器之间层层调用，最后在Servlet 中执行对应的业务逻辑、数据存储等
 * 执行完之后的请求响应在Context、Host、Engine容器之间层层返回，最后返回给Connector，并通过Connector 返回给客户端
+
+## UDP消息发送
+* 不用连接上，就可以发送消息，只用知道对方的地址
+### 客户端
+* 建立一个UDP Socket
+* 建一个数据包
+* 指明packet中的参数，说明发送给谁
+* 发送数据包
+* 关闭流close
+* 不需要服务器端打开就可以发送消息，不保证消息的一定可达，所以直接运行客户端是不报错的
+```Java
+package com.swagger.lesson03;
+
+import java.io.IOException;
+import java.net.*;
+
+public class UdpClientDemo01 {
+    public static void main(String[] args) throws IOException {
+        // 1 建立一个UDP Socket
+        DatagramSocket socket = new DatagramSocket();
+        // 2 建一个数据包
+        String msg = "你好服务器";
+
+        // 3 发送给谁
+        InetAddress inetAddress = InetAddress.getByName("localhost");
+        int port = 9090;
+        DatagramPacket packet = new DatagramPacket(msg.getBytes(), 0, msg.getBytes().length, inetAddress, port);
+
+        // 4 发送数据包
+        socket.send(packet);
+
+        // 5 关闭流
+        socket.close();
+
+        // 不需要服务器端打开就可以发送消息，不保证消息的一定可达，所以直接运行客户端是不报错的
+    }
+}
+
+```
+
+### 接收端
+* 开放端口
+* 接收数据包，并且打印接收的数据
+* 关闭连接
+* 实际上不存在TCP中的服务端，因为服务端也可以用客户端的方式发送消息
+```Java
+package com.swagger.lesson03;
+
+import java.io.IOException;
+import java.net.DatagramPacket;
+import java.net.DatagramSocket;
+import java.net.SocketException;
+
+// 只有保持服务端在监听状态，才能接收到数据包
+public class UdpServerDemo01 {
+    public static void main(String[] args) throws IOException {
+        // 1 开放端口
+        DatagramSocket socket = new DatagramSocket(9090);
+        // 2 接收数据包
+        byte[] buffer = new byte[1024];
+        DatagramPacket packet = new DatagramPacket(buffer, 0, buffer.length);
+
+        socket.receive(packet);
+
+        System.out.println(packet.getAddress().getHostAddress());
+        System.out.println(new String(packet.getData(), 0, packet.getLength()));
+
+        // 3 关闭连接
+        socket.close();
+
+
+    }
+}
+
+```
+
+## UDP聊天实现 
+### 发送方
+* 新建一个UDP Socket
+* 新建一个Buffer Reader 用于读取发送的消息
+* 新建一个UDP Packet ，并将发送的数据填入其中，发送
+* 如果检测到bye，字样的消息，则结束
+* 消息可以循环发送
+* 最后关闭socket
+```Java
+package com.swagger.lesson04_chat;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.DatagramPacket;
+import java.net.DatagramSocket;
+import java.net.InetAddress;
+import java.net.SocketException;
+
+public class UdpSenderDemo01 {
+    public static void main(String[] args) throws IOException {
+        DatagramSocket socket = new DatagramSocket(8888);
+
+        // 准备数据：控制台读取数据 System.in
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+
+        while (true){
+            String data = reader.readLine();
+            byte[] datas = data.getBytes();
+
+            InetAddress inetAddress = InetAddress.getByName("localhost");
+            int port = 6666;
+
+            DatagramPacket packet = new DatagramPacket(datas, 0, datas.length, inetAddress, port);
+
+            socket.send(packet);
+
+            if (data.equals("bye")){
+                break;
+            }
+
+        }
+        socket.close();
+
+    }
+}
+```
+
+### 接收方
+* 新建一个UDP Socket
+* 新建一个UDP Packet，并将接收到的数据填入到容器中
+* 阻塞式接收包裹 `socket.receive(packet);`
+* 使用packet中的getData 取出接收的数据
+* 打印出接收的消息
+* 检测如果消息为bye，则停止接收消息
+```Java
+package com.swagger.lesson04_chat;
+
+import java.io.IOException;
+import java.net.DatagramPacket;
+import java.net.DatagramSocket;
+import java.net.SocketException;
+
+public class UdpReceiverDemo01 {
+    public static void main(String[] args) throws IOException {
+        DatagramSocket socket = new DatagramSocket(6666);
+
+        while (true){
+            // 准备接收包裹
+            byte[] container = new byte[1024];
+            DatagramPacket packet = new DatagramPacket(container, 0, container.length);
+            socket.receive(packet); // 阻塞式接收包裹
+
+            // 断开连接 如果为bye，则断开连接
+            byte[] data = packet.getData();
+            String receive_data = new String(data, 0, packet.getLength());
+            System.out.println(receive_data);
+
+            if (receive_data.equals("bye")){
+                break;
+            }
+
+
+        }
+
+        socket.close();
+    }
+}
+```
+
+
 
 
 
