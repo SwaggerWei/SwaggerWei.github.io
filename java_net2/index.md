@@ -318,3 +318,165 @@ public class UdpReceiverDemo01 {
 
 
 
+
+## UDP多线程实现咨询
+* 多线程实现
+* 聊天的双方都需要有发送线程和接收线程
+* 互相之间的发送线程和接收线程需要对应
+
+### 发送线程类
+* 实现Runnable接口即可
+```Java
+package com.swagger.lesson04_chat;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.DatagramPacket;
+import java.net.DatagramSocket;
+import java.net.InetAddress;
+import java.net.InetSocketAddress;
+
+public class TalkSend implements Runnable{
+
+    DatagramSocket socket = null;
+    BufferedReader reader = null;
+
+    private int fromPort;
+    private String toIP;
+    private int toPort;
+
+    public TalkSend(int fromPort, String toIP, int toPort) {
+        this.fromPort = fromPort;
+        this.toIP = toIP;
+        this.toPort = toPort;
+
+        try{
+            socket = new DatagramSocket(this.fromPort);
+            reader = new BufferedReader(new InputStreamReader(System.in));
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+    }
+
+    @Override
+    public void run() {
+
+        while (true){
+
+            try{
+                String data = reader.readLine();
+                byte[] datas = data.getBytes();
+
+                InetAddress inetAddress = InetAddress.getByName("localhost");
+                int port = 6666;
+
+                DatagramPacket packet = new DatagramPacket(datas, 0, datas.length, new InetSocketAddress(this.toIP, this.toPort));
+
+                socket.send(packet);
+
+                if (data.equals("bye")){
+                    break;
+                }
+
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+
+        }
+
+        socket.close();
+
+    }
+}
+```
+
+### 接收线程类
+* 实现Runnable 接口
+```Java
+package com.swagger.lesson04_chat;
+
+import java.io.IOException;
+import java.net.DatagramPacket;
+import java.net.DatagramSocket;
+
+public class TalkReceive implements Runnable{
+    DatagramSocket socket = null;
+    private int port;
+    private String msgFrom;
+
+    public TalkReceive(int port, String msgFrom) {
+        this.port = port;
+        this.msgFrom = msgFrom;
+        try{
+            socket = new DatagramSocket(port);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void run() {
+
+        while (true){
+
+
+            try {
+                // 准备接收包裹
+                byte[] container = new byte[1024];
+                DatagramPacket packet = new DatagramPacket(container, 0, container.length);
+                socket.receive(packet); // 阻塞式接收包裹
+
+                // 断开连接 如果为bye，则断开连接
+                byte[] data = packet.getData();
+                String receive_data = new String(data, 0, packet.getLength());
+                System.out.println(msgFrom+":"+receive_data);
+
+                if (receive_data.equals("bye")){
+                    break;
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        }
+
+        socket.close();
+
+    }
+}
+
+```
+
+### 聊天双方
+* 均同时创建发送和接收线程
+* 总共四个线程之间在通信
+```Java
+
+package com.swagger.lesson04_chat;
+
+public class TalkStudent {
+    public static void main(String[] args) {
+        // 开启线程
+        // 静态代理模式
+        new Thread(new TalkSend(777, "localhost", 9999)).start();
+        new Thread(new TalkReceive(8888, "老师")).start();
+
+    }
+}
+```
+
+```Java
+package com.swagger.lesson04_chat;
+
+public class TalkTeacher {
+    public static void main(String[] args) {
+        // 开启线程
+        // 静态代理模式
+        new Thread(new TalkSend(5555, "localhost", 8888)).start();
+        new Thread(new TalkReceive(9999, "学生")).start();
+
+    }
+}
+```
+
