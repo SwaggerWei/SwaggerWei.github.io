@@ -480,3 +480,86 @@ public class TalkTeacher {
 }
 ```
 
+
+## URL 下载网路资源
+* 同意资源定位符号，定位网络上的某一个资源
+* DNS域名解析，将一个网址解析为一个IP地址
+* 协议://ip地址: 端口号/项目名/资源
+
+### 测试url中的主要方法
+```Java
+package com.swagger.lesson05;
+
+import java.net.MalformedURLException;
+import java.net.URL;
+
+public class URLDemo01 {
+    public static void main(String[] args) {
+        try {
+            URL url =  new URL("http://localhost:8080/helloworld/index.jsp?username=swagger&password=123");
+
+            System.out.println(url.getProtocol()); // 协议
+            System.out.println(url.getHost()); // 主机ip
+            System.out.println(url.getPort()); // 端口
+            System.out.println(url.getPath()); // 文件
+            System.out.println(url.getFile()); // 全路径
+            System.out.println(url.getQuery()); // 参数
+
+
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+
+### url 下载文件
+```Java
+package com.swagger.lesson05;
+
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+
+public class URLDownload {
+    public static void main(String[] args) {
+        try {
+            // 1. 下载地址
+            URL url = new URL("http://localhost:8080/swagger/testURL_learning.txt");
+
+            // 2 连接到这个资源 HTTP
+            HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+
+            // 3 下载
+            InputStream inputStream = urlConnection.getInputStream();
+
+            // 4 写入到文件
+            FileOutputStream fileOutputStream = new FileOutputStream("testURL_learning.txt");
+            byte[] buffer = new byte[1024];
+            int len;
+            while ((len = inputStream.read(buffer)) != -1){
+                fileOutputStream.write(buffer, 0, len);
+            }
+
+
+            // 5 关闭资源
+            fileOutputStream.close();
+            inputStream.close();
+            urlConnection.disconnect();
+
+
+
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+
