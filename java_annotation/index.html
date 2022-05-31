@@ -1,0 +1,946 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>Java Annotation注解和反射1 - Boyan Wei</title><meta name="Description" content="这是我的全新 Hugo 网站"><meta property="og:title" content="Java Annotation注解和反射1" />
+<meta property="og:description" content="注解 Annotation 如图所示，以@开头的修饰符 注释为comment，注意区分开，以 //开头 什么是注解 JDK5.0引入的新技术 Annotation的作用：不" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://swaggerwei.github.io/java_annotation/" /><meta property="og:image" content="https://swaggerwei.github.io/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-05-31T12:18:48+08:00" />
+<meta property="article:modified_time" content="2022-05-31T12:18:48+08:00" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://swaggerwei.github.io/logo.png"/>
+
+<meta name="twitter:title" content="Java Annotation注解和反射1"/>
+<meta name="twitter:description" content="注解 Annotation 如图所示，以@开头的修饰符 注释为comment，注意区分开，以 //开头 什么是注解 JDK5.0引入的新技术 Annotation的作用：不"/>
+<meta name="application-name" content="LoveIt">
+<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://swaggerwei.github.io/java_annotation/" /><link rel="prev" href="https://swaggerwei.github.io/java_net2/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Java Annotation注解和反射1",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/swaggerwei.github.io\/java_annotation\/"
+        },"genre": "posts","keywords": "Java, 注解, 反射","wordcount":  4008 ,
+        "url": "https:\/\/swaggerwei.github.io\/java_annotation\/","datePublished": "2022-05-31T12:18:48+08:00","dateModified": "2022-05-31T12:18:48+08:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "Boyan Wei"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Boyan Wei"></a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Boyan Wei"></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content always-active" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">Java Annotation注解和反射1</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>Boyan Wei</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E6%B3%A8%E8%A7%A3%E5%92%8C%E5%8F%8D%E5%B0%84/"><i class="far fa-folder fa-fw"></i>注解和反射</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-05-31">2022-05-31</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 4008 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 8 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#注解-annotation">注解 Annotation</a>
+      <ul>
+        <li><a href="#什么是注解">什么是注解</a></li>
+      </ul>
+    </li>
+    <li><a href="#内置注解">内置注解</a>
+      <ul>
+        <li><a href="#代码测试">代码测试</a></li>
+      </ul>
+    </li>
+    <li><a href="#元注解-meta-annotation">元注解 meta-annotation</a>
+      <ul>
+        <li><a href="#分类">分类</a></li>
+        <li><a href="#代码">代码</a></li>
+      </ul>
+    </li>
+    <li><a href="#自定义注解">自定义注解</a>
+      <ul>
+        <li><a href="#实战代码">实战代码</a></li>
+      </ul>
+    </li>
+    <li><a href="#反射概述">反射概述</a>
+      <ul>
+        <li><a href="#动态语言">动态语言</a></li>
+        <li><a href="#静态语言">静态语言</a></li>
+        <li><a href="#java-reflection">Java Reflection</a></li>
+        <li><a href="#java-反射机制提供的功能">Java 反射机制提供的功能</a></li>
+        <li><a href="#反射的优点和缺点">反射的优点和缺点</a>
+          <ul>
+            <li><a href="#优点">优点</a></li>
+            <li><a href="#缺点">缺点</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#反射获取对象">反射获取对象</a>
+      <ul>
+        <li><a href="#class-类">class 类</a></li>
+        <li><a href="#如何获取class类的实例">如何获取Class类的实例</a></li>
+        <li><a href="#代码实战">代码实战</a></li>
+      </ul>
+    </li>
+    <li><a href="#所有类型的class对象">所有类型的Class对象</a>
+      <ul>
+        <li><a href="#哪些类型可以有class对象">哪些类型可以有Class对象</a></li>
+        <li><a href="#代码实战-1">代码实战</a></li>
+      </ul>
+    </li>
+    <li><a href="#类加载内存分析">类加载内存分析</a>
+      <ul>
+        <li><a href="#代码实战-2">代码实战</a></li>
+      </ul>
+    </li>
+    <li><a href="#分析类的初始化何时一个类会被初始化">分析类的初始化（何时一个类会被初始化）</a>
+      <ul>
+        <li><a href="#主动初始化">主动初始化</a></li>
+        <li><a href="#被动初始化">被动初始化</a></li>
+        <li><a href="#代码实战-3">代码实战</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h2 id="注解-annotation">注解 Annotation</h2>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/image_Java_Annotation/pic1.png"
+        data-srcset="/image_Java_Annotation/pic1.png, /image_Java_Annotation/pic1.png 1.5x, /image_Java_Annotation/pic1.png 2x"
+        data-sizes="auto"
+        alt="/image_Java_Annotation/pic1.png"
+        title="/image_Java_Annotation/pic1.png" /></p>
+<ul>
+<li>如图所示，以<code>@</code>开头的修饰符</li>
+<li>注释为comment，注意区分开，以 <code>//</code>开头</li>
+</ul>
+<h3 id="什么是注解">什么是注解</h3>
+<ul>
+<li>JDK5.0引入的新技术</li>
+<li>Annotation的作用：不是程度本身，可以对程序做出解释； 可以被其他程序（比如编译器）读取</li>
+<li>格式：注解是用<code>@</code>开头的修饰符在代码中存在的，还可以添加一些参数值，例如@SuppressWarnings(value=&ldquo;unchecked&rdquo;)</li>
+<li>哪里使用：可以附加在package，class，method，field等上面，相当于给他们添加了额外的辅助信息，我么你可以通过反射机制编程实现对这些元数据的访问</li>
+</ul>
+<h2 id="内置注解">内置注解</h2>
+<ul>
+<li><code>@Override</code>：定义在java.lang.Override中，此注释只适用于修辞方法，表示一个方法声明打算重写超累中的另一个方法申明，只能用来<strong>修饰方法</strong></li>
+<li><code>@Deprecated</code>：定义在java.lang.Deprecated中，此注释可以用于修辞方法，表示不鼓励程序员使用，通常有更好的选择，但是可以使用</li>
+<li><code>@SuppressWarnings</code>：抑制编译时的警告信息，这个内置注解需要参数，可以用来修饰<strong>类或者方法</strong></li>
+</ul>
+<h3 id="代码测试">代码测试</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-Java" data-lang="Java"><span class="kn">package</span> <span class="nn">com.swagger.annotation</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">java.util.ArrayList</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.List</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">test01</span> <span class="o">{</span>
+
+    <span class="c1">// @Override 重写注解，只能用来修饰方法
+</span><span class="c1"></span>    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="n">String</span> <span class="nf">toString</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="kd">super</span><span class="o">.</span><span class="na">toString</span><span class="o">();</span>
+    <span class="o">}</span>
+
+    <span class="c1">// @Deprecated 不推荐程序员使用，但是可以使用，或者存在更好的方式
+</span><span class="c1"></span>    <span class="nd">@Deprecated</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">test</span><span class="o">(){</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;Deprecated&#34;</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="c1">// @SuppressWarnings(&#34;all&#34;)，镇压警告，所有的警告都不提醒，也可以用来修饰类
+</span><span class="c1"></span>    <span class="nd">@SuppressWarnings</span><span class="o">(</span><span class="s">&#34;all&#34;</span><span class="o">)</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">test1</span><span class="o">(){</span>
+        <span class="n">List</span> <span class="n">list</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">();</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">test</span><span class="o">();</span>
+        <span class="n">test1</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="元注解-meta-annotation">元注解 meta-annotation</h2>
+<p>元注解的作用就是负责注解其他注解，Java定一了4个标准的meta-annotation类型</p>
+<h3 id="分类">分类</h3>
+<ul>
+<li><code>@Target</code>：注解的使用范围</li>
+<li><code>@Retention</code>：什么级别保存该注解，用于描述注解的声明周期（SOURCE&lt;CLASS&lt;RUNTIME一般都是RUNTIME）</li>
+<li><code>@Document</code>：该注释将会被包含在javadoc中</li>
+<li><code>@Inherited</code>：说明子类可以继承父类中的该注解</li>
+</ul>
+<h3 id="代码">代码</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-Java" data-lang="Java"><span class="kn">package</span> <span class="nn">com.swagger.annotation</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">java.lang.annotation.*</span><span class="o">;</span>
+
+<span class="c1">// 测试元注解
+</span><span class="c1"></span><span class="kd">public</span> <span class="kd">class</span> <span class="nc">test20</span> <span class="o">{</span>
+
+    <span class="nd">@MyAnnotation</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">test</span><span class="o">(){</span>
+
+    <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="c1">// 定一个一个注解
+</span><span class="c1">// Target表示注解可以用在那个地方
+</span><span class="c1"></span><span class="nd">@Target</span><span class="o">(</span><span class="n">value</span> <span class="o">=</span> <span class="o">{</span><span class="n">ElementType</span><span class="o">.</span><span class="na">METHOD</span><span class="o">,</span> <span class="n">ElementType</span><span class="o">.</span><span class="na">TYPE</span><span class="o">})</span>
+
+<span class="c1">// Retention表示什么级别才有效
+</span><span class="c1"></span><span class="nd">@Retention</span><span class="o">(</span><span class="n">value</span> <span class="o">=</span> <span class="n">RetentionPolicy</span><span class="o">.</span><span class="na">RUNTIME</span><span class="o">)</span>
+
+<span class="c1">// Document表示是否将注解生成在javadoc中
+</span><span class="c1"></span><span class="nd">@Documented</span>
+
+<span class="c1">// Inherited 表示子类可以继承父类的注解
+</span><span class="c1"></span><span class="nd">@Inherited</span>
+<span class="nd">@interface</span> <span class="n">MyAnnotation</span><span class="o">{</span>
+
+<span class="o">}</span>
+
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="自定义注解">自定义注解</h2>
+<ul>
+<li>使用<code>@interface</code>自定义注解时，自动继承了java.lang.annotation.Annotation接口</li>
+<li>格式 public @interface 注解名 {定义内容}</li>
+<li>其中每一个方法实际上是声明了一个配置参数</li>
+<li>方法的名称就是参数的名称</li>
+<li>返回值类型就是参数的类型，返回值只能是基本类型（Class，String，enum）</li>
+<li>可以通过default来声明参数的默认值</li>
+<li>如果只有一个参数成员，一般参数名为value</li>
+<li>注解元素必须要有值，我们定义注解元素是，经常使用空字符串，0作为默认值</li>
+</ul>
+<h3 id="实战代码">实战代码</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-Java" data-lang="Java"><span class="kn">package</span> <span class="nn">com.swagger.annotation</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">java.lang.annotation.ElementType</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.lang.annotation.Retention</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.lang.annotation.RetentionPolicy</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.lang.annotation.Target</span><span class="o">;</span>
+
+<span class="c1">// 自定义注解
+</span><span class="c1"></span><span class="kd">public</span> <span class="kd">class</span> <span class="nc">test03</span> <span class="o">{</span>
+
+    <span class="c1">// 注解可以显式赋值，如果没有默认值，就一定要直接赋值
+</span><span class="c1"></span>    <span class="nd">@MyAnnotation2</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">&#34;swagger&#34;</span><span class="o">,</span> <span class="n">schools</span> <span class="o">=</span> <span class="o">{</span><span class="s">&#34;1高&#34;</span><span class="o">,</span> <span class="s">&#34;12高&#34;</span><span class="o">})</span> <span class="c1">// 有默认值就可以不写
+</span><span class="c1"></span>    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">test</span><span class="o">(){}</span>
+
+    <span class="nd">@MyAnnotation3</span><span class="o">(</span><span class="n">value</span> <span class="o">=</span> <span class="s">&#34;1&#34;</span><span class="o">)</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">test2</span><span class="o">(){}</span>
+
+<span class="o">}</span>
+
+<span class="nd">@Target</span><span class="o">({</span><span class="n">ElementType</span><span class="o">.</span><span class="na">TYPE</span><span class="o">,</span> <span class="n">ElementType</span><span class="o">.</span><span class="na">METHOD</span><span class="o">})</span>
+<span class="nd">@Retention</span><span class="o">(</span><span class="n">RetentionPolicy</span><span class="o">.</span><span class="na">RUNTIME</span><span class="o">)</span>
+<span class="nd">@interface</span> <span class="n">MyAnnotation2</span><span class="o">{</span>
+    <span class="c1">// 注解的参数：参数类型 + 参数名（）
+</span><span class="c1"></span>    <span class="n">String</span> <span class="nf">name</span><span class="o">()</span> <span class="k">default</span> <span class="s">&#34;&#34;</span><span class="o">;</span>
+    <span class="kt">int</span> <span class="nf">age</span><span class="o">()</span> <span class="k">default</span> <span class="n">0</span><span class="o">;</span>
+    <span class="kt">int</span> <span class="nf">id</span><span class="o">()</span> <span class="k">default</span> <span class="o">-</span><span class="n">1</span><span class="o">;</span> <span class="c1">// 如果默认值为-1，代表不存在
+</span><span class="c1"></span>    <span class="n">String</span><span class="o">[]</span> <span class="nf">schools</span><span class="o">()</span> <span class="k">default</span> <span class="o">{</span><span class="s">&#34;清华&#34;</span><span class="o">,</span> <span class="s">&#34;北大&#34;</span><span class="o">};</span>
+<span class="o">}</span>
+
+<span class="nd">@Target</span><span class="o">({</span><span class="n">ElementType</span><span class="o">.</span><span class="na">TYPE</span><span class="o">,</span> <span class="n">ElementType</span><span class="o">.</span><span class="na">METHOD</span><span class="o">})</span>
+<span class="nd">@Retention</span><span class="o">(</span><span class="n">RetentionPolicy</span><span class="o">.</span><span class="na">RUNTIME</span><span class="o">)</span>
+<span class="nd">@interface</span> <span class="n">MyAnnotation3</span><span class="o">{</span>
+    <span class="n">String</span> <span class="nf">value</span><span class="o">();</span> <span class="c1">// 如果只有一个参数，直接使用value作为参数名, 并且使用时参数列表中可以省略value
+</span><span class="c1"></span><span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="反射概述">反射概述</h2>
+<h3 id="动态语言">动态语言</h3>
+<ul>
+<li>运行的时候代码可以根据某些条件改变自身的结构</li>
+<li>主要动态语言：Object-C、C#、JavaScript、PHP、Pyhton</li>
+</ul>
+<h3 id="静态语言">静态语言</h3>
+<ul>
+<li>运行时结构不变的语言就是静态语言：Java、C、C++</li>
+<li>Java不是动态语言，但是可以称为准动态语言，可以通过反射机制让其活的类似动态语言的特性</li>
+</ul>
+<h3 id="java-reflection">Java Reflection</h3>
+<ul>
+<li>反射机制运行程序在执行期借助于Reflection API去的任何类的内部信息，并能直接操作任意对象的内部属性及方法</li>
+<li>加载完成类之后，在堆内存中就有一个Clss类型的对象，通过反射可以看到类的结构
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/image_Java_Annotation/pic2.png"
+        data-srcset="/image_Java_Annotation/pic2.png, /image_Java_Annotation/pic2.png 1.5x, /image_Java_Annotation/pic2.png 2x"
+        data-sizes="auto"
+        alt="/image_Java_Annotation/pic2.png"
+        title="/image_Java_Annotation/pic2.png" /></li>
+</ul>
+<h3 id="java-反射机制提供的功能">Java 反射机制提供的功能</h3>
+<ul>
+<li>运行时判断任意一个对象所属的类</li>
+<li>运行时构造任意一个类的对象</li>
+<li>运行时判断任意一个类所具有的方法和成员变量</li>
+<li>运行时获取泛型信息</li>
+<li>运行时调用任意一个对象的成员变量和方法</li>
+<li>运行时<strong>处理注解</strong></li>
+<li><strong>生成动态代理</strong></li>
+</ul>
+<h3 id="反射的优点和缺点">反射的优点和缺点</h3>
+<h4 id="优点">优点</h4>
+<p>可以动态创建对象和编译，体现出很大的灵活性</p>
+<h4 id="缺点">缺点</h4>
+<ul>
+<li>对性能有影响，为解释行操作，我们可以告诉JVM希望做什么并且它满足我们的要求。这类操作总是慢于直接执行相同的操作</li>
+<li>破坏封装性，影响安全</li>
+</ul>
+<h2 id="反射获取对象">反射获取对象</h2>
+<h3 id="class-类">class 类</h3>
+<ul>
+<li>对象照镜子之后可以得到的信息，某个类的属性、方法、构造器、某个类实现了哪些接口</li>
+<li>对于每个类而言，JRE都为妻保留了一个不变的Class类型的对象。</li>
+<li>一个Class对象包含了特定某个结构（class/interface/enum/annotation/primitive type/void/[]）的有关信息</li>
+<li>Class本身也是一个类</li>
+<li>Class对象只能由系统建立对象</li>
+<li>一个加载的类在JVM中只会有一个Class实例</li>
+<li>一个Class对象对应的是一个加载到JVM中的一个class文件</li>
+<li>每个类的实例都会记得自己是由哪个Class实例所生成的</li>
+<li>通过Class可以完整地得到一个类中所有被加载的结构</li>
+<li>Class类是Reflection的根源，针对任何你想动态加载、运行的类，唯有先获取相应的Class对象</li>
+</ul>
+<h3 id="如何获取class类的实例">如何获取Class类的实例</h3>
+<ul>
+<li>若已知具体的类，通过类的class属性获取（最为安全可靠，性能最高）<code>Class clazz = Person.class;</code></li>
+<li>已知某个类的实例，通过实例的getClass()方法获取Class对象 <code>Class clazz = person.getClass();</code></li>
+<li>已知一个类的全类名，且该类在类路径下，可通过Class类的静态方法forName()获取，可能抛出ClassNotFoundException异常 <code>Class clazz = Class.forName(&quot;demo.Student&quot;)</code></li>
+<li>内置基本数据类型可以直接用类名.Type</li>
+<li>还可以利用ClassLoader</li>
+</ul>
+<h3 id="代码实战">代码实战</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-Java" data-lang="Java"><span class="kn">package</span> <span class="nn">com.swagger.reflection</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">test02</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">ClassNotFoundException</span> <span class="o">{</span>
+        <span class="n">Person</span> <span class="n">person</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Student</span><span class="o">();</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;这个人是：&#34;</span> <span class="o">+</span> <span class="n">person</span><span class="o">.</span><span class="na">name</span><span class="o">);</span>
+
+        <span class="c1">// 获取Class
+</span><span class="c1"></span>        <span class="c1">// 方法1： 通过对象获得
+</span><span class="c1"></span>        <span class="n">Class</span> <span class="n">c1</span> <span class="o">=</span> <span class="n">person</span><span class="o">.</span><span class="na">getClass</span><span class="o">();</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">c1</span><span class="o">.</span><span class="na">hashCode</span><span class="o">());</span>
+
+        <span class="c1">// 方式2：forName获取
+</span><span class="c1"></span>        <span class="n">Class</span> <span class="n">c2</span> <span class="o">=</span> <span class="n">Class</span><span class="o">.</span><span class="na">forName</span><span class="o">(</span><span class="s">&#34;com.swagger.reflection.Student&#34;</span><span class="o">);</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">c2</span><span class="o">.</span><span class="na">hashCode</span><span class="o">());</span>
+
+        <span class="c1">// 方式3：通过 类名.class
+</span><span class="c1"></span>        <span class="n">Class</span> <span class="n">c3</span> <span class="o">=</span> <span class="n">Student</span><span class="o">.</span><span class="na">class</span><span class="o">;</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">c3</span><span class="o">.</span><span class="na">hashCode</span><span class="o">());</span>
+
+        <span class="c1">// 方法4：基本内置类型的包装类都有一个Type属性
+</span><span class="c1"></span>        <span class="n">Class</span> <span class="n">c4</span> <span class="o">=</span> <span class="n">Integer</span><span class="o">.</span><span class="na">TYPE</span><span class="o">;</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">c4</span><span class="o">);</span>
+
+        <span class="c1">// 获得父类类型
+</span><span class="c1"></span>        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">c1</span><span class="o">.</span><span class="na">getSuperclass</span><span class="o">());</span>
+
+
+
+
+    <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="kd">class</span> <span class="nc">Person</span><span class="o">{</span>
+    <span class="kd">public</span> <span class="n">String</span> <span class="n">name</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="nf">Person</span><span class="o">()</span> <span class="o">{</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="nf">Person</span><span class="o">(</span><span class="n">String</span> <span class="n">name</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">name</span> <span class="o">=</span> <span class="n">name</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="n">String</span> <span class="nf">toString</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="s">&#34;Person{&#34;</span> <span class="o">+</span>
+                <span class="s">&#34;name=&#39;&#34;</span> <span class="o">+</span> <span class="n">name</span> <span class="o">+</span> <span class="sc">&#39;\&#39;&#39;</span> <span class="o">+</span>
+                <span class="sc">&#39;}&#39;</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="kd">class</span> <span class="nc">Student</span> <span class="kd">extends</span> <span class="n">Person</span><span class="o">{</span>
+    <span class="kd">public</span> <span class="nf">Student</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">name</span> <span class="o">=</span> <span class="s">&#34;学生&#34;</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="kd">class</span> <span class="nc">Teacher</span> <span class="kd">extends</span> <span class="n">Person</span><span class="o">{</span>
+    <span class="kd">public</span> <span class="nf">Teacher</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">name</span> <span class="o">=</span> <span class="s">&#34;老师&#34;</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="所有类型的class对象">所有类型的Class对象</h2>
+<h3 id="哪些类型可以有class对象">哪些类型可以有Class对象</h3>
+<ul>
+<li>class：外部类、成员（成员内部类，静态内部类）、局部内部类、匿名内部类</li>
+<li>interface：接口</li>
+<li>[]：数组</li>
+<li>enum：枚举</li>
+<li>annotation：注解@interface</li>
+<li>primitive type：基本数据类型</li>
+<li>void</li>
+</ul>
+<h3 id="代码实战-1">代码实战</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-Java" data-lang="Java"><span class="kn">package</span> <span class="nn">com.swagger.reflection</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">java.lang.annotation.ElementType</span><span class="o">;</span>
+
+<span class="c1">// 所有类型的Class对象
+</span><span class="c1"></span><span class="kd">public</span> <span class="kd">class</span> <span class="nc">test03</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">Class</span> <span class="n">c1</span> <span class="o">=</span> <span class="n">Object</span><span class="o">.</span><span class="na">class</span><span class="o">;</span> <span class="c1">// 类
+</span><span class="c1"></span>        <span class="n">Class</span> <span class="n">c2</span> <span class="o">=</span> <span class="n">Comparable</span><span class="o">.</span><span class="na">class</span><span class="o">;</span> <span class="c1">// 接口
+</span><span class="c1"></span>        <span class="n">Class</span> <span class="n">c3</span> <span class="o">=</span> <span class="n">String</span><span class="o">[].</span><span class="na">class</span><span class="o">;</span> <span class="c1">// 一维数组
+</span><span class="c1"></span>        <span class="n">Class</span> <span class="n">c4</span> <span class="o">=</span> <span class="kt">int</span><span class="o">[][].</span><span class="na">class</span><span class="o">;</span> <span class="c1">// 二维数组
+</span><span class="c1"></span>        <span class="n">Class</span> <span class="n">c5</span> <span class="o">=</span> <span class="n">Override</span><span class="o">.</span><span class="na">class</span><span class="o">;</span> <span class="c1">// 注解
+</span><span class="c1"></span>        <span class="n">Class</span> <span class="n">c6</span> <span class="o">=</span> <span class="n">ElementType</span><span class="o">.</span><span class="na">class</span><span class="o">;</span> <span class="c1">// 枚举
+</span><span class="c1"></span>        <span class="n">Class</span> <span class="n">c7</span> <span class="o">=</span> <span class="n">Integer</span><span class="o">.</span><span class="na">class</span><span class="o">;</span> <span class="c1">// 基本数据类型
+</span><span class="c1"></span>        <span class="n">Class</span> <span class="n">c8</span> <span class="o">=</span> <span class="kt">void</span><span class="o">.</span><span class="na">class</span><span class="o">;</span> <span class="c1">// void
+</span><span class="c1"></span>        <span class="n">Class</span> <span class="n">c9</span> <span class="o">=</span> <span class="n">Class</span><span class="o">.</span><span class="na">class</span><span class="o">;</span> <span class="c1">// Class
+</span><span class="c1"></span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">c1</span><span class="o">);</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">c2</span><span class="o">);</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">c3</span><span class="o">);</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">c4</span><span class="o">);</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">c5</span><span class="o">);</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">c6</span><span class="o">);</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">c7</span><span class="o">);</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">c8</span><span class="o">);</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">c9</span><span class="o">);</span>
+
+        <span class="c1">// 只要元素类型与维度一样，就是同一个class对象
+</span><span class="c1"></span>        <span class="kt">int</span><span class="o">[]</span> <span class="n">a</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span><span class="o">[</span><span class="n">10</span><span class="o">];</span>
+        <span class="kt">int</span><span class="o">[]</span> <span class="n">b</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span><span class="o">[</span><span class="n">100</span><span class="o">];</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">a</span><span class="o">.</span><span class="na">getClass</span><span class="o">().</span><span class="na">hashCode</span><span class="o">());</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">b</span><span class="o">.</span><span class="na">getClass</span><span class="o">().</span><span class="na">hashCode</span><span class="o">());</span>
+
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="类加载内存分析">类加载内存分析</h2>
+<ul>
+<li>1 加载：类的数据（静态变量、静态方法、常量迟、代码）加载到内存，会产生对应java.lang.Class对象对应方法去中加载的各个类</li>
+<li>2 链接：分配内存，并输入一个默认的值</li>
+<li>3 初始化：静态方法块合并起来</li>
+</ul>
+<h3 id="代码实战-2">代码实战</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-Java" data-lang="Java"><span class="kn">package</span> <span class="nn">com.swagger.reflection</span><span class="o">;</span>
+
+<span class="c1">// 类加载内存分析
+</span><span class="c1"></span><span class="kd">public</span> <span class="kd">class</span> <span class="nc">test04</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">A</span> <span class="n">a</span> <span class="o">=</span> <span class="k">new</span> <span class="n">A</span><span class="o">();</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">A</span><span class="o">.</span><span class="na">m</span><span class="o">);</span>
+
+
+        <span class="cm">/*
+</span><span class="cm">        1 加载到内存，会产生一个类对应Class对象
+</span><span class="cm">        2 链接，链接结束后m的初始化值为0
+</span><span class="cm">        3 初始化, 静态代码块全部合并，执行后发现m为100
+</span><span class="cm">            &lt;clinit&gt;(){
+</span><span class="cm">                System.out.println(&#34;A类静态代码块初始化&#34;);
+</span><span class="cm">                m = 300;
+</span><span class="cm">                m = 100;
+</span><span class="cm">            }
+</span><span class="cm">         */</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="kd">class</span> <span class="nc">A</span><span class="o">{</span>
+    <span class="kd">static</span> <span class="o">{</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;A类静态代码块初始化&#34;</span><span class="o">);</span>
+        <span class="n">m</span> <span class="o">=</span> <span class="n">300</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">static</span> <span class="kt">int</span> <span class="n">m</span> <span class="o">=</span> <span class="n">100</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="nf">A</span><span class="o">(){</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;A类的无参构造方法初始化&#34;</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="分析类的初始化何时一个类会被初始化">分析类的初始化（何时一个类会被初始化）</h2>
+<h3 id="主动初始化">主动初始化</h3>
+<ul>
+<li>new 关键字：如果父类没有初始化，会主动初始化父类</li>
+<li>反射：如果父类没有初始化，会主动初始化父类</li>
+</ul>
+<h3 id="被动初始化">被动初始化</h3>
+<ul>
+<li>当访问一个静态域时，只有真正声明这个域的类才会被初始化。如：当通过子类引用父类的静态变量时，不会导致子类的初始化</li>
+<li>通过数组定义类的引用</li>
+<li>引用常量(常量在链接阶段就已经存入调用类的常量池了)</li>
+</ul>
+<h3 id="代码实战-3">代码实战</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-Java" data-lang="Java"><span class="kn">package</span> <span class="nn">com.swagger.reflection</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">test05</span> <span class="o">{</span>
+    <span class="kd">static</span> <span class="o">{</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;Main类被加载&#34;</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">ClassNotFoundException</span> <span class="o">{</span>
+        <span class="c1">// 1 主动引用
+</span><span class="c1"></span>        <span class="c1">// new 关键字：如果父类没有初始化，会主动初始化父类
+</span><span class="c1">//        Son son = new Son();
+</span><span class="c1"></span>
+        <span class="c1">// 反射：如果父类没有初始化，会主动初始化父类
+</span><span class="c1">//        Class.forName(&#34;com.swagger.reflection.Son&#34;);
+</span><span class="c1"></span>
+        <span class="c1">// 3 被动引用
+</span><span class="c1"></span>        <span class="c1">// 当访问一个静态域时，只有真正声明这个域的类才会被初始化。如：当通过子类引用父类的静态变量时，不会导致子类的初始化
+</span><span class="c1">//        System.out.println(Son.b);
+</span><span class="c1"></span>
+        <span class="c1">// 通过数组定义类的引用
+</span><span class="c1"></span>        <span class="n">Son</span><span class="o">[]</span> <span class="n">Array</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Son</span><span class="o">[</span><span class="n">10</span><span class="o">];</span>
+
+        <span class="c1">// 引用常量
+</span><span class="c1"></span>        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">Son</span><span class="o">.</span><span class="na">x</span><span class="o">);</span>
+
+    <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="kd">class</span> <span class="nc">Father</span><span class="o">{</span>
+    <span class="kd">static</span> <span class="kt">int</span> <span class="n">b</span> <span class="o">=</span> <span class="n">2</span><span class="o">;</span>
+
+    <span class="kd">static</span> <span class="o">{</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;父类被加载&#34;</span><span class="o">);</span>
+    <span class="o">}</span>
+
+<span class="o">}</span>
+
+<span class="kd">class</span> <span class="nc">Son</span> <span class="kd">extends</span> <span class="n">Father</span><span class="o">{</span>
+    <span class="kd">static</span> <span class="o">{</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;子类被加载&#34;</span><span class="o">);</span>
+        <span class="n">m</span> <span class="o">=</span> <span class="n">300</span><span class="o">;</span>
+    <span class="o">}</span>
+    <span class="kd">static</span> <span class="kt">int</span> <span class="n">m</span> <span class="o">=</span> <span class="n">100</span><span class="o">;</span>
+    <span class="kd">static</span> <span class="kd">final</span> <span class="kt">int</span> <span class="n">x</span> <span class="o">=</span> <span class="n">1</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div></div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2022-05-31</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/java_annotation/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://swaggerwei.github.io/java_annotation/" data-title="Java Annotation注解和反射1" data-via="xxxx" data-hashtags="Java,注解,反射"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://swaggerwei.github.io/java_annotation/" data-hashtag="Java"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 WhatsApp" data-sharer="whatsapp" data-url="https://swaggerwei.github.io/java_annotation/" data-title="Java Annotation注解和反射1" data-web><i class="fab fa-whatsapp fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://swaggerwei.github.io/java_annotation/" data-title="Java Annotation注解和反射1"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://swaggerwei.github.io/java_annotation/" data-title="Java Annotation注解和反射1"><i class="fab fa-weibo fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Myspace" data-sharer="myspace" data-url="https://swaggerwei.github.io/java_annotation/" data-title="Java Annotation注解和反射1" data-description=""><i data-svg-src="/lib/simple-icons/icons/myspace.min.svg"></i></a><a href="javascript:void(0);" title="分享到 Blogger" data-sharer="blogger" data-url="https://swaggerwei.github.io/java_annotation/" data-title="Java Annotation注解和反射1" data-description=""><i class="fab fa-blogger fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Evernote" data-sharer="evernote" data-url="https://swaggerwei.github.io/java_annotation/" data-title="Java Annotation注解和反射1"><i class="fab fa-evernote fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/java/">Java</a>,&nbsp;<a href="/tags/%E6%B3%A8%E8%A7%A3/">注解</a>,&nbsp;<a href="/tags/%E5%8F%8D%E5%B0%84/">反射</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/java_net2/" class="prev" rel="prev" title="Java网络编程学习2"><i class="fas fa-angle-left fa-fw"></i>Java网络编程学习2</a></div>
+</div>
+<div id="comments"></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.90.1">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2019 - 2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">Boyan Wei</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/lightgallery/lightgallery.min.css"><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lightgallery.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-thumbnail.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-zoom.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript" src="/lib/cookieconsent/cookieconsent.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{},"cookieconsent":{"content":{"dismiss":"同意","link":"了解更多","message":"本网站使用 Cookies 来改善您的浏览体验."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"lightGallery":{"actualSize":false,"exThumbImage":"data-thumbnail","hideBarsDelay":2000,"selector":".lightgallery","speed":400,"thumbContHeight":80,"thumbWidth":80,"thumbnail":true},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

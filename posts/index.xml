@@ -3,7 +3,14 @@
         <title>所有文章 - Boyan Wei</title>
         <link>https://swaggerwei.github.io/posts/</link>
         <description>所有文章 | Boyan Wei</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Fri, 13 May 2022 17:24:38 &#43;0800</lastBuildDate><atom:link href="https://swaggerwei.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Tue, 31 May 2022 12:18:48 &#43;0800</lastBuildDate><atom:link href="https://swaggerwei.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+    <title>Java Annotation注解和反射1</title>
+    <link>https://swaggerwei.github.io/java_annotation/</link>
+    <pubDate>Tue, 31 May 2022 12:18:48 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://swaggerwei.github.io/java_annotation/</guid>
+    <description><![CDATA[注解 Annotation 如图所示，以@开头的修饰符 注释为comment，注意区分开，以 //开头 什么是注解 JDK5.0引入的新技术 Annotation的作用：不]]></description>
+</item><item>
     <title>Java网络编程学习2</title>
     <link>https://swaggerwei.github.io/java_net2/</link>
     <pubDate>Fri, 13 May 2022 17:24:38 &#43;0800</pubDate>
@@ -66,12 +73,5 @@
     <author>作者</author>
     <guid>https://swaggerwei.github.io/java_threads_learning2/</guid>
     <description><![CDATA[静态代理模式 真实对象和代理对象都要实现同一个接口 代理对象要代理真实角色 优点，代理对象无法做很多真实对象无法做的事，真实对象可以专注于自己的事]]></description>
-</item><item>
-    <title>Java多线程学习1</title>
-    <link>https://swaggerwei.github.io/java_threads_learning1/</link>
-    <pubDate>Mon, 04 Apr 2022 10:30:44 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>https://swaggerwei.github.io/java_threads_learning1/</guid>
-    <description><![CDATA[Java 多线程基础知识 程序project：指令和数据的有序集合，静态概念 进程Process：程序的运行过程，是系统资源分配的单位，动态概念 线程Th]]></description>
 </item></channel>
 </rss>

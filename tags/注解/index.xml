@@ -1,0 +1,14 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>注解 - 标签 - Boyan Wei</title>
+        <link>https://swaggerwei.github.io/tags/%E6%B3%A8%E8%A7%A3/</link>
+        <description>注解 - 标签 - Boyan Wei</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Tue, 31 May 2022 12:18:48 &#43;0800</lastBuildDate><atom:link href="https://swaggerwei.github.io/tags/%E6%B3%A8%E8%A7%A3/" rel="self" type="application/rss+xml" /><item>
+    <title>Java Annotation注解和反射1</title>
+    <link>https://swaggerwei.github.io/java_annotation/</link>
+    <pubDate>Tue, 31 May 2022 12:18:48 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://swaggerwei.github.io/java_annotation/</guid>
+    <description><![CDATA[注解 Annotation 如图所示，以@开头的修饰符 注释为comment，注意区分开，以 //开头 什么是注解 JDK5.0引入的新技术 Annotation的作用：不]]></description>
+</item></channel>
+</rss>
