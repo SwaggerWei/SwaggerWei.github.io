@@ -3,9 +3,16 @@
         <title>Boyan Wei</title>
         <link>https://swaggerwei.github.io/</link>
         <description>这是我的全新 Hugo 网站</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Tue, 31 May 2022 12:18:48 &#43;0800</lastBuildDate>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Wed, 01 Jun 2022 13:14:26 &#43;0800</lastBuildDate>
             <atom:link href="https://swaggerwei.github.io/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>Java Annotation注解和反射2</title>
+    <link>https://swaggerwei.github.io/java_annotation2/</link>
+    <pubDate>Wed, 01 Jun 2022 13:14:26 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://swaggerwei.github.io/java_annotation2/</guid>
+    <description><![CDATA[获取类的运行时结构 可以获取到的结构 实现的全部接口 所继承的父类 全部的构造器 全部的方法 全部的Field 注解 代码实战 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15]]></description>
+</item><item>
     <title>Java Annotation注解和反射1</title>
     <link>https://swaggerwei.github.io/java_annotation/</link>
     <pubDate>Tue, 31 May 2022 12:18:48 &#43;0800</pubDate>
@@ -68,12 +75,5 @@
     <author>作者</author>
     <guid>https://swaggerwei.github.io/java_threads_learning3/</guid>
     <description><![CDATA[线程强制执行 Join合并线程，此线程执行完成后再执行其他线程，其他线程阻塞 可以想像成插队 线程中尽量少使用次方法，会让其他线程陷入阻塞 具体实现]]></description>
-</item><item>
-    <title>Java多线程学习2</title>
-    <link>https://swaggerwei.github.io/java_threads_learning2/</link>
-    <pubDate>Tue, 05 Apr 2022 09:46:19 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>https://swaggerwei.github.io/java_threads_learning2/</guid>
-    <description><![CDATA[静态代理模式 真实对象和代理对象都要实现同一个接口 代理对象要代理真实角色 优点，代理对象无法做很多真实对象无法做的事，真实对象可以专注于自己的事]]></description>
 </item></channel>
 </rss>
