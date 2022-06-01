@@ -3,9 +3,16 @@
         <title>Boyan Wei</title>
         <link>https://swaggerwei.github.io/</link>
         <description>这是我的全新 Hugo 网站</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Wed, 01 Jun 2022 13:14:26 &#43;0800</lastBuildDate>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Wed, 01 Jun 2022 20:00:10 &#43;0800</lastBuildDate>
             <atom:link href="https://swaggerwei.github.io/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>Leetcode全速通1</title>
+    <link>https://swaggerwei.github.io/leetcode_recite1/</link>
+    <pubDate>Wed, 01 Jun 2022 20:00:10 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://swaggerwei.github.io/leetcode_recite1/</guid>
+    <description><![CDATA[总览 算法：27题 数据结构：18题 图：6题 dp：9题 二分查找-binary search 一堆数中&quot;找到指定的数&quot;这类问题 一堆数必须要存]]></description>
+</item><item>
     <title>Java Annotation注解和反射2</title>
     <link>https://swaggerwei.github.io/java_annotation2/</link>
     <pubDate>Wed, 01 Jun 2022 13:14:26 &#43;0800</pubDate>
@@ -68,12 +75,5 @@
     <author>作者</author>
     <guid>https://swaggerwei.github.io/java_threads_learning4/</guid>
     <description><![CDATA[同步方法和同步块 同步方法：public synchronized void method(int args){} 使用synchronized方法控制对对象的访问 每个对象都有一把锁，synchronized方]]></description>
-</item><item>
-    <title>Java多线程学习3</title>
-    <link>https://swaggerwei.github.io/java_threads_learning3/</link>
-    <pubDate>Wed, 06 Apr 2022 15:02:21 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>https://swaggerwei.github.io/java_threads_learning3/</guid>
-    <description><![CDATA[线程强制执行 Join合并线程，此线程执行完成后再执行其他线程，其他线程阻塞 可以想像成插队 线程中尽量少使用次方法，会让其他线程陷入阻塞 具体实现]]></description>
 </item></channel>
 </rss>
