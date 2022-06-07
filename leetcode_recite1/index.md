@@ -119,11 +119,15 @@ public class leetcode410 {
 }
 ```
 
+### leetcode 300
+
+
 ### 同类型题目
 * leetcode 1552
 * leetcode 1482
 * leetcode 1283
 * leetcode 1292
+
 
 
 

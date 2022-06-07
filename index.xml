@@ -3,9 +3,16 @@
         <title>Boyan Wei</title>
         <link>https://swaggerwei.github.io/</link>
         <description>这是我的全新 Hugo 网站</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Wed, 01 Jun 2022 20:00:10 &#43;0800</lastBuildDate>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Thu, 02 Jun 2022 18:19:54 &#43;0800</lastBuildDate>
             <atom:link href="https://swaggerwei.github.io/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>HTML5 学习1</title>
+    <link>https://swaggerwei.github.io/html_learning1/</link>
+    <pubDate>Thu, 02 Jun 2022 18:19:54 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://swaggerwei.github.io/html_learning1/</guid>
+    <description><![CDATA[HTML 概述 Hyper Text Markup Language（超文本标记语言） 包括文字、图片、音频、视频、动画等 目前最新的为HTML5 主流浏览器基本都支持、跨平台、市场的需]]></description>
+</item><item>
     <title>Leetcode全速通1</title>
     <link>https://swaggerwei.github.io/leetcode_recite1/</link>
     <pubDate>Wed, 01 Jun 2022 20:00:10 &#43;0800</pubDate>
@@ -68,12 +75,5 @@
     <author>作者</author>
     <guid>https://swaggerwei.github.io/java_net1/</guid>
     <description><![CDATA[网络编程的必要条件 定位互联网上的一台主机 192.168.16.124:port 定位到计算机的某个资源 找到了这个主机，如果传输数据（UDP， TCP） 混淆概念 JavaWeb：网页编]]></description>
-</item><item>
-    <title>Java多线程学习4</title>
-    <link>https://swaggerwei.github.io/java_threads_learning4/</link>
-    <pubDate>Fri, 08 Apr 2022 10:49:01 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>https://swaggerwei.github.io/java_threads_learning4/</guid>
-    <description><![CDATA[同步方法和同步块 同步方法：public synchronized void method(int args){} 使用synchronized方法控制对对象的访问 每个对象都有一把锁，synchronized方]]></description>
 </item></channel>
 </rss>
