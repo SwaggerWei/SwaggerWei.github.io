@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>MySQL学习2 - Boyan Wei</title><meta name="Description" content="这是我的全新 Hugo 网站"><meta property="og:title" content="MySQL学习2" />
+<meta property="og:description" content="数据库的字段属性（重点） options 设置 engine 数据库引擎设置 default character set 默认字符集 default collation 默认核对 Unsigned 无符号整数 声明了该列不能为负数 Zerofill 0 填充 不足位数 使用0来填充 int" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://swaggerwei.github.io/mysql_learning2/" /><meta property="og:image" content="https://swaggerwei.github.io/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-06-08T11:00:14+08:00" />
+<meta property="article:modified_time" content="2022-06-08T11:00:14+08:00" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://swaggerwei.github.io/logo.png"/>
+
+<meta name="twitter:title" content="MySQL学习2"/>
+<meta name="twitter:description" content="数据库的字段属性（重点） options 设置 engine 数据库引擎设置 default character set 默认字符集 default collation 默认核对 Unsigned 无符号整数 声明了该列不能为负数 Zerofill 0 填充 不足位数 使用0来填充 int"/>
+<meta name="application-name" content="LoveIt">
+<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://swaggerwei.github.io/mysql_learning2/" /><link rel="prev" href="https://swaggerwei.github.io/html_learning1/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "MySQL学习2",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/swaggerwei.github.io\/mysql_learning2\/"
+        },"genre": "posts","keywords": "SQL, mysql, navicat","wordcount":  1446 ,
+        "url": "https:\/\/swaggerwei.github.io\/mysql_learning2\/","datePublished": "2022-06-08T11:00:14+08:00","dateModified": "2022-06-08T11:00:14+08:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "Boyan Wei"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Boyan Wei"></a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Boyan Wei"></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content always-active" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">MySQL学习2</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>Boyan Wei</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/mysql%E5%AD%A6%E4%B9%A0/"><i class="far fa-folder fa-fw"></i>MySQL学习</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-06-08">2022-06-08</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 1446 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 3 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#数据库的字段属性重点">数据库的字段属性（重点）</a>
+      <ul>
+        <li><a href="#options-设置">options 设置</a></li>
+        <li><a href="#unsigned">Unsigned</a></li>
+        <li><a href="#zerofill">Zerofill</a></li>
+        <li><a href="#auto-increment">auto Increment</a></li>
+        <li><a href="#非空-null-和-not-null">非空 null 和 not null</a></li>
+        <li><a href="#default-value">default value</a></li>
+        <li><a href="#拓展-做项目代码规范学习阶段暂时不用">拓展-做项目代码规范（学习阶段暂时不用）</a></li>
+        <li><a href="#建表格式">建表格式</a></li>
+        <li><a href="#sql-代码实战创建表">SQL 代码实战创建表</a></li>
+        <li><a href="#简单的常用命令">简单的常用命令</a></li>
+      </ul>
+    </li>
+    <li><a href="#myisam-和-innodb的区别">MyISAM 和 InnoDB的区别</a></li>
+    <li><a href="#修改和删除表字段">修改和删除表字段</a>
+      <ul>
+        <li><a href="#修改">修改</a></li>
+        <li><a href="#删除">删除</a></li>
+      </ul>
+    </li>
+    <li><a href="#mysql数据管理">MySQL数据管理</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h2 id="数据库的字段属性重点">数据库的字段属性（重点）</h2>
+<h3 id="options-设置">options 设置</h3>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images_sql/pic3.png"
+        data-srcset="/images_sql/pic3.png, /images_sql/pic3.png 1.5x, /images_sql/pic3.png 2x"
+        data-sizes="auto"
+        alt="/images_sql/pic3.png"
+        title="/images_sql/pic3.png" /></p>
+<ul>
+<li>engine 数据库引擎设置</li>
+<li>default character set 默认字符集</li>
+<li>default collation 默认核对</li>
+</ul>
+<h3 id="unsigned">Unsigned</h3>
+<ul>
+<li>无符号整数</li>
+<li>声明了该列不能为负数</li>
+</ul>
+<h3 id="zerofill">Zerofill</h3>
+<ul>
+<li>0 填充</li>
+<li>不足位数 使用0来填充 int（3） 5&mdash;-005</li>
+</ul>
+<h3 id="auto-increment">auto Increment</h3>
+<ul>
+<li>自增，自动在上一条的基础上**+1**</li>
+<li>通常设置为唯一的主键 index 并且<strong>必须为整数类型</strong></li>
+<li>可以自定义设置主键自增的<strong>起始值</strong>和<strong>步长</strong></li>
+</ul>
+<h3 id="非空-null-和-not-null">非空 null 和 not null</h3>
+<ul>
+<li>假设为非空，如果不赋值则会报错</li>
+<li>如果不填充，默认就是null</li>
+</ul>
+<h3 id="default-value">default value</h3>
+<ul>
+<li>设置默认值</li>
+<li>sex，如果不设置，则为默认值</li>
+</ul>
+<h3 id="拓展-做项目代码规范学习阶段暂时不用">拓展-做项目代码规范（学习阶段暂时不用）</h3>
+<p>表示一个记录存在的意义</p>
+<ul>
+<li>id 主键</li>
+<li><code>version</code> 乐观锁</li>
+<li>is_delete 伪删除</li>
+<li>gmt_create 创建时间 &mdash;- 更新操作</li>
+<li>gmt_update 修改时间</li>
+</ul>
+<h3 id="建表格式">建表格式</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="k">CREATE</span><span class="w"> </span><span class="n">TEBLE</span><span class="w"> </span><span class="p">[</span><span class="k">IF</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">EXISTS</span><span class="p">]</span><span class="w"> </span><span class="o">`</span><span class="err">表名</span><span class="o">`</span><span class="p">(</span><span class="w">
+</span><span class="w">    </span><span class="o">`</span><span class="err">字段名</span><span class="o">`</span><span class="w"> </span><span class="err">列类型</span><span class="w"> </span><span class="p">[</span><span class="err">属性</span><span class="p">]</span><span class="w"> </span><span class="p">[</span><span class="err">索引</span><span class="p">]</span><span class="w"> </span><span class="p">[</span><span class="err">注释</span><span class="p">],</span><span class="w">
+</span><span class="w">    </span><span class="p">...</span><span class="w"> 
+</span><span class="w">    </span><span class="o">`</span><span class="err">字段名</span><span class="o">`</span><span class="w"> </span><span class="err">列类型</span><span class="w"> </span><span class="p">[</span><span class="err">属性</span><span class="p">]</span><span class="w"> </span><span class="p">[</span><span class="err">索引</span><span class="p">]</span><span class="w"> </span><span class="p">[</span><span class="err">注释</span><span class="p">],</span><span class="w"> 
+</span><span class="w">    </span><span class="o">`</span><span class="err">字段名</span><span class="o">`</span><span class="w"> </span><span class="err">列类型</span><span class="w"> </span><span class="p">[</span><span class="err">属性</span><span class="p">]</span><span class="w"> </span><span class="p">[</span><span class="err">索引</span><span class="p">]</span><span class="w"> </span><span class="p">[</span><span class="err">注释</span><span class="p">]</span><span class="w">
+</span><span class="w"></span><span class="p">)[</span><span class="err">表引擎</span><span class="p">]</span><span class="w"> </span><span class="p">[</span><span class="err">字符集设置</span><span class="p">]</span><span class="w"> </span><span class="p">[</span><span class="err">注释</span><span class="p">]</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li><em>tips</em>：<code>charset='utf8'</code> 必须要加，如果不加，使用mysql默认的不支持中文</li>
+</ul>
+<h3 id="sql-代码实战创建表">SQL 代码实战创建表</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-SQL" data-lang="SQL"><span class="c1">-- 目标：创建一个school 数据库
+</span><span class="c1">-- 创建学生表（列， 字段） 使用SQL创建
+</span><span class="c1">-- 学号int；登录密码 varchar（20）；姓名；性别varchar（2）；出生日期（datetime）；家庭住址；email
+</span><span class="c1"></span><span class="w">
+</span><span class="w"></span><span class="c1">-- 注意点：使用英文括号， 表的名称和字段 尽量使用 `` 括起来
+</span><span class="c1">-- auto_increment 自增
+</span><span class="c1">-- 字符串使用单引号 括起来
+</span><span class="c1">-- 所有的语句后加上英文逗号，最后一个不用加
+</span><span class="c1"></span><span class="w">
+</span><span class="w"></span><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">EXISTS</span><span class="w"> </span><span class="o">`</span><span class="n">student</span><span class="o">`</span><span class="w"> </span><span class="p">(</span><span class="w">
+</span><span class="w">	</span><span class="o">`</span><span class="n">id</span><span class="o">`</span><span class="w"> </span><span class="nb">int</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="w"> </span><span class="n">auto_increment</span><span class="w"> </span><span class="k">COMMENT</span><span class="w"> </span><span class="s1">&#39;学号&#39;</span><span class="p">,</span><span class="w">
+</span><span class="w">	</span><span class="o">`</span><span class="n">name</span><span class="o">`</span><span class="w"> </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="s1">&#39;匿名&#39;</span><span class="w"> </span><span class="k">COMMENT</span><span class="w"> </span><span class="s1">&#39;姓名&#39;</span><span class="p">,</span><span class="w"> 
+</span><span class="w">	</span><span class="o">`</span><span class="n">pwd</span><span class="o">`</span><span class="w"> </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="s1">&#39;123456&#39;</span><span class="w"> </span><span class="k">COMMENT</span><span class="w"> </span><span class="s1">&#39;密码&#39;</span><span class="p">,</span><span class="w">
+</span><span class="w">	</span><span class="o">`</span><span class="n">sex</span><span class="o">`</span><span class="w"> </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="s1">&#39;女&#39;</span><span class="w"> </span><span class="k">COMMENT</span><span class="w"> </span><span class="s1">&#39;性别&#39;</span><span class="p">,</span><span class="w">
+</span><span class="w">	</span><span class="o">`</span><span class="n">birthday</span><span class="o">`</span><span class="w"> </span><span class="n">DATETIME</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="k">NULL</span><span class="w"> </span><span class="k">COMMENT</span><span class="w"> </span><span class="s1">&#39;出生日期&#39;</span><span class="p">,</span><span class="w">
+</span><span class="w">	</span><span class="o">`</span><span class="n">address</span><span class="o">`</span><span class="w"> </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="k">NULL</span><span class="w"> </span><span class="k">COMMENT</span><span class="w"> </span><span class="s1">&#39;家庭住址&#39;</span><span class="p">,</span><span class="w">
+</span><span class="w">	</span><span class="o">`</span><span class="n">email</span><span class="o">`</span><span class="w"> </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">50</span><span class="p">)</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="k">NULL</span><span class="w"> </span><span class="k">COMMENT</span><span class="w"> </span><span class="s1">&#39;邮箱&#39;</span><span class="p">,</span><span class="w">
+</span><span class="w">	</span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="w"> </span><span class="p">(</span><span class="o">`</span><span class="n">id</span><span class="o">`</span><span class="p">)</span><span class="w">
+</span><span class="w"></span><span class="p">)</span><span class="n">ENGINE</span><span class="o">=</span><span class="n">INNODB</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="n">CHARSET</span><span class="o">=</span><span class="n">utf8</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><h3 id="简单的常用命令">简单的常用命令</h3>
+<ul>
+<li>查看创建数据库语句 <code>SHOW CREATE DATABASE school</code></li>
+<li>查看student数据表定义语句 <code>SHOW CREATE TABLE student</code></li>
+<li>显式student表的结构 <code>DECS student</code></li>
+</ul>
+<h2 id="myisam-和-innodb的区别">MyISAM 和 InnoDB的区别</h2>
+<ul>
+<li><strong>事务</strong>：InnoDB 支持事务，MyISAM不支持</li>
+<li><strong>外键</strong>：InnoDB 支持外键，MyISAM不支持</li>
+<li><strong>聚集索引</strong>：InnoDB是聚集索引，索引和数据文件绑定在一起，MyISAM是非聚集索引</li>
+<li><strong>具体行数</strong>：InnoDB不保存具体行数，MyISAM保存</li>
+<li><strong>全文索引</strong>：InnoDB不支持全文索引，而MyISAM支持全文索引，查询效率上MyISAM更高</li>
+<li><strong>行级锁</strong>：InnoDB支持，MyISAM不支持</li>
+<li><strong>表空间</strong>：InnoDB较大，约为MyISAM的2倍</li>
+</ul>
+<h2 id="修改和删除表字段">修改和删除表字段</h2>
+<h3 id="修改">修改</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="c1">-- 修改表
+</span><span class="c1">-- 修改表名
+</span><span class="c1"></span><span class="k">ALTER</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">student</span><span class="w"> </span><span class="k">RENAME</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">student1</span><span class="w">
+</span><span class="w"></span><span class="c1">-- 增加表的字段
+</span><span class="c1"></span><span class="k">ALTER</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">teacher</span><span class="w"> </span><span class="k">ADD</span><span class="w"> </span><span class="n">age</span><span class="w"> </span><span class="nb">INT</span><span class="p">(</span><span class="mi">11</span><span class="p">)</span><span class="w">
+</span><span class="w"></span><span class="c1">-- 修改表的字段(修改约束)
+</span><span class="c1"></span><span class="k">ALTER</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">teacher</span><span class="w"> </span><span class="k">MODIFY</span><span class="w"> </span><span class="n">age</span><span class="w"> </span><span class="nb">varchar</span><span class="p">(</span><span class="mi">11</span><span class="p">)</span><span class="w">
+</span><span class="w"></span><span class="c1">-- 修改表的字段(字段重命名)
+</span><span class="c1"></span><span class="k">ALTER</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">teacher</span><span class="w"> </span><span class="n">CHANGE</span><span class="w"> </span><span class="n">age</span><span class="w"> </span><span class="n">age1</span><span class="w"> </span><span class="nb">int</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><h3 id="删除">删除</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="c1">-- 删除表
+</span><span class="c1">-- 删除表的字段
+</span><span class="c1"></span><span class="k">ALTER</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">teacher</span><span class="w"> </span><span class="k">DROP</span><span class="w"> </span><span class="n">age1</span><span class="w">
+</span><span class="w"></span><span class="c1">-- 删除表
+</span><span class="c1"></span><span class="k">DROP</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="k">IF</span><span class="w"> </span><span class="k">EXISTS</span><span class="w"> </span><span class="n">teacher</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><h2 id="mysql数据管理">MySQL数据管理</h2>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2022-06-08</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/mysql_learning2/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://swaggerwei.github.io/mysql_learning2/" data-title="MySQL学习2" data-via="xxxx" data-hashtags="SQL,mysql,navicat"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://swaggerwei.github.io/mysql_learning2/" data-hashtag="SQL"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 WhatsApp" data-sharer="whatsapp" data-url="https://swaggerwei.github.io/mysql_learning2/" data-title="MySQL学习2" data-web><i class="fab fa-whatsapp fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://swaggerwei.github.io/mysql_learning2/" data-title="MySQL学习2"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://swaggerwei.github.io/mysql_learning2/" data-title="MySQL学习2"><i class="fab fa-weibo fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Myspace" data-sharer="myspace" data-url="https://swaggerwei.github.io/mysql_learning2/" data-title="MySQL学习2" data-description=""><i data-svg-src="/lib/simple-icons/icons/myspace.min.svg"></i></a><a href="javascript:void(0);" title="分享到 Blogger" data-sharer="blogger" data-url="https://swaggerwei.github.io/mysql_learning2/" data-title="MySQL学习2" data-description=""><i class="fab fa-blogger fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Evernote" data-sharer="evernote" data-url="https://swaggerwei.github.io/mysql_learning2/" data-title="MySQL学习2"><i class="fab fa-evernote fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/sql/">SQL</a>,&nbsp;<a href="/tags/mysql/">mysql</a>,&nbsp;<a href="/tags/navicat/">navicat</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/html_learning1/" class="prev" rel="prev" title="HTML5 学习1"><i class="fas fa-angle-left fa-fw"></i>HTML5 学习1</a></div>
+</div>
+<div id="comments"></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.90.1">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2019 - 2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">Boyan Wei</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/lightgallery/lightgallery.min.css"><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lightgallery.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-thumbnail.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-zoom.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript" src="/lib/cookieconsent/cookieconsent.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{},"cookieconsent":{"content":{"dismiss":"同意","link":"了解更多","message":"本网站使用 Cookies 来改善您的浏览体验."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"lightGallery":{"actualSize":false,"exThumbImage":"data-thumbnail","hideBarsDelay":2000,"selector":".lightgallery","speed":400,"thumbContHeight":80,"thumbWidth":80,"thumbnail":true},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

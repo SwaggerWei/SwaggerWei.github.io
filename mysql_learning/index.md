@@ -1,4 +1,4 @@
-# Mysql学习1-基础命令行操作
+# MySQL学习1-基础命令行操作
 
 ## 基础结构
 * 用户连接 connection--mysql 
