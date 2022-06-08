@@ -119,8 +119,6 @@ public class leetcode410 {
 }
 ```
 
-### leetcode 300
-
 
 ### 同类型题目
 * leetcode 1552
@@ -128,9 +126,143 @@ public class leetcode410 {
 * leetcode 1283
 * leetcode 1292
 
+### leetcode 300
+* 方法1：传统dp + 双指针
+* 方法2：暴力构架subsequence，使用二分法进行优化查找
+
+#### 代码实战
+```Java
+package com.swagger.leetcode.binary_search;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
+
+public class leetcode300 {
+
+    public static int lengthOfLIS(int[] nums){
+
+        // dp + 双指针
+//        if (nums.length == 0){
+//            return 0;
+//        }
+//
+//        int[] dp = new int[nums.length];
+//        Arrays.fill(dp, 1);
+//        int res = 1;
+//        for (int i = 1; i < nums.length; i++) {
+//            for (int j = 0; j < i; j++) {
+//                if (nums[j] < nums[i]){
+//                    dp[i] = Math.max(dp[j] + 1, dp[i]);
+//                }
+//                res = Math.max(res, dp[i]);
+//            }
+//        }
+//        return res;
+
+
+        // 暴力构造subsequence
+        ArrayList<Integer> sub = new ArrayList<>();
+        sub.add(nums[0]);
+        for (int i = 1; i < nums.length; i++) {
+            int num = nums[i];
+            if (num > sub.get(sub.size() - 1)){
+                sub.add(num); // 如果是递增，则加入到递增序列当中
+            }else {
+
+                // 更新sub中的element
+                int j = 0;
+                while (num > sub.get(j)){
+                    // 从左开始扫描
+                    // 此处还可以不用从左开始扫描，使用二分法查找进行优化，将n方优化成nlogn
+                    j++;
+                }
+
+                // 比他大才更新
+                // 但是这种方法构造出来的subsequence 不是最终的序列
+                // 如果要构造最终的序列不能用这种方法
+                sub.set(j, num);
+            }
+        }
+
+        return sub.size();
+    }
+}
+```
 
 
 
 
 
 
+
+
+## 双指针-two pointer
+* 同向双指针 283 move zero；2sum；3sum
+* 对向双指针 11 Container with most water；75 sort color；判断回文字符串；字符串反转；中心扩散法
+* 快慢指针 142 LinkedList
+* quick sort 
+* 单调队列和单调栈，sliding window，扫描线
+
+### 283 move zeros 
+* 解法1：开辟额外的空间，碰到非0元素append进去，最后末尾添加0
+* 解法2：同向双指针，left记录最左0的位置，right 向右找到第一个非0数与left交换，然后移动left，具体实现时忽略了swap操作，直接left控制添加非0数，结尾补0
+
+#### 代码实战
+```Java
+package com.swagger.leetcode.two_pointers;
+
+public class leetcode283 {
+    public static void moveZeroes(int[] nums){
+        int left = 0;
+        for (int i = 0; i < nums.length; i++) {
+            if (nums[i] != 0){
+                nums[left] = nums[i];
+                left ++ ;
+            }
+        }
+        while (left < nums.length){
+            nums[left] = 0;
+            left++;
+        }
+    }
+}
+```
+
+
+
+
+
+
+
+### 11 Container with most water
+* 对向双指针法，哪个矮移动哪个，因为宽度肯定是减少的，所以应该保留更高的那个，才有可能找到更大的存水量
+* 实施维护res 存储最大的存水量
+
+#### 代码实战
+```Java
+package com.swagger.leetcode.two_pointers;
+
+public class leetcode11 {
+    public static int maxArea(int[] height) {
+        int res = 0;
+        int left = 0;
+        int right = height.length - 1;
+        while (left < right){
+            int minHeight = Math.min(height[left], height[right]);
+            int area = minHeight * (right - left);
+            res = Math.max(area, res);
+
+            // 哪边矮就向内移动哪边，因为宽度肯定是减少的，所以应该保留更高的那个，才有可能找到更大的存水量
+            if (height[left] < height[right]){
+                left ++;
+            }else {
+                right --;
+            }
+        }
+
+        return res;
+    }
+}
+```
