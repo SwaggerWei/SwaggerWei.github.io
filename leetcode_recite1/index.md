@@ -191,13 +191,6 @@ public class leetcode300 {
 }
 ```
 
-
-
-
-
-
-
-
 ## 双指针-two pointer
 * 同向双指针 283 move zero；2sum；3sum
 * 对向双指针 11 Container with most water；75 sort color；判断回文字符串；字符串反转；中心扩散法
@@ -233,9 +226,6 @@ public class leetcode283 {
 
 
 
-
-
-
 ### 11 Container with most water
 * 对向双指针法，哪个矮移动哪个，因为宽度肯定是减少的，所以应该保留更高的那个，才有可能找到更大的存水量
 * 实施维护res 存储最大的存水量
@@ -266,3 +256,109 @@ public class leetcode11 {
     }
 }
 ```
+
+
+
+
+### 16 3Sum Closest
+* 首先进行排序 
+* 然后使用三个指针
+* 第一个指针a从左往右，为最外层循环
+* 第二、三（b、c）个指针在a右侧相向而行，
+
+#### 代码实战
+```Java
+package com.swagger.leetcode.two_pointers;
+
+import java.util.Arrays;
+
+public class leetcode16 {
+
+    public static void main(String[] args) {
+        int[] nums = {0, 2, 1, -3};
+        int target = 1;
+
+        int res = threeSumClosest(nums, target);
+
+    }
+
+    public static int threeSumClosest(int[] nums, int target) {
+        int res = nums[0] + nums[1] + nums[nums.length - 1];
+        Arrays.sort(nums);
+        for (int i = 0; i < nums.length - 2; i++) {
+            int left = i + 1;
+            int right = nums.length - 1;
+            while (left < right){
+                int sum = nums[i] + nums[left] + nums[right];
+                if (Math.abs(sum - target) < Math.abs(res - target)){
+                    res = sum;
+                }
+                if (sum > target){
+                    right --;
+                }else {
+                    left ++;
+                }
+            }
+        }
+
+        return res;
+
+
+    }
+}
+```
+
+
+
+
+
+
+### 142 Linked List Cycle 2
+* 快慢指针
+* 首先用快慢指针判断是否有环
+* 如果有环则将fast = head
+* 然后开始同速行驶
+* 如果在此相遇，fast的所处的地方即为环的入口
+
+#### 代码实战
+```Java
+package com.swagger.leetcode.two_pointers;
+
+public class leetcode142 {
+    public static ListNode detectCycle(ListNode head){
+        ListNode slow = head;
+        ListNode fast = head;
+
+        while (fast != null && fast.next != null){
+            fast = fast.next.next;
+            slow = slow.next;
+
+            if (fast == slow){ // 说明成环了
+                // 开始寻找入口的索引
+                fast = head;
+
+                // 同速行驶再次相遇时，即为入口的索引
+                while (slow != fast){
+                    fast = fast.next;
+                    slow = slow.next;
+                }
+                return slow;
+            }
+        }
+
+        return null;
+    }
+}
+```
+
+## 滑动窗口法-sliding window
+* 也是双指针的一种变形，一般为**同向**
+* 也有的题目和pq或者是单调栈结合
+* 窗口大小可变
+* 窗口大小不变
+
+
+
+
+
+

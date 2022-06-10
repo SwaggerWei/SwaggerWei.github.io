@@ -29,7 +29,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/swaggerwei.github.io\/leetcode_recite1\/"
-        },"genre": "posts","keywords": "Java, leetcode","wordcount":  1566 ,
+        },"genre": "posts","keywords": "Java, leetcode","wordcount":  2025 ,
         "url": "https:\/\/swaggerwei.github.io\/leetcode_recite1\/","datePublished": "2022-06-01T20:00:10+08:00","dateModified": "2022-06-01T20:00:10+08:00","publisher": {
             "@type": "Organization",
             "name": ""},"author": {
@@ -106,8 +106,8 @@
             <div class="toc-content always-active" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animated flipInX">Leetcode全速通1</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>Boyan Wei</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/leetcode%E5%85%A8%E9%80%9F%E9%80%9A/"><i class="far fa-folder fa-fw"></i>Leetcode全速通</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-06-01">2022-06-01</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 1566 字&nbsp;
-                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 4 分钟&nbsp;</div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-06-01">2022-06-01</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 2025 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 5 分钟&nbsp;</div>
         </div><div class="details toc" id="toc-static"  kept="">
                 <div class="details-summary toc-title">
                     <span>目录</span>
@@ -149,8 +149,19 @@
             <li><a href="#代码实战-2">代码实战</a></li>
           </ul>
         </li>
+        <li><a href="#16-3sum-closest">16 3Sum Closest</a>
+          <ul>
+            <li><a href="#代码实战-3">代码实战</a></li>
+          </ul>
+        </li>
+        <li><a href="#142-linked-list-cycle-2">142 Linked List Cycle 2</a>
+          <ul>
+            <li><a href="#代码实战-4">代码实战</a></li>
+          </ul>
+        </li>
       </ul>
     </li>
+    <li><a href="#滑动窗口法-sliding-window">滑动窗口法-sliding window</a></li>
   </ul>
 </nav></div>
             </div><div class="content" id="content"><h2 id="总览">总览</h2>
@@ -647,7 +658,173 @@
 <span class="o">}</span>
 </code></pre></td></tr></table>
 </div>
-</div></div><div class="post-footer" id="post-footer">
+</div><h3 id="16-3sum-closest">16 3Sum Closest</h3>
+<ul>
+<li>首先进行排序</li>
+<li>然后使用三个指针</li>
+<li>第一个指针a从左往右，为最外层循环</li>
+<li>第二、三（b、c）个指针在a右侧相向而行，</li>
+</ul>
+<h4 id="代码实战-3">代码实战</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-Java" data-lang="Java"><span class="kn">package</span> <span class="nn">com.swagger.leetcode.two_pointers</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">java.util.Arrays</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">leetcode16</span> <span class="o">{</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kt">int</span><span class="o">[]</span> <span class="n">nums</span> <span class="o">=</span> <span class="o">{</span><span class="n">0</span><span class="o">,</span> <span class="n">2</span><span class="o">,</span> <span class="n">1</span><span class="o">,</span> <span class="o">-</span><span class="n">3</span><span class="o">};</span>
+        <span class="kt">int</span> <span class="n">target</span> <span class="o">=</span> <span class="n">1</span><span class="o">;</span>
+
+        <span class="kt">int</span> <span class="n">res</span> <span class="o">=</span> <span class="n">threeSumClosest</span><span class="o">(</span><span class="n">nums</span><span class="o">,</span> <span class="n">target</span><span class="o">);</span>
+
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">int</span> <span class="nf">threeSumClosest</span><span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">nums</span><span class="o">,</span> <span class="kt">int</span> <span class="n">target</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kt">int</span> <span class="n">res</span> <span class="o">=</span> <span class="n">nums</span><span class="o">[</span><span class="n">0</span><span class="o">]</span> <span class="o">+</span> <span class="n">nums</span><span class="o">[</span><span class="n">1</span><span class="o">]</span> <span class="o">+</span> <span class="n">nums</span><span class="o">[</span><span class="n">nums</span><span class="o">.</span><span class="na">length</span> <span class="o">-</span> <span class="n">1</span><span class="o">];</span>
+        <span class="n">Arrays</span><span class="o">.</span><span class="na">sort</span><span class="o">(</span><span class="n">nums</span><span class="o">);</span>
+        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">nums</span><span class="o">.</span><span class="na">length</span> <span class="o">-</span> <span class="n">2</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+            <span class="kt">int</span> <span class="n">left</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="n">1</span><span class="o">;</span>
+            <span class="kt">int</span> <span class="n">right</span> <span class="o">=</span> <span class="n">nums</span><span class="o">.</span><span class="na">length</span> <span class="o">-</span> <span class="n">1</span><span class="o">;</span>
+            <span class="k">while</span> <span class="o">(</span><span class="n">left</span> <span class="o">&lt;</span> <span class="n">right</span><span class="o">){</span>
+                <span class="kt">int</span> <span class="n">sum</span> <span class="o">=</span> <span class="n">nums</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">+</span> <span class="n">nums</span><span class="o">[</span><span class="n">left</span><span class="o">]</span> <span class="o">+</span> <span class="n">nums</span><span class="o">[</span><span class="n">right</span><span class="o">];</span>
+                <span class="k">if</span> <span class="o">(</span><span class="n">Math</span><span class="o">.</span><span class="na">abs</span><span class="o">(</span><span class="n">sum</span> <span class="o">-</span> <span class="n">target</span><span class="o">)</span> <span class="o">&lt;</span> <span class="n">Math</span><span class="o">.</span><span class="na">abs</span><span class="o">(</span><span class="n">res</span> <span class="o">-</span> <span class="n">target</span><span class="o">)){</span>
+                    <span class="n">res</span> <span class="o">=</span> <span class="n">sum</span><span class="o">;</span>
+                <span class="o">}</span>
+                <span class="k">if</span> <span class="o">(</span><span class="n">sum</span> <span class="o">&gt;</span> <span class="n">target</span><span class="o">){</span>
+                    <span class="n">right</span> <span class="o">--;</span>
+                <span class="o">}</span><span class="k">else</span> <span class="o">{</span>
+                    <span class="n">left</span> <span class="o">++;</span>
+                <span class="o">}</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+
+        <span class="k">return</span> <span class="n">res</span><span class="o">;</span>
+
+
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="142-linked-list-cycle-2">142 Linked List Cycle 2</h3>
+<ul>
+<li>快慢指针</li>
+<li>首先用快慢指针判断是否有环</li>
+<li>如果有环则将fast = head</li>
+<li>然后开始同速行驶</li>
+<li>如果在此相遇，fast的所处的地方即为环的入口</li>
+</ul>
+<h4 id="代码实战-4">代码实战</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-Java" data-lang="Java"><span class="kn">package</span> <span class="nn">com.swagger.leetcode.two_pointers</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">leetcode142</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="n">ListNode</span> <span class="nf">detectCycle</span><span class="o">(</span><span class="n">ListNode</span> <span class="n">head</span><span class="o">){</span>
+        <span class="n">ListNode</span> <span class="n">slow</span> <span class="o">=</span> <span class="n">head</span><span class="o">;</span>
+        <span class="n">ListNode</span> <span class="n">fast</span> <span class="o">=</span> <span class="n">head</span><span class="o">;</span>
+
+        <span class="k">while</span> <span class="o">(</span><span class="n">fast</span> <span class="o">!=</span> <span class="kc">null</span> <span class="o">&amp;&amp;</span> <span class="n">fast</span><span class="o">.</span><span class="na">next</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">){</span>
+            <span class="n">fast</span> <span class="o">=</span> <span class="n">fast</span><span class="o">.</span><span class="na">next</span><span class="o">.</span><span class="na">next</span><span class="o">;</span>
+            <span class="n">slow</span> <span class="o">=</span> <span class="n">slow</span><span class="o">.</span><span class="na">next</span><span class="o">;</span>
+
+            <span class="k">if</span> <span class="o">(</span><span class="n">fast</span> <span class="o">==</span> <span class="n">slow</span><span class="o">){</span> <span class="c1">// 说明成环了
+</span><span class="c1"></span>                <span class="c1">// 开始寻找入口的索引
+</span><span class="c1"></span>                <span class="n">fast</span> <span class="o">=</span> <span class="n">head</span><span class="o">;</span>
+
+                <span class="c1">// 同速行驶再次相遇时，即为入口的索引
+</span><span class="c1"></span>                <span class="k">while</span> <span class="o">(</span><span class="n">slow</span> <span class="o">!=</span> <span class="n">fast</span><span class="o">){</span>
+                    <span class="n">fast</span> <span class="o">=</span> <span class="n">fast</span><span class="o">.</span><span class="na">next</span><span class="o">;</span>
+                    <span class="n">slow</span> <span class="o">=</span> <span class="n">slow</span><span class="o">.</span><span class="na">next</span><span class="o">;</span>
+                <span class="o">}</span>
+                <span class="k">return</span> <span class="n">slow</span><span class="o">;</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+
+        <span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="滑动窗口法-sliding-window">滑动窗口法-sliding window</h2>
+<ul>
+<li>也是双指针的一种变形，一般为<strong>同向</strong></li>
+<li>也有的题目和pq或者是单调栈结合</li>
+<li>窗口大小可变</li>
+<li>窗口大小不变</li>
+</ul>
+</div><div class="post-footer" id="post-footer">
     <div class="post-info">
         <div class="post-info-line">
             <div class="post-info-mod">

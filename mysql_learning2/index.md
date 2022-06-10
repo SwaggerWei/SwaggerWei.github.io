@@ -109,6 +109,6 @@ ALTER TABLE teacher DROP age1
 DROP TABLE IF EXISTS teacher
 ```
 
-## MySQL数据管理
+
 
 

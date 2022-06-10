@@ -3,7 +3,14 @@
         <title>SQL - 标签 - Boyan Wei</title>
         <link>https://swaggerwei.github.io/tags/sql/</link>
         <description>SQL - 标签 - Boyan Wei</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Wed, 08 Jun 2022 11:00:14 &#43;0800</lastBuildDate><atom:link href="https://swaggerwei.github.io/tags/sql/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Thu, 09 Jun 2022 13:30:33 &#43;0800</lastBuildDate><atom:link href="https://swaggerwei.github.io/tags/sql/" rel="self" type="application/rss+xml" /><item>
+    <title>MySQL学习3</title>
+    <link>https://swaggerwei.github.io/mysql_learning3/</link>
+    <pubDate>Thu, 09 Jun 2022 13:30:33 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://swaggerwei.github.io/mysql_learning3/</guid>
+    <description><![CDATA[外键（了解即可） 一半不这样使用 定义外键key 要去外键添加约束，执行引用 被引用的表（主表）不能直接删除，必须先删除引用表（从表） 代码实战 (方式]]></description>
+</item><item>
     <title>MySQL学习2</title>
     <link>https://swaggerwei.github.io/mysql_learning2/</link>
     <pubDate>Wed, 08 Jun 2022 11:00:14 &#43;0800</pubDate>

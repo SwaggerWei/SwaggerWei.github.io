@@ -3,7 +3,14 @@
         <title>所有文章 - Boyan Wei</title>
         <link>https://swaggerwei.github.io/posts/</link>
         <description>所有文章 | Boyan Wei</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Wed, 08 Jun 2022 11:00:14 &#43;0800</lastBuildDate><atom:link href="https://swaggerwei.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Thu, 09 Jun 2022 13:30:33 &#43;0800</lastBuildDate><atom:link href="https://swaggerwei.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+    <title>MySQL学习3</title>
+    <link>https://swaggerwei.github.io/mysql_learning3/</link>
+    <pubDate>Thu, 09 Jun 2022 13:30:33 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://swaggerwei.github.io/mysql_learning3/</guid>
+    <description><![CDATA[外键（了解即可） 一半不这样使用 定义外键key 要去外键添加约束，执行引用 被引用的表（主表）不能直接删除，必须先删除引用表（从表） 代码实战 (方式]]></description>
+</item><item>
     <title>MySQL学习2</title>
     <link>https://swaggerwei.github.io/mysql_learning2/</link>
     <pubDate>Wed, 08 Jun 2022 11:00:14 &#43;0800</pubDate>
@@ -66,12 +73,5 @@
     <author>作者</author>
     <guid>https://swaggerwei.github.io/pytorch_learning/</guid>
     <description><![CDATA[卷机层的使用 准备数据集 定义自己的数据集：做必要的transform等 定义自己数据集的data、label 1 2 dataset = torchvision.datasets.CIFAR10(&#34;../data_cifar10&#34;, train=False, transform=torchvision.transforms.ToTensor(), download=False) 根据数据集准备dat]]></description>
-</item><item>
-    <title>6DPose—Object Localization总结</title>
-    <link>https://swaggerwei.github.io/6dpose_survey_2_object_localization/</link>
-    <pubDate>Sun, 01 May 2022 22:49:57 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>https://swaggerwei.github.io/6dpose_survey_2_object_localization/</guid>
-    <description><![CDATA[Object Localization的三种分类 object localization without classification：输出物体的区域 object detection：输出物体在图像中所处的bound]]></description>
 </item></channel>
 </rss>
