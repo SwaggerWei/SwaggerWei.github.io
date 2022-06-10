@@ -357,8 +357,88 @@ public class leetcode142 {
 * 窗口大小可变
 * 窗口大小不变
 
+### 模板
+一般外层为窗口的右端循环，内层为窗口的左端循环，分为如下三个步骤：
+* 1 进：当前遍历的i（窗口右端）进入窗口
+* 2 出：当前不符合条件时（窗口左端）退出窗口
+* 3 算：计算窗口，更新结果
+![](/image_leetcode_recite/pic6.png)
 
 
+### 209 Minimum Size Subarray sum
+* 滑动窗口，外层循环为右边界，内层循环为左边界
+* 如果窗口的内容达到了要求，判断size是否更小，更新答案，随后左端右移
 
+#### 代码实战
+```Java
+package com.swagger.leetcode.slidingWindow;
 
+public class leetcode209 {
+    public static int minSubArrayLen(int[] nums, int target){
+        // 求满足要求的最小窗口size
+        int left = 0;
+        int res = Integer.MAX_VALUE;
+        int sum = 0;
+
+        // 外层循环为右边界
+        for (int i = 0; i < nums.length; i++) {
+            sum = sum + nums[i];
+
+            // 内层循环为左边界
+            while (sum >= target){ // 如果窗口的内容达到了要求
+                res = Math.min(res, i - left + 1); // 判断是否更小， 更新答案
+
+                // 窗口左端右移
+                sum = sum - nums[left];
+                left ++;
+            }
+        }
+
+        return res == Integer.MAX_VALUE ? 0 : res;
+    }
+}
+```
+
+### 340 Longest Substring with At Most K Distinct Characters
+* HashMap 记录窗口内每个元素出现的次数
+* key 为元素，value为出现次数
+* 思路和模板一样，计算时判读HashMap的大小是否超出k的范围 
+
+#### 代码实战
+```java
+package com.swagger.leetcode.slidingWindow;
+
+import java.util.HashMap;
+
+public class leetcode340 {
+    public static int lengthOfLongestSubstringKDistinct(String s, int k){
+        HashMap<Character, Integer> map = new HashMap<>();
+        int left = 0;
+        int res = 0;
+        for (int i = 0; i < s.length(); i++) {
+            // 进
+            char cur = s.charAt(i);
+            map.put(cur, map.getOrDefault(cur, 0) + 1);
+
+            // 出
+            while (map.size() > k){// 判断窗口是否符合大小，如果不符合大小，则进入循环内部
+                char c = s.charAt(left);
+                // 改变left的字符对应key的value-1
+                map.put(c, map.get(c) - 1);
+                // 如果已经置0了，则移除map中的对应字符
+                if (map.get(c) == 0){
+                    map.remove(c);
+                }
+                // 窗口左端右移
+                left++;
+            }
+
+            // 算
+            res = Math.max(res, i - left + 1);
+        }
+
+        return res;
+    }
+}
+```
 
