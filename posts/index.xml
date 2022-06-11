@@ -3,7 +3,14 @@
         <title>所有文章 - Boyan Wei</title>
         <link>https://swaggerwei.github.io/posts/</link>
         <description>所有文章 | Boyan Wei</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Thu, 09 Jun 2022 13:30:33 &#43;0800</lastBuildDate><atom:link href="https://swaggerwei.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Sat, 11 Jun 2022 14:17:04 &#43;0800</lastBuildDate><atom:link href="https://swaggerwei.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+    <title>Leetcode全速通2</title>
+    <link>https://swaggerwei.github.io/leetcode_recite2/</link>
+    <pubDate>Sat, 11 Jun 2022 14:17:04 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://swaggerwei.github.io/leetcode_recite2/</guid>
+    <description><![CDATA[DFS / BFS BFS 模板 DFS 模版 backtracking 和 DFS 有些许相似 backtraking 是更加广义上的一个算法 DFS 是backtracking在图数结构中的具体应用形势 102 Binary Tree Level Order Traversal BFS，层序遍历]]></description>
+</item><item>
     <title>MySQL学习3</title>
     <link>https://swaggerwei.github.io/mysql_learning3/</link>
     <pubDate>Thu, 09 Jun 2022 13:30:33 &#43;0800</pubDate>
@@ -66,12 +73,5 @@
     <author>作者</author>
     <guid>https://swaggerwei.github.io/pytorch_learning2/</guid>
     <description><![CDATA[Loss损失函数与反向传播 loss 损失函数 描述输出与真实值之间的差距 为更新输出提供一定的证据 L1Loss 衡量Groud Truth 和 output 之间的平均绝对误差 MAE（Mea]]></description>
-</item><item>
-    <title>pytorch学习1</title>
-    <link>https://swaggerwei.github.io/pytorch_learning/</link>
-    <pubDate>Wed, 11 May 2022 17:28:22 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>https://swaggerwei.github.io/pytorch_learning/</guid>
-    <description><![CDATA[卷机层的使用 准备数据集 定义自己的数据集：做必要的transform等 定义自己数据集的data、label 1 2 dataset = torchvision.datasets.CIFAR10(&#34;../data_cifar10&#34;, train=False, transform=torchvision.transforms.ToTensor(), download=False) 根据数据集准备dat]]></description>
 </item></channel>
 </rss>
