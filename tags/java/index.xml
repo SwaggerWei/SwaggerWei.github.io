@@ -3,7 +3,14 @@
         <title>Java - 标签 - Boyan Wei</title>
         <link>https://swaggerwei.github.io/tags/java/</link>
         <description>Java - 标签 - Boyan Wei</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Sat, 11 Jun 2022 14:17:04 &#43;0800</lastBuildDate><atom:link href="https://swaggerwei.github.io/tags/java/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Sun, 12 Jun 2022 12:26:35 &#43;0800</lastBuildDate><atom:link href="https://swaggerwei.github.io/tags/java/" rel="self" type="application/rss+xml" /><item>
+    <title>Leetcode全速通3</title>
+    <link>https://swaggerwei.github.io/leetcode_recite3/</link>
+    <pubDate>Sun, 12 Jun 2022 12:26:35 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://swaggerwei.github.io/leetcode_recite3/</guid>
+    <description><![CDATA[DFS / BFS BFS 模板 DFS 模版 backtracking 和 DFS 有些许相似 backtraking 是更加广义上的一个算法 DFS 是backtracking在图数结构中的具体应用形势 102 Binary Tree Level Order Traversal BFS，层序遍历]]></description>
+</item><item>
     <title>Leetcode全速通2</title>
     <link>https://swaggerwei.github.io/leetcode_recite2/</link>
     <pubDate>Sat, 11 Jun 2022 14:17:04 &#43;0800</pubDate>
@@ -66,12 +73,5 @@
     <author>作者</author>
     <guid>https://swaggerwei.github.io/java_threads_learning2/</guid>
     <description><![CDATA[静态代理模式 真实对象和代理对象都要实现同一个接口 代理对象要代理真实角色 优点，代理对象无法做很多真实对象无法做的事，真实对象可以专注于自己的事]]></description>
-</item><item>
-    <title>Java多线程学习1</title>
-    <link>https://swaggerwei.github.io/java_threads_learning1/</link>
-    <pubDate>Mon, 04 Apr 2022 10:30:44 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>https://swaggerwei.github.io/java_threads_learning1/</guid>
-    <description><![CDATA[Java 多线程基础知识 程序project：指令和数据的有序集合，静态概念 进程Process：程序的运行过程，是系统资源分配的单位，动态概念 线程Th]]></description>
 </item></channel>
 </rss>

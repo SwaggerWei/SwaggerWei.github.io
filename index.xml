@@ -3,9 +3,16 @@
         <title>Boyan Wei</title>
         <link>https://swaggerwei.github.io/</link>
         <description>这是我的全新 Hugo 网站</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Sat, 11 Jun 2022 14:17:04 &#43;0800</lastBuildDate>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Sun, 12 Jun 2022 12:26:35 &#43;0800</lastBuildDate>
             <atom:link href="https://swaggerwei.github.io/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>Leetcode全速通3</title>
+    <link>https://swaggerwei.github.io/leetcode_recite3/</link>
+    <pubDate>Sun, 12 Jun 2022 12:26:35 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://swaggerwei.github.io/leetcode_recite3/</guid>
+    <description><![CDATA[DFS / BFS BFS 模板 DFS 模版 backtracking 和 DFS 有些许相似 backtraking 是更加广义上的一个算法 DFS 是backtracking在图数结构中的具体应用形势 102 Binary Tree Level Order Traversal BFS，层序遍历]]></description>
+</item><item>
     <title>Leetcode全速通2</title>
     <link>https://swaggerwei.github.io/leetcode_recite2/</link>
     <pubDate>Sat, 11 Jun 2022 14:17:04 &#43;0800</pubDate>
@@ -68,12 +75,5 @@
     <author>作者</author>
     <guid>https://swaggerwei.github.io/develop_gamesnake/</guid>
     <description><![CDATA[游戏名：贪吃蛇 github 地址：https://github.com/SwaggerWei/SnakeGame 资源导入 步骤 单独定一个资源类，所有的数据]]></description>
-</item><item>
-    <title>pytorch学习2</title>
-    <link>https://swaggerwei.github.io/pytorch_learning2/</link>
-    <pubDate>Wed, 11 May 2022 18:22:36 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>https://swaggerwei.github.io/pytorch_learning2/</guid>
-    <description><![CDATA[Loss损失函数与反向传播 loss 损失函数 描述输出与真实值之间的差距 为更新输出提供一定的证据 L1Loss 衡量Groud Truth 和 output 之间的平均绝对误差 MAE（Mea]]></description>
 </item></channel>
 </rss>
