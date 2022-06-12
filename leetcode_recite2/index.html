@@ -29,7 +29,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/swaggerwei.github.io\/leetcode_recite2\/"
-        },"genre": "posts","keywords": "Java, Leetcode","wordcount":  982 ,
+        },"genre": "posts","keywords": "Java, Leetcode","wordcount":  1070 ,
         "url": "https:\/\/swaggerwei.github.io\/leetcode_recite2\/","datePublished": "2022-06-11T14:17:04+08:00","dateModified": "2022-06-11T14:17:04+08:00","publisher": {
             "@type": "Organization",
             "name": ""},"author": {
@@ -106,8 +106,8 @@
             <div class="toc-content always-active" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animated flipInX">Leetcode全速通2</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>Boyan Wei</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/leetcode%E5%85%A8%E9%80%9F%E9%80%9A/"><i class="far fa-folder fa-fw"></i>Leetcode全速通</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-06-11">2022-06-11</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 982 字&nbsp;
-                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 2 分钟&nbsp;</div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-06-11">2022-06-11</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 1070 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 3 分钟&nbsp;</div>
         </div><div class="details toc" id="toc-static"  kept="">
                 <div class="details-summary toc-title">
                     <span>目录</span>
@@ -352,6 +352,27 @@
 <li>移动时注意检测边缘和中间的阻挡墙壁</li>
 </ul>
 <h4 id="代码实战-2">代码实战</h4>
+<ul>
+<li>工具类leetcode490 中应该还有一个 dirs 的数组，代表移动方向，但是用hugo 打包好push到github时发现build失败，不知道为啥提示错误</li>
+<li>dirs数组补充
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/image_leetcode_recite/pic10.png"
+        data-srcset="/image_leetcode_recite/pic10.png, /image_leetcode_recite/pic10.png 1.5x, /image_leetcode_recite/pic10.png 2x"
+        data-sizes="auto"
+        alt="/image_leetcode_recite/pic10.png"
+        title="/image_leetcode_recite/pic10.png" /></li>
+<li>github build 错误信息提示
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/image_leetcode_recite/pic11.png"
+        data-srcset="/image_leetcode_recite/pic11.png, /image_leetcode_recite/pic11.png 1.5x, /image_leetcode_recite/pic11.png 2x"
+        data-sizes="auto"
+        alt="/image_leetcode_recite/pic11.png"
+        title="/image_leetcode_recite/pic11.png" /></li>
+</ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -399,15 +420,11 @@
 </span><span class="lnt">43
 </span><span class="lnt">44
 </span><span class="lnt">45
-</span><span class="lnt">46
-</span><span class="lnt">47
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-Java" data-lang="Java"><span class="kn">package</span> <span class="nn">com.swagger.leetcode.bfs_dfs</span><span class="o">;</span>
 
 <span class="kd">public</span> <span class="kd">class</span> <span class="nc">leetcode490</span> <span class="o">{</span>
-
-    
 
     <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">hasPath</span><span class="o">(</span><span class="kt">int</span><span class="o">[][]</span> <span class="n">maze</span><span class="o">,</span> <span class="kt">int</span><span class="o">[]</span> <span class="n">start</span><span class="o">,</span> <span class="kt">int</span><span class="o">[]</span> <span class="n">destination</span><span class="o">)</span> <span class="o">{</span>
         <span class="kt">int</span> <span class="n">M</span> <span class="o">=</span> <span class="n">maze</span><span class="o">.</span><span class="na">length</span><span class="o">;</span>

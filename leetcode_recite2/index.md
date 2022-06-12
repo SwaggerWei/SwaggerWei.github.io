@@ -116,12 +116,16 @@ public class leetcode200 {
 * 移动时注意检测边缘和中间的阻挡墙壁
 
 #### 代码实战
+* 工具类leetcode490 中应该还有一个 dirs 的数组，代表移动方向，但是用hugo 打包好push到github时发现build失败，不知道为啥提示错误
+* dirs数组补充
+![](/image_leetcode_recite/pic10.png)
+* github build 错误信息提示
+![](/image_leetcode_recite/pic11.png)
+
 ```Java
 package com.swagger.leetcode.bfs_dfs;
 
 public class leetcode490 {
-
-    
 
     public boolean hasPath(int[][] maze, int[] start, int[] destination) {
         int M = maze.length;
