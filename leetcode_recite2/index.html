@@ -29,7 +29,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/swaggerwei.github.io\/leetcode_recite2\/"
-        },"genre": "posts","keywords": "Java, Leetcode","wordcount":  991 ,
+        },"genre": "posts","keywords": "Java, Leetcode","wordcount":  400 ,
         "url": "https:\/\/swaggerwei.github.io\/leetcode_recite2\/","datePublished": "2022-06-11T14:17:04+08:00","dateModified": "2022-06-11T14:17:04+08:00","publisher": {
             "@type": "Organization",
             "name": ""},"author": {
@@ -106,8 +106,8 @@
             <div class="toc-content always-active" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animated flipInX">Leetcode全速通2</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>Boyan Wei</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/leetcode%E5%85%A8%E9%80%9F%E9%80%9A/"><i class="far fa-folder fa-fw"></i>Leetcode全速通</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-06-11">2022-06-11</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 991 字&nbsp;
-                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 2 分钟&nbsp;</div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-06-11">2022-06-11</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 400 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 1 分钟&nbsp;</div>
         </div><div class="details toc" id="toc-static"  kept="">
                 <div class="details-summary toc-title">
                     <span>目录</span>
@@ -122,16 +122,6 @@
         <li><a href="#102-binary-tree-level-order-traversal">102 Binary Tree Level Order Traversal</a>
           <ul>
             <li><a href="#代码实战">代码实战</a></li>
-          </ul>
-        </li>
-        <li><a href="#200-number-of-islands">200 Number of Islands</a>
-          <ul>
-            <li><a href="#代码实战-1">代码实战</a></li>
-          </ul>
-        </li>
-        <li><a href="#490-the-maze">490 The Maze</a>
-          <ul>
-            <li><a href="#代码实战-2">代码实战</a></li>
           </ul>
         </li>
       </ul>
@@ -255,199 +245,6 @@
         <span class="o">}</span>
 
         <span class="k">return</span> <span class="n">res</span><span class="o">;</span>
-    <span class="o">}</span>
-<span class="o">}</span>
-</code></pre></td></tr></table>
-</div>
-</div><h3 id="200-number-of-islands">200 Number of Islands</h3>
-<ul>
-<li>DFS</li>
-<li>遍历每个点的时候置0</li>
-<li>DFS的返回条件是是否达到了边界或者碰到的点为 0</li>
-<li>如果没有返回，则向四周进行DFS</li>
-</ul>
-<h4 id="代码实战-1">代码实战</h4>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span><span class="lnt">23
-</span><span class="lnt">24
-</span><span class="lnt">25
-</span><span class="lnt">26
-</span><span class="lnt">27
-</span><span class="lnt">28
-</span><span class="lnt">29
-</span><span class="lnt">30
-</span><span class="lnt">31
-</span><span class="lnt">32
-</span><span class="lnt">33
-</span><span class="lnt">34
-</span><span class="lnt">35
-</span><span class="lnt">36
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-Java" data-lang="Java"><span class="kn">package</span> <span class="nn">com.swagger.leetcode.bfs_dfs</span><span class="o">;</span>
-
-<span class="kd">public</span> <span class="kd">class</span> <span class="nc">leetcode200</span> <span class="o">{</span>
-    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">int</span> <span class="nf">numIslands</span><span class="o">(</span><span class="kt">char</span><span class="o">[][]</span> <span class="n">grid</span><span class="o">)</span> <span class="o">{</span>
-        <span class="k">if</span> <span class="o">(</span><span class="n">grid</span><span class="o">.</span><span class="na">length</span> <span class="o">==</span> <span class="n">0</span><span class="o">)</span> <span class="o">{</span>
-            <span class="k">return</span> <span class="n">0</span><span class="o">;</span>
-        <span class="o">}</span>
-        <span class="kt">int</span> <span class="n">M</span> <span class="o">=</span> <span class="n">grid</span><span class="o">.</span><span class="na">length</span><span class="o">;</span>
-        <span class="kt">int</span> <span class="n">N</span> <span class="o">=</span> <span class="n">grid</span><span class="o">[</span><span class="n">0</span><span class="o">].</span><span class="na">length</span><span class="o">;</span>
-        <span class="kt">int</span> <span class="n">res</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span>
-
-        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">M</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
-            <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">N</span><span class="o">;</span> <span class="n">j</span><span class="o">++)</span> <span class="o">{</span>
-                <span class="k">if</span> <span class="o">(</span><span class="n">grid</span><span class="o">[</span><span class="n">i</span><span class="o">][</span><span class="n">j</span><span class="o">]</span> <span class="o">==</span> <span class="sc">&#39;1&#39;</span><span class="o">)</span> <span class="o">{</span>
-                    <span class="n">res</span><span class="o">++;</span>
-                    <span class="n">dfs</span><span class="o">(</span><span class="n">grid</span><span class="o">,</span> <span class="n">i</span><span class="o">,</span> <span class="n">j</span><span class="o">);</span>
-                <span class="o">}</span>
-            <span class="o">}</span>
-        <span class="o">}</span>
-        <span class="k">return</span> <span class="n">res</span><span class="o">;</span>
-    <span class="o">}</span>
-
-    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">dfs</span><span class="o">(</span><span class="kt">char</span><span class="o">[][]</span> <span class="n">grid</span><span class="o">,</span> <span class="kt">int</span> <span class="n">row</span><span class="o">,</span> <span class="kt">int</span> <span class="n">col</span><span class="o">)</span> <span class="o">{</span>
-        <span class="k">if</span> <span class="o">(</span><span class="n">row</span> <span class="o">&lt;</span> <span class="n">0</span> <span class="o">||</span> <span class="n">row</span> <span class="o">&gt;=</span> <span class="n">grid</span><span class="o">.</span><span class="na">length</span> <span class="o">||</span> <span class="n">col</span> <span class="o">&lt;</span> <span class="n">0</span> <span class="o">||</span> <span class="n">col</span> <span class="o">&gt;=</span> <span class="n">grid</span><span class="o">[</span><span class="n">0</span><span class="o">].</span><span class="na">length</span> <span class="o">||</span> <span class="n">grid</span><span class="o">[</span><span class="n">row</span><span class="o">][</span><span class="n">col</span><span class="o">]</span> <span class="o">==</span> <span class="sc">&#39;0&#39;</span><span class="o">)</span> <span class="o">{</span>
-            <span class="k">return</span><span class="o">;</span> <span class="c1">// 如果超出了这个范围 或者已经碰到0了 就 退出
-</span><span class="c1"></span>        <span class="o">}</span>
-
-        <span class="n">grid</span><span class="o">[</span><span class="n">row</span><span class="o">][</span><span class="n">col</span><span class="o">]</span> <span class="o">=</span> <span class="sc">&#39;0&#39;</span><span class="o">;</span> <span class="c1">// 遍历过的点，置为0
-</span><span class="c1"></span>
-        <span class="c1">// 向四周扩散
-</span><span class="c1"></span>        <span class="n">dfs</span><span class="o">(</span><span class="n">grid</span><span class="o">,</span> <span class="n">row</span> <span class="o">-</span> <span class="n">1</span><span class="o">,</span> <span class="n">col</span><span class="o">);</span>
-        <span class="n">dfs</span><span class="o">(</span><span class="n">grid</span><span class="o">,</span> <span class="n">row</span> <span class="o">+</span> <span class="n">1</span><span class="o">,</span> <span class="n">col</span><span class="o">);</span>
-        <span class="n">dfs</span><span class="o">(</span><span class="n">grid</span><span class="o">,</span> <span class="n">row</span><span class="o">,</span> <span class="n">col</span> <span class="o">-</span> <span class="n">1</span><span class="o">);</span>
-        <span class="n">dfs</span><span class="o">(</span><span class="n">grid</span><span class="o">,</span> <span class="n">row</span><span class="o">,</span> <span class="n">col</span> <span class="o">+</span> <span class="n">1</span><span class="o">);</span>
-    <span class="o">}</span>
-<span class="o">}</span>
-</code></pre></td></tr></table>
-</div>
-</div><h3 id="490-the-maze">490 The Maze</h3>
-<ul>
-<li>注意要记录当前的点是否被遍历过</li>
-<li>停止条件为是否被遍历过，或者是否为最终点</li>
-<li>移动时注意检测边缘和中间的阻挡墙壁</li>
-</ul>
-<h4 id="代码实战-2">代码实战</h4>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span><span class="lnt">23
-</span><span class="lnt">24
-</span><span class="lnt">25
-</span><span class="lnt">26
-</span><span class="lnt">27
-</span><span class="lnt">28
-</span><span class="lnt">29
-</span><span class="lnt">30
-</span><span class="lnt">31
-</span><span class="lnt">32
-</span><span class="lnt">33
-</span><span class="lnt">34
-</span><span class="lnt">35
-</span><span class="lnt">36
-</span><span class="lnt">37
-</span><span class="lnt">38
-</span><span class="lnt">39
-</span><span class="lnt">40
-</span><span class="lnt">41
-</span><span class="lnt">42
-</span><span class="lnt">43
-</span><span class="lnt">44
-</span><span class="lnt">45
-</span><span class="lnt">46
-</span><span class="lnt">47
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-Java" data-lang="Java"><span class="kn">package</span> <span class="nn">com.swagger.leetcode.bfs_dfs</span><span class="o">;</span>
-
-<span class="kd">public</span> <span class="kd">class</span> <span class="nc">leetcode490</span> <span class="o">{</span>
-
-    <span class="kt">int</span><span class="o">[][]</span> <span class="n">dirs</span> <span class="o">=</span> <span class="o">{{</span><span class="n">0</span><span class="o">,</span> <span class="n">1</span><span class="o">},</span> <span class="o">{</span><span class="n">0</span><span class="o">,</span> <span class="o">-</span><span class="n">1</span><span class="o">},</span> <span class="o">{-</span><span class="n">1</span><span class="o">,</span> <span class="n">0</span><span class="o">},</span> <span class="o">{</span><span class="n">1</span><span class="o">,</span> <span class="n">0</span><span class="o">}};</span>
-
-    <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">hasPath</span><span class="o">(</span><span class="kt">int</span><span class="o">[][]</span> <span class="n">maze</span><span class="o">,</span> <span class="kt">int</span><span class="o">[]</span> <span class="n">start</span><span class="o">,</span> <span class="kt">int</span><span class="o">[]</span> <span class="n">destination</span><span class="o">)</span> <span class="o">{</span>
-        <span class="kt">int</span> <span class="n">M</span> <span class="o">=</span> <span class="n">maze</span><span class="o">.</span><span class="na">length</span><span class="o">;</span>
-        <span class="kt">int</span> <span class="n">N</span> <span class="o">=</span> <span class="n">maze</span><span class="o">[</span><span class="n">0</span><span class="o">].</span><span class="na">length</span><span class="o">;</span>
-        <span class="c1">// 记录当前位置是否被访问过
-</span><span class="c1"></span>        <span class="kt">boolean</span><span class="o">[][]</span> <span class="n">visited</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">boolean</span><span class="o">[</span><span class="n">M</span><span class="o">][</span><span class="n">N</span><span class="o">];</span>
-        <span class="k">return</span> <span class="n">dfs</span><span class="o">(</span><span class="n">maze</span><span class="o">,</span> <span class="n">visited</span><span class="o">,</span> <span class="n">start</span><span class="o">,</span> <span class="n">destination</span><span class="o">);</span>
-    <span class="o">}</span>
-
-    <span class="kd">private</span> <span class="kt">boolean</span> <span class="nf">dfs</span><span class="o">(</span><span class="kt">int</span><span class="o">[][]</span> <span class="n">maze</span><span class="o">,</span> <span class="kt">boolean</span><span class="o">[][]</span> <span class="n">visited</span><span class="o">,</span> <span class="kt">int</span><span class="o">[]</span> <span class="n">cur</span><span class="o">,</span> <span class="kt">int</span><span class="o">[]</span> <span class="n">destination</span><span class="o">)</span> <span class="o">{</span>
-        <span class="kt">int</span> <span class="n">M</span> <span class="o">=</span> <span class="n">maze</span><span class="o">.</span><span class="na">length</span><span class="o">;</span>
-        <span class="kt">int</span> <span class="n">N</span> <span class="o">=</span> <span class="n">maze</span><span class="o">[</span><span class="n">0</span><span class="o">].</span><span class="na">length</span><span class="o">;</span>
-
-        <span class="c1">// 两种停止条件
-</span><span class="c1"></span>        <span class="k">if</span> <span class="o">(</span><span class="n">visited</span><span class="o">[</span><span class="n">cur</span><span class="o">[</span><span class="n">0</span><span class="o">]][</span><span class="n">cur</span><span class="o">[</span><span class="n">1</span><span class="o">]])</span> <span class="o">{</span> <span class="c1">// 如果已经visited了
-</span><span class="c1"></span>            <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
-        <span class="o">}</span>
-        <span class="k">if</span> <span class="o">(</span><span class="n">cur</span><span class="o">[</span><span class="n">0</span><span class="o">]</span> <span class="o">==</span> <span class="n">destination</span><span class="o">[</span><span class="n">0</span><span class="o">]</span> <span class="o">&amp;&amp;</span> <span class="n">cur</span><span class="o">[</span><span class="n">1</span><span class="o">]</span> <span class="o">==</span> <span class="n">destination</span><span class="o">[</span><span class="n">1</span><span class="o">])</span> <span class="o">{</span><span class="c1">// 如果已经到达目标点了
-</span><span class="c1"></span>            <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
-        <span class="o">}</span>
-
-        <span class="c1">// 此点标记为visited
-</span><span class="c1"></span>        <span class="n">visited</span><span class="o">[</span><span class="n">cur</span><span class="o">[</span><span class="n">0</span><span class="o">]][</span><span class="n">cur</span><span class="o">[</span><span class="n">1</span><span class="o">]]</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
-
-        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">dir</span> <span class="o">:</span> <span class="n">dirs</span><span class="o">)</span> <span class="o">{</span>
-            <span class="kt">int</span> <span class="n">x</span> <span class="o">=</span> <span class="n">cur</span><span class="o">[</span><span class="n">0</span><span class="o">],</span> <span class="n">y</span> <span class="o">=</span> <span class="n">cur</span><span class="o">[</span><span class="n">1</span><span class="o">];</span>
-            <span class="c1">// 移动
-</span><span class="c1"></span>            <span class="k">while</span> <span class="o">(</span><span class="n">x</span> <span class="o">+</span> <span class="n">dir</span><span class="o">[</span><span class="n">0</span><span class="o">]</span> <span class="o">&gt;=</span> <span class="n">0</span> <span class="o">&amp;&amp;</span> <span class="n">y</span> <span class="o">+</span> <span class="n">dir</span><span class="o">[</span><span class="n">1</span><span class="o">]</span> <span class="o">&gt;=</span> <span class="n">0</span> <span class="o">&amp;&amp;</span>
-                   <span class="n">x</span> <span class="o">+</span> <span class="n">dir</span><span class="o">[</span><span class="n">0</span><span class="o">]</span> <span class="o">&lt;</span> <span class="n">M</span> <span class="o">&amp;&amp;</span> <span class="n">y</span> <span class="o">+</span> <span class="n">dir</span><span class="o">[</span><span class="n">1</span><span class="o">]</span> <span class="o">&lt;</span> <span class="n">N</span> <span class="o">&amp;&amp;</span>
-                   <span class="n">maze</span><span class="o">[</span><span class="n">x</span> <span class="o">+</span> <span class="n">dir</span><span class="o">[</span><span class="n">0</span><span class="o">]][</span><span class="n">y</span> <span class="o">+</span> <span class="n">dir</span><span class="o">[</span><span class="n">1</span><span class="o">]]</span> <span class="o">==</span> <span class="n">0</span><span class="o">){</span>
-                <span class="n">x</span> <span class="o">=</span> <span class="n">x</span> <span class="o">+</span> <span class="n">dir</span><span class="o">[</span><span class="n">0</span><span class="o">];</span>
-                <span class="n">y</span> <span class="o">=</span> <span class="n">y</span> <span class="o">+</span> <span class="n">dir</span><span class="o">[</span><span class="n">0</span><span class="o">];</span>
-            <span class="o">}</span>
-            <span class="c1">// 移动之后开始继续向下递归
-</span><span class="c1"></span>            <span class="k">if</span> <span class="o">(</span><span class="n">dfs</span><span class="o">(</span><span class="n">maze</span><span class="o">,</span> <span class="n">visited</span><span class="o">,</span> <span class="k">new</span> <span class="kt">int</span><span class="o">[]{</span><span class="n">x</span><span class="o">,</span> <span class="n">y</span><span class="o">},</span> <span class="n">destination</span><span class="o">)){</span>
-                <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
-            <span class="o">}</span>
-        <span class="o">}</span>
-
-        <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
     <span class="o">}</span>
 <span class="o">}</span>
 </code></pre></td></tr></table>
