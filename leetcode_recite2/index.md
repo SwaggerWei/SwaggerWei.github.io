@@ -11,6 +11,19 @@
 * backtraking 是更加广义上的一个算法
 * DFS 是backtracking在图数结构中的具体应用形势
 
+### DFS BFS 特点
+* BFS：对于解决最短或最少问题特别有效，而且寻找深度小，但缺点是内存耗费量大（需要开大量的数组单元用来存储状态，取决于树本身的形状，扁平还是长条）
+* DFS：对干解決谝历和求所有问题有效．对干问题搜索深度小的时候外理谏度讯谏
+
+#### DFS 优缺点
+* 扁平型tree内存开销较小
+* 能处理子节点较多或树层次过深的情况 （相比BFS)
+* 一般用于解决连通性问题（是否有解）
+* 只能寻找有解，但无法最快寻找到最优解，寻找最优解同样要遍历所有路径
+
+#### 数据运用和复杂度
+![](/image_leetcode_recite/pic9.png)
+
 ### 102 Binary Tree Level Order Traversal
 * BFS，层序遍历
 * 注意每层的遍历开始时都要重新new一个level数组
@@ -109,6 +122,8 @@ public class leetcode200 {
 ```
 
 ### 490 The Maze
+* 题目
+* ![](/image_leetcode_recite/pic13.png)
 * 注意要记录当前的点是否被遍历过
 * 停止条件为是否被遍历过，或者是否为最终点
 * 移动时注意检测边缘和中间的阻挡墙壁
@@ -167,10 +182,6 @@ public class leetcode490 {
 }
 
 ```
-
-
-
-
 
 ### 297 Serialize and Deserialize Binary Tree
 * 序列化的时候还是套用模板，先看返回条件，再计算，在看如何选择路线向下递归
@@ -237,16 +248,172 @@ public class leetcode297 {
 ```
 
 ### 124 Binary Tree Maximum Path Sum
+* 路线选择的时候先选出非负单边
+* 再找拱形
+* 最后找只保留拱形的一边，寻找纵向路径
 
-### DFS BFS 总结
-* BFS：对于解决最短或最少问题特别有效，而且寻找深度小，但缺点是内存耗费量大（需要开大量的数组单元用来存储状态，取决于树本身的形状，扁平还是长条）
-* DFS：对干解決谝历和求所有问题有效．对干问题搜索深度小的时候外理谏度讯谏
+#### 代码实战
+```Java
+package com.swagger.leetcode.bfs_dfs;
 
-#### DFS 优缺点
-* 扁平型tree内存开销较小
-* 能处理子节点较多或树层次过深的情况 （相比BFS)
-* 一般用于解决连通性问题（是否有解）
-* 只能寻找有解，但无法最快寻找到最优解，寻找最优解同样要遍历所有路径
+public class leetcode124 {
+    static int maxValue = Integer.MIN_VALUE;
+    public static int maxPathSum (TreeNode root){
+        helper(root);
+        return maxValue;
+    }
 
-#### 数据运用和复杂度
-![](/image_leetcode_recite/pic9.png)
+    public static int helper (TreeNode node){
+        // 线路结束条件
+        if (node == null){
+            return 0;
+        }
+
+        // 选出非负单边
+        int left = Math.max(0, helper(node.left));
+        int right = Math.max(0, helper(node.right));
+
+        // 计算拱形是否更大
+        maxValue = Math.max(maxValue, left + right + node.val);
+
+        // 只保留一遍，表示为纵向路径
+        return Math.max(left, right) + node.val;
+
+    }
+}
+```
+
+### 339 Nested List Weight Sum
+* 题目
+* ![](/image_leetcode_recite/pic12.png)
+
+
+#### 代码实战
+* 工具类 NestedInteger
+```Java
+package com.swagger.leetcode.bfs_dfs;
+
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class NestedInteger {
+    private List<NestedInteger> list;
+    private Integer integer;
+
+    public NestedInteger(List<NestedInteger> list){
+        this.list = list;
+    }
+
+    public void add(NestedInteger nestedInteger) {
+        if(this.list != null){
+            this.list.add(nestedInteger);
+        } else {
+            this.list = new ArrayList();
+            this.list.add(nestedInteger);
+        }
+    }
+
+    public void setInteger(int num) {
+        this.integer = num;
+    }
+
+    public NestedInteger(Integer integer){
+        this.integer = integer;
+    }
+
+    public NestedInteger() {
+        this.list = new ArrayList();
+    }
+
+    public boolean isInteger() {
+        return integer != null;
+    }
+
+    public Integer getInteger() {
+        return integer;
+    }
+
+    public List<NestedInteger> getList() {
+        return list;
+    }
+
+    public String printNi(NestedInteger thisNi, StringBuilder sb){
+        if(thisNi.isInteger()) {
+            sb.append(thisNi.integer);
+            sb.append(",");
+        }
+        sb.append("[");
+        for(NestedInteger ni : thisNi.list){
+            if(ni.isInteger()) {
+                sb.append(ni.integer);
+                sb.append(",");
+            }
+            else {
+                printNi(ni, sb);
+            }
+        }
+        sb.append("]");
+        return sb.toString();
+    }
+}
+```
+
+##### DFS
+```Java
+package com.swagger.leetcode.bfs_dfs;
+
+import java.util.List;
+
+public class leetcode339 {
+
+    public int depthSum(List<NestedInteger> nestedList){
+        return dfs(nestedList, 1);
+    }
+
+    public int dfs(List<NestedInteger> nestedList, int level){
+        int res = 0;
+        for (NestedInteger unit : nestedList) {
+            if (unit.isInteger()){ // 如果已经为数字，则乘以层数，加入到结果当中
+                res = res + unit.getInteger() * level;
+            }else { // 如果不是，则解开此层，向更深层递归，且层数加一
+                res = res + dfs(unit.getList(), level + 1);
+            }
+        }
+
+        return res;
+    }
+
+}
+```
+
+##### BFS
+```Java
+package com.swagger.leetcode.bfs_dfs;
+
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Queue;
+
+public class leetcode339BFS {
+    public int depthSum(List<NestedInteger> nestedList){
+        int res = 0, level = 1;
+        Queue<NestedInteger> q = new LinkedList<>(nestedList);
+        while (!q.isEmpty()){
+            int size = q.size();
+            for (int i = 0; i < size; i++) {
+                NestedInteger temp = q.poll();
+                if (temp.isInteger()){ // 如果已经为数字，则乘以层数，加入到结果当中
+                    res = res + temp.getInteger() * level;
+                }else { // 如果不是，则解开此层，入队，向更深层递归，且层数加一
+                    q.addAll(temp.getList());
+                }
+                level ++;
+            }
+        }
+        return res;
+    }
+}
+```
+
+
