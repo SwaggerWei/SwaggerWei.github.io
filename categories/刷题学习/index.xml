@@ -46,13 +46,6 @@
     <guid>https://swaggerwei.github.io/lc_learning4/</guid>
     <description><![CDATA[问号 ？冒号 ：条件语句 1 2 int i = 0; int x = i&gt;1 ? 0:1; 问号冒号将其分为代码分为三个部分A、B、C A？B：C 如果A为真则执行B，如果为假则执行C 字符串c]]></description>
 </item><item>
-    <title>刷题学习3-java 栈学习</title>
-    <link>https://swaggerwei.github.io/lc_learning3/</link>
-    <pubDate>Mon, 20 Sep 2021 16:59:17 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>https://swaggerwei.github.io/lc_learning3/</guid>
-    <description><![CDATA[特点 先进后出，与队列这种数据结构相反，队列是先进先出。 实用例子： 浏览器后退功能 操作的时间复杂度 访问栈顶元素 O(1) 搜索 O(N) 插入 O(1) 入栈 删除 O(1) 出栈 Jav]]></description>
-</item><item>
     <title>刷题学习2-java 队列学习</title>
     <link>https://swaggerwei.github.io/lc_learning2/</link>
     <pubDate>Fri, 17 Sep 2021 16:59:17 &#43;0800</pubDate>
