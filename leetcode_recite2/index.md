@@ -170,6 +170,70 @@ public class leetcode490 {
 ```
 
 ### 297 Serialize and Deserialize Binary Tree
+* 序列化的时候还是套用模板，先看返回条件，再计算，在看如何选择路线向下递归
+* 反序列化的时候建树时，首先将String中的内容存入到Queue当中，然后套用模版进行递归
+
+#### 代码实战
+```Java
+package com.swagger.leetcode.bfs_dfs;
+
+import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.Queue;
+
+public class leetcode297 {
+    public static String serialize(TreeNode root) {
+        if (root == null) return "#";
+        // preOrder 进行serialize
+        return root.val + "," + serialize(root.left) + "," + serialize(root.right);
+    }
+
+    public static TreeNode deserialize(String data) {
+        // 逗号隔开
+        Queue<String> q = new LinkedList<>(Arrays.asList(data.split(",")));
+        return helper(q);
+    }
+
+    private static TreeNode helper(Queue<String> q) {
+        String s = q.poll();
+
+        // 如果为#，则此点没有节点
+        if (s.equals("#")) return null;
+
+        // 新建节点
+        TreeNode root = new TreeNode(Integer.valueOf(s));
+
+        // 先左，后右向下递归
+        root.left = helper(q);
+        root.right = helper(q);
+
+        return root;
+    }
+
+    public static void main(String[] args) {
+        TreeNode node1 = new TreeNode(1);
+        TreeNode node2 = new TreeNode(2);
+        TreeNode node3 = new TreeNode(3);
+        TreeNode node4 = new TreeNode(4);
+        TreeNode node5 = new TreeNode(5);
+
+        node1.left = node2;
+        node1.right = node5;
+        node2.left = node3;
+        node2.right = node4;
+
+        String s = serialize(node1);
+        System.out.println(s);
+
+        TreeNode res_root = deserialize(s);
+        System.out.println(res_root.val);
+
+
+    }
+}
+```
+
+### 124 Binary Tree Maximum Path Sum
 
 ### DFS BFS 总结
 * BFS：对于解决最短或最少问题特别有效，而且寻找深度小，但缺点是内存耗费量大（需要开大量的数组单元用来存储状态，取决于树本身的形状，扁平还是长条）
