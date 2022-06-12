@@ -16,7 +16,7 @@
     <pubDate>Sat, 11 Jun 2022 14:17:04 &#43;0800</pubDate>
     <author>作者</author>
     <guid>https://swaggerwei.github.io/leetcode_recite2/</guid>
-    <description><![CDATA[DFS / BFS BFS 模板 DFS 模版 backtracking 和 DFS 有些许相似 backtraking 是更加广义上的一个算法 DFS 是backtracking在图数结构中的具体应用形势 102 Binary Tree Level Order Traversal BFS，层序遍历]]></description>
+    <description><![CDATA[DFS / BFS BFS 模板]]></description>
 </item><item>
     <title>MySQL学习3</title>
     <link>https://swaggerwei.github.io/mysql_learning3/</link>
