@@ -63,3 +63,49 @@ public class leetcode102 {
 ```
 
 
+
+### 200 Number of Islands
+* DFS
+* 遍历每个点的时候置0
+* DFS的返回条件是是否达到了边界或者碰到的点为0
+* 如果没有返回，则向四周进行DFS
+
+#### 代码实战
+```Java
+package com.swagger.leetcode.bfs_dfs;
+
+public class leetcode200 {
+    public static int numIslands(char[][] grid) {
+        if (grid.length == 0) {
+            return 0;
+        }
+        int M = grid.length;
+        int N = grid[0].length;
+        int res = 0;
+
+        for (int i = 0; i < M; i++) {
+            for (int j = 0; j < N; j++) {
+                if (grid[i][j] == '1') {
+                    res++;
+                    dfs(grid, i, j);
+                }
+            }
+        }
+        return res;
+    }
+
+    public static void dfs(char[][] grid, int row, int col) {
+        if (row < 0 || row >= grid.length || col < 0 || col >= grid[0].length || grid[row][col] == '0') {
+            return; // 如果超出了这个范围 或者已经碰到0了 就 退出
+        }
+
+        grid[row][col] = '0'; // 遍历过的点，置为0
+
+        // 向四周扩散
+        dfs(grid, row - 1, col);
+        dfs(grid, row + 1, col);
+        dfs(grid, row, col - 1);
+        dfs(grid, row, col + 1);
+    }
+}
+```
