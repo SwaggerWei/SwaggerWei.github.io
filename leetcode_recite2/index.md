@@ -121,7 +121,7 @@ package com.swagger.leetcode.bfs_dfs;
 
 public class leetcode490 {
 
-    int[][] dirs = {{0, 1}, {0, -1}, {-1, 0}, {1, 0}};
+    
 
     public boolean hasPath(int[][] maze, int[] start, int[] destination) {
         int M = maze.length;
