@@ -126,5 +126,44 @@ update `student` set `name`='swaggerwei', `email`='785403@qq.com' where `id` = 1
 ```
 
 
-### 删除 delete
+### 删除 delete/truncate
+#### delete
+```SQL
+-- DELETE 命令
+-- 删除数据（最好避免这样写，会全部删除,有其他专门的方法）
+DELETE FROM `student` 
+
+-- 删除指定数据
+DELETE FROM `student` WHERE id = 1;
+```
+
+#### truncate
+```SQL
+-- TRUNCATE 命令
+-- 完全清空一个数据库表，表的结构和索引约束不会变
+-- 清空strudent表
+TRUNCATE `student` 
+```
+
+#### delete/truncate 异同
+* 相同点：都能删除数据，都不会删除表的结构
+* 不同点：truncate 清零自增列，计数器归零；
+
+```SQL
+-- 测试truncate和delete的区别
+CREATE TABLE `test_delete`(
+	`id` INT(4) not null AUTO_INCREMENT,
+	`name` VARCHAR(10) not null,
+	PRIMARY KEY (`id`)
+)ENGINE=INNODB DEFAULT CHARSET=utf8
+
+INSERT INTO `test_delete`(`name`) VALUES('1'),('2'),('3')
+
+DELETE FROM `test_delete`
+TRUNCATE TABLE `test_delete` 
+```
+**删除之后如果重启数据库（InnoDB）**
+
+* delete 自增列也会清零（存在内存当中，会丢失）
+* MyISAM 继续从上一个自增量开始（存在文件当中，不会丢失）
 

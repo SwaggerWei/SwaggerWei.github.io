@@ -29,7 +29,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/swaggerwei.github.io\/mysql_learning3\/"
-        },"genre": "posts","keywords": "SQL, mysql, navicat","wordcount":  2302 ,
+        },"genre": "posts","keywords": "SQL, mysql, navicat","wordcount":  2540 ,
         "url": "https:\/\/swaggerwei.github.io\/mysql_learning3\/","datePublished": "2022-06-09T13:30:33+08:00","dateModified": "2022-06-09T13:30:33+08:00","publisher": {
             "@type": "Organization",
             "name": ""},"author": {
@@ -106,8 +106,8 @@
             <div class="toc-content always-active" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animated flipInX">MySQL学习3</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>Boyan Wei</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/mysql%E5%AD%A6%E4%B9%A0/"><i class="far fa-folder fa-fw"></i>MySQL学习</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-06-09">2022-06-09</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 2302 字&nbsp;
-                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 5 分钟&nbsp;</div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-06-09">2022-06-09</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 2540 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 6 分钟&nbsp;</div>
         </div><div class="details toc" id="toc-static"  kept="">
                 <div class="details-summary toc-title">
                     <span>目录</span>
@@ -136,7 +136,13 @@
             <li><a href="#代码实战-1">代码实战</a></li>
           </ul>
         </li>
-        <li><a href="#删除-delete">删除 delete</a></li>
+        <li><a href="#删除-deletetruncate">删除 delete/truncate</a>
+          <ul>
+            <li><a href="#delete">delete</a></li>
+            <li><a href="#truncate">truncate</a></li>
+            <li><a href="#deletetruncate-异同">delete/truncate 异同</a></li>
+          </ul>
+        </li>
       </ul>
     </li>
   </ul>
@@ -358,7 +364,79 @@
 </span><span class="w">
 </span></code></pre></td></tr></table>
 </div>
-</div><h3 id="删除-delete">删除 delete</h3>
+</div><h3 id="删除-deletetruncate">删除 delete/truncate</h3>
+<h4 id="delete">delete</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-SQL" data-lang="SQL"><span class="c1">-- DELETE 命令
+</span><span class="c1">-- 删除数据（最好避免这样写，会全部删除,有其他专门的方法）
+</span><span class="c1"></span><span class="k">DELETE</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="o">`</span><span class="n">student</span><span class="o">`</span><span class="w"> 
+</span><span class="w">
+</span><span class="w"></span><span class="c1">-- 删除指定数据
+</span><span class="c1"></span><span class="k">DELETE</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="o">`</span><span class="n">student</span><span class="o">`</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><h4 id="truncate">truncate</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-SQL" data-lang="SQL"><span class="c1">-- TRUNCATE 命令
+</span><span class="c1">-- 完全清空一个数据库表，表的结构和索引约束不会变
+</span><span class="c1">-- 清空strudent表
+</span><span class="c1"></span><span class="k">TRUNCATE</span><span class="w"> </span><span class="o">`</span><span class="n">student</span><span class="o">`</span><span class="w"> 
+</span></code></pre></td></tr></table>
+</div>
+</div><h4 id="deletetruncate-异同">delete/truncate 异同</h4>
+<ul>
+<li>相同点：都能删除数据，都不会删除表的结构</li>
+<li>不同点：truncate 清零自增列，计数器归零；</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-SQL" data-lang="SQL"><span class="c1">-- 测试truncate和delete的区别
+</span><span class="c1"></span><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="o">`</span><span class="n">test_delete</span><span class="o">`</span><span class="p">(</span><span class="w">
+</span><span class="w">	</span><span class="o">`</span><span class="n">id</span><span class="o">`</span><span class="w"> </span><span class="nb">INT</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">null</span><span class="w"> </span><span class="n">AUTO_INCREMENT</span><span class="p">,</span><span class="w">
+</span><span class="w">	</span><span class="o">`</span><span class="n">name</span><span class="o">`</span><span class="w"> </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">null</span><span class="p">,</span><span class="w">
+</span><span class="w">	</span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="w"> </span><span class="p">(</span><span class="o">`</span><span class="n">id</span><span class="o">`</span><span class="p">)</span><span class="w">
+</span><span class="w"></span><span class="p">)</span><span class="n">ENGINE</span><span class="o">=</span><span class="n">INNODB</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="n">CHARSET</span><span class="o">=</span><span class="n">utf8</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="o">`</span><span class="n">test_delete</span><span class="o">`</span><span class="p">(</span><span class="o">`</span><span class="n">name</span><span class="o">`</span><span class="p">)</span><span class="w"> </span><span class="k">VALUES</span><span class="p">(</span><span class="s1">&#39;1&#39;</span><span class="p">),(</span><span class="s1">&#39;2&#39;</span><span class="p">),(</span><span class="s1">&#39;3&#39;</span><span class="p">)</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="k">DELETE</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="o">`</span><span class="n">test_delete</span><span class="o">`</span><span class="w">
+</span><span class="w"></span><span class="k">TRUNCATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="o">`</span><span class="n">test_delete</span><span class="o">`</span><span class="w"> 
+</span></code></pre></td></tr></table>
+</div>
+</div><p><strong>删除之后如果重启数据库（InnoDB）</strong></p>
+<ul>
+<li>delete 自增列也会清零（存在内存当中，会丢失）</li>
+<li>MyISAM 继续从上一个自增量开始（存在文件当中，不会丢失）</li>
+</ul>
 </div><div class="post-footer" id="post-footer">
     <div class="post-info">
         <div class="post-info-line">
