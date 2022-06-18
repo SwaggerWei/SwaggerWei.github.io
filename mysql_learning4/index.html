@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>MySQL学习4 - Boyan Wei</title><meta name="Description" content="这是我的全新 Hugo 网站"><meta property="og:title" content="MySQL学习4" />
+<meta property="og:description" content="DQL 查询数据（最重点） 数据库查询语言（Data Query Language：数据查询语言） 所有的查询语言都用：select 简单查询，复杂查询都可以做 数据" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://swaggerwei.github.io/mysql_learning4/" /><meta property="og:image" content="https://swaggerwei.github.io/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-06-15T19:50:15+08:00" />
+<meta property="article:modified_time" content="2022-06-15T19:50:15+08:00" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://swaggerwei.github.io/logo.png"/>
+
+<meta name="twitter:title" content="MySQL学习4"/>
+<meta name="twitter:description" content="DQL 查询数据（最重点） 数据库查询语言（Data Query Language：数据查询语言） 所有的查询语言都用：select 简单查询，复杂查询都可以做 数据"/>
+<meta name="application-name" content="LoveIt">
+<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://swaggerwei.github.io/mysql_learning4/" /><link rel="prev" href="https://swaggerwei.github.io/leetcode_recite3/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "MySQL学习4",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/swaggerwei.github.io\/mysql_learning4\/"
+        },"genre": "posts","keywords": "SQL, mysql, navicat","wordcount":  1483 ,
+        "url": "https:\/\/swaggerwei.github.io\/mysql_learning4\/","datePublished": "2022-06-15T19:50:15+08:00","dateModified": "2022-06-15T19:50:15+08:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "Boyan Wei"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Boyan Wei"></a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Boyan Wei"></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content always-active" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">MySQL学习4</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>Boyan Wei</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/mysql%E5%AD%A6%E4%B9%A0/"><i class="far fa-folder fa-fw"></i>MySQL学习</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-06-15">2022-06-15</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 1483 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 3 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#dql-查询数据最重点">DQL 查询数据（最重点）</a>
+      <ul>
+        <li><a href="#指定查询字段">指定查询字段</a></li>
+        <li><a href="#去重-distinct">去重 distinct</a></li>
+        <li><a href="#数据库的列表达式">数据库的列（表达式）</a></li>
+        <li><a href="#where-条件子句">where 条件子句</a></li>
+        <li><a href="#模糊查询比较运算符">模糊查询：比较运算符</a>
+          <ul>
+            <li><a href="#like">like</a></li>
+            <li><a href="#in">in</a></li>
+            <li><a href="#null--not-null">null / not null</a></li>
+          </ul>
+        </li>
+        <li><a href="#联表查询">联表查询</a>
+          <ul>
+            <li><a href="#代码实战">代码实战</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h2 id="dql-查询数据最重点">DQL 查询数据（最重点）</h2>
+<ul>
+<li>数据库查询语言（Data Query Language：数据查询语言）</li>
+<li>所有的查询语言都用：select</li>
+<li>简单查询，复杂查询都可以做</li>
+<li><strong>数据库中最核心的语言，使用频率最高</strong></li>
+</ul>
+<h3 id="指定查询字段">指定查询字段</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="w">
+</span><span class="w"></span><span class="c1">-- 查询全部的学生  SELECT 字段 FROM 表
+</span><span class="c1"></span><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="o">`</span><span class="n">student</span><span class="o">`</span><span class="w">
+</span><span class="w"></span><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="o">`</span><span class="k">result</span><span class="o">`</span><span class="w">
+</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="c1">-- 查询指定字段
+</span><span class="c1"></span><span class="k">SELECT</span><span class="w"> </span><span class="o">`</span><span class="n">StudentNo</span><span class="o">`</span><span class="p">,</span><span class="o">`</span><span class="n">StudentName</span><span class="o">`</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="o">`</span><span class="n">student</span><span class="o">`</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="c1">-- 给结果字段或者表取一个名字 AS
+</span><span class="c1"></span><span class="k">SELECT</span><span class="w"> </span><span class="o">`</span><span class="n">StudentNo</span><span class="o">`</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="err">学号</span><span class="p">,</span><span class="o">`</span><span class="n">StudentName</span><span class="o">`</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="err">学生姓名</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="o">`</span><span class="n">student</span><span class="o">`</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">s</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="c1">-- 函数 concat(a, b)
+</span><span class="c1"></span><span class="k">SELECT</span><span class="w"> </span><span class="n">CONCAT</span><span class="p">(</span><span class="s1">&#39;姓名：&#39;</span><span class="p">,</span><span class="w"> </span><span class="o">`</span><span class="n">StudentName</span><span class="o">`</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="err">新名字</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="o">`</span><span class="n">student</span><span class="o">`</span><span class="w">
+</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>列名字意义不明确，可以用as 起别名</li>
+</ul>
+<h3 id="去重-distinct">去重 distinct</h3>
+<ul>
+<li>去除select 查询结果中重复的数据，只显示一条</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="c1">-- 查询一下哪些同学参加了考试，成绩
+</span><span class="c1"></span><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="k">result</span><span class="w"> </span><span class="c1">-- 查询全部成绩
+</span><span class="c1">-- 查询哪些同学参加了考试
+</span><span class="c1"></span><span class="k">SELECT</span><span class="w"> </span><span class="o">`</span><span class="n">StudentNo</span><span class="o">`</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="k">result</span><span class="w"> </span><span class="c1">-- 查询哪些同学参加了考试
+</span><span class="c1"></span><span class="k">SELECT</span><span class="w"> </span><span class="k">DISTINCT</span><span class="w"> </span><span class="o">`</span><span class="n">StudentNo</span><span class="o">`</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="k">result</span><span class="w"> </span><span class="c1">-- 去重 
+</span></code></pre></td></tr></table>
+</div>
+</div><h3 id="数据库的列表达式">数据库的列（表达式）</h3>
+<ul>
+<li>数据库中的表达式： 文本、列、null、函数、计算表达式、系统变量</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="k">SELECT</span><span class="w"> </span><span class="k">VERSION</span><span class="p">()</span><span class="w"> </span><span class="c1">-- 查看系统版本-函数
+</span><span class="c1"></span><span class="k">SELECT</span><span class="w"> </span><span class="mi">100</span><span class="o">*</span><span class="mi">3</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="err">计算结果</span><span class="w"> </span><span class="c1">-- 计算-表达式
+</span><span class="c1"></span><span class="k">select</span><span class="w"> </span><span class="o">@@</span><span class="n">auto_increment_increment</span><span class="w"> </span><span class="c1">-- 查询自增步长-变量
+</span><span class="c1"></span><span class="w">
+</span><span class="w"></span><span class="c1">-- 查询学员考试成绩加1
+</span><span class="c1"></span><span class="k">SELECT</span><span class="w"> </span><span class="o">`</span><span class="n">StudentNo</span><span class="o">`</span><span class="p">,</span><span class="w"> </span><span class="o">`</span><span class="n">StudentResult</span><span class="o">`</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="k">result</span><span class="w">
+</span><span class="w"></span><span class="k">SELECT</span><span class="w"> </span><span class="o">`</span><span class="n">StudentNo</span><span class="o">`</span><span class="p">,</span><span class="w"> </span><span class="o">`</span><span class="n">StudentResult</span><span class="o">`</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="err">提分后</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="k">result</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><h3 id="where-条件子句">where 条件子句</h3>
+<ul>
+<li>检索数据中<strong>符合条件</strong>的值</li>
+<li>搜索的条件有一个或者多个表达式组成！结果 布尔值</li>
+</ul>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images_sql/pic6.png"
+        data-srcset="/images_sql/pic6.png, /images_sql/pic6.png 1.5x, /images_sql/pic6.png 2x"
+        data-sizes="auto"
+        alt="/images_sql/pic6.png"
+        title="/images_sql/pic6.png" /></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="c1">-- ========= where =========
+</span><span class="c1"></span><span class="k">SELECT</span><span class="w"> </span><span class="o">`</span><span class="n">StudentNo</span><span class="o">`</span><span class="p">,</span><span class="w"> </span><span class="o">`</span><span class="n">StudentResult</span><span class="o">`</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="o">`</span><span class="k">result</span><span class="o">`</span><span class="w">
+</span><span class="w"></span><span class="c1">-- 查询考试成绩 95 - 100 之间
+</span><span class="c1"></span><span class="k">SELECT</span><span class="w"> </span><span class="o">`</span><span class="n">StudentNo</span><span class="o">`</span><span class="p">,</span><span class="w"> </span><span class="o">`</span><span class="n">StudentResult</span><span class="o">`</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="o">`</span><span class="k">result</span><span class="o">`</span><span class="w"> 
+</span><span class="w"></span><span class="k">WHERE</span><span class="w"> </span><span class="o">`</span><span class="n">studentresult</span><span class="o">`</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="mi">95</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="o">`</span><span class="n">studentresult</span><span class="o">`</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="mi">100</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="c1">-- 模糊查询（区间） BETWEEN
+</span><span class="c1"></span><span class="k">SELECT</span><span class="w"> </span><span class="o">`</span><span class="n">StudentNo</span><span class="o">`</span><span class="p">,</span><span class="w"> </span><span class="o">`</span><span class="n">StudentResult</span><span class="o">`</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="o">`</span><span class="k">result</span><span class="o">`</span><span class="w"> 
+</span><span class="w"></span><span class="k">WHERE</span><span class="w"> </span><span class="o">`</span><span class="n">studentresult</span><span class="o">`</span><span class="w"> </span><span class="k">BETWEEN</span><span class="w"> </span><span class="mi">95</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="mi">100</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="c1">-- 除了9999号学生之外的同学的成绩
+</span><span class="c1"></span><span class="k">SELECT</span><span class="w"> </span><span class="o">`</span><span class="n">StudentNo</span><span class="o">`</span><span class="p">,</span><span class="w"> </span><span class="o">`</span><span class="n">StudentResult</span><span class="o">`</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="o">`</span><span class="k">result</span><span class="o">`</span><span class="w"> 
+</span><span class="w"></span><span class="k">where</span><span class="w"> </span><span class="o">`</span><span class="n">StudentNo</span><span class="o">`</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mi">9999</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><h3 id="模糊查询比较运算符">模糊查询：比较运算符</h3>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images_sql/pic7.png"
+        data-srcset="/images_sql/pic7.png, /images_sql/pic7.png 1.5x, /images_sql/pic7.png 2x"
+        data-sizes="auto"
+        alt="/images_sql/pic7.png"
+        title="/images_sql/pic7.png" /></p>
+<h4 id="like">like</h4>
+<ul>
+<li>通配符只能在like 里用</li>
+<li>通配符 <code>%</code> 代表任意个字符</li>
+<li>通配符 <code>_</code> 代表一个字符</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="c1">-- ====== 模糊查询 LIKE =======
+</span><span class="c1"></span><span class="k">SELECT</span><span class="w"> </span><span class="o">`</span><span class="n">StudentNo</span><span class="o">`</span><span class="p">,</span><span class="w"> </span><span class="o">`</span><span class="n">studentname</span><span class="o">`</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="o">`</span><span class="n">student</span><span class="o">`</span><span class="w"> 
+</span><span class="w"></span><span class="k">WHERE</span><span class="w"> </span><span class="o">`</span><span class="n">studentname</span><span class="o">`</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">&#39;刘%&#39;</span><span class="p">;</span><span class="w"> </span><span class="c1">-- 刘 开头
+</span><span class="c1"></span><span class="w">
+</span><span class="w"></span><span class="k">SELECT</span><span class="w"> </span><span class="o">`</span><span class="n">StudentNo</span><span class="o">`</span><span class="p">,</span><span class="w"> </span><span class="o">`</span><span class="n">studentname</span><span class="o">`</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="o">`</span><span class="n">student</span><span class="o">`</span><span class="w"> 
+</span><span class="w"></span><span class="k">WHERE</span><span class="w"> </span><span class="o">`</span><span class="n">studentname</span><span class="o">`</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">&#39;刘_&#39;</span><span class="p">;</span><span class="w"> </span><span class="c1">-- 刘 后面只有一个字
+</span><span class="c1"></span><span class="w">
+</span><span class="w"></span><span class="k">SELECT</span><span class="w"> </span><span class="o">`</span><span class="n">StudentNo</span><span class="o">`</span><span class="p">,</span><span class="w"> </span><span class="o">`</span><span class="n">studentname</span><span class="o">`</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="o">`</span><span class="n">student</span><span class="o">`</span><span class="w"> 
+</span><span class="w"></span><span class="k">WHERE</span><span class="w"> </span><span class="o">`</span><span class="n">studentname</span><span class="o">`</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">&#39;刘__&#39;</span><span class="p">;</span><span class="w"> </span><span class="c1">-- 刘 后面两个字
+</span><span class="c1"></span><span class="w">
+</span><span class="w"></span><span class="k">SELECT</span><span class="w"> </span><span class="o">`</span><span class="n">StudentNo</span><span class="o">`</span><span class="p">,</span><span class="w"> </span><span class="o">`</span><span class="n">studentname</span><span class="o">`</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="o">`</span><span class="n">student</span><span class="o">`</span><span class="w"> 
+</span><span class="w"></span><span class="k">WHERE</span><span class="w"> </span><span class="o">`</span><span class="n">studentname</span><span class="o">`</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">&#39;%佳%&#39;</span><span class="p">;</span><span class="w"> </span><span class="c1">-- 名字中间带有佳的，考虑4字名字
+</span></code></pre></td></tr></table>
+</div>
+</div><h4 id="in">in</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="c1">-- ======== in ========
+</span><span class="c1">-- 查询1001，1002，1003 号学员的信息
+</span><span class="c1"></span><span class="k">SELECT</span><span class="w"> </span><span class="o">`</span><span class="n">StudentNo</span><span class="o">`</span><span class="p">,</span><span class="w"> </span><span class="o">`</span><span class="n">studentname</span><span class="o">`</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="o">`</span><span class="n">student</span><span class="o">`</span><span class="w"> 
+</span><span class="w"></span><span class="k">WHERE</span><span class="w"> </span><span class="o">`</span><span class="n">StudentNo</span><span class="o">`</span><span class="w"> </span><span class="k">IN</span><span class="w"> </span><span class="p">(</span><span class="mi">1001</span><span class="p">,</span><span class="mi">1002</span><span class="p">,</span><span class="mi">1003</span><span class="p">);</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="c1">-- 查询在北京的学生
+</span><span class="c1"></span><span class="k">SELECT</span><span class="w"> </span><span class="o">`</span><span class="n">StudentNo</span><span class="o">`</span><span class="p">,</span><span class="w"> </span><span class="o">`</span><span class="n">studentname</span><span class="o">`</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="o">`</span><span class="n">student</span><span class="o">`</span><span class="w"> 
+</span><span class="w"></span><span class="k">where</span><span class="w"> </span><span class="o">`</span><span class="n">address</span><span class="o">`</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="p">(</span><span class="s1">&#39;安徽&#39;</span><span class="p">,</span><span class="s1">&#39;河南洛阳&#39;</span><span class="p">);</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><h4 id="null--not-null">null / not null</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="c1">-- ======== NULL / NOT NULL =========
+</span><span class="c1">-- 查询地址为空的学生
+</span><span class="c1"></span><span class="k">SELECT</span><span class="w"> </span><span class="o">`</span><span class="n">StudentNo</span><span class="o">`</span><span class="p">,</span><span class="w"> </span><span class="o">`</span><span class="n">studentname</span><span class="o">`</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="o">`</span><span class="n">student</span><span class="o">`</span><span class="w"> 
+</span><span class="w"></span><span class="k">where</span><span class="w"> </span><span class="o">`</span><span class="n">address</span><span class="o">`</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;&#39;</span><span class="w"> </span><span class="k">OR</span><span class="w"> </span><span class="o">`</span><span class="n">address</span><span class="o">`</span><span class="w"> </span><span class="k">IS</span><span class="w"> </span><span class="k">NULL</span><span class="w"> 
+</span><span class="w">
+</span><span class="w"></span><span class="c1">-- 查询有出生日期的同学 不为空
+</span><span class="c1"></span><span class="k">SELECT</span><span class="w"> </span><span class="o">`</span><span class="n">StudentNo</span><span class="o">`</span><span class="p">,</span><span class="w"> </span><span class="o">`</span><span class="n">studentname</span><span class="o">`</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="o">`</span><span class="n">student</span><span class="o">`</span><span class="w"> 
+</span><span class="w"></span><span class="k">WHERE</span><span class="w"> </span><span class="o">`</span><span class="n">borndate</span><span class="o">`</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">;</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>注意<strong>字符串为空和null</strong>是不同的</li>
+</ul>
+<h3 id="联表查询">联表查询</h3>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images_sql/pic8.png"
+        data-srcset="/images_sql/pic8.png, /images_sql/pic8.png 1.5x, /images_sql/pic8.png 2x"
+        data-sizes="auto"
+        alt="/images_sql/pic8.png"
+        title="/images_sql/pic8.png" /><br>
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images_sql/pic9.png"
+        data-srcset="/images_sql/pic9.png, /images_sql/pic9.png 1.5x, /images_sql/pic9.png 2x"
+        data-sizes="auto"
+        alt="/images_sql/pic9.png"
+        title="/images_sql/pic9.png" /></p>
+<ul>
+<li>leftJoin</li>
+<li>rightJoin</li>
+<li>innerJoin</li>
+<li>分析查询字段来自哪些表</li>
+<li>确定使用那种查询</li>
+</ul>
+<h4 id="代码实战">代码实战</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-SQL" data-lang="SQL"><span class="c1">-- =========== 联表查询 join ==========
+</span><span class="c1">-- 查询学号参加了考试的同学（学号，姓名，科目编号，分数）
+</span><span class="c1"></span><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">student</span><span class="w">
+</span><span class="w"></span><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="k">result</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="cm">/*
+</span><span class="cm">1 分析查询字段来自哪些表
+</span><span class="cm">2 确定使用那种查询
+</span><span class="cm">3 确定交叉点（这两个表中，那个数据是相同的）
+</span><span class="cm">判断的条件 ： 学生表中的 studentNo = 成绩表 studentNo
+</span><span class="cm">*/</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="c1">-- inner join 
+</span><span class="c1"></span><span class="k">SELECT</span><span class="w"> </span><span class="n">s</span><span class="p">.</span><span class="n">studentNo</span><span class="p">,</span><span class="w"> </span><span class="n">studentName</span><span class="p">,</span><span class="w"> </span><span class="n">SubjectNo</span><span class="p">,</span><span class="w"> </span><span class="n">StudentResult</span><span class="w">
+</span><span class="w"></span><span class="k">FROM</span><span class="w"> </span><span class="n">student</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">s</span><span class="w"> 
+</span><span class="w"></span><span class="k">INNER</span><span class="w"> </span><span class="k">join</span><span class="w"> </span><span class="k">result</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">r</span><span class="w">
+</span><span class="w"></span><span class="k">WHERE</span><span class="w"> </span><span class="n">s</span><span class="p">.</span><span class="n">studentno</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">r</span><span class="p">.</span><span class="n">studentno</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="c1">-- right join
+</span><span class="c1"></span><span class="k">SELECT</span><span class="w"> </span><span class="n">s</span><span class="p">.</span><span class="n">studentNo</span><span class="p">,</span><span class="w"> </span><span class="n">studentName</span><span class="p">,</span><span class="w"> </span><span class="n">SubjectNo</span><span class="p">,</span><span class="w"> </span><span class="n">StudentResult</span><span class="w">
+</span><span class="w"></span><span class="k">FROM</span><span class="w"> </span><span class="n">student</span><span class="w"> </span><span class="n">s</span><span class="w"> 
+</span><span class="w"></span><span class="k">RIGHT</span><span class="w"> </span><span class="k">JOIN</span><span class="w"> </span><span class="k">result</span><span class="w"> </span><span class="n">r</span><span class="w">
+</span><span class="w"></span><span class="k">ON</span><span class="w"> </span><span class="n">s</span><span class="p">.</span><span class="n">studentno</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">r</span><span class="p">.</span><span class="n">studentno</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="c1">-- left join
+</span><span class="c1"></span><span class="k">SELECT</span><span class="w"> </span><span class="n">s</span><span class="p">.</span><span class="n">studentNo</span><span class="p">,</span><span class="w"> </span><span class="n">studentName</span><span class="p">,</span><span class="w"> </span><span class="n">SubjectNo</span><span class="p">,</span><span class="w"> </span><span class="n">StudentResult</span><span class="w">
+</span><span class="w"></span><span class="k">FROM</span><span class="w"> </span><span class="n">student</span><span class="w"> </span><span class="n">s</span><span class="w"> 
+</span><span class="w"></span><span class="k">LEFT</span><span class="w"> </span><span class="k">JOIN</span><span class="w"> </span><span class="k">result</span><span class="w"> </span><span class="n">r</span><span class="w">
+</span><span class="w"></span><span class="k">ON</span><span class="w"> </span><span class="n">s</span><span class="p">.</span><span class="n">studentno</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">r</span><span class="p">.</span><span class="n">studentno</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="c1">-- 查询了参加考试的同学信息：学号，姓名，科目名，分数(三表查询)
+</span><span class="c1"></span><span class="k">SELECT</span><span class="w"> </span><span class="n">s</span><span class="p">.</span><span class="n">studentno</span><span class="p">,</span><span class="w"> </span><span class="n">studentname</span><span class="p">,</span><span class="w"> </span><span class="n">subjectname</span><span class="p">,</span><span class="w"> </span><span class="n">studentresult</span><span class="w">
+</span><span class="w"></span><span class="k">FROM</span><span class="w"> </span><span class="n">student</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">s</span><span class="w">
+</span><span class="w"></span><span class="k">RIGHT</span><span class="w"> </span><span class="k">JOIN</span><span class="w"> </span><span class="k">result</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">r</span><span class="w">
+</span><span class="w"></span><span class="k">ON</span><span class="w"> </span><span class="n">r</span><span class="p">.</span><span class="n">studentno</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">s</span><span class="p">.</span><span class="n">studentno</span><span class="w">
+</span><span class="w"></span><span class="k">INNER</span><span class="w"> </span><span class="k">JOIN</span><span class="w"> </span><span class="o">`</span><span class="n">subject</span><span class="o">`</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">sub</span><span class="w">
+</span><span class="w"></span><span class="k">ON</span><span class="w"> </span><span class="n">r</span><span class="p">.</span><span class="n">subjectno</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">sub</span><span class="p">.</span><span class="n">subjectno</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div></div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2022-06-15</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/mysql_learning4/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://swaggerwei.github.io/mysql_learning4/" data-title="MySQL学习4" data-via="xxxx" data-hashtags="SQL,mysql,navicat"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://swaggerwei.github.io/mysql_learning4/" data-hashtag="SQL"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 WhatsApp" data-sharer="whatsapp" data-url="https://swaggerwei.github.io/mysql_learning4/" data-title="MySQL学习4" data-web><i class="fab fa-whatsapp fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://swaggerwei.github.io/mysql_learning4/" data-title="MySQL学习4"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://swaggerwei.github.io/mysql_learning4/" data-title="MySQL学习4"><i class="fab fa-weibo fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Myspace" data-sharer="myspace" data-url="https://swaggerwei.github.io/mysql_learning4/" data-title="MySQL学习4" data-description=""><i data-svg-src="/lib/simple-icons/icons/myspace.min.svg"></i></a><a href="javascript:void(0);" title="分享到 Blogger" data-sharer="blogger" data-url="https://swaggerwei.github.io/mysql_learning4/" data-title="MySQL学习4" data-description=""><i class="fab fa-blogger fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Evernote" data-sharer="evernote" data-url="https://swaggerwei.github.io/mysql_learning4/" data-title="MySQL学习4"><i class="fab fa-evernote fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/sql/">SQL</a>,&nbsp;<a href="/tags/mysql/">mysql</a>,&nbsp;<a href="/tags/navicat/">navicat</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/leetcode_recite3/" class="prev" rel="prev" title="Leetcode全速通3"><i class="fas fa-angle-left fa-fw"></i>Leetcode全速通3</a></div>
+</div>
+<div id="comments"></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.90.1">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2019 - 2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">Boyan Wei</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/lightgallery/lightgallery.min.css"><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lightgallery.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-thumbnail.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-zoom.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript" src="/lib/cookieconsent/cookieconsent.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{},"cookieconsent":{"content":{"dismiss":"同意","link":"了解更多","message":"本网站使用 Cookies 来改善您的浏览体验."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"lightGallery":{"actualSize":false,"exThumbImage":"data-thumbnail","hideBarsDelay":2000,"selector":".lightgallery","speed":400,"thumbContHeight":80,"thumbWidth":80,"thumbnail":true},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

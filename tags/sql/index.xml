@@ -3,7 +3,14 @@
         <title>SQL - 标签 - Boyan Wei</title>
         <link>https://swaggerwei.github.io/tags/sql/</link>
         <description>SQL - 标签 - Boyan Wei</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Thu, 09 Jun 2022 13:30:33 &#43;0800</lastBuildDate><atom:link href="https://swaggerwei.github.io/tags/sql/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Wed, 15 Jun 2022 19:50:15 &#43;0800</lastBuildDate><atom:link href="https://swaggerwei.github.io/tags/sql/" rel="self" type="application/rss+xml" /><item>
+    <title>MySQL学习4</title>
+    <link>https://swaggerwei.github.io/mysql_learning4/</link>
+    <pubDate>Wed, 15 Jun 2022 19:50:15 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://swaggerwei.github.io/mysql_learning4/</guid>
+    <description><![CDATA[DQL 查询数据（最重点） 数据库查询语言（Data Query Language：数据查询语言） 所有的查询语言都用：select 简单查询，复杂查询都可以做 数据]]></description>
+</item><item>
     <title>MySQL学习3</title>
     <link>https://swaggerwei.github.io/mysql_learning3/</link>
     <pubDate>Thu, 09 Jun 2022 13:30:33 &#43;0800</pubDate>

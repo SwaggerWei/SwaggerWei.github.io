@@ -76,6 +76,7 @@ ALTER TABLE `student` ADD CONSTRAINT `FK_gradeid` FOREIGN KEY(gradeid) REFERENCE
 * 阿里规范：不得使用外键和级联，一切外键概念必须在应用层解决
 
 ## DML语言 （全部记住）
+* Database manage language：数据库管理语言
 * 数据库的意义：数据存储，数据管理
 
 ### DML语言

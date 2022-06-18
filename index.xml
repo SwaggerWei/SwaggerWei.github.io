@@ -3,9 +3,16 @@
         <title>Boyan Wei</title>
         <link>https://swaggerwei.github.io/</link>
         <description>这是我的全新 Hugo 网站</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Sun, 12 Jun 2022 12:26:35 &#43;0800</lastBuildDate>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Wed, 15 Jun 2022 19:50:15 &#43;0800</lastBuildDate>
             <atom:link href="https://swaggerwei.github.io/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>MySQL学习4</title>
+    <link>https://swaggerwei.github.io/mysql_learning4/</link>
+    <pubDate>Wed, 15 Jun 2022 19:50:15 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://swaggerwei.github.io/mysql_learning4/</guid>
+    <description><![CDATA[DQL 查询数据（最重点） 数据库查询语言（Data Query Language：数据查询语言） 所有的查询语言都用：select 简单查询，复杂查询都可以做 数据]]></description>
+</item><item>
     <title>Leetcode全速通3</title>
     <link>https://swaggerwei.github.io/leetcode_recite3/</link>
     <pubDate>Sun, 12 Jun 2022 12:26:35 &#43;0800</pubDate>
@@ -68,12 +75,5 @@
     <author>作者</author>
     <guid>https://swaggerwei.github.io/java_net2/</guid>
     <description><![CDATA[TCP 实现文件上传 客户端 创建一个Socket连接 创建一个输出流，用于发送TCP连接中的数据 创建一个文件输入流fis，用于读取文件 通过文件输入流f]]></description>
-</item><item>
-    <title>贪吃蛇开发</title>
-    <link>https://swaggerwei.github.io/develop_gamesnake/</link>
-    <pubDate>Thu, 12 May 2022 18:01:17 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>https://swaggerwei.github.io/develop_gamesnake/</guid>
-    <description><![CDATA[游戏名：贪吃蛇 github 地址：https://github.com/SwaggerWei/SnakeGame 资源导入 步骤 单独定一个资源类，所有的数据]]></description>
 </item></channel>
 </rss>
