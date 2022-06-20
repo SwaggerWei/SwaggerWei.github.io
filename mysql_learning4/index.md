@@ -32,8 +32,6 @@ SELECT CONCAT('姓名：', `StudentName`) AS 新名字 FROM `student`
 
 
 
-
-
 ### 去重 distinct
 * 去除select 查询结果中重复的数据，只显示一条
 ```sql
@@ -185,5 +183,87 @@ ON r.subjectno = sub.subjectno
 
 
 
+
+
+
+### 自连接
+* 自己的表和自己的表连接，**核心：一张表拆为两张一样的表即可**
+
+```sql
+-- 自连接 查询父子信息(把一张表看成两张一摸一样的表)
+SELECT a.`categoryname` as '父栏目', b.`categoryname` as '子栏目' 
+FROM `category` as a, `category` as b 
+WHERE a.categoryid = b.pid
+```
+
+### 分页和排序
+#### 排序：升序 ASC 降序 DESC
+```SQL
+-- 排序：升序 ASC 降序 DESC
+SELECT s.`studentno`, `studentname`, `subjectname`, studentresult
+FROM student s
+INNER JOIN `result` r
+on s.studentno = r.studentno
+INNER JOIN `subject` sub
+on r.subjectno = sub.subjectno
+WHERE subjectname = '数据库结构-1'
+order by studentresult DESC
+```
+
+#### 分页
+* 缓解数据库压力
+* 给人的体验更好，一次只显示一页
+* 也有不分页的（拉不到底）----瀑布流
+-- 分页：每页只显示五条数据  
+-- 语法：limit 当前页，页面的大小  
+-- LIMIT 0,5 第一页  
+-- LIMIT 5,5 第一页  
+-- LIMIT 10,5 第一页  
+-- （n-1）*pageSize，pageSize  
+
+```SQL
+-- 分页：每页只显示五条数据
+-- 语法：limit 当前页，页面的大小
+-- LIMIT 0,5 第一页
+-- LIMIT 5,5 第一页
+-- LIMIT 10,5 第一页
+-- （n-1）*pageSize，pageSize
+SELECT s.`studentno`, `studentname`, `subjectname`, studentresult
+FROM student s
+INNER JOIN `result` r
+on s.studentno = r.studentno
+INNER JOIN `subject` sub
+on r.subjectno = sub.subjectno
+WHERE subjectname = '数据库结构-1'
+order by studentresult DESC
+LIMIT 0,5
+
+
+-- ========= 子查询和嵌套插叙 ==========
+-- 查询 JAVA第一学年 课程成绩排名前十的学生， 并且分数要大于80的学生信息（学号，姓名，课程名称，分数）
+SELECT s.studentno, studentname, subjectname, studentresult
+FROM student s
+INNER JOIN result r
+ON s.studentno = r.studentno
+INNER JOIN `subject` sub
+on sub.subjectno = r.subjectno
+WHERE subjectname = 'JAVA第一学年' AND studentresult >= 80
+ORDER BY studentresult DESC
+LIMIT 0,10
+```
+
+
+
+
+
+
+
+
+
+
+### 子查询
+* where （这个值是计算出来的）
+* 本质：在where 语句中嵌套一个子查询语句
+* where (select * from s)
 
 

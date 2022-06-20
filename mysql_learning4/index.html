@@ -29,7 +29,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/swaggerwei.github.io\/mysql_learning4\/"
-        },"genre": "posts","keywords": "SQL, mysql, navicat","wordcount":  1483 ,
+        },"genre": "posts","keywords": "SQL, mysql, navicat","wordcount":  2725 ,
         "url": "https:\/\/swaggerwei.github.io\/mysql_learning4\/","datePublished": "2022-06-15T19:50:15+08:00","dateModified": "2022-06-15T19:50:15+08:00","publisher": {
             "@type": "Organization",
             "name": ""},"author": {
@@ -106,8 +106,8 @@
             <div class="toc-content always-active" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animated flipInX">MySQL学习4</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>Boyan Wei</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/mysql%E5%AD%A6%E4%B9%A0/"><i class="far fa-folder fa-fw"></i>MySQL学习</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-06-15">2022-06-15</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 1483 字&nbsp;
-                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 3 分钟&nbsp;</div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-06-15">2022-06-15</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 2725 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 6 分钟&nbsp;</div>
         </div><div class="details toc" id="toc-static"  kept="">
                 <div class="details-summary toc-title">
                     <span>目录</span>
@@ -133,6 +133,14 @@
             <li><a href="#代码实战">代码实战</a></li>
           </ul>
         </li>
+        <li><a href="#自连接">自连接</a></li>
+        <li><a href="#分页和排序">分页和排序</a>
+          <ul>
+            <li><a href="#排序升序-asc-降序-desc">排序：升序 ASC 降序 DESC</a></li>
+            <li><a href="#分页">分页</a></li>
+          </ul>
+        </li>
+        <li><a href="#子查询">子查询</a></li>
       </ul>
     </li>
   </ul>
@@ -472,7 +480,131 @@
 </span><span class="w"></span><span class="k">ON</span><span class="w"> </span><span class="n">r</span><span class="p">.</span><span class="n">subjectno</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">sub</span><span class="p">.</span><span class="n">subjectno</span><span class="w">
 </span></code></pre></td></tr></table>
 </div>
-</div></div><div class="post-footer" id="post-footer">
+</div><h3 id="自连接">自连接</h3>
+<ul>
+<li>自己的表和自己的表连接，<strong>核心：一张表拆为两张一样的表即可</strong></li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="c1">-- 自连接 查询父子信息(把一张表看成两张一摸一样的表)
+</span><span class="c1"></span><span class="k">SELECT</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="o">`</span><span class="n">categoryname</span><span class="o">`</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="s1">&#39;父栏目&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">.</span><span class="o">`</span><span class="n">categoryname</span><span class="o">`</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="s1">&#39;子栏目&#39;</span><span class="w"> 
+</span><span class="w"></span><span class="k">FROM</span><span class="w"> </span><span class="o">`</span><span class="n">category</span><span class="o">`</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="o">`</span><span class="n">category</span><span class="o">`</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">b</span><span class="w"> 
+</span><span class="w"></span><span class="k">WHERE</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">categoryid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">b</span><span class="p">.</span><span class="n">pid</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><h3 id="分页和排序">分页和排序</h3>
+<h4 id="排序升序-asc-降序-desc">排序：升序 ASC 降序 DESC</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-SQL" data-lang="SQL"><span class="c1">-- 排序：升序 ASC 降序 DESC
+</span><span class="c1"></span><span class="k">SELECT</span><span class="w"> </span><span class="n">s</span><span class="p">.</span><span class="o">`</span><span class="n">studentno</span><span class="o">`</span><span class="p">,</span><span class="w"> </span><span class="o">`</span><span class="n">studentname</span><span class="o">`</span><span class="p">,</span><span class="w"> </span><span class="o">`</span><span class="n">subjectname</span><span class="o">`</span><span class="p">,</span><span class="w"> </span><span class="n">studentresult</span><span class="w">
+</span><span class="w"></span><span class="k">FROM</span><span class="w"> </span><span class="n">student</span><span class="w"> </span><span class="n">s</span><span class="w">
+</span><span class="w"></span><span class="k">INNER</span><span class="w"> </span><span class="k">JOIN</span><span class="w"> </span><span class="o">`</span><span class="k">result</span><span class="o">`</span><span class="w"> </span><span class="n">r</span><span class="w">
+</span><span class="w"></span><span class="k">on</span><span class="w"> </span><span class="n">s</span><span class="p">.</span><span class="n">studentno</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">r</span><span class="p">.</span><span class="n">studentno</span><span class="w">
+</span><span class="w"></span><span class="k">INNER</span><span class="w"> </span><span class="k">JOIN</span><span class="w"> </span><span class="o">`</span><span class="n">subject</span><span class="o">`</span><span class="w"> </span><span class="n">sub</span><span class="w">
+</span><span class="w"></span><span class="k">on</span><span class="w"> </span><span class="n">r</span><span class="p">.</span><span class="n">subjectno</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">sub</span><span class="p">.</span><span class="n">subjectno</span><span class="w">
+</span><span class="w"></span><span class="k">WHERE</span><span class="w"> </span><span class="n">subjectname</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;数据库结构-1&#39;</span><span class="w">
+</span><span class="w"></span><span class="k">order</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">studentresult</span><span class="w"> </span><span class="k">DESC</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><h4 id="分页">分页</h4>
+<ul>
+<li>缓解数据库压力</li>
+<li>给人的体验更好，一次只显示一页</li>
+<li>也有不分页的（拉不到底）&mdash;-瀑布流
+&ndash; 分页：每页只显示五条数据<br>
+&ndash; 语法：limit 当前页，页面的大小<br>
+&ndash; LIMIT 0,5 第一页<br>
+&ndash; LIMIT 5,5 第一页<br>
+&ndash; LIMIT 10,5 第一页<br>
+&ndash; （n-1）*pageSize，pageSize</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-SQL" data-lang="SQL"><span class="c1">-- 分页：每页只显示五条数据
+</span><span class="c1">-- 语法：limit 当前页，页面的大小
+</span><span class="c1">-- LIMIT 0,5 第一页
+</span><span class="c1">-- LIMIT 5,5 第一页
+</span><span class="c1">-- LIMIT 10,5 第一页
+</span><span class="c1">-- （n-1）*pageSize，pageSize
+</span><span class="c1"></span><span class="k">SELECT</span><span class="w"> </span><span class="n">s</span><span class="p">.</span><span class="o">`</span><span class="n">studentno</span><span class="o">`</span><span class="p">,</span><span class="w"> </span><span class="o">`</span><span class="n">studentname</span><span class="o">`</span><span class="p">,</span><span class="w"> </span><span class="o">`</span><span class="n">subjectname</span><span class="o">`</span><span class="p">,</span><span class="w"> </span><span class="n">studentresult</span><span class="w">
+</span><span class="w"></span><span class="k">FROM</span><span class="w"> </span><span class="n">student</span><span class="w"> </span><span class="n">s</span><span class="w">
+</span><span class="w"></span><span class="k">INNER</span><span class="w"> </span><span class="k">JOIN</span><span class="w"> </span><span class="o">`</span><span class="k">result</span><span class="o">`</span><span class="w"> </span><span class="n">r</span><span class="w">
+</span><span class="w"></span><span class="k">on</span><span class="w"> </span><span class="n">s</span><span class="p">.</span><span class="n">studentno</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">r</span><span class="p">.</span><span class="n">studentno</span><span class="w">
+</span><span class="w"></span><span class="k">INNER</span><span class="w"> </span><span class="k">JOIN</span><span class="w"> </span><span class="o">`</span><span class="n">subject</span><span class="o">`</span><span class="w"> </span><span class="n">sub</span><span class="w">
+</span><span class="w"></span><span class="k">on</span><span class="w"> </span><span class="n">r</span><span class="p">.</span><span class="n">subjectno</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">sub</span><span class="p">.</span><span class="n">subjectno</span><span class="w">
+</span><span class="w"></span><span class="k">WHERE</span><span class="w"> </span><span class="n">subjectname</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;数据库结构-1&#39;</span><span class="w">
+</span><span class="w"></span><span class="k">order</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">studentresult</span><span class="w"> </span><span class="k">DESC</span><span class="w">
+</span><span class="w"></span><span class="k">LIMIT</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="mi">5</span><span class="w">
+</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="c1">-- ========= 子查询和嵌套插叙 ==========
+</span><span class="c1">-- 查询 JAVA第一学年 课程成绩排名前十的学生， 并且分数要大于80的学生信息（学号，姓名，课程名称，分数）
+</span><span class="c1"></span><span class="k">SELECT</span><span class="w"> </span><span class="n">s</span><span class="p">.</span><span class="n">studentno</span><span class="p">,</span><span class="w"> </span><span class="n">studentname</span><span class="p">,</span><span class="w"> </span><span class="n">subjectname</span><span class="p">,</span><span class="w"> </span><span class="n">studentresult</span><span class="w">
+</span><span class="w"></span><span class="k">FROM</span><span class="w"> </span><span class="n">student</span><span class="w"> </span><span class="n">s</span><span class="w">
+</span><span class="w"></span><span class="k">INNER</span><span class="w"> </span><span class="k">JOIN</span><span class="w"> </span><span class="k">result</span><span class="w"> </span><span class="n">r</span><span class="w">
+</span><span class="w"></span><span class="k">ON</span><span class="w"> </span><span class="n">s</span><span class="p">.</span><span class="n">studentno</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">r</span><span class="p">.</span><span class="n">studentno</span><span class="w">
+</span><span class="w"></span><span class="k">INNER</span><span class="w"> </span><span class="k">JOIN</span><span class="w"> </span><span class="o">`</span><span class="n">subject</span><span class="o">`</span><span class="w"> </span><span class="n">sub</span><span class="w">
+</span><span class="w"></span><span class="k">on</span><span class="w"> </span><span class="n">sub</span><span class="p">.</span><span class="n">subjectno</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">r</span><span class="p">.</span><span class="n">subjectno</span><span class="w">
+</span><span class="w"></span><span class="k">WHERE</span><span class="w"> </span><span class="n">subjectname</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;JAVA第一学年&#39;</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="n">studentresult</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="mi">80</span><span class="w">
+</span><span class="w"></span><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">studentresult</span><span class="w"> </span><span class="k">DESC</span><span class="w">
+</span><span class="w"></span><span class="k">LIMIT</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="mi">10</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><h3 id="子查询">子查询</h3>
+<ul>
+<li>where （这个值是计算出来的）</li>
+<li>本质：在where 语句中嵌套一个子查询语句</li>
+<li>where (select * from s)</li>
+</ul>
+</div><div class="post-footer" id="post-footer">
     <div class="post-info">
         <div class="post-info-line">
             <div class="post-info-mod">
