@@ -2,6 +2,8 @@
 
 
 ## DQL 查询数据（最重点）
+![](/images_sql/pic10.png)
+* 以上所有的顺序不能颠倒
 * 数据库查询语言（Data Query Language：数据查询语言）
 * 所有的查询语言都用：select
 * 简单查询，复杂查询都可以做
@@ -265,5 +267,225 @@ LIMIT 0,10
 * where （这个值是计算出来的）
 * 本质：在where 语句中嵌套一个子查询语句
 * where (select * from s)
+
+```SQL
+-- 查询 数据库结构-1 课程所有的考试结果（学号，科目编号，成绩），降序排列
+-- 方式一：使用连接查询
+SELECT studentno, r.subjectno, studentresult
+FROM result r
+INNER JOIN `subject` sub
+ON r.subjectno = sub.subjectno
+WHERE subjectname = '数据库结构-1'
+ORDER BY studentresult DESC
+
+-- 方式二：使用子查询(先执行里面，后执行外面)
+SELECT studentno, subjectno, studentresult
+FROM result
+WHERE subjectno = (
+-- 查询所有 数据库结构-1 的学生的学号
+	SELECT subjectno FROM `subject` 
+	WHERE subjectname = '数据库结构-1'
+)
+```
+
+
+
+### MySQL函数
+#### 常用函数
+* ![](/images_sql/pic11.png)
+* ![](/images_sql/pic12.png)
+* ![](/images_sql/pic13.png)
+* ![](/images_sql/pic14.png)
+
+
+
+
+### 聚合函数
+* ![](/images_sql/pic15.png)
+
+```SQL
+-- ========= 聚合函数 ============
+-- 都能够统计表中的数据，查询有多少条记录
+SELECT COUNT(studentname) FROM student; -- count (指定列)，会忽略所有的null值
+SELECT COUNT(*) FROM student; -- count (*)，不会忽略所有的null值，本质计算行数，
+SELECT COUNT(1) FROM student; -- count (1)，不会忽略所有的null值
+
+-- 提取总数，平均数，最大值，最小值
+SELECT SUM(studentresult) as 总和 FROM result
+SELECT AVG(studentresult) as 平均分 FROM result
+SELECT MAX(studentresult) as 最高分 FROM result
+SELECT MIN(studentresult) as 最低分 FROM result
+
+-- 查询不同课程的平均分，最高分，最低分，平均分大于80的
+-- 核心：根据不同的课程进行分组
+SELECT subjectName, AVG(StudentResult) as 平均分, MAX(StudentResult) as 最高分, MIN(StudentResult) as 最低分
+FROM result r
+INNER JOIN `subject` sub
+on r.subjectNo = sub.subjectNo
+GROUP BY r.subjectno -- 通过 学科编号来分组
+HAVING 平均分 >= 80
+
+```
+
+
+## 数据库级别的 MD5码加密
+* MD5 主要强调算法的复杂度和不可逆性
+
+```SQl
+-- ========= 聚合函数 ============
+-- 都能够统计表中的数据，查询有多少条记录
+SELECT COUNT(studentname) FROM student; -- count (指定列)，会忽略所有的null值
+SELECT COUNT(*) FROM student; -- count (*)，不会忽略所有的null值，本质计算行数，
+SELECT COUNT(1) FROM student; -- count (1)，不会忽略所有的null值
+
+-- 提取总数，平均数，最大值，最小值
+SELECT SUM(studentresult) as 总和 FROM result
+SELECT AVG(studentresult) as 平均分 FROM result
+SELECT MAX(studentresult) as 最高分 FROM result
+SELECT MIN(studentresult) as 最低分 FROM result
+
+-- 查询不同课程的平均分，最高分，最低分，平均分大于80的
+-- 核心：根据不同的课程进行分组
+SELECT subjectName, AVG(StudentResult) as 平均分, MAX(StudentResult) as 最高分, MIN(StudentResult) as 最低分
+FROM result r
+INNER JOIN `subject` sub
+on r.subjectNo = sub.subjectNo
+GROUP BY r.subjectno -- 通过 学科编号来分组
+HAVING 平均分 >= 80
+
+
+
+-- ========== 测试MD5码加密效果 ===========
+CREATE TABLE test_MD5(
+	`id` int(4) not NULL,
+	`name` VARCHAR(20) not null,
+	`pwd` VARCHAR(50) not null,
+	PRIMARY KEY(`id`)
+)ENGINE = INNODB DEFAULT CHARSET=utf8
+
+
+-- 明文密码 
+INSERT into test_MD5 VALUES(1, 'zhangsan', '123456'), (2, 'lisi', '123456'), (3, 'wangwu', '123456')
+
+-- 加密
+UPDATE test_MD5 set pwd = MD5(pwd) 
+WHERE id = 1
+
+-- 插入的时候加密
+INSERT into test_MD5 VALUES(4, 'zhangsan', MD5('123456'))
+INSERT into test_MD5 VALUES(5, 'swagger', MD5('123456'))
+
+-- 如何校验：将用户传递进来的密码，进行MD5加密，然后比对加密后值，因为是不可逆，所以没有解密
+SELECT * FROM test_MD5 WHERE `name` = 'swagger' AND pwd = MD5('123456')
+
+
+
+```
+
+
+
+
+
+
+## 事务的处理过程
+* 关闭事务自动提交
+* 开启一个事务
+* 执行成功则提交，然后开启事务自动提交；执行失败则回滚到出事状态
+
+```SQL
+-- == 手动处理事务 ==
+SET autocommit = 0 -- 关闭
+-- 事务开启
+START TRANSACTION -- 标记一个事务的开始，从这个之后的SQL都在同一个事物内
+
+INSERT xx
+INSERT xx
+
+-- 提交：持久化 （成功）
+COMMIT
+
+-- 回滚：回到原来的状态 (失败)
+ROLLBACK
+
+-- 事务的结束
+SET autocommit = 1 -- 开启
+
+-- 设置一个事务的保存点（了解）
+SAVEPOINT 保存点名
+ROLLBACK to SAVEPOINT 保存点名 -- 回滚到保存点
+RELEASE SAVEPOINT 保存点名 -- 撤销保存点
+```
+
+### 模拟场景
+* 测试事务实现转账
+
+```SQL
+-- ==== 测试事务实现转账 ======
+
+-- 转账
+CREATE DATABASE shop CHARACTER set utf8 COLLATE utf8_general_ci
+
+use shop
+
+CREATE TABLE `account`(
+	`id` INT(3) NOT NULL auto_increment,
+	`name` VARCHAR(30) not null,
+	`money` DECIMAL(9, 2) not NULL,
+	PRIMARY KEY (`id`)
+)ENGINE=INNODB DEFAULT CHARSET=utf8
+
+
+INSERT into account(`name`, `money`)
+VALUES ('A', 2000.00), ('B', 10000.00)
+
+
+
+-- ==== 模拟转账（事务操作） ====
+set autocommit = 0; -- 关闭自动提交 
+START TRANSACTION -- 开启一个事务 (一组事务)
+update account SET money = money - 500 WHERE `name` = 'A'; -- A减500
+update account SET money = money + 500 WHERE `name` = 'B'; -- B加500
+
+COMMIT;  -- 提交事务，事务一旦提交，就会持久化, 无法再回滚
+ROLLBACK; -- 回滚
+
+set autocommit = 1; -- 恢复自动提交（默认值）
+
+
+```
+
+## 索引
+帮助MySQL 高效获取数据的数据结构，相当于一本书的目录  
+* 主键索引（primary key）：唯一的标识，逐渐不可重复，**只能有一个**列作为主键
+* 唯一索引（unique key）：避免重复的列出现，唯一索引可以重复，**多个列都可以标识为唯一索引**
+* 常规索引（normal key）：默认的，可以用key关键字来设置
+* 全文索引（fullText）：在特定的数据库下才有，MyISAM，用于快速定位数据
+
+### 基础语法
+```SQL
+-- ======= 索引的使用 ========
+-- 1. 在创建表的时候给字段增加索引
+-- 2. 创建完毕之后，增加索引
+
+-- 显示所有的索引信息
+SHOW INDEX FROM student
+
+-- 增加一个全文索引
+ALTER TABLE school.student ADD FULLTEXT INDEX `studentname`(`studentname`);
+
+-- EXPLAIN 分析SQL执行情况
+EXPLAIN SELECT * FROM student; -- 非全文索引
+
+EXPLAIN SELECT * FROM student WHERE MATCH(studentname) against('刘') -- 发现通过一次索引就找到了数据，
+
+```
+
+
+
+
+
+
+### 测试索引
+
 
 
