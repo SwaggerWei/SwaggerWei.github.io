@@ -482,10 +482,81 @@ EXPLAIN SELECT * FROM student WHERE MATCH(studentname) against('刘') -- 发现�
 
 
 
-
-
-
 ### 测试索引
+* 小数据量用处不大，大数据量的时候十分明显
+```SQL
+-- ====== 测试索引 ====== 
+-- 测试一百万条索引的时间
+CREATE TABLE `app_user`(
+	`id` BIGINT(20) UNSIGNED not null auto_increment,
+	`name` VARCHAR(50) DEFAULT '' comment '用户昵称',
+	`email` VARCHAR(50) not NULL COMMENT '用户邮箱',
+	`phone` VARCHAR(20) DEFAULT '' COMMENT '手机号',
+	`gender` TINYINT(4) UNSIGNED DEFAULT '0' COMMENT '性别（0:男， 1:女）',
+	`password` VARCHAR(100) not NULL COMMENT '密码',
+	`age` TINYINT(4) DEFAULT '0' COMMENT '年龄',
+	`create_time` datetime DEFAULT CURRENT_TIMESTAMP,
+	`update_time` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP on UPDATE CURRENT_TIMESTAMP,
+	PRIMARY KEY (`id`)
+)ENGINE=INNODB DEFAULT charset=utf8mb4 COMMENT='app用户表'
+
+
+-- 写一个函数
+delimiter $$ -- 写函数之前必须要写，标志
+
+CREATE FUNCTION mock_data()
+RETURNS int DETERMINISTIC
+BEGIN 
+	DECLARE num int DEFAULT 1000000;
+	DECLARE i int DEFAULT 0;
+	
+	WHILE i < num DO
+		-- 插入语句
+		INSERT into app_user(`name`, `email`, `phone`, `gender`, `password`, `age`)
+		VALUES(
+			CONCAT('用户',i),
+			'123141142@qq.com',
+			CONCAT('18', FLOOR(RAND()*((9999999999 - 100000000) + 100000000))),
+			FLOOR(RAND()*2),
+			UUID(),
+			FLOOR(RAND()*100)
+		);
+		set i = i + 1;
+	END WHILE;
+	RETURN i;
+END;
+
+SELECT mock_data();
+
+SELECT * FROM app_user WHERE `name` = '用户90130';  -- 发现使用了0.3秒多
+ 
+EXPLAIN SELECT * FROM app_user WHERE `name` = '用户90130';
+
+-- 常规命名方式 id_表名_字段名
+-- 方式三 使用create index 。。。 on 。。。添加索引
+CREATE INDEX id_app_user_name on app_user(`name`);
+
+SELECT * FROM app_user WHERE `name` = '用户90130';  -- 创建索引之后，查询非常快，直接定位了数据的位置
+ 
+EXPLAIN SELECT * FROM app_user WHERE `name` = '用户90130'; -- 查询的行数为1
+```
+
+
+
+
+
+
+
+
+### 索引原则
+* 索引不是越多越好
+* 不要对进行变动数据加索引
+* 小数据量的表不需要索引
+* 索引一般加在用来查询的字段上
+
+### 索引的数据结构
+* hash类型的索引
+* B-树：InnoDB默认数据结构
 
 
 
