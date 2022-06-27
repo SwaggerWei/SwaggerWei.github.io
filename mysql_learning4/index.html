@@ -29,7 +29,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/swaggerwei.github.io\/mysql_learning4\/"
-        },"genre": "posts","keywords": "SQL, mysql, navicat","wordcount":  6428 ,
+        },"genre": "posts","keywords": "SQL, mysql, navicat","wordcount":  7676 ,
         "url": "https:\/\/swaggerwei.github.io\/mysql_learning4\/","datePublished": "2022-06-15T19:50:15+08:00","dateModified": "2022-06-15T19:50:15+08:00","publisher": {
             "@type": "Organization",
             "name": ""},"author": {
@@ -106,8 +106,8 @@
             <div class="toc-content always-active" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animated flipInX">MySQL学习4</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>Boyan Wei</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/mysql%E5%AD%A6%E4%B9%A0/"><i class="far fa-folder fa-fw"></i>MySQL学习</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-06-15">2022-06-15</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 6428 字&nbsp;
-                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 13 分钟&nbsp;</div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-06-15">2022-06-15</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 7676 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 16 分钟&nbsp;</div>
         </div><div class="details toc" id="toc-static"  kept="">
                 <div class="details-summary toc-title">
                     <span>目录</span>
@@ -161,6 +161,30 @@
         <li><a href="#测试索引">测试索引</a></li>
         <li><a href="#索引原则">索引原则</a></li>
         <li><a href="#索引的数据结构">索引的数据结构</a></li>
+      </ul>
+    </li>
+    <li><a href="#规范的数据库设计">规范的数据库设计</a>
+      <ul>
+        <li><a href="#糟糕的数据库设计">糟糕的数据库设计</a></li>
+        <li><a href="#良好的数据库设计">良好的数据库设计</a></li>
+        <li><a href="#软件开发过程中关于数据库的设计">软件开发过程中，关于数据库的设计</a></li>
+        <li><a href="#设计数据库的步骤个人博客为例">设计数据库的步骤（个人博客为例）</a>
+          <ul>
+            <li><a href="#收集信息分析需求">收集信息，分析需求</a></li>
+            <li><a href="#概要设计e-r图">概要设计，E-R图</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#jdbc">JDBC</a>
+      <ul>
+        <li><a href="#数据库驱动">数据库驱动</a></li>
+        <li><a href="#jdbc-1">JDBC</a></li>
+        <li><a href="#第一个jdbc-程序">第一个JDBC 程序</a>
+          <ul>
+            <li><a href="#代码实战-1">代码实战</a></li>
+          </ul>
+        </li>
       </ul>
     </li>
   </ul>
@@ -1177,7 +1201,226 @@
 <li>hash类型的索引</li>
 <li>B-树：InnoDB默认数据结构</li>
 </ul>
-</div><div class="post-footer" id="post-footer">
+<h2 id="规范的数据库设计">规范的数据库设计</h2>
+<h3 id="糟糕的数据库设计">糟糕的数据库设计</h3>
+<ul>
+<li>数据冗余，浪费空间</li>
+<li>数据库插入和删除都会麻烦，异常（屏蔽使用物理外键）</li>
+<li>程序性能差</li>
+</ul>
+<h3 id="良好的数据库设计">良好的数据库设计</h3>
+<ul>
+<li>节省内存空间</li>
+<li>保证数据库的完整性</li>
+<li>方便我们开发系统</li>
+</ul>
+<h3 id="软件开发过程中关于数据库的设计">软件开发过程中，关于数据库的设计</h3>
+<ul>
+<li>分析需求：分析业务和需要处理的数据库需求</li>
+<li>概要设计：设计关系图 E-R 图</li>
+</ul>
+<h3 id="设计数据库的步骤个人博客为例">设计数据库的步骤（个人博客为例）</h3>
+<h4 id="收集信息分析需求">收集信息，分析需求</h4>
+<ul>
+<li>用户表</li>
+<li>分类表</li>
+<li>文章表</li>
+<li>评论表</li>
+<li>友情链接表</li>
+<li>自定义表</li>
+<li>说说表</li>
+</ul>
+<h4 id="概要设计e-r图">概要设计，E-R图</h4>
+<ul>
+<li>标识实体，将需求落地到每个字段</li>
+<li>标识实体之间的关系</li>
+</ul>
+<h2 id="jdbc">JDBC</h2>
+<h3 id="数据库驱动">数据库驱动</h3>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images_sql/pic17.png"
+        data-srcset="/images_sql/pic17.png, /images_sql/pic17.png 1.5x, /images_sql/pic17.png 2x"
+        data-sizes="auto"
+        alt="/images_sql/pic17.png"
+        title="/images_sql/pic17.png" /></p>
+<ul>
+<li>程序会通过数据库驱动和数据库进行操作</li>
+</ul>
+<h3 id="jdbc-1">JDBC</h3>
+<ul>
+<li>SUN公司简化开发人员对于数据库的统一操作，提供了一个Java操作规范，俗称JDBC，这些规范由具体的厂商去做</li>
+<li>对于开发人员，只需要掌握JDBC的接口操作即可
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images_sql/pic18.png"
+        data-srcset="/images_sql/pic18.png, /images_sql/pic18.png 1.5x, /images_sql/pic18.png 2x"
+        data-sizes="auto"
+        alt="/images_sql/pic18.png"
+        title="/images_sql/pic18.png" /></li>
+<li>java.sql</li>
+<li>javax.sql</li>
+<li>mysql-connector-java.jar</li>
+<li>还需要导入一个数据库驱动包</li>
+</ul>
+<h3 id="第一个jdbc-程序">第一个JDBC 程序</h3>
+<ul>
+<li>创建测试数据库</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-SQL" data-lang="SQL"><span class="k">CREATE</span><span class="w"> </span><span class="k">DATABASE</span><span class="w"> </span><span class="o">`</span><span class="n">jdbcStudy</span><span class="o">`</span><span class="w"> </span><span class="nb">CHARACTER</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="n">utf8</span><span class="w"> </span><span class="k">COLLATE</span><span class="w"> </span><span class="n">utf8_general_ci</span><span class="p">;</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="n">USE</span><span class="w"> </span><span class="o">`</span><span class="n">jdbcStudy</span><span class="o">`</span><span class="p">;</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="o">`</span><span class="n">users</span><span class="o">`</span><span class="p">(</span><span class="w">
+</span><span class="w"> </span><span class="o">`</span><span class="n">id</span><span class="o">`</span><span class="w"> </span><span class="nb">INT</span><span class="w"> </span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="p">,</span><span class="w">
+</span><span class="w"> </span><span class="o">`</span><span class="n">NAME</span><span class="o">`</span><span class="w"> </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">40</span><span class="p">),</span><span class="w">
+</span><span class="w"> </span><span class="o">`</span><span class="n">PASSWORD</span><span class="o">`</span><span class="w"> </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">40</span><span class="p">),</span><span class="w">
+</span><span class="w"> </span><span class="o">`</span><span class="n">email</span><span class="o">`</span><span class="w"> </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">60</span><span class="p">),</span><span class="w">
+</span><span class="w"> </span><span class="n">birthday</span><span class="w"> </span><span class="nb">DATE</span><span class="w">
+</span><span class="w"></span><span class="p">);</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="o">`</span><span class="n">users</span><span class="o">`</span><span class="p">(</span><span class="o">`</span><span class="n">id</span><span class="o">`</span><span class="p">,</span><span class="o">`</span><span class="n">NAME</span><span class="o">`</span><span class="p">,</span><span class="o">`</span><span class="n">PASSWORD</span><span class="o">`</span><span class="p">,</span><span class="o">`</span><span class="n">email</span><span class="o">`</span><span class="p">,</span><span class="o">`</span><span class="n">birthday</span><span class="o">`</span><span class="p">)</span><span class="w">
+</span><span class="w"></span><span class="k">VALUES</span><span class="p">(</span><span class="s1">&#39;1&#39;</span><span class="p">,</span><span class="s1">&#39;zhangsan&#39;</span><span class="p">,</span><span class="s1">&#39;123456&#39;</span><span class="p">,</span><span class="s1">&#39;zs@sina.com&#39;</span><span class="p">,</span><span class="s1">&#39;1980-12-04&#39;</span><span class="p">),</span><span class="w">
+</span><span class="w"></span><span class="p">(</span><span class="s1">&#39;2&#39;</span><span class="p">,</span><span class="s1">&#39;lisi&#39;</span><span class="p">,</span><span class="s1">&#39;123456&#39;</span><span class="p">,</span><span class="s1">&#39;lisi@sina.com&#39;</span><span class="p">,</span><span class="s1">&#39;1981-12-04&#39;</span><span class="p">),</span><span class="w">
+</span><span class="w"></span><span class="p">(</span><span class="s1">&#39;3&#39;</span><span class="p">,</span><span class="s1">&#39;wangwu&#39;</span><span class="p">,</span><span class="s1">&#39;123456&#39;</span><span class="p">,</span><span class="s1">&#39;wangwu@sina.com&#39;</span><span class="p">,</span><span class="s1">&#39;1979-12-04&#39;</span><span class="p">)</span><span class="err">；</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>导入数据库驱动
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images_sql/pic19.png"
+        data-srcset="/images_sql/pic19.png, /images_sql/pic19.png 1.5x, /images_sql/pic19.png 2x"
+        data-sizes="auto"
+        alt="/images_sql/pic19.png"
+        title="/images_sql/pic19.png" /></li>
+<li>编写测试代码</li>
+</ul>
+<h4 id="代码实战-1">代码实战</h4>
+<ul>
+<li>加载驱动</li>
+<li>用户信息和URL</li>
+<li>连接成功， 数据库对象，代表数据库拿到数据库对象</li>
+<li>执行SQL对象</li>
+<li>执行SQL对象，去执行SQL，可能存在结果，查看返回结果</li>
+<li>释放连接</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-Java" data-lang="Java"><span class="kn">package</span> <span class="nn">com.swagger.lesson01</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">java.sql.*</span><span class="o">;</span>
+
+<span class="c1">// 第一个JDBC程序
+</span><span class="c1"></span><span class="kd">public</span> <span class="kd">class</span> <span class="nc">JdbcFirstDemo</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">ClassNotFoundException</span><span class="o">,</span> <span class="n">SQLException</span> <span class="o">{</span>
+        <span class="c1">// 1 加载驱动
+</span><span class="c1"></span>        <span class="n">Class</span><span class="o">.</span><span class="na">forName</span><span class="o">(</span><span class="s">&#34;com.mysql.jdbc.Driver&#34;</span><span class="o">);</span> <span class="c1">// 固定写法，
+</span><span class="c1"></span>
+        <span class="c1">// 2 用户信息和URL
+</span><span class="c1"></span>        <span class="n">String</span> <span class="n">url</span> <span class="o">=</span> <span class="s">&#34;jdbc:mysql://localhost:3306/jdbcstudy?useUnicode=true&amp;characterEncoding=utf8&amp;useSSL=true&#34;</span><span class="o">;</span>
+        <span class="n">String</span> <span class="n">username</span> <span class="o">=</span> <span class="s">&#34;root&#34;</span><span class="o">;</span>
+        <span class="n">String</span> <span class="n">password</span> <span class="o">=</span> <span class="s">&#34;Wby785403310&#34;</span><span class="o">;</span>
+
+        <span class="c1">// 3 连接成功， 数据库对象，代表数据库拿到数据库对象
+</span><span class="c1"></span>        <span class="n">Connection</span> <span class="n">connection</span> <span class="o">=</span> <span class="n">DriverManager</span><span class="o">.</span><span class="na">getConnection</span><span class="o">(</span><span class="n">url</span><span class="o">,</span> <span class="n">username</span><span class="o">,</span> <span class="n">password</span><span class="o">);</span>
+
+        <span class="c1">// 4 执行SQL对象
+</span><span class="c1"></span>        <span class="n">Statement</span> <span class="n">statement</span> <span class="o">=</span> <span class="n">connection</span><span class="o">.</span><span class="na">createStatement</span><span class="o">();</span>
+
+        <span class="c1">// 5 执行SQL对象，去执行SQL，可能存在结果，查看返回结果
+</span><span class="c1"></span>        <span class="n">String</span> <span class="n">sql</span> <span class="o">=</span> <span class="s">&#34;SELECT * FROM users;&#34;</span><span class="o">;</span>
+        <span class="n">ResultSet</span> <span class="n">resultSet</span> <span class="o">=</span> <span class="n">statement</span><span class="o">.</span><span class="na">executeQuery</span><span class="o">(</span><span class="n">sql</span><span class="o">);</span> <span class="c1">// 执行之后返回的结果集,结果集中封装了全部的查询结果
+</span><span class="c1"></span>
+        <span class="k">while</span> <span class="o">(</span><span class="n">resultSet</span><span class="o">.</span><span class="na">next</span><span class="o">()){</span>
+            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;id = &#34;</span> <span class="o">+</span> <span class="n">resultSet</span><span class="o">.</span><span class="na">getObject</span><span class="o">(</span><span class="s">&#34;id&#34;</span><span class="o">));</span>
+            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;name = &#34;</span> <span class="o">+</span> <span class="n">resultSet</span><span class="o">.</span><span class="na">getObject</span><span class="o">(</span><span class="s">&#34;NAME&#34;</span><span class="o">));</span>
+            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;pwd = &#34;</span> <span class="o">+</span> <span class="n">resultSet</span><span class="o">.</span><span class="na">getObject</span><span class="o">(</span><span class="s">&#34;PASSWORD&#34;</span><span class="o">));</span>
+            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;email = &#34;</span> <span class="o">+</span> <span class="n">resultSet</span><span class="o">.</span><span class="na">getObject</span><span class="o">(</span><span class="s">&#34;email&#34;</span><span class="o">));</span>
+            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;birth = &#34;</span> <span class="o">+</span> <span class="n">resultSet</span><span class="o">.</span><span class="na">getObject</span><span class="o">(</span><span class="s">&#34;birthday&#34;</span><span class="o">));</span>
+            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;======================&#34;</span><span class="o">);</span>
+        <span class="o">}</span>
+
+        <span class="c1">// 6 释放连接
+</span><span class="c1"></span>        <span class="n">resultSet</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+        <span class="n">statement</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+        <span class="n">connection</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+
+
+    <span class="o">}</span>
+<span class="o">}</span>
+
+</code></pre></td></tr></table>
+</div>
+</div></div><div class="post-footer" id="post-footer">
     <div class="post-info">
         <div class="post-info-line">
             <div class="post-info-mod">

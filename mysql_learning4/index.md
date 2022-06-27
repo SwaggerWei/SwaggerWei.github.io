@@ -560,3 +560,134 @@ EXPLAIN SELECT * FROM app_user WHERE `name` = '用户90130'; -- 查询的行数�
 
 
 
+
+## 规范的数据库设计
+### 糟糕的数据库设计
+* 数据冗余，浪费空间
+* 数据库插入和删除都会麻烦，异常（屏蔽使用物理外键）
+* 程序性能差
+
+### 良好的数据库设计
+* 节省内存空间
+* 保证数据库的完整性
+* 方便我们开发系统
+
+### 软件开发过程中，关于数据库的设计
+* 分析需求：分析业务和需要处理的数据库需求
+* 概要设计：设计关系图 E-R 图
+
+### 设计数据库的步骤（个人博客为例）
+#### 收集信息，分析需求
+* 用户表
+* 分类表
+* 文章表
+* 评论表
+* 友情链接表
+* 自定义表
+* 说说表
+
+#### 概要设计，E-R图
+* 标识实体，将需求落地到每个字段
+* 标识实体之间的关系
+
+
+
+
+
+
+
+## JDBC 
+### 数据库驱动
+![](/images_sql/pic17.png)
+* 程序会通过数据库驱动和数据库进行操作
+
+### JDBC
+* SUN公司简化开发人员对于数据库的统一操作，提供了一个Java操作规范，俗称JDBC，这些规范由具体的厂商去做
+* 对于开发人员，只需要掌握JDBC的接口操作即可
+![](/images_sql/pic18.png)
+* java.sql
+* javax.sql
+* mysql-connector-java.jar
+* 还需要导入一个数据库驱动包
+
+### 第一个JDBC 程序
+* 创建测试数据库
+```SQL
+CREATE DATABASE `jdbcStudy` CHARACTER SET utf8 COLLATE utf8_general_ci;
+
+USE `jdbcStudy`;
+
+CREATE TABLE `users`(
+ `id` INT PRIMARY KEY,
+ `NAME` VARCHAR(40),
+ `PASSWORD` VARCHAR(40),
+ `email` VARCHAR(60),
+ birthday DATE
+);
+
+INSERT INTO `users`(`id`,`NAME`,`PASSWORD`,`email`,`birthday`)
+VALUES('1','zhangsan','123456','zs@sina.com','1980-12-04'),
+('2','lisi','123456','lisi@sina.com','1981-12-04'),
+('3','wangwu','123456','wangwu@sina.com','1979-12-04')；
+```
+* 导入数据库驱动 
+![](/images_sql/pic19.png)
+* 编写测试代码
+
+
+#### 代码实战
+* 加载驱动
+* 用户信息和URL
+* 连接成功， 数据库对象，代表数据库拿到数据库对象
+* 执行SQL对象
+* 执行SQL对象，去执行SQL，可能存在结果，查看返回结果
+* 释放连接
+
+```Java
+package com.swagger.lesson01;
+
+import java.sql.*;
+
+// 第一个JDBC程序
+public class JdbcFirstDemo {
+    public static void main(String[] args) throws ClassNotFoundException, SQLException {
+        // 1 加载驱动
+        Class.forName("com.mysql.jdbc.Driver"); // 固定写法，
+
+        // 2 用户信息和URL
+        String url = "jdbc:mysql://localhost:3306/jdbcstudy?useUnicode=true&characterEncoding=utf8&useSSL=true";
+        String username = "root";
+        String password = "Wby785403310";
+
+        // 3 连接成功， 数据库对象，代表数据库拿到数据库对象
+        Connection connection = DriverManager.getConnection(url, username, password);
+
+        // 4 执行SQL对象
+        Statement statement = connection.createStatement();
+
+        // 5 执行SQL对象，去执行SQL，可能存在结果，查看返回结果
+        String sql = "SELECT * FROM users;";
+        ResultSet resultSet = statement.executeQuery(sql); // 执行之后返回的结果集,结果集中封装了全部的查询结果
+
+        while (resultSet.next()){
+            System.out.println("id = " + resultSet.getObject("id"));
+            System.out.println("name = " + resultSet.getObject("NAME"));
+            System.out.println("pwd = " + resultSet.getObject("PASSWORD"));
+            System.out.println("email = " + resultSet.getObject("email"));
+            System.out.println("birth = " + resultSet.getObject("birthday"));
+            System.out.println("======================");
+        }
+
+        // 6 释放连接
+        resultSet.close();
+        statement.close();
+        connection.close();
+
+
+    }
+}
+
+```
+
+
+
