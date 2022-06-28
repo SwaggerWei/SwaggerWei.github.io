@@ -3,7 +3,14 @@
         <title>SQL - 标签 - Boyan Wei</title>
         <link>https://swaggerwei.github.io/tags/sql/</link>
         <description>SQL - 标签 - Boyan Wei</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Wed, 15 Jun 2022 19:50:15 &#43;0800</lastBuildDate><atom:link href="https://swaggerwei.github.io/tags/sql/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Tue, 28 Jun 2022 16:43:31 &#43;0800</lastBuildDate><atom:link href="https://swaggerwei.github.io/tags/sql/" rel="self" type="application/rss+xml" /><item>
+    <title>MySQL学习5</title>
+    <link>https://swaggerwei.github.io/mysql_learning5/</link>
+    <pubDate>Tue, 28 Jun 2022 16:43:31 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://swaggerwei.github.io/mysql_learning5/</guid>
+    <description><![CDATA[JDBC 中对象的解释 DriverManager 1 2 3 4 5 6 7 8 9 10 // 1 加载驱动 // DriverManager.registerDriver(new com.mysql.jdbc.Driver()); Class.forName(&#34;com.mysql.jdbc.Driver&#34;); // 固定写法，加载驱动 Connection connection = DriverManager.getConnection(url, username, password); // connection是代表数据库 // 数据库设置自动提]]></description>
+</item><item>
     <title>MySQL学习4</title>
     <link>https://swaggerwei.github.io/mysql_learning4/</link>
     <pubDate>Wed, 15 Jun 2022 19:50:15 &#43;0800</pubDate>

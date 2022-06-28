@@ -3,9 +3,16 @@
         <title>Boyan Wei</title>
         <link>https://swaggerwei.github.io/</link>
         <description>这是我的全新 Hugo 网站</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Wed, 15 Jun 2022 19:50:15 &#43;0800</lastBuildDate>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Tue, 28 Jun 2022 16:43:31 &#43;0800</lastBuildDate>
             <atom:link href="https://swaggerwei.github.io/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>MySQL学习5</title>
+    <link>https://swaggerwei.github.io/mysql_learning5/</link>
+    <pubDate>Tue, 28 Jun 2022 16:43:31 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://swaggerwei.github.io/mysql_learning5/</guid>
+    <description><![CDATA[JDBC 中对象的解释 DriverManager 1 2 3 4 5 6 7 8 9 10 // 1 加载驱动 // DriverManager.registerDriver(new com.mysql.jdbc.Driver()); Class.forName(&#34;com.mysql.jdbc.Driver&#34;); // 固定写法，加载驱动 Connection connection = DriverManager.getConnection(url, username, password); // connection是代表数据库 // 数据库设置自动提]]></description>
+</item><item>
     <title>MySQL学习4</title>
     <link>https://swaggerwei.github.io/mysql_learning4/</link>
     <pubDate>Wed, 15 Jun 2022 19:50:15 &#43;0800</pubDate>
@@ -68,12 +75,5 @@
     <author>作者</author>
     <guid>https://swaggerwei.github.io/java_annotation/</guid>
     <description><![CDATA[注解 Annotation 如图所示，以@开头的修饰符 注释为comment，注意区分开，以 //开头 什么是注解 JDK5.0引入的新技术 Annotation的作用：不]]></description>
-</item><item>
-    <title>Java网络编程学习2</title>
-    <link>https://swaggerwei.github.io/java_net2/</link>
-    <pubDate>Fri, 13 May 2022 17:24:38 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>https://swaggerwei.github.io/java_net2/</guid>
-    <description><![CDATA[TCP 实现文件上传 客户端 创建一个Socket连接 创建一个输出流，用于发送TCP连接中的数据 创建一个文件输入流fis，用于读取文件 通过文件输入流f]]></description>
 </item></channel>
 </rss>
