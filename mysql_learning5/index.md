@@ -358,6 +358,209 @@ public class QuestionOfSQLDrilling {
 
 ## PreparedStatement 对象
 * 避免了SQL注入问题
+* 效率更高
+
+### 增
+```Java
+package com.swagger.lesson03;
+
+import com.swagger.lesson02.utils.JdbcUtils;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.util.Date;
+
+public class TestInsert {
+    public static void main(String[] args) {
+
+        Connection connection = null;
+        PreparedStatement pst = null;
+
+        try {
+            connection = JdbcUtils.getConnection();
+
+            // 区别
+            // 使用 ? 占位符替代参数
+            String sql = "INSERT into users(`id`, `NAME`, `PASSWORD`, `email`, `birthday`)" +
+                    "VALUES(?, ?, ?, ?, ?);";
+
+            // 预编译SQL
+            pst = connection.prepareStatement(sql);
+
+            // 手动为参数赋值
+            pst.setInt(1, 6);
+            pst.setString(2 ,"Sinyi");
+            pst.setString(3, "467879");
+            pst.setString(4, "21431421@qq.com");
+            // 注意点：sql.Date 数据库
+            //        util.Date Java new Date().getTime() 获得时间戳
+            pst.setDate(5, new java.sql.Date(new Date().getTime()));
+
+            // 执行
+            int i = pst.executeUpdate();
+            if (i > 0){
+                System.out.println("插入成功");
+            }
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            JdbcUtils.releaseResource(connection, pst, null);
+        }
+    }
+}
+
+```
+
+### 删
+```Java
+package com.swagger.lesson03;
+
+import com.swagger.lesson02.utils.JdbcUtils;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.util.Date;
+
+public class TestDelete {
+
+    public static void main(String[] args) {
+
+        Connection connection = null;
+        PreparedStatement pst = null;
+
+        try {
+            connection = JdbcUtils.getConnection();
+
+            // 区别
+            // 使用 ? 占位符替代参数
+            String sql = "DELETE from users where id = ?";
+
+            // 预编译SQL
+            pst = connection.prepareStatement(sql);
+
+            // 手动为参数赋值
+            pst.setInt(1, 3);
+
+            // 执行
+            int i = pst.executeUpdate();
+            if (i > 0){
+                System.out.println("删除成功");
+            }
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            JdbcUtils.releaseResource(connection, pst, null);
+        }
+
+    }
+
+
+}
+
+```
+### 改
+```Java
+package com.swagger.lesson03;
+
+import com.swagger.lesson02.utils.JdbcUtils;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+
+public class TestUpdate {
+
+    public static void main(String[] args) {
+        Connection connection = null;
+        PreparedStatement pst = null;
+
+        try {
+            connection = JdbcUtils.getConnection();
+
+            // 区别
+            // 使用 ? 占位符替代参数
+            String sql = "UPDATE users SET `NAME` = ? WHERE id = ?;";
+
+            // 预编译SQL
+            pst = connection.prepareStatement(sql);
+
+            // 手动为参数赋值
+            pst.setString(1, "swagger1");
+            pst.setInt(2, 1);
+
+            // 执行
+            int i = pst.executeUpdate();
+            if (i > 0){
+                System.out.println("更新成功");
+            }
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            JdbcUtils.releaseResource(connection, pst, null);
+        }
+    }
+}
+
+```
+
+
+### 查
+```Java
+package com.swagger.lesson03;
+
+import com.swagger.lesson02.utils.JdbcUtils;
+
+import java.sql.*;
+
+public class QuestionOfSQLDrilling {
+    public static void main(String[] args) {
+        // 正常使用
+        login("lisi", "123456");
+
+        // 非正常使用 SQL非法注入情况
+//        login("'or '1=1", "'or'1=1");
+    }
+
+    public static void login(String username, String password){
+        Connection conn = null;
+        PreparedStatement st = null;
+        ResultSet rs = null;
+
+        try {
+            conn = JdbcUtils.getConnection();
+
+            // SELECT * FROM users WHERE `NAME` = 'lisi' and `PASSWORD` = '123456';
+            // SELECT * FROM users WHERE `NAME` = '' or '1=1' and `PASSWORD` = ''or'1=1'; // 非法注入sql ，导致意思改变
+            // 防止SQL的本质是把传递进来的参数当作字符，假设其中存在转译字符，会被直接转译
+            String sql = "SELECT * FROM `users` WHERE `name1` = ? and `psd` = ?;";
+
+            st = conn.prepareStatement(sql);
+            st.setString(1, username);
+            st.setString(2, password);
+
+            rs = st.executeQuery(sql);
+            while (rs.next()){
+                System.out.println(rs.getString("name1"));
+                System.out.println(rs.getString("psd"));
+                System.out.println("==============");
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }finally {
+            JdbcUtils.releaseResource(conn, st, rs);
+        }
+    }
+}
+
+```
+
+
 
 
 

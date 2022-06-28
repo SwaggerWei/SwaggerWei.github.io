@@ -29,7 +29,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/swaggerwei.github.io\/mysql_learning5\/"
-        },"genre": "posts","keywords": "SQL, mysql, navicat","wordcount":  1622 ,
+        },"genre": "posts","keywords": "SQL, mysql, navicat","wordcount":  2473 ,
         "url": "https:\/\/swaggerwei.github.io\/mysql_learning5\/","datePublished": "2022-06-28T16:43:31+08:00","dateModified": "2022-06-28T16:43:31+08:00","publisher": {
             "@type": "Organization",
             "name": ""},"author": {
@@ -106,8 +106,8 @@
             <div class="toc-content always-active" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animated flipInX">MySQL学习5</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>Boyan Wei</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/mysql%E5%AD%A6%E4%B9%A0/"><i class="far fa-folder fa-fw"></i>MySQL学习</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-06-28">2022-06-28</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 1622 字&nbsp;
-                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 4 分钟&nbsp;</div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-06-28">2022-06-28</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 2473 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 5 分钟&nbsp;</div>
         </div><div class="details toc" id="toc-static"  kept="">
                 <div class="details-summary toc-title">
                     <span>目录</span>
@@ -135,7 +135,14 @@
       </ul>
     </li>
     <li><a href="#sql-注入问题">SQL 注入问题</a></li>
-    <li><a href="#preparedstatement-对象">PreparedStatement 对象</a></li>
+    <li><a href="#preparedstatement-对象">PreparedStatement 对象</a>
+      <ul>
+        <li><a href="#增-1">增</a></li>
+        <li><a href="#删-1">删</a></li>
+        <li><a href="#改-1">改</a></li>
+        <li><a href="#查-1">查</a></li>
+      </ul>
+    </li>
   </ul>
 </nav></div>
             </div><div class="content" id="content"><h2 id="jdbc-中对象的解释">JDBC 中对象的解释</h2>
@@ -828,8 +835,405 @@ password=Wby785403310
 </div><h2 id="preparedstatement-对象">PreparedStatement 对象</h2>
 <ul>
 <li>避免了SQL注入问题</li>
+<li>效率更高</li>
 </ul>
-</div><div class="post-footer" id="post-footer">
+<h3 id="增-1">增</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-Java" data-lang="Java"><span class="kn">package</span> <span class="nn">com.swagger.lesson03</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">com.swagger.lesson02.utils.JdbcUtils</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.sql.Connection</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.sql.PreparedStatement</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.sql.SQLException</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.Date</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">TestInsert</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+
+        <span class="n">Connection</span> <span class="n">connection</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+        <span class="n">PreparedStatement</span> <span class="n">pst</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+
+        <span class="k">try</span> <span class="o">{</span>
+            <span class="n">connection</span> <span class="o">=</span> <span class="n">JdbcUtils</span><span class="o">.</span><span class="na">getConnection</span><span class="o">();</span>
+
+            <span class="c1">// 区别
+</span><span class="c1"></span>            <span class="c1">// 使用 ? 占位符替代参数
+</span><span class="c1"></span>            <span class="n">String</span> <span class="n">sql</span> <span class="o">=</span> <span class="s">&#34;INSERT into users(`id`, `NAME`, `PASSWORD`, `email`, `birthday`)&#34;</span> <span class="o">+</span>
+                    <span class="s">&#34;VALUES(?, ?, ?, ?, ?);&#34;</span><span class="o">;</span>
+
+            <span class="c1">// 预编译SQL
+</span><span class="c1"></span>            <span class="n">pst</span> <span class="o">=</span> <span class="n">connection</span><span class="o">.</span><span class="na">prepareStatement</span><span class="o">(</span><span class="n">sql</span><span class="o">);</span>
+
+            <span class="c1">// 手动为参数赋值
+</span><span class="c1"></span>            <span class="n">pst</span><span class="o">.</span><span class="na">setInt</span><span class="o">(</span><span class="n">1</span><span class="o">,</span> <span class="n">6</span><span class="o">);</span>
+            <span class="n">pst</span><span class="o">.</span><span class="na">setString</span><span class="o">(</span><span class="n">2</span> <span class="o">,</span><span class="s">&#34;Sinyi&#34;</span><span class="o">);</span>
+            <span class="n">pst</span><span class="o">.</span><span class="na">setString</span><span class="o">(</span><span class="n">3</span><span class="o">,</span> <span class="s">&#34;467879&#34;</span><span class="o">);</span>
+            <span class="n">pst</span><span class="o">.</span><span class="na">setString</span><span class="o">(</span><span class="n">4</span><span class="o">,</span> <span class="s">&#34;21431421@qq.com&#34;</span><span class="o">);</span>
+            <span class="c1">// 注意点：sql.Date 数据库
+</span><span class="c1"></span>            <span class="c1">//        util.Date Java new Date().getTime() 获得时间戳
+</span><span class="c1"></span>            <span class="n">pst</span><span class="o">.</span><span class="na">setDate</span><span class="o">(</span><span class="n">5</span><span class="o">,</span> <span class="k">new</span> <span class="n">java</span><span class="o">.</span><span class="na">sql</span><span class="o">.</span><span class="na">Date</span><span class="o">(</span><span class="k">new</span> <span class="n">Date</span><span class="o">().</span><span class="na">getTime</span><span class="o">()));</span>
+
+            <span class="c1">// 执行
+</span><span class="c1"></span>            <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">pst</span><span class="o">.</span><span class="na">executeUpdate</span><span class="o">();</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">i</span> <span class="o">&gt;</span> <span class="n">0</span><span class="o">){</span>
+                <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;插入成功&#34;</span><span class="o">);</span>
+            <span class="o">}</span>
+
+
+        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">Exception</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+        <span class="o">}</span> <span class="k">finally</span> <span class="o">{</span>
+            <span class="n">JdbcUtils</span><span class="o">.</span><span class="na">releaseResource</span><span class="o">(</span><span class="n">connection</span><span class="o">,</span> <span class="n">pst</span><span class="o">,</span> <span class="kc">null</span><span class="o">);</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="删-1">删</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-Java" data-lang="Java"><span class="kn">package</span> <span class="nn">com.swagger.lesson03</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">com.swagger.lesson02.utils.JdbcUtils</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">java.sql.Connection</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.sql.PreparedStatement</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.Date</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">TestDelete</span> <span class="o">{</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+
+        <span class="n">Connection</span> <span class="n">connection</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+        <span class="n">PreparedStatement</span> <span class="n">pst</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+
+        <span class="k">try</span> <span class="o">{</span>
+            <span class="n">connection</span> <span class="o">=</span> <span class="n">JdbcUtils</span><span class="o">.</span><span class="na">getConnection</span><span class="o">();</span>
+
+            <span class="c1">// 区别
+</span><span class="c1"></span>            <span class="c1">// 使用 ? 占位符替代参数
+</span><span class="c1"></span>            <span class="n">String</span> <span class="n">sql</span> <span class="o">=</span> <span class="s">&#34;DELETE from users where id = ?&#34;</span><span class="o">;</span>
+
+            <span class="c1">// 预编译SQL
+</span><span class="c1"></span>            <span class="n">pst</span> <span class="o">=</span> <span class="n">connection</span><span class="o">.</span><span class="na">prepareStatement</span><span class="o">(</span><span class="n">sql</span><span class="o">);</span>
+
+            <span class="c1">// 手动为参数赋值
+</span><span class="c1"></span>            <span class="n">pst</span><span class="o">.</span><span class="na">setInt</span><span class="o">(</span><span class="n">1</span><span class="o">,</span> <span class="n">3</span><span class="o">);</span>
+
+            <span class="c1">// 执行
+</span><span class="c1"></span>            <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">pst</span><span class="o">.</span><span class="na">executeUpdate</span><span class="o">();</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">i</span> <span class="o">&gt;</span> <span class="n">0</span><span class="o">){</span>
+                <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;删除成功&#34;</span><span class="o">);</span>
+            <span class="o">}</span>
+
+
+        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">Exception</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+        <span class="o">}</span> <span class="k">finally</span> <span class="o">{</span>
+            <span class="n">JdbcUtils</span><span class="o">.</span><span class="na">releaseResource</span><span class="o">(</span><span class="n">connection</span><span class="o">,</span> <span class="n">pst</span><span class="o">,</span> <span class="kc">null</span><span class="o">);</span>
+        <span class="o">}</span>
+
+    <span class="o">}</span>
+
+
+<span class="o">}</span>
+
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="改-1">改</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-Java" data-lang="Java"><span class="kn">package</span> <span class="nn">com.swagger.lesson03</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">com.swagger.lesson02.utils.JdbcUtils</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">java.sql.Connection</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.sql.PreparedStatement</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">TestUpdate</span> <span class="o">{</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">Connection</span> <span class="n">connection</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+        <span class="n">PreparedStatement</span> <span class="n">pst</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+
+        <span class="k">try</span> <span class="o">{</span>
+            <span class="n">connection</span> <span class="o">=</span> <span class="n">JdbcUtils</span><span class="o">.</span><span class="na">getConnection</span><span class="o">();</span>
+
+            <span class="c1">// 区别
+</span><span class="c1"></span>            <span class="c1">// 使用 ? 占位符替代参数
+</span><span class="c1"></span>            <span class="n">String</span> <span class="n">sql</span> <span class="o">=</span> <span class="s">&#34;UPDATE users SET `NAME` = ? WHERE id = ?;&#34;</span><span class="o">;</span>
+
+            <span class="c1">// 预编译SQL
+</span><span class="c1"></span>            <span class="n">pst</span> <span class="o">=</span> <span class="n">connection</span><span class="o">.</span><span class="na">prepareStatement</span><span class="o">(</span><span class="n">sql</span><span class="o">);</span>
+
+            <span class="c1">// 手动为参数赋值
+</span><span class="c1"></span>            <span class="n">pst</span><span class="o">.</span><span class="na">setString</span><span class="o">(</span><span class="n">1</span><span class="o">,</span> <span class="s">&#34;swagger1&#34;</span><span class="o">);</span>
+            <span class="n">pst</span><span class="o">.</span><span class="na">setInt</span><span class="o">(</span><span class="n">2</span><span class="o">,</span> <span class="n">1</span><span class="o">);</span>
+
+            <span class="c1">// 执行
+</span><span class="c1"></span>            <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">pst</span><span class="o">.</span><span class="na">executeUpdate</span><span class="o">();</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">i</span> <span class="o">&gt;</span> <span class="n">0</span><span class="o">){</span>
+                <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;更新成功&#34;</span><span class="o">);</span>
+            <span class="o">}</span>
+
+
+        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">Exception</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+        <span class="o">}</span> <span class="k">finally</span> <span class="o">{</span>
+            <span class="n">JdbcUtils</span><span class="o">.</span><span class="na">releaseResource</span><span class="o">(</span><span class="n">connection</span><span class="o">,</span> <span class="n">pst</span><span class="o">,</span> <span class="kc">null</span><span class="o">);</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="查-1">查</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-Java" data-lang="Java"><span class="kn">package</span> <span class="nn">com.swagger.lesson03</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">com.swagger.lesson02.utils.JdbcUtils</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">java.sql.*</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">QuestionOfSQLDrilling</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="c1">// 正常使用
+</span><span class="c1"></span>        <span class="n">login</span><span class="o">(</span><span class="s">&#34;lisi&#34;</span><span class="o">,</span> <span class="s">&#34;123456&#34;</span><span class="o">);</span>
+
+        <span class="c1">// 非正常使用 SQL非法注入情况
+</span><span class="c1">//        login(&#34;&#39;or &#39;1=1&#34;, &#34;&#39;or&#39;1=1&#34;);
+</span><span class="c1"></span>    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">login</span><span class="o">(</span><span class="n">String</span> <span class="n">username</span><span class="o">,</span> <span class="n">String</span> <span class="n">password</span><span class="o">){</span>
+        <span class="n">Connection</span> <span class="n">conn</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+        <span class="n">PreparedStatement</span> <span class="n">st</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+        <span class="n">ResultSet</span> <span class="n">rs</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+
+        <span class="k">try</span> <span class="o">{</span>
+            <span class="n">conn</span> <span class="o">=</span> <span class="n">JdbcUtils</span><span class="o">.</span><span class="na">getConnection</span><span class="o">();</span>
+
+            <span class="c1">// SELECT * FROM users WHERE `NAME` = &#39;lisi&#39; and `PASSWORD` = &#39;123456&#39;;
+</span><span class="c1"></span>            <span class="c1">// SELECT * FROM users WHERE `NAME` = &#39;&#39; or &#39;1=1&#39; and `PASSWORD` = &#39;&#39;or&#39;1=1&#39;; // 非法注入sql ，导致意思改变
+</span><span class="c1"></span>            <span class="c1">// 防止SQL的本质是把传递进来的参数当作字符，假设其中存在转译字符，会被直接转译
+</span><span class="c1"></span>            <span class="n">String</span> <span class="n">sql</span> <span class="o">=</span> <span class="s">&#34;SELECT * FROM `users` WHERE `name1` = ? and `psd` = ?;&#34;</span><span class="o">;</span>
+
+            <span class="n">st</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="na">prepareStatement</span><span class="o">(</span><span class="n">sql</span><span class="o">);</span>
+            <span class="n">st</span><span class="o">.</span><span class="na">setString</span><span class="o">(</span><span class="n">1</span><span class="o">,</span> <span class="n">username</span><span class="o">);</span>
+            <span class="n">st</span><span class="o">.</span><span class="na">setString</span><span class="o">(</span><span class="n">2</span><span class="o">,</span> <span class="n">password</span><span class="o">);</span>
+
+            <span class="n">rs</span> <span class="o">=</span> <span class="n">st</span><span class="o">.</span><span class="na">executeQuery</span><span class="o">(</span><span class="n">sql</span><span class="o">);</span>
+            <span class="k">while</span> <span class="o">(</span><span class="n">rs</span><span class="o">.</span><span class="na">next</span><span class="o">()){</span>
+                <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">rs</span><span class="o">.</span><span class="na">getString</span><span class="o">(</span><span class="s">&#34;name1&#34;</span><span class="o">));</span>
+                <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">rs</span><span class="o">.</span><span class="na">getString</span><span class="o">(</span><span class="s">&#34;psd&#34;</span><span class="o">));</span>
+                <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;==============&#34;</span><span class="o">);</span>
+            <span class="o">}</span>
+
+        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">SQLException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+        <span class="o">}</span><span class="k">finally</span> <span class="o">{</span>
+            <span class="n">JdbcUtils</span><span class="o">.</span><span class="na">releaseResource</span><span class="o">(</span><span class="n">conn</span><span class="o">,</span> <span class="n">st</span><span class="o">,</span> <span class="n">rs</span><span class="o">);</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+</code></pre></td></tr></table>
+</div>
+</div></div><div class="post-footer" id="post-footer">
     <div class="post-info">
         <div class="post-info-line">
             <div class="post-info-mod">
