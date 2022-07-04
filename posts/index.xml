@@ -3,7 +3,14 @@
         <title>所有文章 - Boyan Wei</title>
         <link>https://swaggerwei.github.io/posts/</link>
         <description>所有文章 | Boyan Wei</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Tue, 28 Jun 2022 16:43:31 &#43;0800</lastBuildDate><atom:link href="https://swaggerwei.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Mon, 04 Jul 2022 12:59:07 &#43;0800</lastBuildDate><atom:link href="https://swaggerwei.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+    <title>MyBatis学习1</title>
+    <link>https://swaggerwei.github.io/mybatis_learning1/</link>
+    <pubDate>Mon, 04 Jul 2022 12:59:07 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://swaggerwei.github.io/mybatis_learning1/</guid>
+    <description><![CDATA[什么是 MyBatis MyBatis 是一款优秀的持久层框架 它支持自定义 SQL、存储过程以及高级映射。 MyBatis 免除了几乎所有的 JDBC 代码以及设置参数和获取结果集的工作。 MyBatis 可以通过]]></description>
+</item><item>
     <title>MySQL学习5</title>
     <link>https://swaggerwei.github.io/mysql_learning5/</link>
     <pubDate>Tue, 28 Jun 2022 16:43:31 &#43;0800</pubDate>
@@ -66,12 +73,5 @@
     <author>作者</author>
     <guid>https://swaggerwei.github.io/java_annotation2/</guid>
     <description><![CDATA[获取类的运行时结构 可以获取到的结构 实现的全部接口 所继承的父类 全部的构造器 全部的方法 全部的Field 注解 代码实战 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15]]></description>
-</item><item>
-    <title>Java Annotation注解和反射1</title>
-    <link>https://swaggerwei.github.io/java_annotation/</link>
-    <pubDate>Tue, 31 May 2022 12:18:48 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>https://swaggerwei.github.io/java_annotation/</guid>
-    <description><![CDATA[注解 Annotation 如图所示，以@开头的修饰符 注释为comment，注意区分开，以 //开头 什么是注解 JDK5.0引入的新技术 Annotation的作用：不]]></description>
 </item></channel>
 </rss>

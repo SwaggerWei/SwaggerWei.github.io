@@ -3,7 +3,14 @@
         <title>SQL - 标签 - Boyan Wei</title>
         <link>https://swaggerwei.github.io/tags/sql/</link>
         <description>SQL - 标签 - Boyan Wei</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Tue, 28 Jun 2022 16:43:31 &#43;0800</lastBuildDate><atom:link href="https://swaggerwei.github.io/tags/sql/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Mon, 04 Jul 2022 12:59:07 &#43;0800</lastBuildDate><atom:link href="https://swaggerwei.github.io/tags/sql/" rel="self" type="application/rss+xml" /><item>
+    <title>MyBatis学习1</title>
+    <link>https://swaggerwei.github.io/mybatis_learning1/</link>
+    <pubDate>Mon, 04 Jul 2022 12:59:07 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://swaggerwei.github.io/mybatis_learning1/</guid>
+    <description><![CDATA[什么是 MyBatis MyBatis 是一款优秀的持久层框架 它支持自定义 SQL、存储过程以及高级映射。 MyBatis 免除了几乎所有的 JDBC 代码以及设置参数和获取结果集的工作。 MyBatis 可以通过]]></description>
+</item><item>
     <title>MySQL学习5</title>
     <link>https://swaggerwei.github.io/mysql_learning5/</link>
     <pubDate>Tue, 28 Jun 2022 16:43:31 &#43;0800</pubDate>
