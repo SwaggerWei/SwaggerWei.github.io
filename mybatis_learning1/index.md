@@ -260,7 +260,7 @@ public interface UserDao {
 ```
 
 #### 测试
-**tip1**：org.apache.ibatis.binding.BindingException: Type interface com.swagger.dao.UserDao **is not known to the MapperRegistry.**  需要在Mybatis的核心配置文件中注册mappers
+**tip1**：org.apache.ibatis.binding.BindingException: Type interface com.swagger.dao.UserDao **is not known to the MapperRegistry.**  需要在Mybatis的核心配置文件中注册mappers  
 **tip2**：maven资源过滤问题，maven默认只会读取resources目录下的配置文件，如果想要导入其他目录下的需要在maven的配置文件`pom.xml`中加入相应的代码  
 ```xml
 <!--在build中配置配置resources，来防止我们资源导出失败问题-->
@@ -324,6 +324,8 @@ public class UserDaoTest {
 ```
 
 * 可能出现的问题：配置文件mapper没有注册；绑定接口错误；方法名不对；返回类型不对；Maven导出资源问题
+
+
 
 
 
