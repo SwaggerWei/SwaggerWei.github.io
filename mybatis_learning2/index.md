@@ -50,9 +50,35 @@ password=Wby785403310
 </environment>
 ```
 
+### 类型别名 typeAliases
+* 类型别名是为**Java类型设置一个短的名字**
+* 存在的意义仅在于用来**减少类的完全限定名的冗余**
+
+
+#### 具体方法
+* 方法一：为一个类取一个固定的别名 （实体类比较少的时候可以使用，但是这种方法可以自定义名称）
+```xml
+<typeAliases>
+    <typeAlias type="com.swagger.pojo.User" alias="User"/>
+</typeAliases>
+```
+
+* 方法二：指定一个包名，会搜索改包下的所有java文件 （实体类很多的时候，则用这种方法）
+```xml
+<typeAliases>
+    <package name="com.swagger.pojo"/>
+</typeAliases>
+```
+
+* 或者用注解取别名，实体类上增加注解 `@Alias("user")`
+* **数据类型的默认别名，不区分大小写**
 
 
 
 
+
+
+
+### 设置 settings
 
 
