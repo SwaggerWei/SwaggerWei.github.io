@@ -332,3 +332,193 @@ public class UserDaoTest {
 
 
 
+
+## CRUD
+### UserMapper.xml文件
+* namespace：namespace中的包名要和Dao/Mapper中的接口名称一致
+* select：选择，查询语句
+* id：就是对应namespace中的方法名称
+* resultType：sql语句执行的返回值类型
+* parameterType：参数类型
+
+### 代码实战
+* `UserMapper.java`接口中添加抽象方法，返回类型和参数类型需要注意
+```Java
+package com.swagger.dao;
+
+import com.swagger.pojo.User;
+
+import java.util.List;
+
+// Data Access object
+// 等价于mapper
+public interface UserMapper {
+
+    // 获取全部用户
+    List<User> getUserList();
+
+    // 根据id查询用户
+    User getUserById(int id);
+
+    // insert 一个用户
+    int addUser(User user);
+
+    // update 修改用户
+    int updateUser(User user);
+
+    // delete 删除一个用户
+    int deleteUser(int id);
+}
+
+```
+
+* `UserMapper.xml` 中添加对应的标签和sql语句，返回类型和参数类型需要对应
+```xml
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--namespace=绑定一个对应的Dao/Mapper接口-->
+<mapper namespace="com.swagger.dao.UserMapper">
+    <!-- select 查询语句
+    id 相当于UserDao中提取操作接口的名字-->
+    <select id="getUserList" resultType="com.swagger.pojo.User">
+        select * from mybatis.user
+    </select>
+
+    <!--  根据id查询用户  -->
+    <select id="getUserById" parameterType="int" resultType="com.swagger.pojo.User">
+        select * from mybatis.user where id = #{id}
+    </select>
+
+    <!-- 对象中的属性，可以直接取出来
+    插入一个用户-->
+    <insert id="addUser" parameterType="com.swagger.pojo.User">
+        insert into mybatis.user (id, name, pwd) values (#{id}, #{name}, #{pwd})
+    </insert>
+
+    <!--update 修改用户-->
+    <update id="updateUser" parameterType="com.swagger.pojo.User">
+        update mybatis.user set name = #{name}, pwd = #{pwd} where id = #{id}
+    </update>
+    
+    <delete id="deleteUser" parameterType="int">
+        delete from mybatis.user where id = #{id}
+    </delete>
+    
+</mapper>
+```
+
+* 测试类中进行测试
+```java
+package com.swagger.dao;
+
+import com.swagger.pojo.User;
+import com.swagger.utils.MyBatisUtils;
+import org.apache.ibatis.session.SqlSession;
+import org.junit.Test;
+
+import java.util.List;
+
+public class UserMapperTest {
+
+    @Test
+    public void test(){
+
+        // 1 获得sqlSession对象
+        SqlSession sqlSession = MyBatisUtils.getSqlSession();
+
+        // 2 方式1： 执行sql
+        UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
+        List<User> userList = userMapper.getUserList();
+        for (User user : userList) {
+            System.out.println(user);
+        }
+
+        // 关闭sqlSession
+        sqlSession.close();
+
+    }
+
+    // 增删改需要提交事务
+    // 查
+    @Test
+    public void test_getUserById(){
+        SqlSession sqlSession = MyBatisUtils.getSqlSession();
+
+        int id = 1;
+
+        UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
+        User userById = userMapper.getUserById(1);
+        System.out.println(userById);
+
+
+        sqlSession.close();
+    }
+
+    //
+    @Test
+    public void test_addUser(){
+        SqlSession sqlSession = MyBatisUtils.getSqlSession();
+
+        UserMapper mapper = sqlSession.getMapper(UserMapper.class);
+        int i = mapper.addUser(new User(4, "haha", "123456"));
+        if (i>0){
+            System.out.println("插入成功");
+            // 提交事务
+            sqlSession.commit();
+        }
+
+        sqlSession.close();
+    }
+
+    @Test
+    public void test_updateUser(){
+        SqlSession sqlSession = MyBatisUtils.getSqlSession();
+        UserMapper mapper = sqlSession.getMapper(UserMapper.class);
+
+        int i = mapper.updateUser(new User(4, "hehe", "1234"));
+        if (i>0){
+            System.out.println("修改成功");
+            sqlSession.commit();
+        }
+
+        sqlSession.close();
+    }
+
+    @Test
+    public void test_deleteUser(){
+        SqlSession sqlSession = MyBatisUtils.getSqlSession();
+        UserMapper mapper = sqlSession.getMapper(UserMapper.class);
+
+        int i = mapper.deleteUser(3);
+        if (i>0){
+            System.out.println("删除成功");
+            sqlSession.commit();
+        }
+
+        sqlSession.close();
+    }
+
+}
+
+```
+
+* tips：增删改需要对事务进行提交 `sqlSession.commit();`
+
+### 错误分析
+* 标签名字不能和具体的sql关键词相冲突
+* resources 注册mapper的路径不能使用java 点的格式来表示路径，要用斜杠/
+* 程序配置文件必须规范
+* 空指针异常，没有注册到资源
+* maven 资源没有导出到target问题
+
+
+
+
+
+
+
+
+
