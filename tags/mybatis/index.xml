@@ -3,7 +3,14 @@
         <title>MyBatis - 标签 - Boyan Wei</title>
         <link>https://swaggerwei.github.io/tags/mybatis/</link>
         <description>MyBatis - 标签 - Boyan Wei</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Mon, 04 Jul 2022 12:59:07 &#43;0800</lastBuildDate><atom:link href="https://swaggerwei.github.io/tags/mybatis/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Tue, 05 Jul 2022 21:24:43 &#43;0800</lastBuildDate><atom:link href="https://swaggerwei.github.io/tags/mybatis/" rel="self" type="application/rss+xml" /><item>
+    <title>MyBatis学习2</title>
+    <link>https://swaggerwei.github.io/mybatis_learning2/</link>
+    <pubDate>Tue, 05 Jul 2022 21:24:43 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://swaggerwei.github.io/mybatis_learning2/</guid>
+    <description><![CDATA[核心配置文件 官方推荐名称：mybatis-config.xml MyBatis 的配置文件包含了会深深影响 MyBatis 行为的设置和属性信息 核心配置点 configuration properti]]></description>
+</item><item>
     <title>MyBatis学习1</title>
     <link>https://swaggerwei.github.io/mybatis_learning1/</link>
     <pubDate>Mon, 04 Jul 2022 12:59:07 &#43;0800</pubDate>
