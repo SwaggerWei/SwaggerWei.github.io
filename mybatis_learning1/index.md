@@ -522,3 +522,48 @@ public class UserMapperTest {
 
 
 
+
+
+## 万能的map
+* 将Dao接口中方法的输入参数换成map类型 `int addUser2(Map<String, Object> map);`
+* 对应mapper.xml中的参数换成map中的key，即可取到具体的对应的value
+* 编写测试类
+```Java
+@Test
+    public void test_addUser2(){
+        SqlSession sqlSession = MyBatisUtils.getSqlSession();
+        UserMapper mapper = sqlSession.getMapper(UserMapper.class);
+
+        Map<String, Object> map = new HashMap<>();
+        map.put("userid", 5);
+        map.put("username", "boyanwei");
+        map.put("passWord", "12345");
+
+        int i = mapper.addUser2(map);
+        if (i > 0){
+            System.out.println("插入成功");
+            sqlSession.commit();
+        }
+
+
+        sqlSession.close();
+
+    }
+```
+
+### 传递参数关键点
+* Map传递参数，直接在SQL中取出key即可：`parameterType="map"`
+* 对象传递参数，直接在SQL中取出对象的属性即可： `parameterType="Object"`
+* 只有一个基本类型参数的情况下，可以直接在sql中取到，参数类型可以不写
+* **tips** ： 多个参数可以用**map**，或者**注解**
+
+### 模糊查询 like
+* 在java代码层面使用通配符
+* 在SQL拼接中加入通配符，但是有可能存在SQL注入问题，不安全
+
+
+
+
+
+
+
