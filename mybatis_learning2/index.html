@@ -29,7 +29,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/swaggerwei.github.io\/mybatis_learning2\/"
-        },"genre": "posts","keywords": "MyBatis, SQL, SSM","wordcount":  793 ,
+        },"genre": "posts","keywords": "MyBatis, SQL, SSM","wordcount":  2622 ,
         "url": "https:\/\/swaggerwei.github.io\/mybatis_learning2\/","datePublished": "2022-07-05T21:24:43+08:00","dateModified": "2022-07-05T21:24:43+08:00","publisher": {
             "@type": "Organization",
             "name": ""},"author": {
@@ -106,8 +106,8 @@
             <div class="toc-content always-active" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animated flipInX">MyBatis学习2</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>Boyan Wei</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/mybatis%E5%AD%A6%E4%B9%A0/"><i class="far fa-folder fa-fw"></i>MyBatis学习</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-07-05">2022-07-05</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 793 字&nbsp;
-                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 2 分钟&nbsp;</div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-07-05">2022-07-05</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 2622 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 6 分钟&nbsp;</div>
         </div><div class="details toc" id="toc-static"  kept="">
                 <div class="details-summary toc-title">
                     <span>目录</span>
@@ -126,8 +126,37 @@
           </ul>
         </li>
         <li><a href="#设置-settings">设置 settings</a></li>
+        <li><a href="#其他配置">其他配置</a></li>
+        <li><a href="#映射器mapper">映射器Mapper</a></li>
       </ul>
     </li>
+    <li><a href="#生命周期和作用域">生命周期和作用域</a>
+      <ul>
+        <li><a href="#sqlsessionfactorybuilder">SqlSessionFactoryBuilder</a></li>
+        <li><a href="#sqlsessionfactory">SqlSessionFactory</a></li>
+        <li><a href="#sqlsession">SqlSession</a></li>
+        <li><a href="#实体类属性名和数据库字段名不一样的问题">实体类属性名和数据库字段名不一样的问题</a></li>
+      </ul>
+    </li>
+    <li><a href="#日志">日志</a>
+      <ul>
+        <li><a href="#日志工厂">日志工厂</a>
+          <ul>
+            <li><a href="#手动配置为stdout_logging">手动配置为STDOUT_LOGGING</a></li>
+            <li><a href="#手动配置为log4j">手动配置为LOG4J</a></li>
+            <li><a href="#log4j-的简单使用">log4j 的简单使用</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#分页">分页</a>
+      <ul>
+        <li><a href="#使用mybatis实现分页核心为sql代码">使用MyBatis实现分页，核心为SQL代码</a></li>
+        <li><a href="#使用rowbounds进行分页">使用RowBounds进行分页</a></li>
+        <li><a href="#分页插件">分页插件</a></li>
+      </ul>
+    </li>
+    <li><a href="#使用注解开发">使用注解开发</a></li>
   </ul>
 </nav></div>
             </div><div class="content" id="content"><h2 id="核心配置文件">核心配置文件</h2>
@@ -247,6 +276,401 @@ password=Wby785403310
 <li><strong>数据类型的默认别名，不区分大小写</strong></li>
 </ul>
 <h3 id="设置-settings">设置 settings</h3>
+<p>MyBatis中极为重要的调整设置，可以改变MyBatis运行时的行为</p>
+<ul>
+<li>cacheEnabled：缓存是否开启</li>
+<li>useGeneratedKeys：运行JDBC自动生成主键</li>
+<li>mapUnderscoreToCamelCase：数据库下划线字段命名到驼峰命名之间的转换 <strong>last_name -&gt; lastName</strong></li>
+<li>loglmpl：指定MyBatis所用日志的实现</li>
+<li>lazyLoadingEnabled：延迟加载是否开启</li>
+</ul>
+<h3 id="其他配置">其他配置</h3>
+<ul>
+<li>typeHandlers 类型处理器</li>
+<li>objectFactory 对象工厂</li>
+<li>plugins插件：MyBatis-generator-core（代码生成器）；MyBatis-plus；通用mapper</li>
+</ul>
+<h3 id="映射器mapper">映射器Mapper</h3>
+<ul>
+<li>MapperRegistry：注册Dao层的mapper文件</li>
+<li>Dao层中的接口文件和mapper文件需要使用相同的命名，以便管理</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="c">&lt;!--  每一个Dao层中的 Mapper.xml 都需要在的核心配置文件当中注册  --&gt;</span>
+<span class="nt">&lt;mappers&gt;</span>
+    <span class="nt">&lt;mapper</span> <span class="na">resource=</span><span class="s">&#34;com/swagger/dao/UserMapper.xml&#34;</span><span class="nt">/&gt;</span>
+<span class="nt">&lt;/mappers&gt;</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="生命周期和作用域">生命周期和作用域</h2>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images_MyBatis/pic1.png"
+        data-srcset="/images_MyBatis/pic1.png, /images_MyBatis/pic1.png 1.5x, /images_MyBatis/pic1.png 2x"
+        data-sizes="auto"
+        alt="/images_MyBatis/pic1.png"
+        title="/images_MyBatis/pic1.png" /></p>
+<ul>
+<li>作用域和生命周期类别是至关重要的，因为错误的使用会导致非常严重的并发问题</li>
+</ul>
+<h3 id="sqlsessionfactorybuilder">SqlSessionFactoryBuilder</h3>
+<ul>
+<li>一旦创建了 SqlSessionFactory，就不再需要他了</li>
+<li>局部变量</li>
+</ul>
+<h3 id="sqlsessionfactory">SqlSessionFactory</h3>
+<ul>
+<li>可以想象为数据库的连接池</li>
+<li>一旦被创建就应该在应用的运行期间一直存在，没有任何理由丢弃它或重新创建另一个实例</li>
+<li>最佳作用域是应用作用域，程序开始就开始，程序结束就结束了</li>
+<li>最简单的就是使用<strong>单例模式</strong>或者静态单例模式</li>
+</ul>
+<h3 id="sqlsession">SqlSession</h3>
+<ul>
+<li>连接到连接池的一个请求，请求结束需要关闭</li>
+<li>每个线程都应该有它自己的 SqlSession 实例</li>
+<li>SqlSession 的实例不是线程安全的，因此是不能被共享的</li>
+<li>它的最佳的作用域是<strong>请求或方法作用域</strong>， 用完之后需要赶紧关闭，否则资源则被占用
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images_MyBatis/pic2.png"
+        data-srcset="/images_MyBatis/pic2.png, /images_MyBatis/pic2.png 1.5x, /images_MyBatis/pic2.png 2x"
+        data-sizes="auto"
+        alt="/images_MyBatis/pic2.png"
+        title="/images_MyBatis/pic2.png" /></li>
+<li>上图中的每一个mapper就代表一个业务</li>
+</ul>
+<h3 id="实体类属性名和数据库字段名不一样的问题">实体类属性名和数据库字段名不一样的问题</h3>
+<ul>
+<li>
+<p>方法一：在sql中使用<code>as</code>关键字取别名，别名与实体类的名字一致</p>
+</li>
+<li>
+<p>方法二：结果集映射，将数据库的名称映射成实体类的名称（column代表数据库字段名，property代表实体类属性名）
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images_MyBatis/pic3.png"
+        data-srcset="/images_MyBatis/pic3.png, /images_MyBatis/pic3.png 1.5x, /images_MyBatis/pic3.png 2x"
+        data-sizes="auto"
+        alt="/images_MyBatis/pic3.png"
+        title="/images_MyBatis/pic3.png" /></p>
+</li>
+</ul>
+<h2 id="日志">日志</h2>
+<h3 id="日志工厂">日志工厂</h3>
+<ul>
+<li>如果一个数据库操作出现了异常，我们需要排错，日志就是最好的助手（sout，debug）</li>
+<li>更好的方式是使用MyBatis的日志工厂 <code>logImpl</code>。</li>
+<li>其中SLF4J；Apache Commons Logging；<strong>Log4j</strong> 2；Log4j （3.5.9 起废弃）；JDK logging</li>
+<li>具体使用哪一个日志实现在setting 中设定</li>
+</ul>
+<h4 id="手动配置为stdout_logging">手动配置为STDOUT_LOGGING</h4>
+<ul>
+<li>设置日志格式为 <code>STDOUT_LOGGING</code></li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="nt">&lt;settings&gt;</span>
+<span class="c">&lt;!--使用默认的控制台日志--&gt;</span>
+    <span class="nt">&lt;setting</span> <span class="na">name=</span><span class="s">&#34;logImpl&#34;</span> <span class="na">value=</span><span class="s">&#34;STDOUT_LOGGING&#34;</span><span class="nt">/&gt;</span>
+<span class="nt">&lt;/settings&gt;</span>
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="手动配置为log4j">手动配置为LOG4J</h4>
+<ul>
+<li>
+<p>设置日志格式为 <code>LOG4J</code></p>
+</li>
+<li>
+<p>一个apache的开源项目，日志信息的输送地为控制台，文件和GUI组件，</p>
+</li>
+<li>
+<p>可以控制输出格式，定义信息级别，</p>
+</li>
+<li>
+<p>通过配置文件来进行灵活修改</p>
+</li>
+<li>
+<p>maven中导入依赖</p>
+</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="c">&lt;!-- https://mvnrepository.com/artifact/log4j/log4j --&gt;</span>
+<span class="nt">&lt;dependency&gt;</span>
+    <span class="nt">&lt;groupId&gt;</span>log4j<span class="nt">&lt;/groupId&gt;</span>
+    <span class="nt">&lt;artifactId&gt;</span>log4j<span class="nt">&lt;/artifactId&gt;</span>
+    <span class="nt">&lt;version&gt;</span>1.2.17<span class="nt">&lt;/version&gt;</span>
+<span class="nt">&lt;/dependency&gt;</span>
+</code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>log4j.properties 配置文件</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"># 将等级为DEBUG的日志信息输出到console和file这两个目的地，console和file的定义在下面的代码
+log4j.rootLogger=DEBUG,console,file
+
+# 控制台输出的相关设置
+log4j.appender.console = org.apache.log4j.ConsoleAppender
+log4j.appender.console.Target = System.out
+log4j.appender.console.Threshold=DEBUG
+log4j.appender.console.layout = org.apache.log4j.PatternLayout
+log4j.appender.console.layout.ConversionPattern=[%c]-%m%n
+
+# 文件输出的相关设置
+log4j.appender.file = org.apache.log4j.RollingFileAppender
+log4j.appender.file.File=./log/swagger.log
+log4j.appender.file.MaxFileSize=10mb
+log4j.appender.file.Threshold=DEBUG
+log4j.appender.file.layout=org.apache.log4j.PatternLayout
+log4j.appender.file.layout.ConversionPattern=[%p][%d{yy-MM-dd}][%c]%m%n
+
+# 日志输出级别
+log4j.logger.org.mybatis=DEBUG
+log4j.logger.java.sql=DEBUG
+log4j.logger.java.sql.Statement=DEBUG
+log4j.logger.java.sql.ResultSet=DEBUG
+log4j.logger.java.sql.PreparedStatement=DEBUG
+</code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>log4j的使用，直接测试运行刚才的查询
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images_MyBatis/pic4.png"
+        data-srcset="/images_MyBatis/pic4.png, /images_MyBatis/pic4.png 1.5x, /images_MyBatis/pic4.png 2x"
+        data-sizes="auto"
+        alt="/images_MyBatis/pic4.png"
+        title="/images_MyBatis/pic4.png" /></li>
+</ul>
+<h4 id="log4j-的简单使用">log4j 的简单使用</h4>
+<ul>
+<li>要使用log4j中导入相应的包（apache那个包） <code>import org.apache.log4j.Logger;</code></li>
+<li>日志对象生成，加载参数为当前类的class，反射获得 <code>public static Logger logger = Logger.getLogger(UserMapperTest.class);</code></li>
+<li>测试代码</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-Java" data-lang="Java"><span class="nd">@Test</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">testLog4J</span><span class="o">(){</span>
+    <span class="n">logger</span><span class="o">.</span><span class="na">info</span><span class="o">(</span><span class="s">&#34;info:进入了testLog4J&#34;</span><span class="o">);</span>
+    <span class="n">logger</span><span class="o">.</span><span class="na">debug</span><span class="o">(</span><span class="s">&#34;debug:进入了testLog4J&#34;</span><span class="o">);</span>
+    <span class="n">logger</span><span class="o">.</span><span class="na">error</span><span class="o">(</span><span class="s">&#34;error:进入了testLog4J&#34;</span><span class="o">);</span>
+
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="分页">分页</h2>
+<p>为什么进行分页：减少数据的处理量</p>
+<h3 id="使用mybatis实现分页核心为sql代码">使用MyBatis实现分页，核心为SQL代码</h3>
+<p><code>select * from user limit 0, 2;</code></p>
+<ul>
+<li>接口</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-Java" data-lang="Java"><span class="c1">// 查询 分页
+</span><span class="c1"></span><span class="n">List</span><span class="o">&lt;</span><span class="n">User</span><span class="o">&gt;</span> <span class="nf">getUserByLimit</span><span class="o">(</span><span class="n">Map</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">Integer</span><span class="o">&gt;</span> <span class="n">map</span><span class="o">);</span>
+</code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>Mapper.xml</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="c">&lt;!--分页实现查询--&gt;</span>
+    <span class="nt">&lt;select</span> <span class="na">id=</span><span class="s">&#34;getUserByLimit&#34;</span> <span class="na">parameterType=</span><span class="s">&#34;map&#34;</span> <span class="na">resultType=</span><span class="s">&#34;User&#34;</span><span class="nt">&gt;</span>
+        select * from mybatis.user limit #{startIndex}, #{pageSize}
+    <span class="nt">&lt;/select&gt;</span>
+</code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>测试</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-Java" data-lang="Java"><span class="nd">@Test</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">testGetByLimit</span><span class="o">(){</span>
+    <span class="n">SqlSession</span> <span class="n">sqlSession</span> <span class="o">=</span> <span class="n">MyBatisUtils</span><span class="o">.</span><span class="na">getSqlSession</span><span class="o">();</span>
+    <span class="n">UserMapper</span> <span class="n">userMapper</span> <span class="o">=</span> <span class="n">sqlSession</span><span class="o">.</span><span class="na">getMapper</span><span class="o">(</span><span class="n">UserMapper</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+
+    <span class="n">HashMap</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">Integer</span><span class="o">&gt;</span> <span class="n">map</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HashMap</span><span class="o">&lt;&gt;();</span>
+    <span class="n">map</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">&#34;startIndex&#34;</span><span class="o">,</span> <span class="n">0</span><span class="o">);</span>
+    <span class="n">map</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">&#34;pageSize&#34;</span><span class="o">,</span> <span class="n">2</span><span class="o">);</span>
+
+    <span class="n">List</span><span class="o">&lt;</span><span class="n">User</span><span class="o">&gt;</span> <span class="n">users</span> <span class="o">=</span> <span class="n">userMapper</span><span class="o">.</span><span class="na">getUserByLimit</span><span class="o">(</span><span class="n">map</span><span class="o">);</span>
+    <span class="k">for</span> <span class="o">(</span><span class="n">User</span> <span class="n">user</span> <span class="o">:</span> <span class="n">users</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">user</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="n">sqlSession</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="使用rowbounds进行分页">使用RowBounds进行分页</h3>
+<ul>
+<li>接口</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-Java" data-lang="Java"><span class="c1">// 分页实现查询 使用rowBounds
+</span><span class="c1"></span><span class="n">List</span><span class="o">&lt;</span><span class="n">User</span><span class="o">&gt;</span> <span class="nf">getUserByRowBounds</span><span class="o">();</span>
+</code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>Mapper.xml</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="c">&lt;!--分页实现查询 使用rowBounds--&gt;</span>
+<span class="nt">&lt;select</span> <span class="na">id=</span><span class="s">&#34;getUserByRowBounds&#34;</span> <span class="na">resultType=</span><span class="s">&#34;User&#34;</span><span class="nt">&gt;</span>
+    select * from mybatis.user
+<span class="nt">&lt;/select&gt;</span>
+</code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>代码测试</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-Java" data-lang="Java"><span class="nd">@Test</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">testGetUserByRowBounds</span><span class="o">(){</span>
+    <span class="n">SqlSession</span> <span class="n">sqlSession</span> <span class="o">=</span> <span class="n">MyBatisUtils</span><span class="o">.</span><span class="na">getSqlSession</span><span class="o">();</span>
+
+    <span class="c1">// RouBounds实现分页
+</span><span class="c1"></span>    <span class="n">RowBounds</span> <span class="n">rowBounds</span> <span class="o">=</span> <span class="k">new</span> <span class="n">RowBounds</span><span class="o">(</span><span class="n">1</span><span class="o">,</span> <span class="n">2</span><span class="o">);</span>
+
+    <span class="c1">// 通过Java代码层面，实现分页
+</span><span class="c1"></span>    <span class="n">List</span><span class="o">&lt;</span><span class="n">Object</span><span class="o">&gt;</span> <span class="n">users</span> <span class="o">=</span> <span class="n">sqlSession</span><span class="o">.</span><span class="na">selectList</span><span class="o">(</span><span class="s">&#34;com.swagger.dao.UserMapper.getUserByRowBounds&#34;</span><span class="o">,</span> <span class="kc">null</span><span class="o">,</span> <span class="n">rowBounds</span><span class="o">);</span>
+    <span class="k">for</span> <span class="o">(</span><span class="n">Object</span> <span class="n">user</span> <span class="o">:</span> <span class="n">users</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">user</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="n">sqlSession</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="分页插件">分页插件</h3>
+<p>使用MyBatis 分页插件 PageHelper</p>
+<h2 id="使用注解开发">使用注解开发</h2>
+<p>实际上除了MyBatis框架是使用<strong>配置文件进行开发</strong>，<strong>大部分框架都是使用注解来进行开发</strong></p>
 </div><div class="post-footer" id="post-footer">
     <div class="post-info">
         <div class="post-info-line">
