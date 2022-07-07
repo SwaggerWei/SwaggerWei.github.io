@@ -73,8 +73,6 @@ password=Wby785403310
 * 或者用注解取别名，实体类上增加注解 `@Alias("user")`
 * **数据类型的默认别名，不区分大小写**
 
-
-
 ### 设置 settings
 MyBatis中极为重要的调整设置，可以改变MyBatis运行时的行为  
 * cacheEnabled：缓存是否开启
