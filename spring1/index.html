@@ -29,7 +29,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/swaggerwei.github.io\/spring1\/"
-        },"genre": "posts","keywords": "Spring, SSM","wordcount":  4502 ,
+        },"genre": "posts","keywords": "Spring, SSM","wordcount":  5551 ,
         "url": "https:\/\/swaggerwei.github.io\/spring1\/","datePublished": "2022-07-07T12:33:30+08:00","dateModified": "2022-07-07T12:33:30+08:00","publisher": {
             "@type": "Organization",
             "name": ""},"author": {
@@ -106,8 +106,8 @@
             <div class="toc-content always-active" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animated flipInX">Spring学习1</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>Boyan Wei</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/spring%E5%AD%A6%E4%B9%A0/"><i class="far fa-folder fa-fw"></i>Spring学习</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-07-07">2022-07-07</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 4502 字&nbsp;
-                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 9 分钟&nbsp;</div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-07-07">2022-07-07</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 5551 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 12 分钟&nbsp;</div>
         </div><div class="details toc" id="toc-static"  kept="">
                 <div class="details-summary toc-title">
                     <span>目录</span>
@@ -177,6 +177,25 @@
         <li><a href="#xml准备">xml准备</a></li>
         <li><a href="#autowired">@Autowired</a></li>
         <li><a href="#resource">@Resource</a></li>
+      </ul>
+    </li>
+    <li><a href="#spring使用注解开发">Spring使用注解开发</a>
+      <ul>
+        <li><a href="#属性如何注入">属性如何注入</a></li>
+        <li><a href="#衍生的注解">衍生的注解</a></li>
+        <li><a href="#自动装配">自动装配</a></li>
+        <li><a href="#作用域">作用域</a></li>
+        <li><a href="#小结">小结</a></li>
+      </ul>
+    </li>
+    <li><a href="#代理模式">代理模式</a>
+      <ul>
+        <li><a href="#静态代理">静态代理</a>
+          <ul>
+            <li><a href="#代码实战-2">代码实战</a></li>
+            <li><a href="#代理模式的好处">代理模式的好处</a></li>
+          </ul>
+        </li>
       </ul>
     </li>
   </ul>
@@ -1360,6 +1379,313 @@
 <ul>
 <li>JDK自带的注解方式，也可以放在属性上使用</li>
 <li>默认通过byName方式实现，如果找不到名字则通过byType方式</li>
+</ul>
+<h2 id="spring使用注解开发">Spring使用注解开发</h2>
+<ul>
+<li>tips：在Spring4之后，要使用注解进行开发，必须要导入aop包，且</li>
+<li><strong>zulu jdk16和spring5.2不兼容，需要换成5.3.19</strong>
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images_Spring/pic4.png"
+        data-srcset="/images_Spring/pic4.png, /images_Spring/pic4.png 1.5x, /images_Spring/pic4.png 2x"
+        data-sizes="auto"
+        alt="/images_Spring/pic4.png"
+        title="/images_Spring/pic4.png" /></li>
+<li>xml中导入context约束，增加注解的支持</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="cp">&lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34;?&gt;</span>
+<span class="nt">&lt;beans</span> <span class="na">xmlns=</span><span class="s">&#34;http://www.springframework.org/schema/beans&#34;</span>
+       <span class="na">xmlns:xsi=</span><span class="s">&#34;http://www.w3.org/2001/XMLSchema-instance&#34;</span>
+       <span class="na">xmlns:context=</span><span class="s">&#34;http://www.springframework.org/schema/context&#34;</span>
+       <span class="na">xsi:schemaLocation=</span><span class="s">&#34;http://www.springframework.org/schema/beans
+</span><span class="s">        https://www.springframework.org/schema/beans/spring-beans.xsd
+</span><span class="s">        http://www.springframework.org/schema/context
+</span><span class="s">        https://www.springframework.org/schema/context/spring-context.xsd&#34;</span><span class="nt">&gt;</span>
+
+    <span class="c">&lt;!--  开启注解支持  --&gt;</span>
+    <span class="nt">&lt;context:annotation-config/&gt;</span>
+
+<span class="nt">&lt;/beans&gt;</span>
+</code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>bean</li>
+</ul>
+<h3 id="属性如何注入">属性如何注入</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-Java" data-lang="Java"><span class="kn">package</span> <span class="nn">com.swagger.pojo</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">org.springframework.beans.factory.annotation.Value</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.stereotype.Component</span><span class="o">;</span>
+
+<span class="c1">// 等价于 ： &lt;bean id=&#34;user&#34; class=&#34;com.swagger.pojo.User&#34;/&gt;
+</span><span class="c1">// @Component 组件
+</span><span class="c1"></span>
+<span class="nd">@Component</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">User</span> <span class="o">{</span>
+
+    <span class="c1">// 相当于在bean中注入value，普通的属性
+</span><span class="c1"></span>    <span class="c1">// 简单的可以这样使用，如果复杂类型，最好使用配置文件
+</span><span class="c1"></span>    <span class="c1">// 同时也可以注入到set方法上
+</span><span class="c1"></span>    <span class="nd">@Value</span><span class="o">(</span><span class="s">&#34;swagger&#34;</span><span class="o">)</span>
+    <span class="kd">public</span> <span class="n">String</span> <span class="n">name</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="衍生的注解">衍生的注解</h3>
+<p>@Component 有几个衍生的注解，在web开发过程中，会按照mvc三层架构分层，这四个注解的功能都是一样的，都是将某个类注册到Spring中，装配bean</p>
+<ul>
+<li>dao: @Repository</li>
+<li>service: @Service</li>
+<li>controller: @Controller</li>
+</ul>
+<h3 id="自动装配">自动装配</h3>
+<ul>
+<li>参照上文注解实现自动装配部分</li>
+</ul>
+<h3 id="作用域">作用域</h3>
+<p>@Scope(&ldquo;singleton&rdquo;)</p>
+<h3 id="小结">小结</h3>
+<ul>
+<li>xml更加万能，适用于更重场合，维护简单方便</li>
+<li>注解不是自己的类使用不了，维护相对复杂</li>
+<li>最好的使用方式应该是，xml来管理bean，注解只负责完成属性的注入</li>
+</ul>
+<h2 id="代理模式">代理模式</h2>
+<p>代理模式是SpringAOP的底层（SpringAOP 和 SpringMVC）<br>
+代理模式分类</p>
+<ul>
+<li>静态代理</li>
+<li>动态代理</li>
+</ul>
+<h3 id="静态代理">静态代理</h3>
+<p>角色分析</p>
+<ul>
+<li>抽象角色：一般会使用接口或者抽象类来解决</li>
+<li>真实角色：被代理的角色</li>
+<li>代理角色：代理真实角色，代理之后，我们一般会做的一些附属操作</li>
+<li>客户：访问代理对象的人
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images_Spring/pic5.png"
+        data-srcset="/images_Spring/pic5.png, /images_Spring/pic5.png 1.5x, /images_Spring/pic5.png 2x"
+        data-sizes="auto"
+        alt="/images_Spring/pic5.png"
+        title="/images_Spring/pic5.png" /></li>
+</ul>
+<h4 id="代码实战-2">代码实战</h4>
+<ul>
+<li>Client 客户端访问代理角色</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-Java" data-lang="Java"><span class="kn">package</span> <span class="nn">com.swagger.demo01</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Client</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">Host</span> <span class="n">host</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Host</span><span class="o">();</span>
+        <span class="n">Proxy</span> <span class="n">proxy</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Proxy</span><span class="o">(</span><span class="n">host</span><span class="o">);</span>
+        <span class="n">proxy</span><span class="o">.</span><span class="na">rent</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>Host 真实角色</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-Java" data-lang="Java"><span class="kn">package</span> <span class="nn">com.swagger.demo01</span><span class="o">;</span>
+
+<span class="c1">// 房东
+</span><span class="c1"></span><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Host</span> <span class="kd">implements</span> <span class="n">Rent</span><span class="o">{</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">rent</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;房东要出租房子&#34;</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+</code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>Proxy 代理角色</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-Java" data-lang="Java"><span class="kn">package</span> <span class="nn">com.swagger.demo01</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Proxy</span> <span class="kd">implements</span> <span class="n">Rent</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="n">Host</span> <span class="n">host</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="nf">Proxy</span><span class="o">()</span> <span class="o">{</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="nf">Proxy</span><span class="o">(</span><span class="n">Host</span> <span class="n">host</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">host</span> <span class="o">=</span> <span class="n">host</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">rent</span><span class="o">()</span> <span class="o">{</span>
+        <span class="c1">// 通过代理来做，可以做很多附属操作
+</span><span class="c1"></span>        <span class="n">seeHouse</span><span class="o">();</span>
+        <span class="n">host</span><span class="o">.</span><span class="na">rent</span><span class="o">();</span>
+        <span class="n">hetong</span><span class="o">();</span>
+        <span class="n">fare</span><span class="o">();</span>
+    <span class="o">}</span>
+
+    <span class="c1">// 看房
+</span><span class="c1"></span>    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">seeHouse</span><span class="o">(){</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;中介带你看房&#34;</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="c1">// 收中介费
+</span><span class="c1"></span>    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">fare</span><span class="o">(){</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;收中介费&#34;</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="c1">// 租赁合同
+</span><span class="c1"></span>    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">hetong</span><span class="o">(){</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;签合同&#34;</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+</code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>Rent 接口</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-Java" data-lang="Java"><span class="kn">package</span> <span class="nn">com.swagger.demo01</span><span class="o">;</span>
+
+<span class="c1">// 租房
+</span><span class="c1"></span><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">Rent</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">rent</span><span class="o">();</span>
+<span class="o">}</span>
+
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="代理模式的好处">代理模式的好处</h4>
+<ul>
+<li>可以使得真实角色（host）的操作更加纯粹，不同去关注一些公共的业务</li>
+<li>公共事务也就交给了代理角色，实现了业务的分工</li>
+<li>公共业务发生扩展的时候，方便集中管理</li>
+</ul>
+<p>缺点：</p>
+<ul>
+<li>一个真实的角色，就会产生一个代理角色，代码量翻倍，开发效率降低</li>
 </ul>
 </div><div class="post-footer" id="post-footer">
     <div class="post-info">

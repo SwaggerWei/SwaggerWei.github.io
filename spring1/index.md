@@ -636,6 +636,178 @@ public class User {
 * 默认通过byName方式实现，如果找不到名字则通过byType方式
 
 
+## Spring使用注解开发
+* tips：在Spring4之后，要使用注解进行开发，必须要导入aop包，且
+* **zulu jdk16和spring5.2不兼容，需要换成5.3.19**
+![](/images_Spring/pic4.png)
+* xml中导入context约束，增加注解的支持
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        https://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!--  开启注解支持  -->
+    <context:annotation-config/>
+
+</beans>
+```
+
+* bean
+### 属性如何注入
+```Java
+package com.swagger.pojo;
+
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
+
+// 等价于 ： <bean id="user" class="com.swagger.pojo.User"/>
+// @Component 组件
+
+@Component
+public class User {
+
+    // 相当于在bean中注入value，普通的属性
+    // 简单的可以这样使用，如果复杂类型，最好使用配置文件
+    // 同时也可以注入到set方法上
+    @Value("swagger")
+    public String name;
+}
+```
+### 衍生的注解
+@Component 有几个衍生的注解，在web开发过程中，会按照mvc三层架构分层，这四个注解的功能都是一样的，都是将某个类注册到Spring中，装配bean
+* dao: @Repository
+* service: @Service
+* controller: @Controller
+
+### 自动装配
+* 参照上文注解实现自动装配部分
+
+### 作用域
+@Scope("singleton")
+
+### 小结
+* xml更加万能，适用于更重场合，维护简单方便
+* 注解不是自己的类使用不了，维护相对复杂
+* 最好的使用方式应该是，xml来管理bean，注解只负责完成属性的注入
+
+
+
+
+
+
+
+
+
+
+
+
+## 代理模式
+代理模式是SpringAOP的底层（SpringAOP 和 SpringMVC）  
+代理模式分类
+* 静态代理
+* 动态代理
+
+### 静态代理
+角色分析
+* 抽象角色：一般会使用接口或者抽象类来解决
+* 真实角色：被代理的角色
+* 代理角色：代理真实角色，代理之后，我们一般会做的一些附属操作
+* 客户：访问代理对象的人
+![](/images_Spring/pic5.png)
+
+#### 代码实战
+* Client 客户端访问代理角色
+```Java
+package com.swagger.demo01;
+
+public class Client {
+    public static void main(String[] args) {
+        Host host = new Host();
+        Proxy proxy = new Proxy(host);
+        proxy.rent();
+    }
+}
+```
+* Host 真实角色
+```Java
+package com.swagger.demo01;
+
+// 房东
+public class Host implements Rent{
+
+    @Override
+    public void rent() {
+        System.out.println("房东要出租房子");
+    }
+}
+
+```
+* Proxy 代理角色
+```Java
+package com.swagger.demo01;
+
+public class Proxy implements Rent {
+    private Host host;
+
+    public Proxy() {
+    }
+
+    public Proxy(Host host) {
+        this.host = host;
+    }
+
+    @Override
+    public void rent() {
+        // 通过代理来做，可以做很多附属操作
+        seeHouse();
+        host.rent();
+        hetong();
+        fare();
+    }
+
+    // 看房
+    public void seeHouse(){
+        System.out.println("中介带你看房");
+    }
+
+    // 收中介费
+    public void fare(){
+        System.out.println("收中介费");
+    }
+
+    // 租赁合同
+    public void hetong(){
+        System.out.println("签合同");
+    }
+}
+
+```
+* Rent 接口
+```Java
+package com.swagger.demo01;
+
+// 租房
+public interface Rent {
+    public void rent();
+}
+
+```
+
+#### 代理模式的好处
+* 可以使得真实角色（host）的操作更加纯粹，不同去关注一些公共的业务
+* 公共事务也就交给了代理角色，实现了业务的分工
+* 公共业务发生扩展的时候，方便集中管理
+
+缺点：  
+* 一个真实的角色，就会产生一个代理角色，代码量翻倍，开发效率降低
+
+
+
 
 
 
