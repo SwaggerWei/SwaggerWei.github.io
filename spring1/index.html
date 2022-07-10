@@ -20,7 +20,7 @@
 <meta name="application-name" content="LoveIt">
 <meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://swaggerwei.github.io/spring1/" /><link rel="prev" href="https://swaggerwei.github.io/mybatis_learning2/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://swaggerwei.github.io/spring1/" /><link rel="prev" href="https://swaggerwei.github.io/mybatis_learning2/" /><link rel="next" href="https://swaggerwei.github.io/spring2/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
     {
         "@context": "http://schema.org",
         "@type": "BlogPosting",
@@ -29,7 +29,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/swaggerwei.github.io\/spring1\/"
-        },"genre": "posts","keywords": "Spring, SSM","wordcount":  5551 ,
+        },"genre": "posts","keywords": "Spring, SSM","wordcount":  6244 ,
         "url": "https:\/\/swaggerwei.github.io\/spring1\/","datePublished": "2022-07-07T12:33:30+08:00","dateModified": "2022-07-07T12:33:30+08:00","publisher": {
             "@type": "Organization",
             "name": ""},"author": {
@@ -106,8 +106,8 @@
             <div class="toc-content always-active" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animated flipInX">Spring学习1</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>Boyan Wei</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/spring%E5%AD%A6%E4%B9%A0/"><i class="far fa-folder fa-fw"></i>Spring学习</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-07-07">2022-07-07</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 5551 字&nbsp;
-                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 12 分钟&nbsp;</div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-07-07">2022-07-07</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 6244 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 13 分钟&nbsp;</div>
         </div><div class="details toc" id="toc-static"  kept="">
                 <div class="details-summary toc-title">
                     <span>目录</span>
@@ -194,6 +194,16 @@
           <ul>
             <li><a href="#代码实战-2">代码实战</a></li>
             <li><a href="#代理模式的好处">代理模式的好处</a></li>
+            <li><a href="#aop的实现机制">AOP的实现机制</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#动态代理">动态代理</a>
+      <ul>
+        <li><a href="#invocationhandler-接口">InvocationHandler 接口</a>
+          <ul>
+            <li><a href="#代码实战-3">代码实战</a></li>
           </ul>
         </li>
       </ul>
@@ -1681,13 +1691,239 @@
 <ul>
 <li>可以使得真实角色（host）的操作更加纯粹，不同去关注一些公共的业务</li>
 <li>公共事务也就交给了代理角色，实现了业务的分工</li>
-<li>公共业务发生扩展的时候，方便集中管理</li>
+<li>公共业务发生扩展的时候，方便集中管理（因为改变原有的代码，在业务中是大忌）</li>
 </ul>
 <p>缺点：</p>
 <ul>
 <li>一个真实的角色，就会产生一个代理角色，代码量翻倍，开发效率降低</li>
 </ul>
-</div><div class="post-footer" id="post-footer">
+<h4 id="aop的实现机制">AOP的实现机制</h4>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images_Spring/pic6.png"
+        data-srcset="/images_Spring/pic6.png, /images_Spring/pic6.png 1.5x, /images_Spring/pic6.png 2x"
+        data-sizes="auto"
+        alt="/images_Spring/pic6.png"
+        title="/images_Spring/pic6.png" /></p>
+<ul>
+<li>如果要新增一个功能，就增加一个代理类</li>
+<li>不更改原油代码的同时，增加了功能</li>
+<li>这种开发方式就是横向开发。</li>
+</ul>
+<h2 id="动态代理">动态代理</h2>
+<ul>
+<li>动态代理和静态代理的角色是一样</li>
+<li>动态代理的代理类是动态生成的，不是我们直接写好的</li>
+<li>动态代理分为两大类：<strong>基于接口的动态代理</strong>，和<strong>基于类的动态代理</strong></li>
+<li>需要了解两个类：Proxy，InvocationHandler</li>
+</ul>
+<h3 id="invocationhandler-接口">InvocationHandler 接口</h3>
+<ul>
+<li>拥有静态代理的所有好处，见上文</li>
+<li>一个动态代理的是一个接口，一般就是对应的一类业务</li>
+<li>一个动态代理类可以代理多个类，只要是实现了这些类都是实现了同一个接口，则都可以被代理</li>
+</ul>
+<h4 id="代码实战-3">代码实战</h4>
+<ul>
+<li>Rent 接口</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-Java" data-lang="Java"><span class="kn">package</span> <span class="nn">com.swagger.demo03</span><span class="o">;</span>
+
+<span class="c1">// 租房
+</span><span class="c1"></span><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">Rent</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">rent</span><span class="o">();</span>
+<span class="o">}</span>
+
+</code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>房东 类</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-Java" data-lang="Java"><span class="kn">package</span> <span class="nn">com.swagger.demo03</span><span class="o">;</span>
+
+<span class="c1">// 房东
+</span><span class="c1"></span><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Host</span> <span class="kd">implements</span> <span class="n">Rent</span> <span class="o">{</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">rent</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;房东要出租房子&#34;</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+</code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>ProxyInvocationHandler.java 实现动态代理</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-Java" data-lang="Java"><span class="kn">package</span> <span class="nn">com.swagger.demo03</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">java.lang.reflect.InvocationHandler</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.lang.reflect.Method</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.lang.reflect.Proxy</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">ProxyInvocationHandler</span> <span class="kd">implements</span> <span class="n">InvocationHandler</span> <span class="o">{</span>
+
+    <span class="c1">// 被代理的接口
+</span><span class="c1"></span>    <span class="kd">private</span> <span class="n">Rent</span> <span class="n">rent</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setRent</span><span class="o">(</span><span class="n">Rent</span> <span class="n">rent</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">rent</span> <span class="o">=</span> <span class="n">rent</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="c1">// 得到代理类
+</span><span class="c1"></span>    <span class="kd">public</span> <span class="n">Object</span> <span class="nf">getProxy</span><span class="o">(){</span>
+        <span class="k">return</span> <span class="n">Proxy</span><span class="o">.</span><span class="na">newProxyInstance</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="na">getClass</span><span class="o">().</span><span class="na">getClassLoader</span><span class="o">(),</span> <span class="n">rent</span><span class="o">.</span><span class="na">getClass</span><span class="o">().</span><span class="na">getInterfaces</span><span class="o">(),</span> <span class="k">this</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="c1">// 处理代理实例，并返回结果
+</span><span class="c1"></span>    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="n">Object</span> <span class="nf">invoke</span><span class="o">(</span><span class="n">Object</span> <span class="n">proxy</span><span class="o">,</span> <span class="n">Method</span> <span class="n">method</span><span class="o">,</span> <span class="n">Object</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Throwable</span> <span class="o">{</span>
+
+        <span class="c1">// 代理附加操作1：看房子
+</span><span class="c1"></span>        <span class="n">seeHouse</span><span class="o">();</span>
+
+        <span class="c1">// 动态代理的本质就是使用反射机制实现
+</span><span class="c1"></span>        <span class="c1">// 通过反射代理执行rent操作
+</span><span class="c1"></span>        <span class="n">Object</span> <span class="n">result</span> <span class="o">=</span> <span class="n">method</span><span class="o">.</span><span class="na">invoke</span><span class="o">(</span><span class="n">rent</span><span class="o">,</span> <span class="n">args</span><span class="o">);</span>
+
+        <span class="c1">// 代理附加操作2：收中介费
+</span><span class="c1"></span>        <span class="n">fare</span><span class="o">();</span>
+
+        <span class="k">return</span> <span class="n">result</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">seeHouse</span><span class="o">(){</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;proxy see house&#34;</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">fare</span><span class="o">(){</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;pay the proxy fare&#34;</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+</code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>Client 客户租房</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-Java" data-lang="Java"><span class="kn">package</span> <span class="nn">com.swagger.demo03</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Client</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="c1">// 真实角色
+</span><span class="c1"></span>        <span class="n">Host</span> <span class="n">host</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Host</span><span class="o">();</span>
+
+        <span class="c1">// 代理角色：现在没有，需要动态生成
+</span><span class="c1"></span>        <span class="n">ProxyInvocationHandler</span> <span class="n">handler</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ProxyInvocationHandler</span><span class="o">();</span>
+
+        <span class="c1">// 通过调用程序处理角色，来处理需要调用的接口对象
+</span><span class="c1"></span>        <span class="n">handler</span><span class="o">.</span><span class="na">setRent</span><span class="o">(</span><span class="n">host</span><span class="o">);</span>
+        <span class="n">Rent</span> <span class="n">proxy</span> <span class="o">=</span> <span class="o">(</span><span class="n">Rent</span><span class="o">)</span> <span class="n">handler</span><span class="o">.</span><span class="na">getProxy</span><span class="o">();</span> <span class="c1">// 这里的proxy就是动态生成的，没有写其相应的代理类
+</span><span class="c1"></span>        <span class="n">proxy</span><span class="o">.</span><span class="na">rent</span><span class="o">();</span>
+
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div></div><div class="post-footer" id="post-footer">
     <div class="post-info">
         <div class="post-info-line">
             <div class="post-info-mod">
@@ -1712,7 +1948,8 @@
         </section>
     </div>
 
-    <div class="post-nav"><a href="/mybatis_learning2/" class="prev" rel="prev" title="MyBatis学习2"><i class="fas fa-angle-left fa-fw"></i>MyBatis学习2</a></div>
+    <div class="post-nav"><a href="/mybatis_learning2/" class="prev" rel="prev" title="MyBatis学习2"><i class="fas fa-angle-left fa-fw"></i>MyBatis学习2</a>
+            <a href="/spring2/" class="next" rel="next" title="Spring学习2">Spring学习2<i class="fas fa-angle-right fa-fw"></i></a></div>
 </div>
 <div id="comments"></div></article></div>
             </main><footer class="footer">

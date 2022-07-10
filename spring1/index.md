@@ -801,10 +801,149 @@ public interface Rent {
 #### 代理模式的好处
 * 可以使得真实角色（host）的操作更加纯粹，不同去关注一些公共的业务
 * 公共事务也就交给了代理角色，实现了业务的分工
-* 公共业务发生扩展的时候，方便集中管理
+* 公共业务发生扩展的时候，方便集中管理（因为改变原有的代码，在业务中是大忌） 
 
 缺点：  
 * 一个真实的角色，就会产生一个代理角色，代码量翻倍，开发效率降低
+
+#### AOP的实现机制
+![](/images_Spring/pic6.png)  
+* 如果要新增一个功能，就增加一个代理类
+* 不更改原油代码的同时，增加了功能
+* 这种开发方式就是横向开发。
+
+
+
+
+
+
+
+
+
+
+
+## 动态代理
+* 动态代理和静态代理的角色是一样
+* 动态代理的代理类是动态生成的，不是我们直接写好的
+* 动态代理分为两大类：**基于接口的动态代理**，和**基于类的动态代理**
+* 需要了解两个类：Proxy，InvocationHandler
+
+### InvocationHandler 接口
+* 拥有静态代理的所有好处，见上文
+* 一个动态代理的是一个接口，一般就是对应的一类业务
+* 一个动态代理类可以代理多个类，只要是实现了这些类都是实现了同一个接口，则都可以被代理
+
+#### 代码实战
+* Rent 接口
+```Java
+package com.swagger.demo03;
+
+// 租房
+public interface Rent {
+    public void rent();
+}
+
+```
+
+* 房东 类
+```Java
+package com.swagger.demo03;
+
+// 房东
+public class Host implements Rent {
+
+    @Override
+    public void rent() {
+        System.out.println("房东要出租房子");
+    }
+}
+
+```
+
+* ProxyInvocationHandler.java 实现动态代理
+```Java
+package com.swagger.demo03;
+
+import java.lang.reflect.InvocationHandler;
+import java.lang.reflect.Method;
+import java.lang.reflect.Proxy;
+
+public class ProxyInvocationHandler implements InvocationHandler {
+
+    // 被代理的接口
+    private Rent rent;
+
+    public void setRent(Rent rent) {
+        this.rent = rent;
+    }
+
+    // 得到代理类
+    public Object getProxy(){
+        return Proxy.newProxyInstance(this.getClass().getClassLoader(), rent.getClass().getInterfaces(), this);
+    }
+
+    // 处理代理实例，并返回结果
+    @Override
+    public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+
+        // 代理附加操作1：看房子
+        seeHouse();
+
+        // 动态代理的本质就是使用反射机制实现
+        // 通过反射代理执行rent操作
+        Object result = method.invoke(rent, args);
+
+        // 代理附加操作2：收中介费
+        fare();
+
+        return result;
+    }
+
+    public void seeHouse(){
+        System.out.println("proxy see house");
+    }
+
+    public void fare(){
+        System.out.println("pay the proxy fare");
+    }
+}
+
+```
+
+* Client 客户租房
+```Java
+package com.swagger.demo03;
+
+public class Client {
+    public static void main(String[] args) {
+        // 真实角色
+        Host host = new Host();
+
+        // 代理角色：现在没有，需要动态生成
+        ProxyInvocationHandler handler = new ProxyInvocationHandler();
+
+        // 通过调用程序处理角色，来处理需要调用的接口对象
+        handler.setRent(host);
+        Rent proxy = (Rent) handler.getProxy(); // 这里的proxy就是动态生成的，没有写其相应的代理类
+        proxy.rent();
+
+    }
+}
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
