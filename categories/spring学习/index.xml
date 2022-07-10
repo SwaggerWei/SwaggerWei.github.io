@@ -9,7 +9,7 @@
     <pubDate>Sun, 10 Jul 2022 13:42:47 &#43;0800</pubDate>
     <author>作者</author>
     <guid>https://swaggerwei.github.io/spring2/</guid>
-    <description><![CDATA[AOP 面向切面编程 通过预编译和运行期动态代理实现程序功能的统一维护技术 AOP是OOP的延续]]></description>
+    <description><![CDATA[AOP 面向切面编程 通过预编译和运行期动态代理实现程序功能的统一维护技术 AOP是OOP的延续 使用Spring来实现AOP 导入依赖包 1 2 3 4 5 6 7 &lt;!--]]></description>
 </item><item>
     <title>Spring学习1</title>
     <link>https://swaggerwei.github.io/spring1/</link>
