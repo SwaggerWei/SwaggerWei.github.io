@@ -45,6 +45,218 @@ View
 
 ## 回顾servlet
 
+### 将maven项目变成web项目
+* 创建一个普通的maven项目，导入相应的依赖
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.swagger</groupId>
+    <artifactId>SpringMVC_learning</artifactId>
+    <packaging>pom</packaging>
+    <version>1.0-SNAPSHOT</version>
+    <modules>
+        <module>spingMVC-01-servlet</module>
+    </modules>
+
+    <properties>
+        <maven.compiler.source>16</maven.compiler.source>
+        <maven.compiler.target>16</maven.compiler.target>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.13</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-webmvc</artifactId>
+            <version>5.3.19</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/javax.servlet/servlet-api -->
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>servlet-api</artifactId>
+            <version>2.5</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/javax.servlet.jsp/jsp-api -->
+        <dependency>
+            <groupId>javax.servlet.jsp</groupId>
+            <artifactId>jsp-api</artifactId>
+            <version>2.2.1-b03</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/javax.servlet/jstl -->
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>jstl</artifactId>
+            <version>1.2</version>
+        </dependency>
+
+    </dependencies>
+
+</project>
+```
+* 右键项目，添加项目框架支持，勾选Web Application  
+![](/image_SpringMVC/pic1.png)
+* 子项目中导入依赖（承接父项目的依赖）
+* 编写一个servlet类，用来处理用户请求
+```Java
+package com.swagger.servlet;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+
+public class HelloServlet extends HttpServlet {
+
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        // 1 接受前端的参数
+        String method = req.getParameter("method");
+        if (method.equals("add")){
+            req.getSession().setAttribute("msg", "执行了add方法");
+        }
+        if (method.equals("delete")){
+            req.getSession().setAttribute("msg", "执行了delete方法");
+        }
+
+        // 2 调用业务层
+        // 3 试图重定向（转发到页面）
+        req.getRequestDispatcher("/WEB-INF/jsp/test.jsp").forward(req, resp); // 转发的时候继续携带当前servlet的参数
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        doGet(req, resp);
+    }
+}
+
+```
+* 在 web/WEB-INF目录下新建一个jsp文件夹，文件夹下新建一个test.jsp文件
+```jsp
+<%--
+  Created by IntelliJ IDEA.
+  User: swaggerwei
+  Date: 2022/7/11
+  Time: 20:18
+  To change this template use File | Settings | File Templates.
+--%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<html>
+<head>
+    <title>Title</title>
+</head>
+<body>
+<%--用以取出sevlet中的消息--%>
+${msg}
+</body>
+</html>
+```
+
+* 在web.xml文件中注册这个servlet
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
+         version="4.0">
+
+    <!--  hello就是一个页面的名称  -->
+    <servlet>
+        <servlet-name>hello</servlet-name>
+        <servlet-class>com.swagger.servlet.HelloServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>hello</servlet-name>
+        <url-pattern>/hello</url-pattern>
+    </servlet-mapping>
+</web-app>
+```
+
+* 跳转初始页面 
+```xml
+<%--
+  Created by IntelliJ IDEA.
+  User: swaggerwei
+  Date: 2022/7/11
+  Time: 20:30
+  To change this template use File | Settings | File Templates.
+--%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<html>
+<head>
+    <title>Title</title>
+</head>
+<body>
+
+<form action="/hello" method="post">
+    <input type="text" name="method">
+    <input type="submit">
+</form>
+
+</body>
+</html>
+
+```
+
+* 加入tomcat run/debug configuration 配置
+* 点击fix，然后点击apply、ok
+* 进入初始页面之后
+* 测试跳转到hello，后面连接参数?method=add，则回调用servlet中的代码，得到输出为给页面显示为"执行了add方法"，delete同理
+
+### MVC框架要做的事情
+* 将url请求映射到java类或者java类的方法之中
+* 封装用户提交的数据
+* 处理请求--调用相关的业务处理--封装相应数据
+* 将相应数据进行渲染jsp/html视图层数据
+
+
+## 初识SpringMVC
+* 是一个Java实现的MVC的web框架
+* 底层还是servlet
+
+### 特点
+* 轻量级，简单易学
+* 与Spring 的兼容性好，所有的对象都以bean的形式呈现
+* 基于请求相应和MVC框架
+* 约定优于配置（约定好的东西不要改）
+* 功能强大（RESTful，数据验证，格式化，本地化，主题等）
+* 简洁灵活
+
+Spring的web框架围绕**DispatcherServlet（调度servlet）**设计  ，以请求为驱动，围绕一个**中心Servlet分派请求**以及提供其他功能
+
+###补充知识点
+#### servlet 的两种方式（中转，调度）
+* 转发：直接将结果，附件找到的页面，渲染好给用户
+* 重定向：告诉用户结果在哪个页面中，给一个重定向的页面，打开之后包含渲染好的结果
+
+#### doGet中的 request 和 response 
+* request ：请求
+* Response：响应，可以转发
+
+### SpringMVC原理
+![](/image_SpringMVC/pic2.png)
+
+
+
+
+
+
 
 
 
