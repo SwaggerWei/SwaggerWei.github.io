@@ -1,4 +1,4 @@
-# Spring学习2
+# SpringMVC学习1
 
 
 ## SpringMVC
@@ -44,7 +44,6 @@ View
 * 显示页面
 
 ## 回顾servlet
-
 ### 将maven项目变成web项目
 * 创建一个普通的maven项目，导入相应的依赖
 ```xml
@@ -214,7 +213,7 @@ ${msg}
 
 ```
 
-* 加入tomcat run/debug configuration 配置
+* 加入tomcat（web容器）: run/debug configuration 中配置
 * 点击fix，然后点击apply、ok
 * 进入初始页面之后
 * 测试跳转到hello，后面连接参数?method=add，则回调用servlet中的代码，得到输出为给页面显示为"执行了add方法"，delete同理
