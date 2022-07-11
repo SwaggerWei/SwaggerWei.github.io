@@ -239,3 +239,358 @@ public class MyTest {
 * 编写配置文件
 * 测试
 
+### mybatis-spring使用
+* 编写数据源配置
+* sqlSessionFactory配置
+* sqlSessionTemplate配置
+* 需要给接口增加实现类
+* 将自己写的实现类注入到Spring当中
+* 测试
+
+#### 代码实战
+* UserMapper接口
+```Java
+package com.swagger.mapper;
+
+import com.swagger.pojo.User;
+
+import java.util.List;
+
+public interface UserMapper {
+    public List<User> selectUser();
+}
+
+```
+* UserMapper.xml 接口对应的sql语句
+```xml
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.swagger.mapper.UserMapper">
+    <select id="selectUser" resultType="user">
+        select * from mybatis.user
+    </select>
+
+</mapper>
+
+
+
+```
+
+* UserMapperImpl 实现类
+```Java
+package com.swagger.mapper;
+
+import com.swagger.pojo.User;
+import org.mybatis.spring.SqlSessionTemplate;
+
+import java.util.List;
+
+public class UserMapperImpl implements UserMapper{
+
+    // 我们的所有操作原来都使用sqlSession来执行，现在使用sqlSessionTemplate
+    private SqlSessionTemplate sqlSession;
+
+    public void setSqlSessionTemplate(SqlSessionTemplate sqlSessionTemplate) {
+        this.sqlSession = sqlSessionTemplate;
+    }
+
+    @Override
+    public List<User> selectUser() {
+        UserMapper mapper = sqlSession.getMapper(UserMapper.class);
+        return mapper.selectUser();
+    }
+}
+
+```
+
+* User 与数据库对应的实体类
+```Java
+package com.swagger.pojo;
+
+import lombok.Data;
+
+@Data
+public class User {
+    private int id;
+    private String name;
+    private String pwd;
+}
+
+```
+
+* mybatis-config.xml 配置文件
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/aop
+        https://www.springframework.org/schema/aop/spring-aop.xsd">
+
+    <import resource="spring-dao.xml"/>
+
+    <!--  这个总的文件单独用来注册bean
+          spring-dao.xml就不用动了
+    -->
+
+    <!--  注册UserMapperImpl  -->
+    <bean id="userMapperImpl" class="com.swagger.mapper.UserMapperImpl">
+        <property name="sqlSessionTemplate" ref="sqlSession"/>
+    </bean>
+
+</beans>
+```
+
+* spring-dao.xml配置文件
+```xml
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+
+    <!--  别名管理  -->
+    <typeAliases>
+        <package name="com.swagger.pojo"/>
+    </typeAliases>
+
+</configuration>
+
+
+
+```
+
+* applicationContext.xml整合配置文件
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/aop
+        https://www.springframework.org/schema/aop/spring-aop.xsd">
+
+    <!--  DataSource:使用spring的数据源替代mybatis的配置  c3p0 dbcp druid
+    我们这里使用Spring提供的JDBC：org.springframework.jdbc.datasource
+    -->
+    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="com.mysql.cj.jdbc.Driver"/>
+        <property name="url" value="jdbc:mysql://localhost:3306/mybatis?useSSL=true&amp;useUnicode=true&amp;characterEncoding=UTF-8&amp;serverTimezone=GMT"/>
+        <property name="username" value="root"/>
+        <property name="password" value="Wby785403310"/>
+    </bean>
+
+    <!--  配置sqlSessionFactory  -->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+
+        <!--    绑定Mybatis配置文件    -->
+        <property name="configLocation" value="classpath:mybatis-config.xml"/>
+        <property name="mapperLocations" value="classpath:com/swagger/mapper/*.xml"/>
+    </bean>
+
+    <!--  配置SqlSession，使用SqlSessionTemplate  -->
+    <bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+        <!--    只能使用构造器注入，因为没有set方法    -->
+        <constructor-arg index="0" ref="sqlSessionFactory"/>
+    </bean>
+
+
+</beans>
+```
+
+
+## Spring事务管理
+* 声明式事务（AOP），应用
+* 编程式事务，需要在代码中进行事务管理
+* 实际上用得最多的是声明式事务
+
+### 代码实战
+* UserMapperImpl
+```Java
+package com.swagger.mapper;
+
+import com.swagger.pojo.User;
+import org.mybatis.spring.SqlSessionTemplate;
+import org.mybatis.spring.support.SqlSessionDaoSupport;
+
+import java.util.List;
+
+public class UserMapperImpl extends SqlSessionDaoSupport implements UserMapper{
+
+//    // 我们的所有操作原来都使用sqlSession来执行，现在使用sqlSessionTemplate
+//    private SqlSessionTemplate sqlSession;
+//
+//    public void setSqlSessionTemplate(SqlSessionTemplate sqlSessionTemplate) {
+//        this.sqlSession = sqlSessionTemplate;
+//    }
+
+    @Override
+    public List<User> selectUser() {
+
+        User user = new User(9, "swagger8", "1232451");
+
+        UserMapper mapper = getSqlSession().getMapper(UserMapper.class);
+
+        mapper.addUser(user);
+        mapper.deleteUser(9);
+
+        return mapper.selectUser();
+    }
+
+    @Override
+    public int addUser(User user) {
+        return getSqlSession().getMapper(UserMapper.class).addUser(user);
+    }
+
+    @Override
+    public int deleteUser(int id) {
+        return getSqlSession().getMapper(UserMapper.class).deleteUser(1);
+    }
+}
+```
+
+* UserMapper.xml
+```xml
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.swagger.mapper.UserMapper">
+    <select id="selectUser" resultType="user">
+        select * from mybatis.user
+    </select>
+
+    <insert id="addUser" parameterType="user">
+        insert into mybatis.user (id, name, pwd) values (#{id}, #{name}, #{pwd})
+    </insert>
+
+    <delete id="deleteUser" parameterType="int">
+        delete from mybatis.user where id=#{id}
+    </delete>
+
+</mapper>
+
+
+
+```
+
+* UserMapper 接口
+```Java
+package com.swagger.mapper;
+
+import com.swagger.pojo.User;
+
+import java.util.List;
+
+public interface UserMapper {
+    // 查询用户
+    public List<User> selectUser();
+
+    // 添加一个用户
+    public int addUser(User user);
+
+    // 删除一个用户
+    public int deleteUser(int id);
+
+
+
+}
+
+```
+
+* spring-dao.xml文件中配置事务 和 aop切入
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/aop
+        https://www.springframework.org/schema/aop/spring-aop.xsd
+        http://www.springframework.org/schema/tx
+        https://www.springframework.org/schema/tx/spring-tx.xsd">
+
+    <!--  DataSource:使用spring的数据源替代mybatis的配置  c3p0 dbcp druid
+    我们这里使用Spring提供的JDBC：org.springframework.jdbc.datasource
+    -->
+    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="com.mysql.cj.jdbc.Driver"/>
+        <property name="url" value="jdbc:mysql://localhost:3306/mybatis?useSSL=true&amp;useUnicode=true&amp;characterEncoding=UTF-8&amp;serverTimezone=GMT"/>
+        <property name="username" value="root"/>
+        <property name="password" value="Wby785403310"/>
+    </bean>
+
+    <!--  配置sqlSessionFactory  -->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+
+        <!--    绑定Mybatis配置文件    -->
+        <property name="configLocation" value="classpath:mybatis-config.xml"/>
+        <property name="mapperLocations" value="classpath:com/swagger/mapper/*.xml"/>
+    </bean>
+
+    <!--  配置SqlSession，使用SqlSessionTemplate  -->
+    <bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+        <!--    只能使用构造器注入，因为没有set方法    -->
+        <constructor-arg index="0" ref="sqlSessionFactory"/>
+    </bean>
+
+    <!--  配置声明式事务  -->
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <constructor-arg ref="dataSource" />
+    </bean>
+
+    <!--  结合aop，实行事务的织入  -->
+    <!--  配置事务的通知  -->
+    <tx:advice id="txAdvice" transaction-manager="transactionManager">
+        <!--    给哪些方法配置事务    -->
+        <!--    配置事务的传播特性    -->
+        <tx:attributes>
+            <tx:method name="add" propagation="REQUIRED"/>
+            <tx:method name="delete" propagation="REQUIRED"/>
+            <tx:method name="update" propagation="REQUIRED"/>
+            <tx:method name="query" read-only="true"/>
+            <tx:method name="*" propagation="REQUIRED"/>
+        </tx:attributes>
+    </tx:advice>
+
+    <!--  配置事务切入  -->
+    <aop:config>
+        <aop:pointcut id="txPointCut" expression="execution(* com.swagger.mapper.*.*(..))"/>
+        <aop:advisor advice-ref="txAdvice" pointcut-ref="txPointCut"/>
+    </aop:config>
+
+
+</beans>
+```
+
+* 测试
+```Java
+@Test
+public void test2(){
+    ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
+    UserMapper userMapper = context.getBean("userMapper", UserMapper.class);
+
+    List<User> users = userMapper.selectUser();
+    for (User user : users) {
+        System.out.println(user);
+    }
+}
+```
+
+
+
+
+
+
