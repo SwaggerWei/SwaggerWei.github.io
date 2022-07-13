@@ -251,14 +251,102 @@ Spring的web框架围绕**DispatcherServlet（调度servlet）**设计  ，以�
 ### SpringMVC原理
 ![](/image_SpringMVC/pic2.png)
 
+## 第一个SpringMVC程序
+* web.xml 文件中注册DispatcherServlet, 且配置请求处理
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
+         version="4.0">
+
+    <!--  注册DispatcherServlet  -->
+    <servlet>
+        <servlet-name>springmvc</servlet-name>
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+
+        <!--    关联一个配置springmvc配置文件[servlet-name]-servlet.xml    -->
+        <init-param>
+            <param-name>contextConfigLocation</param-name>
+            <param-value>classpath:springmvc-servlet.xml</param-value>
+        </init-param>
+
+    </servlet>
+
+    <!-- / 配置所有请求，（不包括.jsp）  -->
+    <!-- /* 配置所有请求，（包括.jsp）  -->
+    <servlet-mapping>
+        <servlet-name>springmvc</servlet-name>
+        <url-pattern>/</url-pattern>
+    </servlet-mapping>
+
+</web-app>
+```
+
+* springmvc-servlet.xml 中配置BeanNameUrlHandlerMapping、SimpleControllerHandlerAdapter、InternalResourceViewResolver， 确定转发的前缀和后缀,且注册Controller
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean class="org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping"/>
+    <bean class="org.springframework.web.servlet.mvc.SimpleControllerHandlerAdapter"/>
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver" id="internalResourceViewResolver">
+        <!--    请求转发前缀    -->
+        <property name="prefix" value="/WEB-INF/jsp/"/>
+
+        <!--    请求转发后缀    -->
+        <property name="suffix" value=".jsp"/>
+    </bean>
+
+    <bean id="/hello" class="com.swagger.controller.HelloController"/>
+
+</beans>
+```
+
+* 实现Controller接口
+```Java
+
+package com.swagger.controller;
+
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.Controller;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+public class HelloController implements Controller {
+
+    @Override
+    public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        // ModelAndView
+        ModelAndView mv = new ModelAndView();
+
+        // 封装对象，放在ModelAndView中，model
+        mv.addObject("msg", "HelloSpringMVC");
+
+        // 封装要跳转的试图，放在ModelAndView中
+        mv.setViewName("hello"); // web/WEB-INF/jsp/hello.jsp
+        return mv;
+    }
+}
+
+
+```
+
+* 使用tomcat执行，弹出浏览器之后，输入拦后面加上hello即可完成
+
+### 易错点
+* tomcat执行之前需要先把之前的deployment清理一遍，换成现在的子项目，然后apply 和 ok
+* 如果报错，发现500或者404找不到spring中的包，则需要在idea的project structure中，找到artifacts 下对应的子项目，在WEB-INF中新建lib，并导入所有的library
+* 之后重启tomcat
+![](/image_SpringMVC/pic3.png)
 
 
 
-
-
-
-
-
+  
 
 
 
