@@ -533,3 +533,7 @@ public class HelloController {
 * 添加为当前的工程，apply ok
 * 输入页面，输入[http://localhost:8080/springmvc_03_annotation_war_exploded/hello/h1](http://localhost:8080/springmvc_03_annotation_war_exploded/hello/h1)
 
+
+
+
+
