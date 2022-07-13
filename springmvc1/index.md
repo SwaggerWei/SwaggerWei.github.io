@@ -239,7 +239,7 @@ ${msg}
 
 Spring的web框架围绕**DispatcherServlet（调度servlet）**设计  ，以请求为驱动，围绕一个**中心Servlet分派请求**以及提供其他功能
 
-###补充知识点
+### 补充知识点
 #### servlet 的两种方式（中转，调度）
 * 转发：直接将结果，附件找到的页面，渲染好给用户
 * 重定向：告诉用户结果在哪个页面中，给一个重定向的页面，打开之后包含渲染好的结果
@@ -346,10 +346,190 @@ public class HelloController implements Controller {
 
 
 
-  
+
+ 
+
+## SpringMVC的执行原理（面试常问）
+* 实线部分，SpringMVC已经实现好了，只用自己写虚线部分
+![](/image_SpringMVC/pic4.png)
+
+### 具体过程
+![](/image_SpringMVC/pic5.png)  
+![](/image_SpringMVC/pic6.png)  
+![](/image_SpringMVC/pic7.png)  
 
 
 
 
 
+
+
+
+
+## 整体流程再巩固
+* 确定maven依赖中都有对应的依赖
+![](/image_SpringMVC/pic8.png)
+* 确定project structure 的 artifacts中有lib目录且有对应的依赖（如果没有就手动创建目录，且导入相应的依赖）
+![](/image_SpringMVC/pic9.png)
+
+## SpringMVC注解进行开发
+### 新建一个maven项目
+* 确认maven中的依赖包含SpringMVC相关的包
+* 在pom.xml文件中增加其他目录的xml、properties文件的资源过滤
+```xml
+<!--在build中配置配置resources，来防止我们资源导出失败问题-->
+<build>
+    <resources>
+
+        <resource>
+            <directory>src/main/resources</directory>
+            <includes>
+                <include>**/*.properties</include>
+                <include>**/*.xml</include>
+            </includes>
+            <filtering>true</filtering>
+        </resource>
+
+        <resource>
+            <directory>src/main/java</directory>
+            <includes>
+                <include>**/*.properties</include>
+                <include>**/*.xml</include>
+            </includes>
+            <filtering>true</filtering>
+        </resource>
+
+    </resources>
+</build>
+
+```
+* 右键项目，add framework support，添加web application支持（最好为最新的4.0版本）
+* 打开项目的project structure，artifacts中创建lib目录，添加jar包的支持
+
+### 编辑web.xml，配置servlet
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
+         version="4.0">
+
+    <!--    配置一个DispatcherServlet, SpringMVC的核心，请求分发器，前端控制器-->
+    <servlet>
+        <servlet-name>springmvc</servlet-name>
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+
+        <!--    绑定SpringMVC的配置文件    -->
+        <init-param>
+            <param-name>contextConfigLocation</param-name>
+            <param-value>classpath:springmvc-servlet.xml</param-value>
+        </init-param>
+
+        <!--    启动级别，设置为1，服务器一启动，就跟着启动    -->
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+
+    <!--
+      SpringMVC中url-pattern的
+      / ： 只匹配所有的请求，不匹配jsp视图（经常使用）
+      /* ：匹配所有的请求，包括jsp视图
+      -->
+    <servlet-mapping>
+        <servlet-name>springmvc</servlet-name>
+        <url-pattern>/</url-pattern>
+    </servlet-mapping>
+</web-app>
+```
+
+### 配置springmvc-servlet.xml
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        https://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/mvc
+        https://www.springframework.org/schema/mvc/spring-mvc.xsd">
+
+    <!--  自动扫描包，让指定包下的注解失效，由IOC容器统一管理
+    则这个包下所有的注解就生效了-->
+    <context:component-scan base-package="com.swagger.controller"/>
+
+    <!--  让Spring MVC不处理静态资，只处理视图资源 -->
+    <mvc:default-servlet-handler/>
+
+    <!--  自动配置handlerMapping 和 handlerAdapter  -->
+    <mvc:annotation-driven/>
+
+    <!--  视图解析器:模版引擎  -->
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver" id="internalResourceViewResolver">
+        <!--    前缀    -->
+        <property name="prefix" value="/WEB-INF/jsp/"/>
+        <!--    后缀    -->
+        <property name="suffix" value=".jsp"/>
+    </bean>
+
+</beans>
+
+```
+
+### 新建视图
+* 所有的视图都放在`web/WEB-INF/jsp`路径下，方便管理，和springmvc-servlet.xml中的解析器相对应
+```jsp
+<%--
+  Created by IntelliJ IDEA.
+  User: swaggerwei
+  Date: 2022/7/13
+  Time: 14:25
+  To change this template use File | Settings | File Templates.
+--%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<html>
+<head>
+    <title>Title</title>
+</head>
+<body>
+
+${msg}
+
+</body>
+</html>
+```
+
+
+### 根据视图，编写对应的controller 方法
+```Java
+package com.swagger.controller;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+@Controller
+public class HelloController {
+
+    // 代表真实用户访问地址
+    @RequestMapping("/hello")
+    public String hello(Model model){
+
+        // 封装数据，模型中添加属性值msg，可以在jsp页面中取出并渲染
+        model.addAttribute("msg", "Hello, SpringMVCAnnotation");
+
+        // 拼接取得视图地址
+        return "hello"; // return的结果会被视图解析器处理
+    }
+
+}
+```
+
+* 也就是一个jsp页面对应一个controller内的方法
+
+### 配置tomcat 并运行
+* 清除历史的deployment
+* 添加为当前的工程，apply ok
+* 输入页面，输入[http://localhost:8080/springmvc_03_annotation_war_exploded/hello/h1](http://localhost:8080/springmvc_03_annotation_war_exploded/hello/h1)
 
