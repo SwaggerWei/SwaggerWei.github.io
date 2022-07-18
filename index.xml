@@ -3,9 +3,16 @@
         <title>Boyan Wei</title>
         <link>https://swaggerwei.github.io/</link>
         <description>这是我的全新 Hugo 网站</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Wed, 13 Jul 2022 20:22:05 &#43;0800</lastBuildDate>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Mon, 18 Jul 2022 21:00:39 &#43;0800</lastBuildDate>
             <atom:link href="https://swaggerwei.github.io/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>SSM整合学习1</title>
+    <link>https://swaggerwei.github.io/ssm1/</link>
+    <pubDate>Mon, 18 Jul 2022 21:00:39 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://swaggerwei.github.io/ssm1/</guid>
+    <description><![CDATA[环境要求 IDEA MySQL 8 Tomcat 9 Maven 3.8 数据库建立 1 2 3 4 5 6 7 8 9 10 11 12 13 CREATETABLE`books`(bookIDINT(10)NOTNULLAU]]></description>
+</item><item>
     <title>SpringMVC学习2</title>
     <link>https://swaggerwei.github.io/springmvc2/</link>
     <pubDate>Wed, 13 Jul 2022 20:22:05 &#43;0800</pubDate>
@@ -68,12 +75,5 @@
     <author>作者</author>
     <guid>https://swaggerwei.github.io/leetcode_recite3/</guid>
     <description><![CDATA[DFS / BFS BFS 模板]]></description>
-</item><item>
-    <title>Leetcode全速通2</title>
-    <link>https://swaggerwei.github.io/leetcode_recite2/</link>
-    <pubDate>Sat, 11 Jun 2022 14:17:04 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>https://swaggerwei.github.io/leetcode_recite2/</guid>
-    <description><![CDATA[DFS / BFS BFS 模板 DFS 模版 backtracking 和 DFS 有些许相似 backtraking 是更加广义上的一个算法 DFS 是backtracking在图数结构中的具体应用形势 DFS BFS 特点 BFS：对于解决最短]]></description>
 </item></channel>
 </rss>
