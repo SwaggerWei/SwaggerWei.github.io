@@ -97,7 +97,7 @@ MyBatis中极为重要的调整设置，可以改变MyBatis运行时的行为
 ```
 
 ## 生命周期和作用域
-![](/images_MyBatis/pic1.png)
+![](/image_MyBatis/pic1.png)
 * 作用域和生命周期类别是至关重要的，因为错误的使用会导致非常严重的并发问题
 
 ### SqlSessionFactoryBuilder
@@ -115,14 +115,14 @@ MyBatis中极为重要的调整设置，可以改变MyBatis运行时的行为
 * 每个线程都应该有它自己的 SqlSession 实例
 * SqlSession 的实例不是线程安全的，因此是不能被共享的
 * 它的最佳的作用域是**请求或方法作用域**， 用完之后需要赶紧关闭，否则资源则被占用
-![](/images_MyBatis/pic2.png)
+![](/image_MyBatis/pic2.png)
 * 上图中的每一个mapper就代表一个业务
 
 ### 实体类属性名和数据库字段名不一样的问题
 * 方法一：在sql中使用`as`关键字取别名，别名与实体类的名字一致
 
 * 方法二：结果集映射，将数据库的名称映射成实体类的名称（column代表数据库字段名，property代表实体类属性名）
-![](/images_MyBatis/pic3.png)
+![](/image_MyBatis/pic3.png)
 
 
 ## 日志
@@ -185,7 +185,7 @@ log4j.logger.java.sql.PreparedStatement=DEBUG
 ```
 
 * log4j的使用，直接测试运行刚才的查询
-![](/images_MyBatis/pic4.png)
+![](/image_MyBatis/pic4.png)
 
 
 #### log4j 的简单使用

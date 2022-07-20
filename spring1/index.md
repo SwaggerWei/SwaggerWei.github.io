@@ -36,7 +36,7 @@
 * 支持事务的处理，对框架整合的支持
 
 ### Spring 的组成及扩展 
-![](/images_Spring/pic1.png)
+![](/image_Spring/pic1.png)
 * Spring Boot：一个快速开发的脚手架；基于Spring Boot可以快速开发单个微服务；约定大于配置
 * Spring Cloud：SpringCloud是基于SpringBoot实现的；
 * 现在大多数公司都在使用SpringBoot进行快速开发，**学习SpringBoot的前提是掌握Spring和SpringMVC**
@@ -47,7 +47,7 @@
 * 在业务当中，用户的需求可能会影响我们原来的代码，我们需要根据用户的需求去修改原代码！如果程序量十分大，修改一次的成本昂贵。
 * 使用set接口实现的好处是，程序员不再是主导者，**以前的Dao层和业务层只是增量，都不需要再修改，决定权在用户手中**，只是如何使用的问题。
 * 耦合性降低，更加专注于业务的实现，这个就是IOC的原型
-![](/images_Spring/pic2.png)
+![](/image_Spring/pic2.png)
 
   
 * UserDao接口
@@ -248,7 +248,7 @@ public class MyTest {
 #### 实际操作
 * 在resources中，新建一个`applicationContext.xml`文件，并将其并入到已有的beans中
 * 将`applicationContext.xml`文件作为多个beans文件的汇总文件
-![](/images_Spring/pic3.png)
+![](/image_Spring/pic3.png)
 * import导入其他的beans文件
 ```xml
 <import resource="beans.xml"/>
@@ -639,7 +639,7 @@ public class User {
 ## Spring使用注解开发
 * tips：在Spring4之后，要使用注解进行开发，必须要导入aop包，且
 * **zulu jdk16和spring5.2不兼容，需要换成5.3.19**
-![](/images_Spring/pic4.png)
+![](/image_Spring/pic4.png)
 * xml中导入context约束，增加注解的支持
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -718,7 +718,7 @@ public class User {
 * 真实角色：被代理的角色
 * 代理角色：代理真实角色，代理之后，我们一般会做的一些附属操作
 * 客户：访问代理对象的人
-![](/images_Spring/pic5.png)
+![](/image_Spring/pic5.png)
 
 #### 代码实战
 * Client 客户端访问代理角色
@@ -807,7 +807,7 @@ public interface Rent {
 * 一个真实的角色，就会产生一个代理角色，代码量翻倍，开发效率降低
 
 #### AOP的实现机制
-![](/images_Spring/pic6.png)  
+![](/image_Spring/pic6.png)  
 * 如果要新增一个功能，就增加一个代理类
 * 不更改原油代码的同时，增加了功能
 * 这种开发方式就是横向开发。
