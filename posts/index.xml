@@ -9,7 +9,7 @@
     <pubDate>Mon, 18 Jul 2022 21:00:39 &#43;0800</pubDate>
     <author>作者</author>
     <guid>https://swaggerwei.github.io/ssm1/</guid>
-    <description><![CDATA[环境要求 IDEA MySQL 8 Tomcat 9 Maven 3.8 数据库建立 1 2 3 4 5 6 7 8 9 10 11 12 13 CREATETABLE`books`(bookIDINT(10)NOTNULLAU]]></description>
+    <description><![CDATA[环境要求 IDEA MySQL 8 Tomcat 9 Maven 3.8 MyBatis 层 数据库建立 1 2 3 4 5 6 7 8 9 10 11 12 13 CREATETABLE`books`(bookIDINT(10)NOTNULL]]></description>
 </item><item>
     <title>SpringMVC学习2</title>
     <link>https://swaggerwei.github.io/springmvc2/</link>

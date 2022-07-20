@@ -7,7 +7,9 @@
 * Tomcat 9
 * Maven 3.8
 
-## 数据库建立
+## MyBatis 层
+
+### 数据库建立
 ```SQL
 CREATE TABLE `books`(
     bookID INT(10) NOT NULL AUTO_INCREMENT comment '书id',
@@ -29,7 +31,7 @@ insert into `books` (bookID, bookName, bookCounts, detail) VALUES
 
 
 
-## maven pom.xml文件配置
+### maven pom.xml文件配置
 * 依赖
 * 静态资源导出问题
 ```xml
@@ -151,7 +153,7 @@ insert into `books` (bookID, bookName, bookCounts, detail) VALUES
 </project>
 ```
 
-## 建立数据库配置文件database.properties
+### 建立数据库配置文件database.properties
 ```properties
 jdbc.driver=com.mysql.cj.jdbc.Driver
 jdbc.url=jdbc:mysql://localhost:3306/mybatis?useSSL=true&amp;useUnicode=true&amp;characterEncoding=UTF-8&amp;serverTimezone=GMT
@@ -159,13 +161,13 @@ jdbc.username=root
 jdbc.password=Wby785403310
 ```
 
-## IDEA连接数据库
+### IDEA连接数据库
 ![](/images_SSMBuild/pic1.png)
 
-## 项目结构搭建
+### 项目结构搭建
 ![](/images_SSMBuild/pic2.png)
 
-## 建立数据库对应的实体类 pojo层
+### 建立数据库对应的实体类 pojo层
 * @Data @AllArgsConstructor @NoArgsConstructor 加上构造函数 getter setter
 ```Java
 package com.swagger.pojo;
@@ -185,7 +187,7 @@ public class Books {
 }
 ```
 
-## crud接口和对应的mapper.xml dao层
+### crud接口和对应的mapper.xml dao层
 * BookMapper.java
 ```Java
 package com.swagger.dao;
@@ -261,7 +263,7 @@ public interface BookMapper {
 
 
 
-## 建立BookService.java
+### 建立BookService.java
 ```Java
 package com.swagger.service;
 
@@ -288,11 +290,412 @@ public interface BookService {
 }
 ```
 
-## BookService.java接口的实现类
+### BookService.java接口的实现类
+* service层调用dao层就可以了，组合dao层
+* service层可以在调用dao层之前加入其他的操作形成事务
+* 加入的操作可以直接用Spring aop横切进去就行
+```Java
+package com.swagger.service;
+
+import com.swagger.dao.BookMapper;
+import com.swagger.pojo.Books;
+
+import java.util.List;
+
+public class BookServiceImpl implements BookService{
+
+    // service层调用dao层就可以了，组合dao层
+    // service层可以在调用dao层之前加入其他的操作形成事务，
+    // 加入的操作可以直接用Spring aop横切进去就行
+    private BookMapper bookMapper;
+    public void setBookMapper(BookMapper bookMapper) {
+        // 如果要加入其他的操作，直接用aop横切进去就行
+        // 真实项目的其他操作可能很复杂，
+        this.bookMapper = bookMapper;
+    }
+
+    @Override
+    public int addBook(Books books) {
+        return bookMapper.addBook(books);
+    }
+
+    @Override
+    public int deleteBookById(int id) {
+        return bookMapper.deleteBookById(id);
+    }
+
+    @Override
+    public int updateBook(Books books) {
+        return bookMapper.updateBook(books);
+    }
+
+    @Override
+    public Books queryBookById(int id) {
+        return bookMapper.queryBookById(id);
+    }
+
+    @Override
+    public List<Books> queryAllBook() {
+        return bookMapper.queryAllBook();
+    }
+}
+```
+
+
+## Spring 层
+### spring-dao.xml 托管dao层所用到的bean
+* 1 关联数据库配置文件database.properties
+* 2 连接池配置
+* 3 sqlSessionFactory
+* 4 配置dao接口扫描包，动态实现了dao接口可以注入到spring容器中（反射）
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        https://www.springframework.org/schema/context/spring-context.xsd">
+    <!--  1 关联数据库配置文件database.properties  -->
+    <context:property-placeholder location="classpath:database.properties"/>
+
+    <!--  2 连接池
+            dbcp 半自动化操作 不能自动连接
+            c3p0 自动化操作（自动化的加载配置文件，自动设置到对象当中）
+            druid 阿里的
+            hikari spring 默认集成
+            -->
+    <!--使用的是c3p0的数据库连接池-->
+    <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+
+        <property name="driverClass" value="${jdbc.driver}"/>
+        <property name="jdbcUrl" value="${jdbc.url}}"/>
+        <property name="user" value="${jdbc.username}}"/>
+        <property name="password" value="${jdbc.password}"/>
+
+        <!--  c3p0的独有属性  -->
+        <!--最大最小连接数量-->
+        <property name="maxPoolSize" value="30"/>
+        <property name="minPoolSize" value="10"/>
+        <!--  关闭连接之后不自动commit  -->
+        <property name="autoCommitOnClose" value="false"/>
+        <!--获取连接超时时间-->
+        <property name="checkoutTimeout" value="10000"/>
+        <!--当获取连接失败重试次数-->
+        <property name="acquireRetryAttempts" value="2"/>
+
+    </bean>
+
+    <!--  3 sqlSessionFactory  -->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <!--  绑定mybatis配置文件  -->
+        <property name="configLocation" value="classpath:mybatis-config.xml"/>
+    </bean>
+
+    <!--  4 配置dao接口扫描包，动态实现了dao接口可以注入到spring容器中（反射）  -->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <!--注入sqlSessionFactory-->
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
+
+        <!--  扫描要扫描的包  -->
+        <property name="basePackage" value="com.swagger.dao"/>
+    </bean>
+
+</beans>
+```
+
+
+### spring-service.xml 托管service层所有的bean
+* 1 扫描service下的包
+* 2 将所有的service业务类，注入到spring 或者使用注解@Service和@Autowired
+* 3 声明式事务配置
+* 4 aop事务的支持 （暂时没有使用）
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        https://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!--  1 扫描service下的包  -->
+    <context:component-scan base-package="com.swagger.service"/>
+
+    <!--  2 将所有的service业务类，注入到spring 或者使用注解@Service和@Autowired  -->
+    <bean id="BookServiceImpl" class="com.swagger.service.BookServiceImpl">
+        <property name="bookMapper" ref="bookMapper"/>
+    </bean>
+
+    <!--  3 声明式事务配置  -->
+    <bean id="TransactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <!--注入数据源-->
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+
+    <!--  4 aop事务的支持-->
+
+
+</beans>
+```
+
+### applicationContext.xml 整合dao和service
+* 整合dao和service
+* 实际上不写这两个import也可以，因为idea可以自动整合
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!--整合dao和service，实际上不写这个也可以，因为idea可以自动整合-->
+    <import resource="classpath:spring-dao.xml"/>
+    <import resource="classpath:spring-service.xml"/>
+
+
+</beans>
+```
 
 
 
 
+
+
+
+
+## Spring MVC 层
+* 增加web支持 （add framework support）
+* web.xml文件添加servlet支持
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
+         version="4.0">
+
+
+    <!--  DispatcherServlet  -->
+    <servlet>
+        <servlet-name>springmvc</servlet-name>
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+        <init-param>
+            <param-name>contextConfigLocation</param-name>
+            <param-value>classpath:applicationContext.xml</param-value>
+        </init-param>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>springmvc</servlet-name>
+        <url-pattern>/</url-pattern>
+    </servlet-mapping>
+    
+    <!--  乱码过滤  -->
+    <filter>
+        <filter-name>encodingFilter</filter-name>
+        <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+        <init-param>
+            <param-name>encoding</param-name>
+            <param-value>utf-8</param-value>
+        </init-param>
+    </filter>
+    <filter-mapping>
+        <filter-name>encodingFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
+    <!--  Session  -->
+    <session-config>
+        <session-timeout>15</session-timeout>
+    </session-config>
+</web-app>
+```
+
+* applicationContext.xml中加入spring-mvc的文件支持 `<import resource="classpath:spring-mvc.xml"/>`
+
+### spring-mvc.xml 文件配置
+* 注解驱动
+* 静态资源过滤
+* 扫描包：controller
+* 视图解析器
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/mvc
+        https://www.springframework.org/schema/mvc/spring-mvc.xsd
+        http://www.springframework.org/schema/context
+        https://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!--  1 注解驱动  -->
+    <mvc:annotation-driven/>
+
+    <!--  2 静态资源过滤  -->
+    <mvc:default-servlet-handler/>
+
+    <!--  3 扫描包：controller  -->
+    <context:component-scan base-package="com.swagger.controller"/>
+
+    <!--  4 视图解析器  -->
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix" value="/WEB-INF/jsp/"/>
+        <property name="suffix" value=".jsp"/>
+    </bean>
+
+
+</beans>
+```
+
+
+## 查询所有书籍功能（加业务）
+* tips：如果使用tomcat部署网页无法打开，在project structure中添加lib依赖包，详情参考SpringMVC1.md笔记
+
+### 首页页面优化 index.jsp
+```jsp
+
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<html>
+  <head>
+    <title>首页</title>
+
+    <style>
+      a{
+        text-decoration: none;
+        color: black;
+        font-size: 18px;
+      }
+
+      h3{
+        width: 180px;
+        height: 38px;
+        margin: 100px auto;
+        text-align: center;
+        line-height: 38px;
+        background: deepskyblue;
+        border-radius: 5px;
+      }
+    </style>
+
+  </head>
+  <body>
+  <h3>
+    <a href="${pageContext.request.contextPath}/book/allBook">进入书籍页面</a>
+  </h3>
+  </body>
+</html>
+
+```
+
+### 查询页面优化 allBook.jsp
+```jsp
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<html>
+<head>
+    <title>书籍展示页面</title>
+
+    <%--  使用bootStrap美化界面  --%>
+    <%--  导入在线cdn  --%>
+    <link href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+
+
+</head>
+<body>
+
+<div class="container">
+    <div class="row clearfix">
+        <div class="col-md-12 column">
+            <div class="page-header">
+                <h1>
+                    <small>书籍列表 ----- 显示所有书籍</small>
+                </h1>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row clearfix">
+    <div class="col-md-12 column">
+        <table class="table table-hover table-striped">
+            <thead>
+                <tr>
+                    <th>书籍编号</th>
+                    <th>书籍名称</th>
+                    <th>书籍数量</th>
+                    <th>书籍详情</th>
+                </tr>
+            </thead>
+
+            <%--      书籍是从数据库查出来，封装在了model中的list，遍历出来 foreach      --%>
+            <tbody>
+                <c:forEach var="book" items="${list}">
+                    <tr>
+                        <td>${book.bookID}</td>
+                        <td>${book.bookName}</td>
+                        <td>${book.bookCounts}</td>
+                        <td>${book.detail}</td>
+                    </tr>
+                </c:forEach>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+</body>
+</html>
+
+```
+
+### controller层
+```Java
+package com.swagger.controller;
+
+import com.swagger.pojo.Books;
+import com.swagger.service.BookService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.util.List;
+
+@Controller
+@RequestMapping("/book")
+public class bookController {
+    // controller层调用service层
+    @Autowired
+    @Qualifier("BookServiceImpl")
+    private BookService bookService;
+
+    // 查询全部的书籍，并且返回到一个书籍展示页面
+    @RequestMapping("/allBook")
+    public String list(Model model){
+
+        List<Books> list = bookService.queryAllBook();
+
+        // 结果封装在model当中
+        model.addAttribute("list", list);
+
+        // 返回一个视图
+        return "allBook";
+    }
+}
+```
+
+### 测试效果
+![](/images_SSMBuild/pic3.png)
+![](/images_SSMBuild/pic4.png)
 
 
 
