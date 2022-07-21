@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="robots" content="noodp" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
-        <title>SSM整合学习1 - Boyan Wei</title><meta name="Description" content="这是我的全新 Hugo 网站"><meta property="og:title" content="SSM整合学习1" />
+        <title>SSM整合学习 - Boyan Wei</title><meta name="Description" content="这是我的全新 Hugo 网站"><meta property="og:title" content="SSM整合学习" />
 <meta property="og:description" content="环境要求 IDEA MySQL 8 Tomcat 9 Maven 3.8 MyBatis 层 数据库建立 1 2 3 4 5 6 7 8 9 10 11 12 13 CREATETABLE`books`(bookIDINT(10)NOTNULL" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://swaggerwei.github.io/ssm1/" /><meta property="og:image" content="https://swaggerwei.github.io/logo.png"/><meta property="article:section" content="posts" />
@@ -15,7 +15,7 @@
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://swaggerwei.github.io/logo.png"/>
 
-<meta name="twitter:title" content="SSM整合学习1"/>
+<meta name="twitter:title" content="SSM整合学习"/>
 <meta name="twitter:description" content="环境要求 IDEA MySQL 8 Tomcat 9 Maven 3.8 MyBatis 层 数据库建立 1 2 3 4 5 6 7 8 9 10 11 12 13 CREATETABLE`books`(bookIDINT(10)NOTNULL"/>
 <meta name="application-name" content="LoveIt">
 <meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
@@ -24,12 +24,12 @@
     {
         "@context": "http://schema.org",
         "@type": "BlogPosting",
-        "headline": "SSM整合学习1",
+        "headline": "SSM整合学习",
         "inLanguage": "zh-CN",
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/swaggerwei.github.io\/ssm1\/"
-        },"genre": "posts","keywords": "Spring, SSM, SpringMVC, MyBatis","wordcount":  6377 ,
+        },"genre": "posts","keywords": "Spring, SSM, SpringMVC, MyBatis","wordcount":  7961 ,
         "url": "https:\/\/swaggerwei.github.io\/ssm1\/","datePublished": "2022-07-18T21:00:39+08:00","dateModified": "2022-07-18T21:00:39+08:00","publisher": {
             "@type": "Organization",
             "name": ""},"author": {
@@ -104,10 +104,10 @@
                 <div class="container"><div class="toc" id="toc-auto">
             <h2 class="toc-title">目录</h2>
             <div class="toc-content always-active" id="toc-content-auto"></div>
-        </div><article class="page single"><h1 class="single-title animated flipInX">SSM整合学习1</h1><div class="post-meta">
+        </div><article class="page single"><h1 class="single-title animated flipInX">SSM整合学习</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>Boyan Wei</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/ssm%E6%95%B4%E5%90%88%E5%AD%A6%E4%B9%A0/"><i class="far fa-folder fa-fw"></i>SSM整合学习</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-07-18">2022-07-18</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 6377 字&nbsp;
-                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 13 分钟&nbsp;</div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-07-18">2022-07-18</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 7961 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 16 分钟&nbsp;</div>
         </div><div class="details toc" id="toc-static"  kept="">
                 <div class="details-summary toc-title">
                     <span>目录</span>
@@ -164,6 +164,14 @@
       </ul>
     </li>
     <li><a href="#删除书籍功能">删除书籍功能</a></li>
+    <li><a href="#增加搜索查询功能根据搜索框查询">增加搜索查询功能（根据搜索框查询）</a>
+      <ul>
+        <li><a href="#allbookjsp-修改">allBook.jsp 修改</a></li>
+        <li><a href="#bookcontrollerjava修改">bookController.java修改</a></li>
+        <li><a href="#dao层增加根据书名查询的方法和相应的mapper及sql语句">dao层增加根据书名查询的方法，和相应的mapper及sql语句</a></li>
+        <li><a href="#service层增加对dao层相应的调用">service层增加对dao层相应的调用</a></li>
+      </ul>
+    </li>
   </ul>
 </nav></div>
             </div><div class="content" id="content"><h2 id="环境要求">环境要求</h2>
@@ -2309,6 +2317,447 @@ jdbc.password=Wby785403310
 <span class="o">}</span>
 </code></pre></td></tr></table>
 </div>
+</div><h2 id="增加搜索查询功能根据搜索框查询">增加搜索查询功能（根据搜索框查询）</h2>
+<h3 id="allbookjsp-修改">allBook.jsp 修改</h3>
+<ul>
+<li>增加一个查询按钮和一个文本输入框，文本内容为queryBookName</li>
+<li>没有查询到也给错误提示</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span><span class="lnt">69
+</span><span class="lnt">70
+</span><span class="lnt">71
+</span><span class="lnt">72
+</span><span class="lnt">73
+</span><span class="lnt">74
+</span><span class="lnt">75
+</span><span class="lnt">76
+</span><span class="lnt">77
+</span><span class="lnt">78
+</span><span class="lnt">79
+</span><span class="lnt">80
+</span><span class="lnt">81
+</span><span class="lnt">82
+</span><span class="lnt">83
+</span><span class="lnt">84
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">&lt;%@ taglib prefix=&#34;c&#34; uri=&#34;http://java.sun.com/jsp/jstl/core&#34; %&gt;
+
+&lt;%@ page contentType=&#34;text/html;charset=UTF-8&#34; language=&#34;java&#34; %&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;title&gt;书籍展示页面&lt;/title&gt;
+
+    &lt;%--  使用bootStrap美化界面  --%&gt;
+    &lt;%--  导入在线cdn  --%&gt;
+    &lt;link href=&#34;https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css&#34; rel=&#34;stylesheet&#34;&gt;
+
+
+&lt;/head&gt;
+&lt;body&gt;
+
+&lt;div class=&#34;container&#34;&gt;
+    &lt;div class=&#34;row clearfix&#34;&gt;
+        &lt;div class=&#34;col-md-12 column&#34;&gt;
+            &lt;div class=&#34;page-header&#34;&gt;
+                &lt;h1&gt;
+                    &lt;small&gt;书籍列表 ----- 显示所有书籍&lt;/small&gt;
+                &lt;/h1&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;div class=&#34;row&#34;&gt;
+        &lt;div class=&#34;col-md-4 column&#34;&gt;
+            &lt;%--      toAddBook      --%&gt;
+            &lt;a class=&#34;btn btn-primary&#34; href=&#34;${pageContext.request.contextPath}/book/toAddBook&#34;&gt;新增书籍&lt;/a&gt;
+            &lt;a class=&#34;btn btn-primary&#34; href=&#34;${pageContext.request.contextPath}/book/allBook&#34;&gt;显示全部书籍&lt;/a&gt;
+
+        &lt;/div&gt;
+
+&lt;%--        &lt;div class=&#34;col-md-4 column&#34;&gt;&lt;/div&gt;--%&gt;
+        &lt;div class=&#34;col-md-8 column&#34;&gt;
+            &lt;%--      查询书籍      --%&gt;
+            &lt;form class=&#34;form-inline&#34; action=&#34;${pageContext.request.contextPath}/book/queryBook&#34; method=&#34;post&#34; style=&#34;float: right&#34;&gt;
+                &lt;span style=&#34;color: red; font-weight: bold&#34;&gt;${error}&lt;/span&gt;
+                &lt;input type=&#34;text&#34; name=&#34;queryBookName&#34; class=&#34;form-control&#34; placeholder=&#34;请输入要查询的书籍名称&#34;&gt;
+                &lt;input type=&#34;submit&#34; value=&#34;查询&#34; class=&#34;btn btn-primary&#34;&gt;
+            &lt;/form&gt;
+        &lt;/div&gt;
+
+
+    &lt;/div&gt;
+
+    &lt;div class=&#34;row clearfix&#34;&gt;
+        &lt;div class=&#34;col-md-12 column&#34;&gt;
+            &lt;table class=&#34;table table-hover table-striped&#34;&gt;
+                &lt;thead&gt;
+                &lt;tr&gt;
+                    &lt;th&gt;书籍编号&lt;/th&gt;
+                    &lt;th&gt;书籍名称&lt;/th&gt;
+                    &lt;th&gt;书籍数量&lt;/th&gt;
+                    &lt;th&gt;书籍详情&lt;/th&gt;
+                    &lt;th&gt;操作&lt;/th&gt;
+                &lt;/tr&gt;
+                &lt;/thead&gt;
+
+                &lt;%--      书籍是从数据库查出来，封装在了model中的list，遍历出来 foreach      --%&gt;
+                &lt;tbody&gt;
+                &lt;c:forEach var=&#34;book&#34; items=&#34;${list}&#34;&gt;
+                    &lt;tr&gt;
+                        &lt;td&gt;${book.bookID}&lt;/td&gt;
+                        &lt;td&gt;${book.bookName}&lt;/td&gt;
+                        &lt;td&gt;${book.bookCounts}&lt;/td&gt;
+                        &lt;td&gt;${book.detail}&lt;/td&gt;
+                        &lt;td&gt;
+                            &lt;a href=&#34;${pageContext.request.contextPath}/book/toUpdate?id=${book.bookID}&#34;&gt;修改&lt;/a&gt;
+                            &amp;nbsp; | &amp;nbsp;
+                            &lt;a href=&#34;${pageContext.request.contextPath}/book/deleteBook/${book.bookID}&#34;&gt;删除&lt;/a&gt;
+                        &lt;/td&gt;
+                    &lt;/tr&gt;
+                &lt;/c:forEach&gt;
+                &lt;/tbody&gt;
+            &lt;/table&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+
+&lt;/div&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="bookcontrollerjava修改">bookController.java修改</h3>
+<ul>
+<li>增加查询书籍处理请求</li>
+<li>套用查询所有书籍的模式，放在一个list当中，或者直接重定向到allBook页面也可以</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span><span class="lnt">69
+</span><span class="lnt">70
+</span><span class="lnt">71
+</span><span class="lnt">72
+</span><span class="lnt">73
+</span><span class="lnt">74
+</span><span class="lnt">75
+</span><span class="lnt">76
+</span><span class="lnt">77
+</span><span class="lnt">78
+</span><span class="lnt">79
+</span><span class="lnt">80
+</span><span class="lnt">81
+</span><span class="lnt">82
+</span><span class="lnt">83
+</span><span class="lnt">84
+</span><span class="lnt">85
+</span><span class="lnt">86
+</span><span class="lnt">87
+</span><span class="lnt">88
+</span><span class="lnt">89
+</span><span class="lnt">90
+</span><span class="lnt">91
+</span><span class="lnt">92
+</span><span class="lnt">93
+</span><span class="lnt">94
+</span><span class="lnt">95
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-Java" data-lang="Java"><span class="kn">package</span> <span class="nn">com.swagger.controller</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">com.swagger.pojo.Books</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">com.swagger.service.BookService</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.beans.factory.annotation.Autowired</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.beans.factory.annotation.Qualifier</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.stereotype.Controller</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.ui.Model</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.web.bind.annotation.PathVariable</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.web.bind.annotation.RequestMapping</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">java.util.ArrayList</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.List</span><span class="o">;</span>
+
+<span class="nd">@Controller</span>
+<span class="nd">@RequestMapping</span><span class="o">(</span><span class="s">&#34;/book&#34;</span><span class="o">)</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">bookController</span> <span class="o">{</span>
+    <span class="c1">// controller层调用service层
+</span><span class="c1"></span>    <span class="nd">@Autowired</span>
+    <span class="nd">@Qualifier</span><span class="o">(</span><span class="s">&#34;BookServiceImpl&#34;</span><span class="o">)</span>
+    <span class="kd">private</span> <span class="n">BookService</span> <span class="n">bookService</span><span class="o">;</span>
+
+    <span class="c1">// 查询全部的书籍，并且返回到一个书籍展示页面
+</span><span class="c1"></span>    <span class="nd">@RequestMapping</span><span class="o">(</span><span class="s">&#34;/allBook&#34;</span><span class="o">)</span>
+    <span class="kd">public</span> <span class="n">String</span> <span class="nf">list</span><span class="o">(</span><span class="n">Model</span> <span class="n">model</span><span class="o">){</span>
+
+        <span class="n">List</span><span class="o">&lt;</span><span class="n">Books</span><span class="o">&gt;</span> <span class="n">list</span> <span class="o">=</span> <span class="n">bookService</span><span class="o">.</span><span class="na">queryAllBook</span><span class="o">();</span>
+
+        <span class="c1">// 结果封装在model当中
+</span><span class="c1"></span>        <span class="n">model</span><span class="o">.</span><span class="na">addAttribute</span><span class="o">(</span><span class="s">&#34;list&#34;</span><span class="o">,</span> <span class="n">list</span><span class="o">);</span>
+
+        <span class="c1">// 返回一个视图
+</span><span class="c1"></span>        <span class="k">return</span> <span class="s">&#34;allBook&#34;</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="nd">@RequestMapping</span><span class="o">(</span><span class="s">&#34;/toAddBook&#34;</span><span class="o">)</span>
+    <span class="c1">// 跳转到增加书籍页面
+</span><span class="c1"></span>    <span class="kd">public</span> <span class="n">String</span> <span class="nf">toAddPaper</span><span class="o">(){</span>
+        <span class="k">return</span> <span class="s">&#34;addBook&#34;</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="c1">// 添加书籍的请求
+</span><span class="c1"></span>    <span class="nd">@RequestMapping</span><span class="o">(</span><span class="s">&#34;/addBook&#34;</span><span class="o">)</span>
+    <span class="kd">public</span> <span class="n">String</span> <span class="nf">addBook</span><span class="o">(</span><span class="n">Books</span> <span class="n">books</span><span class="o">){</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;addBook:&#34;</span> <span class="o">+</span> <span class="n">books</span><span class="o">);</span>
+        <span class="n">bookService</span><span class="o">.</span><span class="na">addBook</span><span class="o">(</span><span class="n">books</span><span class="o">);</span>
+
+        <span class="c1">// 添加完之后重定向到allBook页面
+</span><span class="c1"></span>        <span class="k">return</span> <span class="s">&#34;redirect:/book/allBook&#34;</span><span class="o">;</span> <span class="c1">// 重定向到@RequestMapping(&#34;/allBook&#34;), 进入这个页面会重新查询一次所有的书
+</span><span class="c1"></span>    <span class="o">}</span>
+
+
+    <span class="c1">// 跳转到修改页面
+</span><span class="c1"></span>    <span class="nd">@RequestMapping</span><span class="o">(</span><span class="s">&#34;/toUpdate&#34;</span><span class="o">)</span>
+    <span class="kd">public</span> <span class="n">String</span> <span class="nf">toUpdatePaper</span><span class="o">(</span><span class="kt">int</span> <span class="n">id</span><span class="o">,</span> <span class="n">Model</span> <span class="n">model</span><span class="o">){</span>
+        <span class="n">Books</span> <span class="n">books</span> <span class="o">=</span> <span class="n">bookService</span><span class="o">.</span><span class="na">queryBookById</span><span class="o">(</span><span class="n">id</span><span class="o">);</span>
+        <span class="n">model</span><span class="o">.</span><span class="na">addAttribute</span><span class="o">(</span><span class="s">&#34;QBooks&#34;</span><span class="o">,</span> <span class="n">books</span><span class="o">);</span>
+        <span class="k">return</span> <span class="s">&#34;updateBook&#34;</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="c1">// 修改书籍请求
+</span><span class="c1"></span>    <span class="nd">@RequestMapping</span><span class="o">(</span><span class="s">&#34;/updateBook&#34;</span><span class="o">)</span>
+    <span class="kd">public</span> <span class="n">String</span> <span class="nf">updateBook</span><span class="o">(</span><span class="n">Books</span> <span class="n">books</span><span class="o">){</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;updateBook:&#34;</span> <span class="o">+</span> <span class="n">books</span><span class="o">);</span>
+        <span class="n">bookService</span><span class="o">.</span><span class="na">updateBook</span><span class="o">(</span><span class="n">books</span><span class="o">);</span>
+        <span class="k">return</span> <span class="s">&#34;redirect:/book/allBook&#34;</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="c1">// 删除书籍
+</span><span class="c1"></span>    <span class="nd">@RequestMapping</span><span class="o">(</span><span class="s">&#34;/deleteBook/{bookID}&#34;</span><span class="o">)</span>
+    <span class="kd">public</span> <span class="n">String</span> <span class="nf">deleteBook</span><span class="o">(</span><span class="nd">@PathVariable</span><span class="o">(</span><span class="s">&#34;bookID&#34;</span><span class="o">)</span> <span class="kt">int</span> <span class="n">id</span><span class="o">){</span>
+        <span class="n">bookService</span><span class="o">.</span><span class="na">deleteBookById</span><span class="o">(</span><span class="n">id</span><span class="o">);</span>
+        <span class="k">return</span> <span class="s">&#34;redirect:/book/allBook&#34;</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="c1">// 根据书籍名称来查询书籍
+</span><span class="c1"></span>    <span class="nd">@RequestMapping</span><span class="o">(</span><span class="s">&#34;/queryBook&#34;</span><span class="o">)</span>
+    <span class="kd">public</span> <span class="n">String</span> <span class="nf">queryBook</span><span class="o">(</span><span class="n">String</span> <span class="n">queryBookName</span><span class="o">,</span> <span class="n">Model</span> <span class="n">model</span><span class="o">){</span>
+        <span class="n">Books</span> <span class="n">books</span> <span class="o">=</span> <span class="n">bookService</span><span class="o">.</span><span class="na">queryBookByName</span><span class="o">(</span><span class="n">queryBookName</span><span class="o">);</span>
+        <span class="n">List</span><span class="o">&lt;</span><span class="n">Books</span><span class="o">&gt;</span> <span class="n">list</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;&gt;();</span>
+        <span class="n">list</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">books</span><span class="o">);</span>
+
+        <span class="k">if</span> <span class="o">(</span><span class="n">books</span> <span class="o">==</span> <span class="kc">null</span><span class="o">){</span>
+            <span class="n">list</span> <span class="o">=</span> <span class="n">bookService</span><span class="o">.</span><span class="na">queryAllBook</span><span class="o">();</span>
+            <span class="n">model</span><span class="o">.</span><span class="na">addAttribute</span><span class="o">(</span><span class="s">&#34;error&#34;</span><span class="o">,</span> <span class="s">&#34;未查询到&#34;</span><span class="o">);</span>
+        <span class="o">}</span>
+
+        <span class="c1">// 结果封装在model当中
+</span><span class="c1"></span>        <span class="n">model</span><span class="o">.</span><span class="na">addAttribute</span><span class="o">(</span><span class="s">&#34;list&#34;</span><span class="o">,</span> <span class="n">list</span><span class="o">);</span>
+
+        <span class="c1">// 返回一个视图
+</span><span class="c1"></span>        <span class="k">return</span> <span class="s">&#34;allBook&#34;</span><span class="o">;</span>
+    <span class="o">}</span>
+
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="dao层增加根据书名查询的方法和相应的mapper及sql语句">dao层增加根据书名查询的方法，和相应的mapper及sql语句</h3>
+<ul>
+<li>BookMapper.Java</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-Java" data-lang="Java"><span class="c1">// 根据书名进行检索
+</span><span class="c1"></span><span class="n">Books</span> <span class="nf">queryBookByName</span><span class="o">(</span><span class="nd">@Param</span><span class="o">(</span><span class="s">&#34;bookName&#34;</span><span class="o">)</span> <span class="n">String</span> <span class="n">bookName</span><span class="o">);</span>
+</code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>BookMapper.xml</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="nt">&lt;select</span> <span class="na">id=</span><span class="s">&#34;queryBookByName&#34;</span> <span class="na">resultType=</span><span class="s">&#34;Books&#34;</span><span class="nt">&gt;</span>
+    select * from ssmbuild.books where bookName = #{bookName}
+<span class="nt">&lt;/select&gt;</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="service层增加对dao层相应的调用">service层增加对dao层相应的调用</h3>
+<ul>
+<li>BookService.java</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-Java" data-lang="Java"><span class="c1">// 通过书名查询搜索书籍
+</span><span class="c1"></span><span class="n">Books</span> <span class="nf">queryBookByName</span><span class="o">(</span><span class="n">String</span> <span class="n">bookName</span><span class="o">);</span>
+</code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>BookServiceImpl.java</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-Java" data-lang="Java"><span class="nd">@Override</span>
+<span class="kd">public</span> <span class="n">Books</span> <span class="nf">queryBookByName</span><span class="o">(</span><span class="n">String</span> <span class="n">bookName</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="n">bookMapper</span><span class="o">.</span><span class="na">queryBookByName</span><span class="o">(</span><span class="n">bookName</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
 </div></div><div class="post-footer" id="post-footer">
     <div class="post-info">
         <div class="post-info-line">
@@ -2322,7 +2771,7 @@ jdbc.password=Wby785403310
                             <a class="link-to-markdown" href="/ssm1/index.md" target="_blank">阅读原始文档</a>
                         </span></div>
             <div class="post-info-share">
-                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://swaggerwei.github.io/ssm1/" data-title="SSM整合学习1" data-via="xxxx" data-hashtags="Spring,SSM,SpringMVC,MyBatis"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://swaggerwei.github.io/ssm1/" data-hashtag="Spring"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 WhatsApp" data-sharer="whatsapp" data-url="https://swaggerwei.github.io/ssm1/" data-title="SSM整合学习1" data-web><i class="fab fa-whatsapp fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://swaggerwei.github.io/ssm1/" data-title="SSM整合学习1"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://swaggerwei.github.io/ssm1/" data-title="SSM整合学习1"><i class="fab fa-weibo fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Myspace" data-sharer="myspace" data-url="https://swaggerwei.github.io/ssm1/" data-title="SSM整合学习1" data-description=""><i data-svg-src="/lib/simple-icons/icons/myspace.min.svg"></i></a><a href="javascript:void(0);" title="分享到 Blogger" data-sharer="blogger" data-url="https://swaggerwei.github.io/ssm1/" data-title="SSM整合学习1" data-description=""><i class="fab fa-blogger fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Evernote" data-sharer="evernote" data-url="https://swaggerwei.github.io/ssm1/" data-title="SSM整合学习1"><i class="fab fa-evernote fa-fw"></i></a></span>
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://swaggerwei.github.io/ssm1/" data-title="SSM整合学习" data-via="xxxx" data-hashtags="Spring,SSM,SpringMVC,MyBatis"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://swaggerwei.github.io/ssm1/" data-hashtag="Spring"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 WhatsApp" data-sharer="whatsapp" data-url="https://swaggerwei.github.io/ssm1/" data-title="SSM整合学习" data-web><i class="fab fa-whatsapp fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://swaggerwei.github.io/ssm1/" data-title="SSM整合学习"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://swaggerwei.github.io/ssm1/" data-title="SSM整合学习"><i class="fab fa-weibo fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Myspace" data-sharer="myspace" data-url="https://swaggerwei.github.io/ssm1/" data-title="SSM整合学习" data-description=""><i data-svg-src="/lib/simple-icons/icons/myspace.min.svg"></i></a><a href="javascript:void(0);" title="分享到 Blogger" data-sharer="blogger" data-url="https://swaggerwei.github.io/ssm1/" data-title="SSM整合学习" data-description=""><i class="fab fa-blogger fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Evernote" data-sharer="evernote" data-url="https://swaggerwei.github.io/ssm1/" data-title="SSM整合学习"><i class="fab fa-evernote fa-fw"></i></a></span>
             </div>
         </div>
     </div>

@@ -1,4 +1,4 @@
-# SSM整合学习1
+# SSM整合学习
 
 
 ## 环境要求
@@ -1126,6 +1126,246 @@ public String deleteBook(@PathVariable("bookID") int id){
     return "redirect:/book/allBook";
 }
 ```
+
+
+
+
+
+
+
+
+
+
+## 增加搜索查询功能（根据搜索框查询）
+### allBook.jsp 修改
+* 增加一个查询按钮和一个文本输入框，文本内容为queryBookName
+* 没有查询到也给错误提示
+```jsp
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<html>
+<head>
+    <title>书籍展示页面</title>
+
+    <%--  使用bootStrap美化界面  --%>
+    <%--  导入在线cdn  --%>
+    <link href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+
+
+</head>
+<body>
+
+<div class="container">
+    <div class="row clearfix">
+        <div class="col-md-12 column">
+            <div class="page-header">
+                <h1>
+                    <small>书籍列表 ----- 显示所有书籍</small>
+                </h1>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4 column">
+            <%--      toAddBook      --%>
+            <a class="btn btn-primary" href="${pageContext.request.contextPath}/book/toAddBook">新增书籍</a>
+            <a class="btn btn-primary" href="${pageContext.request.contextPath}/book/allBook">显示全部书籍</a>
+
+        </div>
+
+<%--        <div class="col-md-4 column"></div>--%>
+        <div class="col-md-8 column">
+            <%--      查询书籍      --%>
+            <form class="form-inline" action="${pageContext.request.contextPath}/book/queryBook" method="post" style="float: right">
+                <span style="color: red; font-weight: bold">${error}</span>
+                <input type="text" name="queryBookName" class="form-control" placeholder="请输入要查询的书籍名称">
+                <input type="submit" value="查询" class="btn btn-primary">
+            </form>
+        </div>
+
+
+    </div>
+
+    <div class="row clearfix">
+        <div class="col-md-12 column">
+            <table class="table table-hover table-striped">
+                <thead>
+                <tr>
+                    <th>书籍编号</th>
+                    <th>书籍名称</th>
+                    <th>书籍数量</th>
+                    <th>书籍详情</th>
+                    <th>操作</th>
+                </tr>
+                </thead>
+
+                <%--      书籍是从数据库查出来，封装在了model中的list，遍历出来 foreach      --%>
+                <tbody>
+                <c:forEach var="book" items="${list}">
+                    <tr>
+                        <td>${book.bookID}</td>
+                        <td>${book.bookName}</td>
+                        <td>${book.bookCounts}</td>
+                        <td>${book.detail}</td>
+                        <td>
+                            <a href="${pageContext.request.contextPath}/book/toUpdate?id=${book.bookID}">修改</a>
+                            &nbsp; | &nbsp;
+                            <a href="${pageContext.request.contextPath}/book/deleteBook/${book.bookID}">删除</a>
+                        </td>
+                    </tr>
+                </c:forEach>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>
+```
+
+
+
+
+### bookController.java修改
+* 增加查询书籍处理请求
+* 套用查询所有书籍的模式，放在一个list当中，或者直接重定向到allBook页面也可以
+```Java
+package com.swagger.controller;
+
+import com.swagger.pojo.Books;
+import com.swagger.service.BookService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.util.ArrayList;
+import java.util.List;
+
+@Controller
+@RequestMapping("/book")
+public class bookController {
+    // controller层调用service层
+    @Autowired
+    @Qualifier("BookServiceImpl")
+    private BookService bookService;
+
+    // 查询全部的书籍，并且返回到一个书籍展示页面
+    @RequestMapping("/allBook")
+    public String list(Model model){
+
+        List<Books> list = bookService.queryAllBook();
+
+        // 结果封装在model当中
+        model.addAttribute("list", list);
+
+        // 返回一个视图
+        return "allBook";
+    }
+
+    @RequestMapping("/toAddBook")
+    // 跳转到增加书籍页面
+    public String toAddPaper(){
+        return "addBook";
+    }
+
+    // 添加书籍的请求
+    @RequestMapping("/addBook")
+    public String addBook(Books books){
+        System.out.println("addBook:" + books);
+        bookService.addBook(books);
+
+        // 添加完之后重定向到allBook页面
+        return "redirect:/book/allBook"; // 重定向到@RequestMapping("/allBook"), 进入这个页面会重新查询一次所有的书
+    }
+
+
+    // 跳转到修改页面
+    @RequestMapping("/toUpdate")
+    public String toUpdatePaper(int id, Model model){
+        Books books = bookService.queryBookById(id);
+        model.addAttribute("QBooks", books);
+        return "updateBook";
+    }
+
+    // 修改书籍请求
+    @RequestMapping("/updateBook")
+    public String updateBook(Books books){
+        System.out.println("updateBook:" + books);
+        bookService.updateBook(books);
+        return "redirect:/book/allBook";
+    }
+
+    // 删除书籍
+    @RequestMapping("/deleteBook/{bookID}")
+    public String deleteBook(@PathVariable("bookID") int id){
+        bookService.deleteBookById(id);
+        return "redirect:/book/allBook";
+    }
+
+    // 根据书籍名称来查询书籍
+    @RequestMapping("/queryBook")
+    public String queryBook(String queryBookName, Model model){
+        Books books = bookService.queryBookByName(queryBookName);
+        List<Books> list = new ArrayList<>();
+        list.add(books);
+
+        if (books == null){
+            list = bookService.queryAllBook();
+            model.addAttribute("error", "未查询到");
+        }
+
+        // 结果封装在model当中
+        model.addAttribute("list", list);
+
+        // 返回一个视图
+        return "allBook";
+    }
+
+}
+```
+
+
+### dao层增加根据书名查询的方法，和相应的mapper及sql语句
+* BookMapper.Java
+```Java
+// 根据书名进行检索
+Books queryBookByName(@Param("bookName") String bookName);
+```
+
+* BookMapper.xml
+```xml
+<select id="queryBookByName" resultType="Books">
+    select * from ssmbuild.books where bookName = #{bookName}
+</select>
+```
+
+### service层增加对dao层相应的调用
+* BookService.java
+```Java
+// 通过书名查询搜索书籍
+Books queryBookByName(String bookName);
+```
+
+* BookServiceImpl.java
+```Java
+@Override
+public Books queryBookByName(String bookName) {
+    return bookMapper.queryBookByName(bookName);
+}
+```
+
+
+
+
+
+
 
 
 
