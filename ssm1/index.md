@@ -702,3 +702,434 @@ public class bookController {
 
 
 
+
+
+
+
+
+## 增加书籍功能
+### allBook.jsp增加 添加书籍 按钮
+```jsp
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<html>
+<head>
+    <title>书籍展示页面</title>
+
+    <%--  使用bootStrap美化界面  --%>
+    <%--  导入在线cdn  --%>
+    <link href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+
+
+</head>
+<body>
+
+<div class="container">
+    <div class="row clearfix">
+        <div class="col-md-12 column">
+            <div class="page-header">
+                <h1>
+                    <small>书籍列表 ----- 显示所有书籍</small>
+                </h1>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4 column">
+            <%--      toAddBook      --%>
+            <a class="btn btn-primary" href="${pageContext.request.contextPath}/book/toAddBook">新增书籍</a>
+        </div>
+    </div>
+
+    <div class="row clearfix">
+        <div class="col-md-12 column">
+            <table class="table table-hover table-striped">
+                <thead>
+                <tr>
+                    <th>书籍编号</th>
+                    <th>书籍名称</th>
+                    <th>书籍数量</th>
+                    <th>书籍详情</th>
+                </tr>
+                </thead>
+
+                <%--      书籍是从数据库查出来，封装在了model中的list，遍历出来 foreach      --%>
+                <tbody>
+                <c:forEach var="book" items="${list}">
+                    <tr>
+                        <td>${book.bookID}</td>
+                        <td>${book.bookName}</td>
+                        <td>${book.bookCounts}</td>
+                        <td>${book.detail}</td>
+                    </tr>
+                </c:forEach>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>
+```
+
+
+### addBook.jsp 填写书籍信息（text），提交按钮（submit）
+```jsp
+<%--
+  Created by IntelliJ IDEA.
+  User: swaggerwei
+  Date: 2022/7/21
+  Time: 13:39
+  To change this template use File | Settings | File Templates.
+--%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<html>
+<head>
+    <title>Title</title>
+
+    <%--  使用bootStrap美化界面  --%>
+    <%--  导入在线cdn  --%>
+    <link href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+
+</head>
+<body>
+
+<div class="container">
+    <div class="row clearfix">
+        <div class="col-md-12 column">
+            <div class="page-header">
+                <h1>
+                    <small>书籍列表 ----- 新增书籍</small>
+                </h1>
+            </div>
+        </div>
+    </div>
+
+    <form action="${pageContext.request.contextPath}/book/addBook" method="post">
+        <div class="form-group">
+            <label>书籍名称</label>
+            <input type="text" name="bookName" class="form-control" required>
+        </div>
+        <div class="form-group">
+            <label>书籍数量</label>
+            <input type="text" name="bookCounts" class="form-control" required>
+        </div>
+        <div class="form-group">
+            <label>书籍描述</label>
+            <input type="text" name="detail" class="form-control" required>
+        </div>
+        <div class="form-group">
+            <input type="submit" class="form-control" value="添加" required>
+        </div>
+    </form>
+
+
+
+
+
+</div>
+
+
+</body>
+</html>
+```
+
+
+### bookController.java 
+* 增加书籍按钮跳转
+* 从addBook.jsp中获取填写的数据
+* 调用service层，增加书籍
+* 重定向到查询所有书籍页面
+
+```Java
+package com.swagger.controller;
+
+import com.swagger.pojo.Books;
+import com.swagger.service.BookService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.util.List;
+
+@Controller
+@RequestMapping("/book")
+public class bookController {
+    // controller层调用service层
+    @Autowired
+    @Qualifier("BookServiceImpl")
+    private BookService bookService;
+
+    // 查询全部的书籍，并且返回到一个书籍展示页面
+    @RequestMapping("/allBook")
+    public String list(Model model){
+
+        List<Books> list = bookService.queryAllBook();
+
+        // 结果封装在model当中
+        model.addAttribute("list", list);
+
+        // 返回一个视图
+        return "allBook";
+    }
+
+    @RequestMapping("/toAddBook")
+    // 跳转到增加书籍页面
+    public String toAddPaper(){
+        return "addBook";
+    }
+
+    // 添加书籍的请求
+    @RequestMapping("/addBook")
+    public String addBook(Books books){
+        System.out.println("addBook:" + books);
+        bookService.addBook(books);
+
+        // 添加完之后应该是重定向
+        return "redirect:/book/allBook"; // 重定向到@RequestMapping("/allBook")
+    }
+
+
+}
+```
+
+
+
+
+## 修改数据功能
+### allBook.jsp增加 修改 按钮
+```jsp
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<html>
+<head>
+    <title>书籍展示页面</title>
+
+    <%--  使用bootStrap美化界面  --%>
+    <%--  导入在线cdn  --%>
+    <link href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+
+
+</head>
+<body>
+
+<div class="container">
+    <div class="row clearfix">
+        <div class="col-md-12 column">
+            <div class="page-header">
+                <h1>
+                    <small>书籍列表 ----- 显示所有书籍</small>
+                </h1>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4 column">
+            <%--      toAddBook      --%>
+            <a class="btn btn-primary" href="${pageContext.request.contextPath}/book/toAddBook">新增书籍</a>
+        </div>
+    </div>
+
+    <div class="row clearfix">
+        <div class="col-md-12 column">
+            <table class="table table-hover table-striped">
+                <thead>
+                <tr>
+                    <th>书籍编号</th>
+                    <th>书籍名称</th>
+                    <th>书籍数量</th>
+                    <th>书籍详情</th>
+                    <th>操作</th>
+                </tr>
+                </thead>
+
+                <%--      书籍是从数据库查出来，封装在了model中的list，遍历出来 foreach      --%>
+                <tbody>
+                <c:forEach var="book" items="${list}">
+                    <tr>
+                        <td>${book.bookID}</td>
+                        <td>${book.bookName}</td>
+                        <td>${book.bookCounts}</td>
+                        <td>${book.detail}</td>
+                        <td>
+                            <a href="${pageContext.request.contextPath}/book/toUpdate?id=${book.bookID}">修改</a>
+                            &nbsp; | &nbsp;
+                            <a href="#">删除</a>
+                        </td>
+                    </tr>
+                </c:forEach>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>
+```
+
+### updateBook.jsp 增加书籍信息（text），修改按钮（submit）
+* 注意修改数据的时候sql语句需要根据id来修改
+* jsp文件中应该传入一个隐藏域为bookID
+```jsp
+
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<html>
+<head>
+    <title>修改书籍</title>
+
+    <%--  使用bootStrap美化界面  --%>
+    <%--  导入在线cdn  --%>
+    <link href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+
+</head>
+<body>
+
+<div class="container">
+    <div class="row clearfix">
+        <div class="col-md-12 column">
+            <div class="page-header">
+                <h1>
+                    <small>书籍列表 ----- 修改书籍</small>
+                </h1>
+            </div>
+        </div>
+    </div>
+
+    <form action="${pageContext.request.contextPath}/book/updateBook" method="post">
+        <%--    前端传入隐藏域 bookID    --%>
+        <input type="hidden" name="bookID" value="${QBooks.bookID}">
+        <div class="form-group">
+            <label>书籍名称</label>
+            <input type="text" name="bookName" class="form-control" value="${QBooks.bookName}" required>
+        </div>
+        <div class="form-group">
+            <label>书籍数量</label>
+            <input type="text" name="bookCounts" class="form-control" value="${QBooks.bookCounts}" required>
+        </div>
+        <div class="form-group">
+            <label>书籍描述</label>
+            <input type="text" name="detail" class="form-control" value="${QBooks.detail}" required>
+        </div>
+        <div class="form-group">
+            <input type="submit" class="form-control" value="修改" required>
+        </div>
+    </form>
+
+
+
+
+
+</div>
+
+
+</body>
+</html>
+```
+
+### bookController.java
+* 跳转到修改页面
+* 修改页面修改信息
+* 重定向到所有书籍页面
+```Java
+package com.swagger.controller;
+
+import com.swagger.pojo.Books;
+import com.swagger.service.BookService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.util.List;
+
+@Controller
+@RequestMapping("/book")
+public class bookController {
+    // controller层调用service层
+    @Autowired
+    @Qualifier("BookServiceImpl")
+    private BookService bookService;
+
+    // 查询全部的书籍，并且返回到一个书籍展示页面
+    @RequestMapping("/allBook")
+    public String list(Model model){
+
+        List<Books> list = bookService.queryAllBook();
+
+        // 结果封装在model当中
+        model.addAttribute("list", list);
+
+        // 返回一个视图
+        return "allBook";
+    }
+
+    @RequestMapping("/toAddBook")
+    // 跳转到增加书籍页面
+    public String toAddPaper(){
+        return "addBook";
+    }
+
+    // 添加书籍的请求
+    @RequestMapping("/addBook")
+    public String addBook(Books books){
+        System.out.println("addBook:" + books);
+        bookService.addBook(books);
+
+        // 添加完之后重定向到allBook页面
+        return "redirect:/book/allBook"; // 重定向到@RequestMapping("/allBook"), 进入这个页面会重新查询一次所有的书
+    }
+
+
+    // 跳转到修改页面
+    @RequestMapping("/toUpdate")
+    public String toUpdatePaper(int id, Model model){
+        Books books = bookService.queryBookById(id);
+        model.addAttribute("QBooks", books);
+        return "updateBook";
+    }
+
+    // 修改书籍请求
+    @RequestMapping("/updateBook")
+    public String updateBook(Books books){
+        System.out.println("updateBook:" + books);
+        bookService.updateBook(books);
+        return "redirect:/book/allBook";
+    }
+
+
+}
+```
+
+
+
+
+
+## 删除书籍功能
+* 根据id删除数据监听`<a href="${pageContext.request.contextPath}/book/deleteBook/${book.bookID}">删除</a>`
+* controller层删除书籍
+```Java
+// 删除书籍
+@RequestMapping("/deleteBook/{bookID}")
+public String deleteBook(@PathVariable("bookID") int id){
+    bookService.deleteBookById(id);
+    return "redirect:/book/allBook";
+}
+```
+
+
+
+
+
+
+

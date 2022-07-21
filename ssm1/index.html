@@ -29,7 +29,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/swaggerwei.github.io\/ssm1\/"
-        },"genre": "posts","keywords": "Spring, SSM, SpringMVC, MyBatis","wordcount":  3683 ,
+        },"genre": "posts","keywords": "Spring, SSM, SpringMVC, MyBatis","wordcount":  6377 ,
         "url": "https:\/\/swaggerwei.github.io\/ssm1\/","datePublished": "2022-07-18T21:00:39+08:00","dateModified": "2022-07-18T21:00:39+08:00","publisher": {
             "@type": "Organization",
             "name": ""},"author": {
@@ -106,8 +106,8 @@
             <div class="toc-content always-active" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animated flipInX">SSM整合学习1</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>Boyan Wei</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/ssm%E6%95%B4%E5%90%88%E5%AD%A6%E4%B9%A0/"><i class="far fa-folder fa-fw"></i>SSM整合学习</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-07-18">2022-07-18</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 3683 字&nbsp;
-                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 8 分钟&nbsp;</div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-07-18">2022-07-18</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 6377 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 13 分钟&nbsp;</div>
         </div><div class="details toc" id="toc-static"  kept="">
                 <div class="details-summary toc-title">
                     <span>目录</span>
@@ -149,6 +149,21 @@
         <li><a href="#测试效果">测试效果</a></li>
       </ul>
     </li>
+    <li><a href="#增加书籍功能">增加书籍功能</a>
+      <ul>
+        <li><a href="#allbookjsp增加-添加书籍-按钮">allBook.jsp增加 添加书籍 按钮</a></li>
+        <li><a href="#addbookjsp-填写书籍信息text提交按钮submit">addBook.jsp 填写书籍信息（text），提交按钮（submit）</a></li>
+        <li><a href="#bookcontrollerjava">bookController.java</a></li>
+      </ul>
+    </li>
+    <li><a href="#修改数据功能">修改数据功能</a>
+      <ul>
+        <li><a href="#allbookjsp增加-修改-按钮">allBook.jsp增加 修改 按钮</a></li>
+        <li><a href="#updatebookjsp-增加书籍信息text修改按钮submit">updateBook.jsp 增加书籍信息（text），修改按钮（submit）</a></li>
+        <li><a href="#bookcontrollerjava-1">bookController.java</a></li>
+      </ul>
+    </li>
+    <li><a href="#删除书籍功能">删除书籍功能</a></li>
   </ul>
 </nav></div>
             </div><div class="content" id="content"><h2 id="环境要求">环境要求</h2>
@@ -1486,7 +1501,815 @@ jdbc.password=Wby785403310
         data-sizes="auto"
         alt="/images_SSMBuild/pic4.png"
         title="/images_SSMBuild/pic4.png" /></p>
-</div><div class="post-footer" id="post-footer">
+<h2 id="增加书籍功能">增加书籍功能</h2>
+<h3 id="allbookjsp增加-添加书籍-按钮">allBook.jsp增加 添加书籍 按钮</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">&lt;%@ taglib prefix=&#34;c&#34; uri=&#34;http://java.sun.com/jsp/jstl/core&#34; %&gt;
+
+&lt;%@ page contentType=&#34;text/html;charset=UTF-8&#34; language=&#34;java&#34; %&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;title&gt;书籍展示页面&lt;/title&gt;
+
+    &lt;%--  使用bootStrap美化界面  --%&gt;
+    &lt;%--  导入在线cdn  --%&gt;
+    &lt;link href=&#34;https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css&#34; rel=&#34;stylesheet&#34;&gt;
+
+
+&lt;/head&gt;
+&lt;body&gt;
+
+&lt;div class=&#34;container&#34;&gt;
+    &lt;div class=&#34;row clearfix&#34;&gt;
+        &lt;div class=&#34;col-md-12 column&#34;&gt;
+            &lt;div class=&#34;page-header&#34;&gt;
+                &lt;h1&gt;
+                    &lt;small&gt;书籍列表 ----- 显示所有书籍&lt;/small&gt;
+                &lt;/h1&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;div class=&#34;row&#34;&gt;
+        &lt;div class=&#34;col-md-4 column&#34;&gt;
+            &lt;%--      toAddBook      --%&gt;
+            &lt;a class=&#34;btn btn-primary&#34; href=&#34;${pageContext.request.contextPath}/book/toAddBook&#34;&gt;新增书籍&lt;/a&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;div class=&#34;row clearfix&#34;&gt;
+        &lt;div class=&#34;col-md-12 column&#34;&gt;
+            &lt;table class=&#34;table table-hover table-striped&#34;&gt;
+                &lt;thead&gt;
+                &lt;tr&gt;
+                    &lt;th&gt;书籍编号&lt;/th&gt;
+                    &lt;th&gt;书籍名称&lt;/th&gt;
+                    &lt;th&gt;书籍数量&lt;/th&gt;
+                    &lt;th&gt;书籍详情&lt;/th&gt;
+                &lt;/tr&gt;
+                &lt;/thead&gt;
+
+                &lt;%--      书籍是从数据库查出来，封装在了model中的list，遍历出来 foreach      --%&gt;
+                &lt;tbody&gt;
+                &lt;c:forEach var=&#34;book&#34; items=&#34;${list}&#34;&gt;
+                    &lt;tr&gt;
+                        &lt;td&gt;${book.bookID}&lt;/td&gt;
+                        &lt;td&gt;${book.bookName}&lt;/td&gt;
+                        &lt;td&gt;${book.bookCounts}&lt;/td&gt;
+                        &lt;td&gt;${book.detail}&lt;/td&gt;
+                    &lt;/tr&gt;
+                &lt;/c:forEach&gt;
+                &lt;/tbody&gt;
+            &lt;/table&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+
+&lt;/div&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="addbookjsp-填写书籍信息text提交按钮submit">addBook.jsp 填写书籍信息（text），提交按钮（submit）</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">&lt;%--
+  Created by IntelliJ IDEA.
+  User: swaggerwei
+  Date: 2022/7/21
+  Time: 13:39
+  To change this template use File | Settings | File Templates.
+--%&gt;
+&lt;%@ page contentType=&#34;text/html;charset=UTF-8&#34; language=&#34;java&#34; %&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;title&gt;Title&lt;/title&gt;
+
+    &lt;%--  使用bootStrap美化界面  --%&gt;
+    &lt;%--  导入在线cdn  --%&gt;
+    &lt;link href=&#34;https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css&#34; rel=&#34;stylesheet&#34;&gt;
+
+&lt;/head&gt;
+&lt;body&gt;
+
+&lt;div class=&#34;container&#34;&gt;
+    &lt;div class=&#34;row clearfix&#34;&gt;
+        &lt;div class=&#34;col-md-12 column&#34;&gt;
+            &lt;div class=&#34;page-header&#34;&gt;
+                &lt;h1&gt;
+                    &lt;small&gt;书籍列表 ----- 新增书籍&lt;/small&gt;
+                &lt;/h1&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;form action=&#34;${pageContext.request.contextPath}/book/addBook&#34; method=&#34;post&#34;&gt;
+        &lt;div class=&#34;form-group&#34;&gt;
+            &lt;label&gt;书籍名称&lt;/label&gt;
+            &lt;input type=&#34;text&#34; name=&#34;bookName&#34; class=&#34;form-control&#34; required&gt;
+        &lt;/div&gt;
+        &lt;div class=&#34;form-group&#34;&gt;
+            &lt;label&gt;书籍数量&lt;/label&gt;
+            &lt;input type=&#34;text&#34; name=&#34;bookCounts&#34; class=&#34;form-control&#34; required&gt;
+        &lt;/div&gt;
+        &lt;div class=&#34;form-group&#34;&gt;
+            &lt;label&gt;书籍描述&lt;/label&gt;
+            &lt;input type=&#34;text&#34; name=&#34;detail&#34; class=&#34;form-control&#34; required&gt;
+        &lt;/div&gt;
+        &lt;div class=&#34;form-group&#34;&gt;
+            &lt;input type=&#34;submit&#34; class=&#34;form-control&#34; value=&#34;添加&#34; required&gt;
+        &lt;/div&gt;
+    &lt;/form&gt;
+
+
+
+
+
+&lt;/div&gt;
+
+
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="bookcontrollerjava">bookController.java</h3>
+<ul>
+<li>增加书籍按钮跳转</li>
+<li>从addBook.jsp中获取填写的数据</li>
+<li>调用service层，增加书籍</li>
+<li>重定向到查询所有书籍页面</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-Java" data-lang="Java"><span class="kn">package</span> <span class="nn">com.swagger.controller</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">com.swagger.pojo.Books</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">com.swagger.service.BookService</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.beans.factory.annotation.Autowired</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.beans.factory.annotation.Qualifier</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.stereotype.Controller</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.ui.Model</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.web.bind.annotation.RequestMapping</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">java.util.List</span><span class="o">;</span>
+
+<span class="nd">@Controller</span>
+<span class="nd">@RequestMapping</span><span class="o">(</span><span class="s">&#34;/book&#34;</span><span class="o">)</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">bookController</span> <span class="o">{</span>
+    <span class="c1">// controller层调用service层
+</span><span class="c1"></span>    <span class="nd">@Autowired</span>
+    <span class="nd">@Qualifier</span><span class="o">(</span><span class="s">&#34;BookServiceImpl&#34;</span><span class="o">)</span>
+    <span class="kd">private</span> <span class="n">BookService</span> <span class="n">bookService</span><span class="o">;</span>
+
+    <span class="c1">// 查询全部的书籍，并且返回到一个书籍展示页面
+</span><span class="c1"></span>    <span class="nd">@RequestMapping</span><span class="o">(</span><span class="s">&#34;/allBook&#34;</span><span class="o">)</span>
+    <span class="kd">public</span> <span class="n">String</span> <span class="nf">list</span><span class="o">(</span><span class="n">Model</span> <span class="n">model</span><span class="o">){</span>
+
+        <span class="n">List</span><span class="o">&lt;</span><span class="n">Books</span><span class="o">&gt;</span> <span class="n">list</span> <span class="o">=</span> <span class="n">bookService</span><span class="o">.</span><span class="na">queryAllBook</span><span class="o">();</span>
+
+        <span class="c1">// 结果封装在model当中
+</span><span class="c1"></span>        <span class="n">model</span><span class="o">.</span><span class="na">addAttribute</span><span class="o">(</span><span class="s">&#34;list&#34;</span><span class="o">,</span> <span class="n">list</span><span class="o">);</span>
+
+        <span class="c1">// 返回一个视图
+</span><span class="c1"></span>        <span class="k">return</span> <span class="s">&#34;allBook&#34;</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="nd">@RequestMapping</span><span class="o">(</span><span class="s">&#34;/toAddBook&#34;</span><span class="o">)</span>
+    <span class="c1">// 跳转到增加书籍页面
+</span><span class="c1"></span>    <span class="kd">public</span> <span class="n">String</span> <span class="nf">toAddPaper</span><span class="o">(){</span>
+        <span class="k">return</span> <span class="s">&#34;addBook&#34;</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="c1">// 添加书籍的请求
+</span><span class="c1"></span>    <span class="nd">@RequestMapping</span><span class="o">(</span><span class="s">&#34;/addBook&#34;</span><span class="o">)</span>
+    <span class="kd">public</span> <span class="n">String</span> <span class="nf">addBook</span><span class="o">(</span><span class="n">Books</span> <span class="n">books</span><span class="o">){</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;addBook:&#34;</span> <span class="o">+</span> <span class="n">books</span><span class="o">);</span>
+        <span class="n">bookService</span><span class="o">.</span><span class="na">addBook</span><span class="o">(</span><span class="n">books</span><span class="o">);</span>
+
+        <span class="c1">// 添加完之后应该是重定向
+</span><span class="c1"></span>        <span class="k">return</span> <span class="s">&#34;redirect:/book/allBook&#34;</span><span class="o">;</span> <span class="c1">// 重定向到@RequestMapping(&#34;/allBook&#34;)
+</span><span class="c1"></span>    <span class="o">}</span>
+
+
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="修改数据功能">修改数据功能</h2>
+<h3 id="allbookjsp增加-修改-按钮">allBook.jsp增加 修改 按钮</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span><span class="lnt">69
+</span><span class="lnt">70
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">&lt;%@ taglib prefix=&#34;c&#34; uri=&#34;http://java.sun.com/jsp/jstl/core&#34; %&gt;
+
+&lt;%@ page contentType=&#34;text/html;charset=UTF-8&#34; language=&#34;java&#34; %&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;title&gt;书籍展示页面&lt;/title&gt;
+
+    &lt;%--  使用bootStrap美化界面  --%&gt;
+    &lt;%--  导入在线cdn  --%&gt;
+    &lt;link href=&#34;https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css&#34; rel=&#34;stylesheet&#34;&gt;
+
+
+&lt;/head&gt;
+&lt;body&gt;
+
+&lt;div class=&#34;container&#34;&gt;
+    &lt;div class=&#34;row clearfix&#34;&gt;
+        &lt;div class=&#34;col-md-12 column&#34;&gt;
+            &lt;div class=&#34;page-header&#34;&gt;
+                &lt;h1&gt;
+                    &lt;small&gt;书籍列表 ----- 显示所有书籍&lt;/small&gt;
+                &lt;/h1&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;div class=&#34;row&#34;&gt;
+        &lt;div class=&#34;col-md-4 column&#34;&gt;
+            &lt;%--      toAddBook      --%&gt;
+            &lt;a class=&#34;btn btn-primary&#34; href=&#34;${pageContext.request.contextPath}/book/toAddBook&#34;&gt;新增书籍&lt;/a&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;div class=&#34;row clearfix&#34;&gt;
+        &lt;div class=&#34;col-md-12 column&#34;&gt;
+            &lt;table class=&#34;table table-hover table-striped&#34;&gt;
+                &lt;thead&gt;
+                &lt;tr&gt;
+                    &lt;th&gt;书籍编号&lt;/th&gt;
+                    &lt;th&gt;书籍名称&lt;/th&gt;
+                    &lt;th&gt;书籍数量&lt;/th&gt;
+                    &lt;th&gt;书籍详情&lt;/th&gt;
+                    &lt;th&gt;操作&lt;/th&gt;
+                &lt;/tr&gt;
+                &lt;/thead&gt;
+
+                &lt;%--      书籍是从数据库查出来，封装在了model中的list，遍历出来 foreach      --%&gt;
+                &lt;tbody&gt;
+                &lt;c:forEach var=&#34;book&#34; items=&#34;${list}&#34;&gt;
+                    &lt;tr&gt;
+                        &lt;td&gt;${book.bookID}&lt;/td&gt;
+                        &lt;td&gt;${book.bookName}&lt;/td&gt;
+                        &lt;td&gt;${book.bookCounts}&lt;/td&gt;
+                        &lt;td&gt;${book.detail}&lt;/td&gt;
+                        &lt;td&gt;
+                            &lt;a href=&#34;${pageContext.request.contextPath}/book/toUpdate?id=${book.bookID}&#34;&gt;修改&lt;/a&gt;
+                            &amp;nbsp; | &amp;nbsp;
+                            &lt;a href=&#34;#&#34;&gt;删除&lt;/a&gt;
+                        &lt;/td&gt;
+                    &lt;/tr&gt;
+                &lt;/c:forEach&gt;
+                &lt;/tbody&gt;
+            &lt;/table&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+
+&lt;/div&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="updatebookjsp-增加书籍信息text修改按钮submit">updateBook.jsp 增加书籍信息（text），修改按钮（submit）</h3>
+<ul>
+<li>注意修改数据的时候sql语句需要根据id来修改</li>
+<li>jsp文件中应该传入一个隐藏域为bookID</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">
+&lt;%@ page contentType=&#34;text/html;charset=UTF-8&#34; language=&#34;java&#34; %&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;title&gt;修改书籍&lt;/title&gt;
+
+    &lt;%--  使用bootStrap美化界面  --%&gt;
+    &lt;%--  导入在线cdn  --%&gt;
+    &lt;link href=&#34;https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css&#34; rel=&#34;stylesheet&#34;&gt;
+
+&lt;/head&gt;
+&lt;body&gt;
+
+&lt;div class=&#34;container&#34;&gt;
+    &lt;div class=&#34;row clearfix&#34;&gt;
+        &lt;div class=&#34;col-md-12 column&#34;&gt;
+            &lt;div class=&#34;page-header&#34;&gt;
+                &lt;h1&gt;
+                    &lt;small&gt;书籍列表 ----- 修改书籍&lt;/small&gt;
+                &lt;/h1&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;form action=&#34;${pageContext.request.contextPath}/book/updateBook&#34; method=&#34;post&#34;&gt;
+        &lt;%--    前端传入隐藏域 bookID    --%&gt;
+        &lt;input type=&#34;hidden&#34; name=&#34;bookID&#34; value=&#34;${QBooks.bookID}&#34;&gt;
+        &lt;div class=&#34;form-group&#34;&gt;
+            &lt;label&gt;书籍名称&lt;/label&gt;
+            &lt;input type=&#34;text&#34; name=&#34;bookName&#34; class=&#34;form-control&#34; value=&#34;${QBooks.bookName}&#34; required&gt;
+        &lt;/div&gt;
+        &lt;div class=&#34;form-group&#34;&gt;
+            &lt;label&gt;书籍数量&lt;/label&gt;
+            &lt;input type=&#34;text&#34; name=&#34;bookCounts&#34; class=&#34;form-control&#34; value=&#34;${QBooks.bookCounts}&#34; required&gt;
+        &lt;/div&gt;
+        &lt;div class=&#34;form-group&#34;&gt;
+            &lt;label&gt;书籍描述&lt;/label&gt;
+            &lt;input type=&#34;text&#34; name=&#34;detail&#34; class=&#34;form-control&#34; value=&#34;${QBooks.detail}&#34; required&gt;
+        &lt;/div&gt;
+        &lt;div class=&#34;form-group&#34;&gt;
+            &lt;input type=&#34;submit&#34; class=&#34;form-control&#34; value=&#34;修改&#34; required&gt;
+        &lt;/div&gt;
+    &lt;/form&gt;
+
+
+
+
+
+&lt;/div&gt;
+
+
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="bookcontrollerjava-1">bookController.java</h3>
+<ul>
+<li>跳转到修改页面</li>
+<li>修改页面修改信息</li>
+<li>重定向到所有书籍页面</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-Java" data-lang="Java"><span class="kn">package</span> <span class="nn">com.swagger.controller</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">com.swagger.pojo.Books</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">com.swagger.service.BookService</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.beans.factory.annotation.Autowired</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.beans.factory.annotation.Qualifier</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.stereotype.Controller</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.ui.Model</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.web.bind.annotation.RequestMapping</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">java.util.List</span><span class="o">;</span>
+
+<span class="nd">@Controller</span>
+<span class="nd">@RequestMapping</span><span class="o">(</span><span class="s">&#34;/book&#34;</span><span class="o">)</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">bookController</span> <span class="o">{</span>
+    <span class="c1">// controller层调用service层
+</span><span class="c1"></span>    <span class="nd">@Autowired</span>
+    <span class="nd">@Qualifier</span><span class="o">(</span><span class="s">&#34;BookServiceImpl&#34;</span><span class="o">)</span>
+    <span class="kd">private</span> <span class="n">BookService</span> <span class="n">bookService</span><span class="o">;</span>
+
+    <span class="c1">// 查询全部的书籍，并且返回到一个书籍展示页面
+</span><span class="c1"></span>    <span class="nd">@RequestMapping</span><span class="o">(</span><span class="s">&#34;/allBook&#34;</span><span class="o">)</span>
+    <span class="kd">public</span> <span class="n">String</span> <span class="nf">list</span><span class="o">(</span><span class="n">Model</span> <span class="n">model</span><span class="o">){</span>
+
+        <span class="n">List</span><span class="o">&lt;</span><span class="n">Books</span><span class="o">&gt;</span> <span class="n">list</span> <span class="o">=</span> <span class="n">bookService</span><span class="o">.</span><span class="na">queryAllBook</span><span class="o">();</span>
+
+        <span class="c1">// 结果封装在model当中
+</span><span class="c1"></span>        <span class="n">model</span><span class="o">.</span><span class="na">addAttribute</span><span class="o">(</span><span class="s">&#34;list&#34;</span><span class="o">,</span> <span class="n">list</span><span class="o">);</span>
+
+        <span class="c1">// 返回一个视图
+</span><span class="c1"></span>        <span class="k">return</span> <span class="s">&#34;allBook&#34;</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="nd">@RequestMapping</span><span class="o">(</span><span class="s">&#34;/toAddBook&#34;</span><span class="o">)</span>
+    <span class="c1">// 跳转到增加书籍页面
+</span><span class="c1"></span>    <span class="kd">public</span> <span class="n">String</span> <span class="nf">toAddPaper</span><span class="o">(){</span>
+        <span class="k">return</span> <span class="s">&#34;addBook&#34;</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="c1">// 添加书籍的请求
+</span><span class="c1"></span>    <span class="nd">@RequestMapping</span><span class="o">(</span><span class="s">&#34;/addBook&#34;</span><span class="o">)</span>
+    <span class="kd">public</span> <span class="n">String</span> <span class="nf">addBook</span><span class="o">(</span><span class="n">Books</span> <span class="n">books</span><span class="o">){</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;addBook:&#34;</span> <span class="o">+</span> <span class="n">books</span><span class="o">);</span>
+        <span class="n">bookService</span><span class="o">.</span><span class="na">addBook</span><span class="o">(</span><span class="n">books</span><span class="o">);</span>
+
+        <span class="c1">// 添加完之后重定向到allBook页面
+</span><span class="c1"></span>        <span class="k">return</span> <span class="s">&#34;redirect:/book/allBook&#34;</span><span class="o">;</span> <span class="c1">// 重定向到@RequestMapping(&#34;/allBook&#34;), 进入这个页面会重新查询一次所有的书
+</span><span class="c1"></span>    <span class="o">}</span>
+
+
+    <span class="c1">// 跳转到修改页面
+</span><span class="c1"></span>    <span class="nd">@RequestMapping</span><span class="o">(</span><span class="s">&#34;/toUpdate&#34;</span><span class="o">)</span>
+    <span class="kd">public</span> <span class="n">String</span> <span class="nf">toUpdatePaper</span><span class="o">(</span><span class="kt">int</span> <span class="n">id</span><span class="o">,</span> <span class="n">Model</span> <span class="n">model</span><span class="o">){</span>
+        <span class="n">Books</span> <span class="n">books</span> <span class="o">=</span> <span class="n">bookService</span><span class="o">.</span><span class="na">queryBookById</span><span class="o">(</span><span class="n">id</span><span class="o">);</span>
+        <span class="n">model</span><span class="o">.</span><span class="na">addAttribute</span><span class="o">(</span><span class="s">&#34;QBooks&#34;</span><span class="o">,</span> <span class="n">books</span><span class="o">);</span>
+        <span class="k">return</span> <span class="s">&#34;updateBook&#34;</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="c1">// 修改书籍请求
+</span><span class="c1"></span>    <span class="nd">@RequestMapping</span><span class="o">(</span><span class="s">&#34;/updateBook&#34;</span><span class="o">)</span>
+    <span class="kd">public</span> <span class="n">String</span> <span class="nf">updateBook</span><span class="o">(</span><span class="n">Books</span> <span class="n">books</span><span class="o">){</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;updateBook:&#34;</span> <span class="o">+</span> <span class="n">books</span><span class="o">);</span>
+        <span class="n">bookService</span><span class="o">.</span><span class="na">updateBook</span><span class="o">(</span><span class="n">books</span><span class="o">);</span>
+        <span class="k">return</span> <span class="s">&#34;redirect:/book/allBook&#34;</span><span class="o">;</span>
+    <span class="o">}</span>
+
+
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="删除书籍功能">删除书籍功能</h2>
+<ul>
+<li>根据id删除数据监听<code>&lt;a href=&quot;${pageContext.request.contextPath}/book/deleteBook/${book.bookID}&quot;&gt;删除&lt;/a&gt;</code></li>
+<li>controller层删除书籍</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-Java" data-lang="Java"><span class="c1">// 删除书籍
+</span><span class="c1"></span><span class="nd">@RequestMapping</span><span class="o">(</span><span class="s">&#34;/deleteBook/{bookID}&#34;</span><span class="o">)</span>
+<span class="kd">public</span> <span class="n">String</span> <span class="nf">deleteBook</span><span class="o">(</span><span class="nd">@PathVariable</span><span class="o">(</span><span class="s">&#34;bookID&#34;</span><span class="o">)</span> <span class="kt">int</span> <span class="n">id</span><span class="o">){</span>
+    <span class="n">bookService</span><span class="o">.</span><span class="na">deleteBookById</span><span class="o">(</span><span class="n">id</span><span class="o">);</span>
+    <span class="k">return</span> <span class="s">&#34;redirect:/book/allBook&#34;</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div></div><div class="post-footer" id="post-footer">
     <div class="post-info">
         <div class="post-info-line">
             <div class="post-info-mod">
